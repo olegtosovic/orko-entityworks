@@ -1,0 +1,59 @@
+﻿// Generated on [DATE] [TIME] using EntityWorks code generation tool.
+// Template version: 1.0
+// Note: Intended for modification.
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using EntityWorks;
+
+namespace [NAMESPACE]
+{
+    public partial class [CLASS_NAME]
+    {
+		#region Methods
+		public void Save()
+        {
+			Validate<[CLASS_NAME]>();
+            Save<[CLASS_NAME]>();
+        }
+		public async Task SaveAsync()
+        {
+			Validate<[CLASS_NAME]>();
+            await SaveAsync<[CLASS_NAME]>();
+        }
+        public void Delete()
+        {
+            Delete<[CLASS_NAME]>();
+        }
+		public async Task DeleteAsync()
+        {
+            await DeleteAsync<[CLASS_NAME]>();
+        }
+		public void Validate()
+		{
+			Validate<[CLASS_NAME]>();
+		}
+		#endregion
+
+        #region Query
+        #endregion
+
+        #region Globals
+        public static new string GetCaptionValue()
+        {
+            return typeof([CLASS_NAME]).GetType().Name;
+        }
+        public override string GetDisplayValue()
+        {
+            return base.GetDisplayValue();
+        }
+		public static string GetTooltipValue()
+		{
+            return string.Empty;
+		}
+        #endregion
+    }
+}

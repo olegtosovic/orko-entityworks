@@ -1,0 +1,8 @@
+﻿public static [CLASS_NAME] GetByUnique[UNIQUE_INDEX]([TYPE_PK_N])
+        {
+            return GetByCallingParameters<[CLASS_NAME]>([VAR_PK_N]);
+        }
+		public static [CLASS_NAME] TryGetByUnique[UNIQUE_INDEX]([TYPE_PK_N])
+        {
+            return TryGetByCallingParameters<[CLASS_NAME]>([VAR_PK_N]);
+        }

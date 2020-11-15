@@ -1,0 +1,1 @@
+﻿private [FK_CLASS_NAME] [FK_KEY_NAME];

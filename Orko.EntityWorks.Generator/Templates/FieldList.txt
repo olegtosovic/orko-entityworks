@@ -1,0 +1,1 @@
+﻿[ACCESS] [CLR_TYPE] [COLUMN_NAME] { get; [SET] }
