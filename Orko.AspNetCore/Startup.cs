@@ -24,6 +24,7 @@ namespace Orko.AspNetCore
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
+				// testiram push.
 			}
 
 			app.UseRouting();
