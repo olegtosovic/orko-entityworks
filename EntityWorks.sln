@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30711.63
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Orko.AspNetCore", "Orko.AspNetCore\Orko.AspNetCore.csproj", "{8EC8832F-0406-4CEA-8612-525D4B046892}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework", "Framework", "{ADCCC956-6829-493E-BA54-4385739619AB}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{ADCCC956-6829-493E-BA54-4385739619AB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Orko.EntityWorks", "Orko.EntityWorks\Orko.EntityWorks.csproj", "{75BA9705-51F1-408B-B7A9-A6A8E2B87F2B}"
 EndProject
@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Orko.EntityWorks.Generator"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Orko.EntityWorks.AspNetCore", "Orko.EntityWorks.AspNetCore\Orko.EntityWorks.AspNetCore.csproj", "{5C3D604D-BC5C-450B-B53D-087306EF14FF}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{9BA1A624-E6B4-453E-993D-CA6F26A393F5}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{9BA1A624-E6B4-453E-993D-CA6F26A393F5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "App", "App", "{9717933A-7A4A-438E-A8F0-92B5F83D2D6C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
