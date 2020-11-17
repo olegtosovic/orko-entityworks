@@ -2,14 +2,18 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <Authors>Oleg Tošović</Authors>
+    <Company>Orko I.T.</Company>
+    <Product>EntityWorks .NET</Product>
+    <Description>EntityWorks is a simple active record object-database mapper for .NET 5 built exclusively for Microsoft SQL Server. It provides Query class for building complex sql queries that provide data mapping to table entities or custom objects in almost native speed. EntityWorks Generator Tool provides code generation for table entities and with specific support for language tables. This package is intended for web applications.</Description>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.8" />
+    <ProjectReference Include="..\Orko.EntityWorks\Orko.EntityWorks.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Orko.EntityWorks\Orko.EntityWorks.csproj" />
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
 </Project>

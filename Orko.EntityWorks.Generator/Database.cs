@@ -71,7 +71,7 @@ namespace Orko.EntityWorks.Generator
         #region Properties
         public string DatabaseName { get; private set; }
         public string ConnectionString { get; private set; }
-        public EntityGeneratorSettings Settings { get; set; }
+        public EntityGeneratorSettings Settings { get; private set; }
         #endregion
 
         #region Metadata

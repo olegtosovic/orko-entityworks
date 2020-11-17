@@ -20,7 +20,8 @@ namespace Orko.EntityWorks.Generator
 
             // Get relations.
             var relations = table.Database.Relations.AsEnumerable()
-                .Where(relation => relation.Field<string>("foreign_key_name") == ForeignKeyName)
+                .Where(relation => relation.Field<string>("foreign_key_name") == ForeignKeyName &&
+                       relation.Field<string>("foreign_key_table_fullname") == table.FullName)
                 .ToList();
 
             // Load relations

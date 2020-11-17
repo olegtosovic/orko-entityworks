@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace Orko.EntityWorks.Generator
 {
@@ -11,19 +12,28 @@ namespace Orko.EntityWorks.Generator
     /// </summary>
     public class Generator
     {
-        #region Constructors
-        /// <summary>
-        /// Creates instance of entity class generator.
-        /// </summary>
-        /// <param name="database">Database object</param>
-        /// <param name="targetDirectory">Generator output directory</param>
-        public Generator(Database database, DirectoryInfo targetDirectory)
+        #region Members
+        private Assembly m_execAssembly;
+        private string m_execAssemblyName;
+		#endregion
+
+		#region Constructors
+		/// <summary>
+		/// Creates instance of entity class generator.
+		/// </summary>
+		/// <param name="database">Database object</param>
+		/// <param name="targetDirectory">Generator output directory</param>
+		public Generator(Database database, DirectoryInfo targetDirectory)
         {
             // Validate.
             if (database == null)
                 throw new EntityGeneratorException("Database object can not be null.");
             if (targetDirectory == null)
                 throw new EntityGeneratorException("Target directory can not be null or does not exists.");
+
+            // Assign members.
+            m_execAssembly = Assembly.GetExecutingAssembly();
+            m_execAssemblyName = m_execAssembly.GetName().Name;
 
             // Assign properties.
             Database = database;
@@ -45,6 +55,14 @@ namespace Orko.EntityWorks.Generator
         #endregion
 
         #region Main methods
+        public async Task GenerateAllAsync()
+		{
+            // Generate all async.
+            await Task.Run(() => {
+                GenerateDomainClasses();
+                GenerateLogicClasses();
+            });
+        }
         public void GenerateDomainClasses()
         {
             // Get tables.
@@ -550,13 +568,11 @@ namespace Orko.EntityWorks.Generator
         #region Helper methods
         private string ReadTextTemplateResource(string documentName)
         {
-            // Get assembly that contains txt file template document1
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            string resourceName = "EntityWorks.Generator.Templates." + documentName;
+            string resourceName = m_execAssemblyName + ".Templates." + documentName;
             string template = null;
 
             // Get stream and read embeded resource template.
-            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
+            using (Stream stream = m_execAssembly.GetManifestResourceStream(resourceName))
             {
                 using (StreamReader streamReader = new StreamReader(stream))
                 {

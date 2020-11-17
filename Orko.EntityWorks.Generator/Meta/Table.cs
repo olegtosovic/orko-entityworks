@@ -128,7 +128,7 @@ namespace Orko.EntityWorks.Generator
                 return;
 
             // Create foreign keys.
-            foreach (DataRow tableForeignKey in tableForeignKeys)
+            foreach (var tableForeignKey in tableForeignKeys)
             {
                 string foreign_key_name = tableForeignKey["foreign_key_name"].ToString();
                 ForeignKey foreignKey = new ForeignKey(tableForeignKey, this);

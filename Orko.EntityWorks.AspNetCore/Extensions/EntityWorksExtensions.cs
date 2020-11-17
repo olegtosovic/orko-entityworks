@@ -20,6 +20,12 @@ namespace Orko.EntityWorks.AspNetCore
 		/// </summary>
 		public static void AddEntityWorks(this IServiceCollection services, IConfiguration configuration)
 		{
+			// Validation.
+			if (configuration == null)
+				throw new ArgumentNullException("configuration", 
+					"Valid application IConfiguration instance must be provided. " +
+					"It is required to access application settings json file for entity works configuration section.");
+
 			// Add scoped entity works instance.
 			services.AddScoped<EntityWorksContext>();
 
