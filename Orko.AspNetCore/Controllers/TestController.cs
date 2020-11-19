@@ -18,10 +18,18 @@ namespace Orko.AspNetCore.Controllers
 	/// </summary>
 	public class TestController : Controller
 	{
-		#region Constructrors
-		public TestController(IConfiguration configuration)
-		{
+		#region Generator
+		/// <summary>
+		/// Entity works generator service.
+		/// </summary>
+		private EntityWorksGenerator m_generator;
+		#endregion
 
+		#region Constructrors
+		public TestController(EntityWorksGenerator entityWorksGenerator)
+		{
+			// Set service.
+			m_generator = entityWorksGenerator;
 		}
 		#endregion
 
@@ -29,10 +37,13 @@ namespace Orko.AspNetCore.Controllers
 		/// Database read test.
 		/// </summary>
 		[HttpGet("/")]
-		public async Task<IActionResult> QueryTest1()
+		public async Task<IActionResult> TestEntityWorks()
 		{
 			// Simple query.
 			var query = new Query();
+
+			// Get entity works context.
+			var entityWorksContext = EntityWorksContext.GetEntityWorksContext();
 			
 			// Select.
 			query.Select("Drzava.DrzavaDrzava", "TwoLetterCode");
@@ -44,7 +55,7 @@ namespace Orko.AspNetCore.Controllers
 			// Join language table.
 			query.Join("Base.Drzava_jezik AS jezik",
 				new QueryCondition("jezik.DrzavaDrzava", QueryOp.Equal, "Drzava.DrzavaDrzava"),
-				new QueryCondition("jezik.DrzavaJezik", QueryOp.Equal, Query.Quote("EN")));
+				new QueryCondition("jezik.DrzavaJezik", QueryOp.Equal, Query.Quote(entityWorksContext.LanguageCode)));
 
 			// Map to model.
 			var result = await query.GetObjectCollectionAsync<Country>();
@@ -59,25 +70,10 @@ namespace Orko.AspNetCore.Controllers
 		/// Database generator test.
 		/// </summary>
 		[HttpGet("/generate")]
-		public async Task<IActionResult> GeneratorTest()
+		public async Task<IActionResult> TestEntityWorksGenerator()
 		{
-			// Create settings.
-			var settings = new EntityGeneratorSettings();
-			settings.LanguageTableSuffix = "jezik";
-			settings.UseLanguageTables = true;
-			settings.UseParallelProcessing = true;
-			settings.UseSchemaNamespacing = true;
-
-			// Get connection string.
-			var connectionString = "Data Source=DESKTOP-JLE7CPB;Initial Catalog=Orko;Integrated Security=True";
-
-			// Create generator.
-			var generator = new Generator(
-				new Database(settings, connectionString, true),
-				new DirectoryInfo("C:\\GeneratorTest\\"));
-
 			// Generate domain and logic classes.
-			await generator.GenerateAllAsync();
+			await m_generator.GenerateAllAsync();
 
 			// Return OK.
 			return Content("OK");

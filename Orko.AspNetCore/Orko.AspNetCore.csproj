@@ -2,10 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <UserSecretsId>bc8b488d-9ed6-4869-b032-da9b7fe3c56c</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Orko.EntityWorks.AspNetCore\Orko.EntityWorks.AspNetCore.csproj" />
+    <ProjectReference Include="..\Orko.EntityWorks.Generator.AspNetCore\Orko.EntityWorks.Generator.AspNetCore.csproj" />
     <ProjectReference Include="..\Orko.EntityWorks.Generator\Orko.EntityWorks.Generator.csproj" />
     <ProjectReference Include="..\Orko.EntityWorks\Orko.EntityWorks.csproj" />
   </ItemGroup>

@@ -5,14 +5,8 @@ namespace Orko.EntityWorks.Generator
     public class Relation
     {
         #region Constructors
-        public Relation(Column foreignKeyTableColumn, Column primaryKeyTableColumn)
-        {
-            //ForeignKeyTableColumn = foreignKeyTableColumn;
-            //PrimaryKeyTableColumn = primaryKeyTableColumn;
-            //ForeignKeyTable = foreignKeyTableColumn.Table;
-            //PrimaryKeyTable = primaryKeyTableColumn.Table;
-        }
-        public Relation(
+        public Relation
+            (
             string foreignKeyTableName,
             string foreignKeyTableSchema,
             string foreignKeyTableFullName,
@@ -35,13 +29,6 @@ namespace Orko.EntityWorks.Generator
         #endregion
 
         #region Properties
-        //public Column ForeignKeyTableColumn { get; private set; }
-        //public Column PrimaryKeyTableColumn { get; private set; }
-        //public Table ForeignKeyTable { get; private set; }
-        //public Table PrimaryKeyTable { get; private set; }
-        #endregion
-
-        #region Properties 2
         public string PrimaryKeyTableName { get; private set; }
         public string PrimaryKeyTableSchema { get; private set; }
         public string PrimaryKeyTableFullName { get; private set; }

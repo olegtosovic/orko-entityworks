@@ -13,7 +13,7 @@ namespace Orko.EntityWorks.Exceptions
 		/// <summary>
 		/// Entity works exception only constructor.
 		/// </summary>
-		public EntityWorksException(string message, Exception innerException = null) : base(message, innerException)
+		internal EntityWorksException(string message, Exception innerException = null) : base(message, innerException)
 		{
 
 		}

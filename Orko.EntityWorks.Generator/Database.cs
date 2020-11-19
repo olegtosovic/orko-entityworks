@@ -35,7 +35,7 @@ namespace Orko.EntityWorks.Generator
         /// <param name="settings">Entity generator settings</param>
         /// <param name="connectionString">Connection string</param>
         /// <param name="prepare">Auto load database data and graph metadata</param>
-        public Database(EntityGeneratorSettings settings, string connectionString, bool prepare = false)
+        public Database(EntityWorksGeneratorOptions settings, string connectionString, bool prepare = false)
         {
             // Create instances.
             Tables = new ConcurrentDictionary<string, Table>();
@@ -45,20 +45,7 @@ namespace Orko.EntityWorks.Generator
             ConnectionString = connectionString;
 
             // Prepare database.
-            if (prepare)
-            {
-                // Load database name.
-                LoadDatabaseName();
-
-                // Load database data.
-                LoadDatabaseData();
-
-                // Load database graph.
-                LoadDatabaseGraph();
-
-                // Mark as ready.
-                IsReady = true;
-            }
+            if (prepare) Prepare();
         }
         #endregion
 
@@ -71,7 +58,7 @@ namespace Orko.EntityWorks.Generator
         #region Properties
         public string DatabaseName { get; private set; }
         public string ConnectionString { get; private set; }
-        public EntityGeneratorSettings Settings { get; private set; }
+        public EntityWorksGeneratorOptions Settings { get; private set; }
         #endregion
 
         #region Metadata
@@ -88,6 +75,20 @@ namespace Orko.EntityWorks.Generator
         #endregion
 
         #region Public methods
+        public void Prepare()
+		{
+            // Load database name.
+            LoadDatabaseName();
+
+            // Load database data.
+            LoadDatabaseData();
+
+            // Load database graph.
+            LoadDatabaseGraph();
+
+            // Mark as ready.
+            IsReady = true;
+        }
         public void LoadDatabaseData()
         {
             // Retrieve all table names from database created by user query.

@@ -9,10 +9,10 @@ namespace Orko.EntityWorks.Generator
     /// <summary>
     /// Entity generator settings for profiling entity generation.
     /// </summary>
-    public class EntityGeneratorSettings
+    public class EntityWorksGeneratorOptions
     {
         #region Constructors
-        public EntityGeneratorSettings()
+        public EntityWorksGeneratorOptions()
         {
             // Set default values.
             SetDefaultValues();

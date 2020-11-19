@@ -1,12 +1,15 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Orko.EntityWorks.AspNetCore;
+using Orko.EntityWorks.Generator.AspNetCore;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -45,6 +48,9 @@ namespace Orko.AspNetCore
 
 			// Add EntityWorks.
 			services.AddEntityWorks(Configuration);
+
+			// Add EntityWorks Generator.
+			services.AddEntityWorksGenerator(Configuration);
 		}
 
 		/// <summary>
@@ -55,26 +61,25 @@ namespace Orko.AspNetCore
 			// Environment prologue.
 			if (env.IsDevelopment())
 			{
+				// Use developer exception page.
 				app.UseDeveloperExceptionPage();
+
+				// Use entity works generator.
+				app.UseEntityWorksGenerator();
 			}
 
-			// Use EntityWorks.
-			app.UseEntityWorks(options =>
+			// Koristi HRV culture.
+			var cultureString = "hr";
+			var supportedCultures = new[] { new CultureInfo(cultureString) };
+			app.UseRequestLocalization(new RequestLocalizationOptions
 			{
-				// Map context names.
-				options.GuestContextName = "EntityWorksGuest";
-				options.RootContextName = "EntityWorksRoot";
-				options.UserContextName = "EntityWorksUser";
-
-				// Debug mode on.
-				options.DebugMode = true;
-
-				// Localization.
-				options.CultureCode = "EN";
-
-				// User context transformation.
-				//options.DatabaseClaimName = nameof(OrkoClaimTypes.UserDatabase);
+				DefaultRequestCulture = new RequestCulture(cultureString),
+				SupportedCultures = supportedCultures,
+				SupportedUICultures = supportedCultures
 			});
+
+			// Use EntityWorks.
+			app.UseEntityWorks();
 
 			// Use routing.
 			app.UseRouting();

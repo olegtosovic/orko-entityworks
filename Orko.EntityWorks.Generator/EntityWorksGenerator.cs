@@ -10,7 +10,7 @@ namespace Orko.EntityWorks.Generator
     /// <summary>
     /// Provides support for entity class generation.
     /// </summary>
-    public class Generator
+    public class EntityWorksGenerator
     {
         #region Members
         private Assembly m_execAssembly;
@@ -23,13 +23,13 @@ namespace Orko.EntityWorks.Generator
 		/// </summary>
 		/// <param name="database">Database object</param>
 		/// <param name="targetDirectory">Generator output directory</param>
-		public Generator(Database database, DirectoryInfo targetDirectory)
+		public EntityWorksGenerator(Database database, DirectoryInfo targetDirectory)
         {
             // Validate.
             if (database == null)
-                throw new EntityGeneratorException("Database object can not be null.");
+                throw new EntityWorksGeneratorException("Database object can not be null.");
             if (targetDirectory == null)
-                throw new EntityGeneratorException("Target directory can not be null or does not exists.");
+                throw new EntityWorksGeneratorException("Target directory can not be null or does not exists.");
 
             // Assign members.
             m_execAssembly = Assembly.GetExecutingAssembly();
@@ -65,6 +65,10 @@ namespace Orko.EntityWorks.Generator
         }
         public void GenerateDomainClasses()
         {
+            // If database not prepared.
+            if (this.Database.IsReady == false)
+                this.Database.Prepare();
+
             // Get tables.
             IEnumerable<Table> tables = Database.Tables.Values;
 
@@ -114,6 +118,10 @@ namespace Orko.EntityWorks.Generator
         }
         public void GenerateLogicClasses()
         {
+            // If database not prepared.
+            if (this.Database.IsReady == false)
+                this.Database.Prepare();
+
             // Get tables.
             IEnumerable<Table> tables = Database.Tables.Values;
 

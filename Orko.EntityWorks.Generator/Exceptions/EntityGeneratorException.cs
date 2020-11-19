@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Orko.EntityWorks.Generator
 {
-    class EntityGeneratorException : Exception
+    public class EntityWorksGeneratorException : Exception
     {
-        public EntityGeneratorException(string message) : base(message)
+        public EntityWorksGeneratorException(string message) : base(message)
         {
 
         }

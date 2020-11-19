@@ -46,6 +46,10 @@ namespace Orko.EntityWorks
 		/// Connection string collection.
 		/// </summary>
 		internal static IDictionary<string, string> ConnectionStrings { get; set; }
+		/// <summary>
+		/// Context mappings collection.
+		/// </summary>
+		internal static IDictionary<string, string> ContextMappings { get; set; }
 		#endregion
 
 		#region Ambient properties
@@ -112,6 +116,22 @@ namespace Orko.EntityWorks
 			EntityWorksContext.ConnectionStrings = nameValueDictionary;
 		}
 		/// <summary>
+		/// Sets context mappings source to be used by query context.
+		/// </summary>
+		public static void SetContextMappingsSource(IDictionary<string, string> nameValueDictionary)
+		{
+			// Validate connection string source.
+			if (ContextMappings != null)
+				throw new EntityWorksException("Context mappings source already set.");
+			if (nameValueDictionary == null)
+				throw new EntityWorksException("Context mappings source cannot be null. Make sure to pass valid instance of dictionary containing context mappings from app.config or appsettings.json.");
+			if (nameValueDictionary.Count == 0)
+				throw new EntityWorksException("Context mappings source cannot have 0 connection strings. Make sure that app.config or appsettings.json have at least one context mapping string.");
+
+			// Set connection string source.
+			EntityWorksContext.ContextMappings = nameValueDictionary;
+		}
+		/// <summary>
 		/// Sets language code.
 		/// </summary>
 		public EntityWorksContext SetLanguageCode(string languageCode)
@@ -129,10 +149,13 @@ namespace Orko.EntityWorks
 		/// <summary>
 		/// Registers guest query context to be used by entity query.
 		/// </summary>
-		public EntityWorksContext RegisterGuestContext(string connectionName)
+		public EntityWorksContext RegisterGuestContext()
 		{
+			// Get guest context mapping.
+			var guestContextName = ContextMappings["GuestContext"];
+
 			// Set query context.
-			this.GuestQueryContext = new QueryContext(connectionName);
+			this.GuestQueryContext = new QueryContext(guestContextName);
 
 			// Set as default.
 			this.DefaultQueryContext = this.GuestQueryContext;
@@ -143,10 +166,13 @@ namespace Orko.EntityWorks
 		/// <summary>
 		/// Registers root query context to be used by entity query.
 		/// </summary>
-		public EntityWorksContext RegisterRootContext(string connectionName)
+		public EntityWorksContext RegisterRootContext()
 		{
+			// Get root context mapping.
+			var rootContextName = ContextMappings["RootContext"];
+
 			// Set query context.
-			this.RootQueryContext = new QueryContext(connectionName);
+			this.RootQueryContext = new QueryContext(rootContextName);
 
 			// Return instance.
 			return this;
@@ -154,10 +180,13 @@ namespace Orko.EntityWorks
 		/// <summary>
 		/// Registers user query context to be used by entity query.
 		/// </summary>
-		public EntityWorksContext RegisterUserContext(string connectionName)
+		public EntityWorksContext RegisterUserContext()
 		{
+			// Get user context mapping.
+			var userContextName = ContextMappings["UserContext"];
+
 			// Set query context.
-			this.UserQueryContext = new QueryContext(connectionName);
+			this.UserQueryContext = new QueryContext(userContextName);
 
 			// Return instance.
 			return this;
