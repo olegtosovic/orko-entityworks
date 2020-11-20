@@ -39,6 +39,8 @@ Distributed under the APACHE 2.0 License. See `LICENSE` for more information.
 
 Oleg Tošović - oleg.tosovic@gmail.com
 
+Orko I.T. - https://www.orkoit.hr/en
+
 Project Link: [https://github.com/olegtosovic/orko-entityworks.git](https://github.com/olegtosovic/orko-entityworks.git)
 
 
