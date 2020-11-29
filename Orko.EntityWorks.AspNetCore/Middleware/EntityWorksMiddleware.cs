@@ -119,31 +119,12 @@ namespace Orko.EntityWorks.AspNetCore
 		/// <summary>
 		/// Creates entityworks middleware object.
 		/// </summary>
-		public EntityWorksMiddleware(RequestDelegate next)
-		{
-			// Set members.
-			this.m_next = next;
-			this.m_options = new EntityWorksOptions()
-			{
-				UseRequestCulture = true,
-				UseNeutralCulture = true,
-				UserContextTransformation = false,
-				RequestCultureCasing = null,
-				DebugMode = false,
-			};
-
-			// Set properties.
-			this.CultureCode = null;
-		}
-		/// <summary>
-		/// Creates entityworks middleware object.
-		/// </summary>
 		/// <param name="options">EntityWorks configuration options</param>
-		public EntityWorksMiddleware(RequestDelegate next, Action<EntityWorksOptions> options)
+		public EntityWorksMiddleware(RequestDelegate next, EntityWorksOptions options)
 		{
 			// Set members.
 			this.m_next = next;
-			options(m_options);
+			m_options = options;
 		}
 		#endregion
 

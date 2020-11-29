@@ -1,0 +1,1 @@
+﻿public static string _[COLUMN_NAME] { get { return @"[TS].[TN].[SQL_COLUMN_NAME]"; } }

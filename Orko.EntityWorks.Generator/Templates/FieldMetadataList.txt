@@ -1,1 +1,0 @@
-﻿new ColumnMetadata("[COLUMN_NAME]", [FIELD_METADATA_ARGS])

@@ -1,0 +1,5 @@
+﻿EntityMeta<[TABLE_NAME]>.HasLanguageTable = [HLT];
+            EntityMeta<[TABLE_NAME]>.TableSchema = @"[TS]";
+            EntityMeta<[TABLE_NAME]>.TableName = @"[TN]";
+            EntityMeta<[TABLE_NAME]>.LanguageTableSchema = [LTS];
+            EntityMeta<[TABLE_NAME]>.LanguageTableName = [LTN];

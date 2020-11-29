@@ -28,13 +28,12 @@ namespace Orko.EntityWorks.AspNetCore
 					"Please refer to documentation.");
 
 			// Get entity works configuration section.
-			var configurationSection = configuration.GetSection("EntityWorksConfiguration");
-			if (configurationSection == null)
+			var configurationSection = configuration.GetSection("EntityWorks") ??
 				throw new EntityWorksException("appsettings.json or appconfig does not have required EntityWorksConfiguration section. " +
 					"Please refer to documentation.");
 
 			// Set connection strings source.
-			SetConnectionStringSource(configurationSection);
+			SetConnectionStringSource(configuration);
 
 			// Set context mappings source.
 			SetContextMappingsSource(configurationSection);
@@ -48,7 +47,7 @@ namespace Orko.EntityWorks.AspNetCore
 		/// <summary>
 		/// EntityWorks middleware registration.
 		/// </summary>
-		public static IApplicationBuilder UseEntityWorks(this IApplicationBuilder app, Action<EntityWorksOptions> options = null)
+		public static IApplicationBuilder UseEntityWorks(this IApplicationBuilder app)
 		{
 			// Set entity works provider for scoped instance.
 			EntityWorksContextProvider.SetEntityWorksContextFactory(() =>
@@ -60,10 +59,49 @@ namespace Orko.EntityWorks.AspNetCore
 				return httpContextAccessor.HttpContext.RequestServices.GetRequiredService<EntityWorksContext>();
 			});
 
+			// Create default options.
+			var _options = new EntityWorksOptions()
+			{
+				UseRequestCulture = true,
+				UseNeutralCulture = true,
+				UserContextTransformation = false,
+				RequestCultureCasing = null,
+				DebugMode = false,
+			};
+
 			// Use entityworks middleware.
-			if (options != null)
-				app.UseMiddleware<EntityWorksMiddleware>(options);
-			else app.UseMiddleware<EntityWorksMiddleware>();
+			app.UseMiddleware<EntityWorksMiddleware>(_options);
+
+			// Return app builder.
+			return app;
+		}
+		/// <summary>
+		/// EntityWorks middleware registration.
+		/// </summary>
+		public static IApplicationBuilder UseEntityWorks(this IApplicationBuilder app, Action<EntityWorksOptions> options)
+		{
+			// Validate options instance.
+			if (options == null)
+				throw new ArgumentNullException("options", "EntityWorksOptions can not be null. ");
+
+			// Set entity works provider for scoped instance.
+			EntityWorksContextProvider.SetEntityWorksContextFactory(() =>
+			{
+				// Get httpcontext accessor.
+				var httpContextAccessor = app.ApplicationServices.GetRequiredService<IHttpContextAccessor>();
+
+				// Get entitworks service.
+				return httpContextAccessor.HttpContext.RequestServices.GetRequiredService<EntityWorksContext>();
+			});
+
+			// Create options.
+			var _options = new EntityWorksOptions();
+
+			// Configure options.
+			options(_options);
+
+			// Use entityworks middleware.
+			app.UseMiddleware<EntityWorksMiddleware>(options);
 
 			// Return app builder.
 			return app;
@@ -74,12 +112,11 @@ namespace Orko.EntityWorks.AspNetCore
 		/// <summary>
 		/// Sets connection strings source to static entity works context.
 		/// </summary>
-		private static void SetConnectionStringSource(IConfigurationSection section)
+		private static void SetConnectionStringSource(IConfiguration configuration)
 		{
 			// Get connection strings section.
-			var connectionStringsSection = section.GetSection("ConnectionStrings");
-			if (connectionStringsSection == null)
-				throw new EntityWorksException("EntityWorksConfiguration section does not have ConnectionStrings section. " +
+			var connectionStringsSection = configuration.GetSection("ConnectionStrings") ??
+				throw new EntityWorksException("Configuration does not have ConnectionStrings section. " +
 					"Please refer to documentation.");
 
 			// Get connection strings.
@@ -96,8 +133,7 @@ namespace Orko.EntityWorks.AspNetCore
 		private static void SetContextMappingsSource(IConfigurationSection section)
 		{
 			// Get connection strings section.
-			var contextMappingsSection = section.GetSection("ContextMappings");
-			if (contextMappingsSection == null)
+			var contextMappingsSection = section.GetSection("QueryContexts") ??
 				throw new EntityWorksException("EntityWorksConfiguration section does not have ContextMappings section. " +
 					"Please refer to documentation.");
 

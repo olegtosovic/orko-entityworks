@@ -1,0 +1,28 @@
+﻿// Generated on [DATE] [TIME] using EntityWorks code generation tool.
+// Template version: 1.0
+// Note: Do not modify!
+// Except: Namespace.
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Orko.EntityWorks;
+
+namespace [NAMESPACE]
+{
+    /// <summary>
+    /// [CLASS_NAME] entity.
+    /// </summary>
+    public partial class [CLASS_NAME]
+    {
+		#region Self
+		public static string _Self { get { return "[TS].[CLASS_NAME]"; } }
+		#endregion
+
+        #region Columns
+        [STATIC_LIST]
+        #endregion
+    }
+}

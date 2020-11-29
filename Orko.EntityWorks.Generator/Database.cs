@@ -1,30 +1,117 @@
-﻿using System;
-using System.Collections;
+﻿using Microsoft.Data.SqlClient;
+using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Orko.EntityWorks.Generator
 {
-    public class Database
+	/// <summary>
+	/// Represents sql server database object.
+	/// Contains all database objects information required to generate entity classes.
+    /// Both generator and database object contain entityworks generator options.
+    /// If database options exists, they will override generator global options.
+	/// </summary>
+	public class Database
     {
+        #region Members
+        /// <summary>
+        /// Ensures syntax validity and database name existance in connection string.
+        /// </summary>
+        private SqlConnectionStringBuilder m_stringBuilder;
+		#endregion
+
+		#region Private methods
+		/// <summary>
+		/// Loads database name.
+		/// </summary>
+		private void SetDatabaseName()
+        {
+            // Create connection builder from connection string.
+            m_stringBuilder = new SqlConnectionStringBuilder(this.ConnectionString);
+
+            // Check database name existance.
+            if (string.IsNullOrWhiteSpace(m_stringBuilder.InitialCatalog))
+                throw new EntityWorksGeneratorException("Connection string of database object does not have defined database name or initial catalog." +
+                    "Please refer to documentation.");
+
+            // Set database name.
+            this.DatabaseName = m_stringBuilder.InitialCatalog;
+        }
+        /// <summary>
+        /// If table has language table extend table with additional language table data.
+        /// </summary>
+        private void SetLanguageContext(Table languageTable)
+        {
+            // Get active options.
+            var options = GetActiveEntityWorksGeneratorOptions();
+
+            // Assign theirs parents.
+            string parentTableName = languageTable.FullName.Replace(options.LanguageTableSuffix, string.Empty);
+            Table parentTable = null;
+            if (Tables.TryGetValue(parentTableName, out parentTable))
+            {
+                parentTable.LanguageTable = languageTable;
+                parentTable.HasLanguageTable = true;
+                parentTable.LanguageTable.IsLanguageTable = true;
+            }
+
+            // If parent table does not exist stop.
+            if (parentTable == null)
+                return;
+
+            // Assign language column metadata.
+            var tableColumns = parentTable.Columns.Values.AsEnumerable();
+            var tablePKColumns = parentTable.PrimaryKey.Columns.Values.AsEnumerable();
+            var langTableColumns = languageTable.Columns.Values.AsEnumerable();
+            var langTablePKColumns = languageTable.PrimaryKey.Columns.Values.AsEnumerable();
+
+            // Diffrence language code.
+            var languageCodeColumns = langTablePKColumns.Except(tablePKColumns, new ColumnEqualityComparer());
+            var languageCodeColumn = languageCodeColumns.First();
+            languageCodeColumn.IsLanguageCode = true;
+
+            // Diffrence all other columns.
+            var plainColumns = langTableColumns.Except(langTablePKColumns).AsEnumerable();
+            foreach (var column in plainColumns) column.IsLanguage = true;
+
+        }
+        /// <summary>
+        /// Created table object from raw data row object representing table.
+        /// </summary>
+        private void CreateTableFromRow(DataRow tableRow)
+        {
+            string tableName = tableRow["table_name"].ToString();
+            string schemaName = tableRow["table_schema_name"].ToString();
+            string tableFullName = tableRow["table_fullname"].ToString();
+            CreateTable(tableName, schemaName, tableFullName);
+        }
+        /// <summary>
+        /// Gets specific database entity works generator options, if null than get global options.
+        /// </summary>
+        internal EntityWorksGeneratorOptions GetActiveEntityWorksGeneratorOptions()
+        {
+            // Get and validate options.
+            var options = this.Options ?? this.Generator.Options;
+            if (options == null)
+                throw new EntityWorksGeneratorException("Database object has no active entity works options. " +
+                    "Please set either global entity works configuration options or specific options for database object." +
+                    "For more details please refer to documentation.");
+
+            // Return options.
+            return this.Options ?? this.Generator.Options;
+        }
+        #endregion
+
         #region Constructors
         /// <summary>
         /// Creates instance of database object.
         /// </summary>
-        /// <param name="connectionString">Connection string</param>
-        public Database(string connectionString)
+        public Database()
         {
-            // Assign properties.
-            ConnectionString = connectionString;
-
             // Create instances.
             Tables = new ConcurrentDictionary<string, Table>();
-
-            // Load datbase name.
-            LoadDatabaseName();
 
             // Mark as not ready.
             IsReady = false;
@@ -32,33 +119,71 @@ namespace Orko.EntityWorks.Generator
         /// <summary>
         /// Creates instance of database object.
         /// </summary>
-        /// <param name="settings">Entity generator settings</param>
-        /// <param name="connectionString">Connection string</param>
-        /// <param name="prepare">Auto load database data and graph metadata</param>
-        public Database(EntityWorksGeneratorOptions settings, string connectionString, bool prepare = false)
+        /// <param name="connectionString">Database connection string</param>
+        public Database(string connectionString) : this()
         {
-            // Create instances.
-            Tables = new ConcurrentDictionary<string, Table>();
+            // Set properties.
+            ConnectionString = connectionString;
 
-            // Assign properties.
-            Settings = settings;
+            // Set database name.
+            SetDatabaseName();
+
+            // Mark as not ready.
+            IsReady = false;
+        }
+        /// <summary>
+        /// Creates instance of database object.
+        /// </summary>
+        /// <param name="connectionString">Database connection string</param>
+        /// <param name="options">Entity generator options for this database</param>
+        /// <param name="prepare">Immediately load database name, data and graph metadata</param>
+        public Database(string connectionString, EntityWorksGeneratorOptions options, bool prepare = false) : this(connectionString)
+        {
+            // Set properties.
+            Options = options;
             ConnectionString = connectionString;
 
             // Prepare database.
-            if (prepare) Prepare();
+            if (prepare)
+                Prepare();
         }
         #endregion
 
-        #region Flags
-        public bool IsReady { get; private set; }
-        public bool IsLoaded { get; private set; }
-        public bool IsGraphed { get; private set; }
+        #region Properties
+        /// <summary>
+        /// Sql server's database name.
+        /// </summary>
+        public string DatabaseName { get; private set; }
+        /// <summary>
+        /// Sql Server's connection string.
+        /// </summary>
+        public string ConnectionString { get; private set; }
+        /// <summary>
+        /// Entity works options for this database.
+        /// </summary>
+        public EntityWorksGeneratorOptions Options { get; private set; }
+		#endregion
+
+		#region Generator
+        /// <summary>
+        /// Entity works generator.
+        /// </summary>
+		public EntityWorksGenerator Generator { get; internal set; }
         #endregion
 
-        #region Properties
-        public string DatabaseName { get; private set; }
-        public string ConnectionString { get; private set; }
-        public EntityWorksGeneratorOptions Settings { get; private set; }
+		#region State flags
+		/// <summary>
+		/// Indicated if database is ready for generation.
+		/// </summary>
+		public bool IsReady { get; private set; }
+        /// <summary>
+        /// Indicates if database raw data is loaded from server.
+        /// </summary>
+        public bool IsLoaded { get; private set; }
+        /// <summary>
+        /// Indicates if database raw data is structured and ready for generation.
+        /// </summary>
+        public bool IsGraphed { get; private set; }
         #endregion
 
         #region Metadata
@@ -70,15 +195,18 @@ namespace Orko.EntityWorks.Generator
         public DataTable TableNames { get; set; }
         #endregion
 
-        #region Cache
+        #region Thread safe caching
         public ConcurrentDictionary<string, Table> Tables { get; private set; }
         #endregion
 
-        #region Public methods
+        #region Main public methods
+        /// <summary>
+        /// Load all database data and metadata.
+        /// </summary>
         public void Prepare()
 		{
             // Load database name.
-            LoadDatabaseName();
+            SetDatabaseName();
 
             // Load database data.
             LoadDatabaseData();
@@ -89,6 +217,9 @@ namespace Orko.EntityWorks.Generator
             // Mark as ready.
             IsReady = true;
         }
+        /// <summary>
+        /// Loads all database data.
+        /// </summary>
         public void LoadDatabaseData()
         {
             // Retrieve all table names from database created by user query.
@@ -201,26 +332,32 @@ namespace Orko.EntityWorks.Generator
             // Mark as loaded.
             IsLoaded = true;
         }
+        /// <summary>
+        /// Loads all database graph data.
+        /// </summary>
         public void LoadDatabaseGraph()
         {
             // If not loaded, notify error.
             if (!IsLoaded)
                 throw new Exception("Can not load database graph, database metadata must be loaded.");
 
+            // Get active options.
+            var options = GetActiveEntityWorksGeneratorOptions();
+
             // Use parallel processing.
-            if (Settings.UseParallelProcessing) Parallel.ForEach(TableNames.AsEnumerable(), drTable => { CreateTableFromRow(drTable); });
+            if (options.UseParallelProcessing) Parallel.ForEach(TableNames.AsEnumerable(), drTable => { CreateTableFromRow(drTable); });
             
             // Use non-parallel processing.
             else foreach (DataRow drTable in TableNames.Rows) { CreateTableFromRow(drTable); }
             
             // Assign language table relations to graph.
-            if (Settings.UseLanguageTables)
+            if (options.UseLanguageTables)
             {
                 // Get all language tables.
-                var languageTables = Tables.Values.Where(x => x.Name.EndsWith(Settings.LanguageTableSuffix));
+                var languageTables = Tables.Values.Where(x => x.Name.EndsWith(options.LanguageTableSuffix));
 
                 // Use parallel processing.
-                if (!Settings.UseParallelProcessing) Parallel.ForEach(languageTables, languageTable => { SetLanguageContext(languageTable); });
+                if (!options.UseParallelProcessing) Parallel.ForEach(languageTables, languageTable => { SetLanguageContext(languageTable); });
 
                 // Use non-parallel processing.
                 else foreach (var languageTable in languageTables) { SetLanguageContext(languageTable); }           
@@ -229,54 +366,21 @@ namespace Orko.EntityWorks.Generator
             // Mark as graphed and ready.
             IsGraphed = true;
             IsReady = true;
-        }
+        }        
         #endregion
 
-        #region Private methods
-        private void LoadDatabaseName()
+        #region Assigment public methods
+        /// <summary>
+        /// Sets specific entity works generator options.
+        /// </summary>
+        public void SetEntityWorksGeneratorOptions(EntityWorksGeneratorOptions options)
         {
-            // Database name
-            string databaseNameQuery = "SELECT DB_NAME() AS DatabaseName";
-            DatabaseName = new Sql(ConnectionString).ExecuteSql(databaseNameQuery).Rows[0]["DatabaseName"].ToString();
-        }
-        private void SetLanguageContext(Table languageTable)
-        {
-            // Assign theirs parents.
-            string parentTableName = languageTable.FullName.Replace(Settings.LanguageTableSuffix, string.Empty);
-            Table parentTable = null;
-            if (Tables.TryGetValue(parentTableName, out parentTable))
-            {
-                parentTable.LanguageTable = languageTable;
-                parentTable.HasLanguageTable = true;
-                parentTable.LanguageTable.IsLanguageTable = true;
-            }
+            // Validation options instance.
+            if (options == null)
+                throw new ArgumentNullException(nameof(options), "EntityWorksGeneratorOptions can not be null.");
 
-            // If parent table does not exist stop.
-            if (parentTable == null)
-                return;
-
-            // Assign language column metadata.
-            var tableColumns = parentTable.Columns.Values.AsEnumerable();
-            var tablePKColumns = parentTable.PrimaryKey.Columns.Values.AsEnumerable();
-            var langTableColumns = languageTable.Columns.Values.AsEnumerable();
-            var langTablePKColumns = languageTable.PrimaryKey.Columns.Values.AsEnumerable();
-
-            // Diffrence language code.
-            var languageCodeColumns = langTablePKColumns.Except(tablePKColumns, new ColumnEqualityComparer());
-            var languageCodeColumn = languageCodeColumns.First();
-            languageCodeColumn.IsLanguageCode = true;
-
-            // Diffrence all other columns.
-            var plainColumns = langTableColumns.Except(langTablePKColumns).AsEnumerable();
-            foreach (var column in plainColumns) column.IsLanguage = true;
-
-        }
-        private void CreateTableFromRow(DataRow tableRow)
-        {
-            string tableName = tableRow["table_name"].ToString();
-            string schemaName = tableRow["table_schema_name"].ToString();
-            string tableFullName = tableRow["table_fullname"].ToString();
-            CreateTable(tableName, schemaName, tableFullName);
+            // Set database specific options.
+            this.Options = options;
         }
         #endregion
 

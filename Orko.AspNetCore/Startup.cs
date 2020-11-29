@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Orko.EntityWorks.AspNetCore;
+using Orko.EntityWorks.Generator;
 using Orko.EntityWorks.Generator.AspNetCore;
 using System;
 using System.Collections.Generic;
@@ -23,12 +24,20 @@ namespace Orko.AspNetCore
 		/// <summary>
 		/// Configuration constructor.
 		/// </summary>
-		public Startup(IConfiguration configuration)
+		public Startup(IConfiguration configuration, IWebHostEnvironment environment)
 		{
+			// Set configuration.
 			Configuration = configuration;
+
+			// Set environment.
+			Environment = environment;
 		}
 
 		#region Propertiji
+		/// <summary>
+		/// Environment.
+		/// </summary>
+		public IWebHostEnvironment Environment { get; }
 		/// <summary>
 		/// Configuration.
 		/// </summary>
@@ -40,6 +49,13 @@ namespace Orko.AspNetCore
 		/// </summary>
 		public void ConfigureServices(IServiceCollection services)
 		{
+			// Only development environment.
+			if (Environment.IsDevelopment())
+			{
+				// Add EntityWorks Generator.
+				services.AddEntityWorksGenerator(Configuration);
+			}
+
 			// Add routing.
 			services.AddRouting(options => { options.LowercaseUrls = true; options.LowercaseQueryStrings = true; });
 
@@ -48,9 +64,6 @@ namespace Orko.AspNetCore
 
 			// Add EntityWorks.
 			services.AddEntityWorks(Configuration);
-
-			// Add EntityWorks Generator.
-			services.AddEntityWorksGenerator(Configuration);
 		}
 
 		/// <summary>
@@ -58,18 +71,38 @@ namespace Orko.AspNetCore
 		/// </summary>
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
-			// Environment prologue.
-			if (env.IsDevelopment())
+			// Only development environment.
+			if (Environment.IsDevelopment())
 			{
 				// Use developer exception page.
 				app.UseDeveloperExceptionPage();
 
 				// Use entity works generator.
-				app.UseEntityWorksGenerator();
+				app.UseEntityWorksGenerator(options =>
+				{
+					// Global language table directive.
+					options.UseLanguageTables = true;
+
+					// Global language table suffix.
+					options.LanguageTableSuffix = "_jezik";
+
+					// Global target directory.
+					options.TargetDirectory = new System.IO.DirectoryInfo(@"C:\EWTest");
+
+					// Global predefined foreign key name converting convention.
+					options.ForeignKeyNamingConvention = ForeignKeyNamingConvention.ForeignKeyFullName;
+
+					// Global custom foreign key name converter.
+					options.ForeignKeyNameNamingConverter = (sqlForeignKeyName, sqlForeignKeyColumns) =>
+					{
+						// Custom logic.
+						return sqlForeignKeyName;
+					};
+				});
 			}
 
 			// Koristi HRV culture.
-			var cultureString = "hr";
+			var cultureString = "en";
 			var supportedCultures = new[] { new CultureInfo(cultureString) };
 			app.UseRequestLocalization(new RequestLocalizationOptions
 			{

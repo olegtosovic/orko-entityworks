@@ -17,24 +17,33 @@
     <None Remove="Templates\Logic.txt" />
     <None Remove="Templates\MemberList.txt" />
     <None Remove="Templates\RelationMetadataList.txt" />
+    <None Remove="Templates\Static.txt" />
+    <None Remove="Templates\StaticList.txt" />
     <None Remove="Templates\TableMetadata.txt" />
     <None Remove="Templates\UniqueMethodList.txt" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Templates\Domain.txt" />
-    <EmbeddedResource Include="Templates\EntityList.txt" />
-    <EmbeddedResource Include="Templates\FieldList.txt" />
-    <EmbeddedResource Include="Templates\FieldMetadataList.txt" />
-    <EmbeddedResource Include="Templates\Logic.txt" />
-    <EmbeddedResource Include="Templates\MemberList.txt" />
-    <EmbeddedResource Include="Templates\RelationMetadataList.txt" />
-    <EmbeddedResource Include="Templates\TableMetadata.txt" />
-    <EmbeddedResource Include="Templates\UniqueMethodList.txt" />
+    <EmbeddedResource Include="Templates\Entities\Domain\Domain.txt" />
+    <EmbeddedResource Include="Templates\Entities\Domain\EntityList.txt" />
+    <EmbeddedResource Include="Templates\Entities\Static\StaticList.txt" />
+    <EmbeddedResource Include="Templates\Entities\Domain\FieldList.txt" />
+    <EmbeddedResource Include="Templates\Entities\Domain\FieldMetadataList.txt" />
+    <EmbeddedResource Include="Templates\Entities\Logic\Logic.txt" />
+    <EmbeddedResource Include="Templates\Entities\Domain\MemberList.txt" />
+    <EmbeddedResource Include="Templates\Entities\Domain\RelationMetadataList.txt" />
+    <EmbeddedResource Include="Templates\Entities\Static\Static.txt" />
+    <EmbeddedResource Include="Templates\Entities\Domain\TableMetadata.txt" />
+    <EmbeddedResource Include="Templates\Entities\Domain\UniqueMethodList.txt" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Data.SqlClient" Version="2.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Templates\Procedures\" />
+    <Folder Include="Templates\Views\" />
   </ItemGroup>
 
 </Project>

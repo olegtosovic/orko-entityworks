@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Orko.EntityWorks.Generator.AspNetCore
@@ -27,41 +28,30 @@ namespace Orko.EntityWorks.Generator.AspNetCore
 		/// <summary>
 		/// Creates entityworks middleware object.
 		/// </summary>
-		public EntityWorksGeneratorMiddleware(RequestDelegate next)
+		/// <param name="options">EntityWorksGenerator configuration options</param>
+		public EntityWorksGeneratorMiddleware(RequestDelegate next, EntityWorksGeneratorOptions options)
 		{
 			// Set members.
 			this.m_next = next;
-			this.m_options = new EntityWorksGeneratorOptions()
-			{
-				
-			};
-		}
-		/// <summary>
-		/// Creates entityworks middleware object.
-		/// </summary>
-		/// <param name="options">EntityWorks configuration options</param>
-		public EntityWorksGeneratorMiddleware(RequestDelegate next, Action<EntityWorksGeneratorOptions> options)
-		{
-			// Set members.
-			this.m_next = next;
-			options(m_options);
+			this.m_options = options;
 		}
 		#endregion
 
 		#region Invoke
+		/// <summary>
+		/// Middleware invoke method.
+		/// </summary>
 		public async Task Invoke(HttpContext context, IConfiguration configuration)
 		{
 			// Get entity works generator instance.
 			var entityWorksGenerator = context.RequestServices.GetService<EntityWorksGenerator>();
 
-			// Set additional options.
+			// Set options to each database.
+			entityWorksGenerator.SetEntityWorksGeneratorOptions(m_options);
 
 			// Continue.
 			await m_next(context);
 		}
-		#endregion
-
-		#region Private methods		
-		#endregion
+		#endregion		
 	}
 }

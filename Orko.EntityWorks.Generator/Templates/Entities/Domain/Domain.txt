@@ -1,0 +1,90 @@
+﻿// Generated on [DATE] [TIME] using EntityWorks code generation tool.
+// Template version: 1.0
+// Note: Do not modify!
+// Except: Namespace.
+
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Xml.Linq;
+using System.Threading.Tasks;
+using Orko.EntityWorks;
+
+namespace [NAMESPACE]
+{
+    /// <summary>
+    /// [CLASS_NAME] entity.
+    /// </summary>
+    public sealed partial class [CLASS_NAME] : Entity
+    {
+		#region Members
+		[MEMBER_LIST]
+        #endregion
+        
+		#region Constructors
+        static [CLASS_NAME]()
+        {
+            // Cache field metadata.
+            EntityMeta<[CLASS_NAME]>.LoadColumnMetadata
+			(
+				[FIELD_METADATA]
+			);
+
+            // Cache entites metadata.
+            EntityMeta<[CLASS_NAME]>.LoadRelationMetadata
+			(
+				[RELATION_METADATA]
+			);
+
+			// Cache table metadata.
+			[TABLE_METADATA]
+        }
+        #endregion
+
+        #region Columns
+        [FIELD_LIST]
+        #endregion
+
+        #region Entities
+		[ENTITY_LIST]
+        #endregion
+
+		#region Public methods async
+		public static async Task<IEnumerable<[CLASS_NAME]>> GetByAnyAsync(params QueryCondition[] queryConditions)
+        {
+            return await GetByAnyAsync<[CLASS_NAME]>(queryConditions);
+        }
+        public static async Task<IEnumerable<[CLASS_NAME]>> GetByAnyAsync(string columnName, QueryOp queryOp, object value)
+        {
+            return await GetByAnyAsync<[CLASS_NAME]>(columnName, queryOp, value);
+        }
+		public static async Task<[CLASS_NAME]> GetByPrimaryKeyAsync([TYPE_PK_N])
+        {
+            return await GetByPrimaryKeyAsync<[CLASS_NAME]>([VAR_PK_N]);
+        }
+		public static async Task<[CLASS_NAME]> TryGetByPrimaryKeyAsync([TYPE_PK_N])
+        {
+            return await TryGetByPrimaryKeyAsync<[CLASS_NAME]>([VAR_PK_N]);
+        }
+		#endregion
+
+        #region Public methods
+		public static IEnumerable<[CLASS_NAME]> GetByAny(params QueryCondition[] queryConditions)
+        {
+            return GetByAny<[CLASS_NAME]>(queryConditions);
+        }
+        public static IEnumerable<[CLASS_NAME]> GetByAny(string columnName, QueryOp queryOp, object value)
+        {
+            return GetByAny<[CLASS_NAME]>(columnName, queryOp, value);
+        }
+		public static [CLASS_NAME] GetByPrimaryKey([TYPE_PK_N])
+        {
+            return GetByPrimaryKey<[CLASS_NAME]>([VAR_PK_N]);
+        }
+		public static [CLASS_NAME] TryGetByPrimaryKey([TYPE_PK_N])
+        {
+            return TryGetByPrimaryKey<[CLASS_NAME]>([VAR_PK_N]);
+        }[UNIQUE_METHOD]
+        #endregion
+    }
+}

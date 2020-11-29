@@ -27,99 +27,82 @@ namespace Orko.EntityWorks.Generator.AspNetCore
 					"Please refer to documentation.");
 
 			// Get entity works configuration section.
-			var configurationSection = configuration.GetSection("EntityWorksConfiguration");
-			if (configurationSection == null)
-				throw new EntityWorksGeneratorException("appsettings.json or appconfig does not have required EntityWorksConfiguration section. " +
+			var entityWorksSection = configuration.GetSection("EntityWorks") ??
+				throw new EntityWorksGeneratorException("appsettings.json or appconfig does not have required EntityWorks section. " +
 					"Please refer to documentation.");
 
-			// Get entity works generator connection string name.
-			var connectionStringName = configurationSection
-				.GetSection("EntityWorksGenerator")
-				.GetChildren().Where(x => x.Key == "GeneratorContext")
-				.First().Value;
+			// Get connection string from configuration.
+			var connectionString = GetEntityWorksGeneratorConnectionFromConfiguration(configuration, entityWorksSection);
 
-			// Get connection string.
-			var connectionString = configurationSection
-				.GetSection("ConnectionStrings")
-				.GetChildren().Where(x => x.Key == connectionStringName)
-				.First().Value;
+			// Create entity works generator service instance without populating database data.
+			var database = new Database(connectionString);
+			var entityWorksGenerator = new EntityWorksGenerator(database);
 
-			// Create database.
-			var database = new Database(
-				new EntityWorksGeneratorOptions(),
-				connectionString,
-				false);
-
-			// Create generator service instance.
-			var entityWorksGenerator = new EntityWorksGenerator(database,
-				new DirectoryInfo("C:\\GeneratorTestMiddleware\\"));
-
-			// Add http context accessor.
+			// Add entity works generator service instance.
 			services.AddSingleton(entityWorksGenerator);
 		}
 		/// <summary>
 		/// EntityWorks middleware registration.
 		/// </summary>
-		public static IApplicationBuilder UseEntityWorksGenerator(this IApplicationBuilder app, Action<EntityWorksGeneratorOptions> options = null)
+		public static IApplicationBuilder UseEntityWorksGenerator(this IApplicationBuilder app)
 		{
-			// Set entity works provider for scoped instance.
-			//EntityWorksContextProvider.SetEntityWorksContextFactory(() =>
-			//{
-			//	// Get httpcontext accessor.
-			//	var httpContextAccessor = app.ApplicationServices.GetRequiredService<IHttpContextAccessor>();
+			// Create default entity works generator options.
+			var options = new EntityWorksGeneratorOptions();
 
-			//	// Get entitworks service.
-			//	return httpContextAccessor.HttpContext.RequestServices.GetRequiredService<EntityWorksContext>();
-			//});
-
-			// Use entityworks middleware.
-			if (options != null)
-				app.UseMiddleware<EntityWorksGeneratorMiddleware>(options);
-			else app.UseMiddleware<EntityWorksGeneratorMiddleware>();
+			// Use entityworks generator middleware.
+			app.UseMiddleware<EntityWorksGeneratorMiddleware>(options);
 
 			// Return app builder.
 			return app;
 		}
+		/// <summary>
+		/// EntityWorks middleware registration.
+		/// </summary>
+		public static IApplicationBuilder UseEntityWorksGenerator(this IApplicationBuilder app, Action<EntityWorksGeneratorOptions> options)
+		{
+			// Validate options instance.
+			if (options == null)
+				throw new ArgumentNullException("options", "EntityWorksGeneratorOptions can not be null. ");
+
+			// Create options.
+			var _options = new EntityWorksGeneratorOptions();
+
+			// Configure options.
+			options(_options);
+
+			// Use entityworks generator middleware.
+			app.UseMiddleware<EntityWorksGeneratorMiddleware>(_options);
+
+			// Return app builder.
+			return app;
+		}
+
 		#endregion
 
 		#region Configuration
 		/// <summary>
-		/// Sets connection strings source to static entity works context.
+		/// Reads entity works generator connection string from appseetings.
 		/// </summary>
-		private static void SetConnectionStringSource(IConfigurationSection section)
+		private static string GetEntityWorksGeneratorConnectionFromConfiguration(IConfiguration configuration, IConfigurationSection entityWorksSection)
 		{
-			// Get connection strings section.
-			//var connectionStringsSection = section.GetSection("ConnectionStrings");
-			//if (connectionStringsSection == null)
-			//	throw new EntityWorksException("EntityWorksConfiguration section does not have ConnectionStrings section. " +
-			//		"Please refer to documentation.");
+			// Get connection string name.
+			var connectionStringName = entityWorksSection
+				.GetSection("QueryContexts")?
+				.GetSection("EntityContext")?.Value;
+			if (string.IsNullOrWhiteSpace(connectionStringName))
+				throw new EntityWorksGeneratorException("EntityWorks Generator model context not defined. " +
+					"Please refer to documentation.");
 
-			//// Get connection strings.
-			//var connectionStrings = connectionStringsSection
-			//	.GetChildren()
-			//	.ToDictionary(x => x.Key, x => x.Value);
+			// Get connection string.
+			var connectionString = configuration
+				.GetSection("ConnectionStrings")
+				.GetSection(connectionStringName)?.Value;
+			if (string.IsNullOrWhiteSpace(connectionString))
+				throw new EntityWorksGeneratorException("Connection string named: \"" + connectionStringName + "\" does not exists in ConnectionStrings section. " +
+					"Please refer to documentation.");
 
-			//// Set connection string source.
-			//EntityWorksContext.SetConnectionStringSource(connectionStrings);
-		}
-		/// <summary>
-		/// Sets context mappings source to static entity works context.
-		/// </summary>
-		private static void SetContextMappingsSource(IConfigurationSection section)
-		{
-			// Get connection strings section.
-			//var contextMappingsSection = section.GetSection("ContextMappings");
-			//if (contextMappingsSection == null)
-			//	throw new EntityWorksException("EntityWorksConfiguration section does not have ContextMappings section. " +
-			//		"Please refer to documentation.");
-
-			//// Get context mappings.
-			//var contextMappings = contextMappingsSection
-			//	.GetChildren()
-			//	.ToDictionary(x => x.Key, x => x.Value);
-
-			//// Set connection string source.
-			//EntityWorksContext.SetContextMappingsSource(contextMappings);
+			// Return connection string.
+			return connectionString;
 		}
 		#endregion
 	}
