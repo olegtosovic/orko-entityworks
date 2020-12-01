@@ -6,7 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Northwind.Entities.Dbo\Northwind.Entities.Dbo.csproj" />
     <ProjectReference Include="..\Orko.EntityWorks.AspNetCore\Orko.EntityWorks.AspNetCore.csproj" />
     <ProjectReference Include="..\Orko.EntityWorks.Generator.AspNetCore\Orko.EntityWorks.Generator.AspNetCore.csproj" />
     <ProjectReference Include="..\Orko.EntityWorks.Generator\Orko.EntityWorks.Generator.csproj" />

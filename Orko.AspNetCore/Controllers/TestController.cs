@@ -31,6 +31,7 @@ namespace Orko.AspNetCore.Controllers
 		[HttpGet("/test-entityworks")]
 		public async Task<IActionResult> TestDbEntityWorks()
 		{
+
 			// Simple query.
 			var query = new Query();
 
