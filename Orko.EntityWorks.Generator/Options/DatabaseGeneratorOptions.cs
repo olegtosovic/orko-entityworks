@@ -4,22 +4,19 @@ using System.IO;
 
 namespace Orko.EntityWorks.Generator
 {
-	/// <summary>
-	/// Entity generator options for profiling entity generation.
-	/// </summary>
-	public class EntityWorksGeneratorOptions
+    /// <summary>
+    /// Database generator options for profiling entity generation.
+    /// </summary>
+    public class DatabaseGeneratorOptions
     {
         #region Constructors
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public EntityWorksGeneratorOptions()
+        public DatabaseGeneratorOptions()
         {
-            // Generate only async method by default.
-            GenerateAsyncMethodsOnly = true;
-
             // Safest options by default is to name entity by full foreign key name.
-            ForeignKeyNamingConvention = ForeignKeyNamingConvention.ForeignKeyFullName;
+            ForeignKeyNamingConvention = ForeignKeyNamingConvention.FK_FN;
 
             // True by default. Was left for debuging purposes.
             UseParallelProcessing = true;
@@ -29,9 +26,6 @@ namespace Orko.EntityWorks.Generator
 
             //  We can not presume by default that user database has all tables preffixed by some value.
             RemoveGlobalTablePreffix = false;
-
-            // Must be set by the user.
-            TargetDirectory = null;
         }
         #endregion
 
@@ -47,13 +41,9 @@ namespace Orko.EntityWorks.Generator
 
         #region Directives
         /// <summary>
-        /// If true, generator will generate only async CRUD methods.
-        /// </summary>
-        public bool GenerateAsyncMethodsOnly { get; set; }
-        /// <summary>
         /// If true, multiple threads will be used for database metadata construction.
         /// </summary>
-        public bool UseParallelProcessing { get; set; }
+        internal bool UseParallelProcessing { get; set; }
         /// <summary>
         /// if true, generator will take into account language tables which are named by user defined suffix.
         /// </summary>
@@ -81,10 +71,6 @@ namespace Orko.EntityWorks.Generator
         /// Language table name suffix that marks table as language table.
         /// </summary>
         public string LanguageTableSuffix { get; set; }
-        /// <summary>
-        /// Target directory to generate files.
-        /// </summary>
-        public DirectoryInfo TargetDirectory { get; set; }
         #endregion
     }
 }

@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
+[assembly: InternalsVisibleTo("Orko.EntityWorks.Generator.AspNetCore")]
 namespace Orko.EntityWorks.Generator
 {
     /// <summary>
@@ -31,7 +33,7 @@ namespace Orko.EntityWorks.Generator
         private string m_execAssemblyName;
         #endregion
 
-        #region Private methods
+        #region Methods
         /// <summary>
         /// Sets assembly information.
         /// </summary>
@@ -46,8 +48,8 @@ namespace Orko.EntityWorks.Generator
         /// </summary>
         private void GenerateDomainClasses(Database database)
         {
-            // Database specific options if null than global options.
-            var options = database.GetActiveEntityWorksGeneratorOptions();
+            // Get options.
+            var options = database.Options;
 
             // If database not prepared.
             if (database.IsReady == false)
@@ -105,8 +107,8 @@ namespace Orko.EntityWorks.Generator
         /// </summary>
         private void GenerateLogicClasses(Database database)
         {
-            // Database specific options if null than global options.
-            var options = database.GetActiveEntityWorksGeneratorOptions();
+            // Get options.
+            var options = database.Options;
 
             // If database not prepared.
             if (database.IsReady == false)
@@ -151,8 +153,8 @@ namespace Orko.EntityWorks.Generator
         /// </summary>
         private void GenerateStaticClasses(Database database)
 		{
-            // Database specific options if null than global options.
-            var options = database.GetActiveEntityWorksGeneratorOptions();
+            // Get options.
+            var options = database.Options;
 
             // If database not prepared.
             if (database.IsReady == false)
@@ -202,6 +204,9 @@ namespace Orko.EntityWorks.Generator
             // Create database collecion instance.
             this.Databases = new List<Database>();
 
+            // Default directives.
+            this.GenerateAsyncMethodsOnly = true;
+
             // Set assemblies.
             SetAssemblies();
         }
@@ -229,7 +234,7 @@ namespace Orko.EntityWorks.Generator
         /// </summary>
         /// <param name="database">Database object</param>
         /// <param name="options">Entity works generator global options</param>
-        public EntityWorksGenerator(Database database, EntityWorksGeneratorOptions options) : this(database)
+        public EntityWorksGenerator(Database database, EntityGeneratorOptions options) : this(database)
         {
             // Set target directory.
             SetEntityWorksGeneratorOptions(options);
@@ -239,7 +244,7 @@ namespace Orko.EntityWorks.Generator
         /// </summary>
         /// <param name="databases">Database collection</param>
         /// <param name="options">Entity works generator global options</param>
-        public EntityWorksGenerator(IEnumerable<Database> databases, EntityWorksGeneratorOptions options) : this(databases)
+        public EntityWorksGenerator(IEnumerable<Database> databases, EntityGeneratorOptions options) : this(databases)
         {
             // Set target directory.
             SetEntityWorksGeneratorOptions(options);
@@ -248,13 +253,17 @@ namespace Orko.EntityWorks.Generator
 
         #region Properties
         /// <summary>
+        /// If true, generator will generate only async CRUD methods.
+        /// </summary>
+        public bool GenerateAsyncMethodsOnly { get; set; }
+        /// <summary>
         /// Collection of databases to generate entity classes.
         /// </summary>
         public List<Database> Databases { get; set; }
         /// <summary>
-        /// Global entity works options for all databases unless overriden by database options.
+        /// Entity generator options.
         /// </summary>
-        public EntityWorksGeneratorOptions Options { get; private set; }
+        public EntityGeneratorOptions Options { get; private set; }
         #endregion
 
         #region Main method
@@ -281,7 +290,7 @@ namespace Orko.EntityWorks.Generator
         /// <summary>
         /// Sets global entity works generator options.
         /// </summary>
-        public void SetEntityWorksGeneratorOptions(EntityWorksGeneratorOptions options)
+        public void SetEntityWorksGeneratorOptions(EntityGeneratorOptions options)
 		{
             // Validation options instance.
             if (options == null)
@@ -300,7 +309,7 @@ namespace Orko.EntityWorks.Generator
                 throw new ArgumentNullException(nameof(database), "Database object can not be null.");
 
             // Set generator.
-            database.Generator = this;
+            // database.Generator = this;
 
             // Set database.
             Databases.Add(database);
@@ -324,7 +333,7 @@ namespace Orko.EntityWorks.Generator
         private string GetFieldsMetadata(Table table)
         {
             // Database specific options if null than global options.
-            var options = table.Database.GetActiveEntityWorksGeneratorOptions();
+            var options = table.Database.Options;
 
             // Field metadata container.
             string fieldMetadataList = string.Empty;
@@ -435,7 +444,7 @@ namespace Orko.EntityWorks.Generator
         private string GetFieldList(Table table)
         {
             // Database specific options if null than global options.
-            var options = table.Database.GetActiveEntityWorksGeneratorOptions();
+            var options = table.Database.Options;
 
             // Field list container.
             string fieldList = string.Empty;
@@ -723,7 +732,7 @@ namespace Orko.EntityWorks.Generator
         private string GetStaticList(Table table)
 		{
             // Database specific options if null than global options.
-            var options = table.Database.GetActiveEntityWorksGeneratorOptions();
+            var options = table.Database.Options;
 
             // Field metadata container.
             string staticColumnsList = string.Empty;
@@ -784,6 +793,7 @@ namespace Orko.EntityWorks.Generator
             return valueList;
         }
         #endregion
+
         #endregion
 
         #region Template I/O methods
@@ -811,15 +821,12 @@ namespace Orko.EntityWorks.Generator
         /// </summary>
         private void WriteTextTemplate(Table table, string template, string folder)
         {
-            // Database specific options if null than global options.
-            var options = table.Database.GetActiveEntityWorksGeneratorOptions();
-
             // Validate target directory.
-            if (options.TargetDirectory == null)
+            if (this.Options.OutputDirectory == null)
                 throw new EntityWorksGeneratorException("Target directory can not be null. Please set target directory in entity works options.");
 
             // Directory path.
-            var directoryPath = Path.Combine(options.TargetDirectory.FullName, table.Database.DatabaseName, table.Schema, folder);
+            var directoryPath = Path.Combine(this.Options.OutputDirectory.FullName, table.Database.DatabaseName, table.Schema, folder);
 			
 			// Class full name.
 			string classFullName = Path.Combine(directoryPath, table.Name + ".cs");

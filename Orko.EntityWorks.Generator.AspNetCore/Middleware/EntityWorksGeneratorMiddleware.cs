@@ -21,7 +21,7 @@ namespace Orko.EntityWorks.Generator.AspNetCore
 		/// <summary>
 		/// Entity works options exposing entity works context.
 		/// </summary>
-		private EntityWorksGeneratorOptions m_options;
+		private EntityGeneratorOptions m_options;
 		#endregion
 
 		#region Constructors
@@ -29,10 +29,12 @@ namespace Orko.EntityWorks.Generator.AspNetCore
 		/// Creates entityworks middleware object.
 		/// </summary>
 		/// <param name="options">EntityWorksGenerator configuration options</param>
-		public EntityWorksGeneratorMiddleware(RequestDelegate next, EntityWorksGeneratorOptions options)
+		public EntityWorksGeneratorMiddleware(RequestDelegate next, EntityGeneratorOptions options)
 		{
-			// Set members.
+			// Set next.
 			this.m_next = next;
+
+			// Set entity generator options.
 			this.m_options = options;
 		}
 		#endregion

@@ -80,24 +80,8 @@ namespace Orko.AspNetCore
 				// Use entity works generator.
 				app.UseEntityWorksGenerator(options =>
 				{
-					// Global language table directive.
-					options.UseLanguageTables = true;
-
-					// Global language table suffix.
-					options.LanguageTableSuffix = "_jezik";
-
 					// Global target directory.
-					options.TargetDirectory = new System.IO.DirectoryInfo(@"C:\EWTest");
-
-					// Global predefined foreign key name converting convention.
-					options.ForeignKeyNamingConvention = ForeignKeyNamingConvention.ForeignKeyFullName;
-
-					// Global custom foreign key name converter.
-					options.ForeignKeyNameNamingConverter = (sqlForeignKeyName, sqlForeignKeyColumns) =>
-					{
-						// Custom logic.
-						return sqlForeignKeyName;
-					};
+					options.OutputDirectory = new System.IO.DirectoryInfo(@"C:\EWTest");
 				});
 			}
 

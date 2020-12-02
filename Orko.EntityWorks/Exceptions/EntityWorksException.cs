@@ -5,15 +5,24 @@ using System.Text;
 namespace Orko.EntityWorks.Exceptions
 {
 	/// <summary>
-	/// Represents entityworks exception.
+	/// Represents errors that ocur during entityworks initialization and execution.
 	/// </summary>
 	public class EntityWorksException : Exception
 	{
 		#region Constructors
 		/// <summary>
-		/// Entity works exception only constructor.
+		/// Default entityworks exception.
 		/// </summary>
-		internal EntityWorksException(string message, Exception innerException = null) : base(message, innerException)
+		/// <param name="message">EntityWorks exception message</param>
+		internal EntityWorksException(string message)
+		{
+
+		}
+		/// <summary>
+		/// Wraped entityworks exception.
+		/// </summary>
+		/// <param name="message">EntityWorks exception message</param>
+		internal EntityWorksException(string message, Exception innerException) : base(message, innerException)
 		{
 
 		}

@@ -10,22 +10,18 @@ namespace Orko.EntityWorks.Generator
         /// <summary>
         /// Full foreign key name will be used as entity name.
         /// </summary>
-        ForeignKeyFullName,
+        FK_FN,
         /// <summary>
         /// Last segment of foreign key name will be used as entity name.
         /// </summary>
-        ForeignKeyNameLastSegment,
-        /// <summary>
-        /// Second segment of foreign key name will be used as entity name.
-        /// </summary>
-        ForeignKeyNameLastTwoSegments,
+        FK_LS,
         /// <summary>
         /// First ordinal column (that is party of foreign key) full name will be used as entity name.
         /// </summary>
-        FirstColumnFullName,
+        FK_FC_FN,
         /// <summary>
         /// First ordinal column (that is party of foreign key) name without table name preffix will be used as entity name.
         /// </summary>
-        FirstColumnNoTablePreffixName
+        FK_FC_NTBL_FN
     }
 }

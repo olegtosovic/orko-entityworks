@@ -74,7 +74,7 @@ namespace Orko.EntityWorks.Generator
         private string GetForeignKeyColumnName(string foreignKeyName, Table table)
         {
             // Get options.
-            var options = table.Database.GetActiveEntityWorksGeneratorOptions();
+            var options = table.Database.Options;
 
             // If converter is set by user convert and return.
             if (options.ForeignKeyNameNamingConverter != null)
@@ -90,27 +90,21 @@ namespace Orko.EntityWorks.Generator
             }
 
             // If full name convention we take full foreign key name to be entity property name.
-            if (options.ForeignKeyNamingConvention == ForeignKeyNamingConvention.ForeignKeyFullName)
+            if (options.ForeignKeyNamingConvention == ForeignKeyNamingConvention.FK_FN)
             {
                 return foreignKeyName;
             }
 
             // If last segment convention we take only last segment of foreign key name to be entity property name.
-            else if (options.ForeignKeyNamingConvention == ForeignKeyNamingConvention.ForeignKeyNameLastSegment)
+            else if (options.ForeignKeyNamingConvention == ForeignKeyNamingConvention.FK_LS)
             {
                 string[] nameParts = foreignKeyName.Split(new char[] { '_' }, StringSplitOptions.RemoveEmptyEntries);
                 string columnName = nameParts[nameParts.Count() - 1];
                 foreignKeyName = columnName;
             }
 
-            // If last two segments convention we take last two segment of foreign key name to be entity property name.
-            else if (options.ForeignKeyNamingConvention == ForeignKeyNamingConvention.ForeignKeyNameLastTwoSegments)
-            {
-                throw new NotSupportedException("ForeignKeyNameLastTwoSegments not yet sepported.");
-            }
-
             // If first column full name convention.
-            else if (options.ForeignKeyNamingConvention == ForeignKeyNamingConvention.FirstColumnFullName)
+            else if (options.ForeignKeyNamingConvention == ForeignKeyNamingConvention.FK_FC_FN)
 			{
                 // Set foreign key name as first column full name.
                 var firstColumnPartOfKey = table.PrimaryKey.Columns.FirstOrDefault();

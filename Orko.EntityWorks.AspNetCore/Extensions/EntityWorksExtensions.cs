@@ -133,8 +133,8 @@ namespace Orko.EntityWorks.AspNetCore
 		private static void SetContextMappingsSource(IConfigurationSection section)
 		{
 			// Get connection strings section.
-			var contextMappingsSection = section.GetSection("QueryContexts") ??
-				throw new EntityWorksException("EntityWorksConfiguration section does not have ContextMappings section. " +
+			var contextMappingsSection = section.GetSection("ContextMappings") ??
+				throw new EntityWorksException("EntityWorks section does not have ContextMappings section. " +
 					"Please refer to documentation.");
 
 			// Get context mappings.

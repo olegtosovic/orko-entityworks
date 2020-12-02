@@ -8,10 +8,8 @@ using System.Threading.Tasks;
 namespace Orko.EntityWorks.Generator
 {
 	/// <summary>
-	/// Represents sql server database object.
+	/// Represents sql server database model object.
 	/// Contains all database objects information required to generate entity classes.
-    /// Both generator and database object contain entityworks generator options.
-    /// If database options exists, they will override generator global options.
 	/// </summary>
 	public class Database
     {
@@ -22,7 +20,7 @@ namespace Orko.EntityWorks.Generator
         private SqlConnectionStringBuilder m_stringBuilder;
 		#endregion
 
-		#region Private methods
+		#region Methods
 		/// <summary>
 		/// Loads database name.
 		/// </summary>
@@ -34,7 +32,7 @@ namespace Orko.EntityWorks.Generator
             // Check database name existance.
             if (string.IsNullOrWhiteSpace(m_stringBuilder.InitialCatalog))
                 throw new EntityWorksGeneratorException("Connection string of database object does not have defined database name or initial catalog." +
-                    "Please refer to documentation.");
+                    "Please check your connection string or refer to documentation.");
 
             // Set database name.
             this.DatabaseName = m_stringBuilder.InitialCatalog;
@@ -45,7 +43,7 @@ namespace Orko.EntityWorks.Generator
         private void SetLanguageContext(Table languageTable)
         {
             // Get active options.
-            var options = GetActiveEntityWorksGeneratorOptions();
+            var options = languageTable.Database.Options;
 
             // Assign theirs parents.
             string parentTableName = languageTable.FullName.Replace(options.LanguageTableSuffix, string.Empty);
@@ -87,21 +85,6 @@ namespace Orko.EntityWorks.Generator
             string tableFullName = tableRow["table_fullname"].ToString();
             CreateTable(tableName, schemaName, tableFullName);
         }
-        /// <summary>
-        /// Gets specific database entity works generator options, if null than get global options.
-        /// </summary>
-        internal EntityWorksGeneratorOptions GetActiveEntityWorksGeneratorOptions()
-        {
-            // Get and validate options.
-            var options = this.Options ?? this.Generator.Options;
-            if (options == null)
-                throw new EntityWorksGeneratorException("Database object has no active entity works options. " +
-                    "Please set either global entity works configuration options or specific options for database object." +
-                    "For more details please refer to documentation.");
-
-            // Return options.
-            return this.Options ?? this.Generator.Options;
-        }
         #endregion
 
         #region Constructors
@@ -123,33 +106,36 @@ namespace Orko.EntityWorks.Generator
         public Database(string connectionString) : this()
         {
             // Set properties.
-            ConnectionString = connectionString;
+            ConnectionString = !string.IsNullOrWhiteSpace(connectionString) ?
+                connectionString : throw new ArgumentNullException(nameof(connectionString), "Connection string can not be null");
 
             // Set database name.
             SetDatabaseName();
-
-            // Mark as not ready.
-            IsReady = false;
         }
         /// <summary>
         /// Creates instance of database object.
         /// </summary>
         /// <param name="connectionString">Database connection string</param>
-        /// <param name="options">Entity generator options for this database</param>
-        /// <param name="prepare">Immediately load database name, data and graph metadata</param>
-        public Database(string connectionString, EntityWorksGeneratorOptions options, bool prepare = false) : this(connectionString)
+        /// <param name="options">Database generator options for this database</param>
+        public Database(string connectionString, DatabaseGeneratorOptions options) : this(connectionString)
         {
-            // Set properties.
-            Options = options;
-            ConnectionString = connectionString;
-
-            // Prepare database.
-            if (prepare)
-                Prepare();
+			// Set entity works generator options.
+			this.Options = options ?? throw new ArgumentNullException(nameof(options), "DatabaseGeneratorOptions can not be null.");
+        }
+        /// <summary>
+        /// Creates instance of database object.
+        /// </summary>
+        /// <param name="connectionString">Database connection string</param>
+        /// <param name="options">Database generator options for this database</param>
+        /// <param name="prepare">Immediately load database name, data and graph metadata</param>
+        public Database(string connectionString, DatabaseGeneratorOptions options, bool prepare) : this(connectionString, options)
+        {
+            // Prepare database for entity generation.
+            if (prepare) Prepare();
         }
         #endregion
 
-        #region Properties
+        #region General properties
         /// <summary>
         /// Sql server's database name.
         /// </summary>
@@ -161,21 +147,18 @@ namespace Orko.EntityWorks.Generator
         /// <summary>
         /// Entity works options for this database.
         /// </summary>
-        public EntityWorksGeneratorOptions Options { get; private set; }
-		#endregion
-
-		#region Generator
+        public DatabaseGeneratorOptions Options { get; private set; }
         /// <summary>
-        /// Entity works generator.
+        /// Container that holds all database tables with table information.
         /// </summary>
-		public EntityWorksGenerator Generator { get; internal set; }
+        public ConcurrentDictionary<string, Table> Tables { get; private set; }
         #endregion
 
-		#region State flags
-		/// <summary>
-		/// Indicated if database is ready for generation.
-		/// </summary>
-		public bool IsReady { get; private set; }
+        #region State properties
+        /// <summary>
+        /// Indicated if database is ready for generation.
+        /// </summary>
+        public bool IsReady { get; private set; }
         /// <summary>
         /// Indicates if database raw data is loaded from server.
         /// </summary>
@@ -186,7 +169,7 @@ namespace Orko.EntityWorks.Generator
         public bool IsGraphed { get; private set; }
         #endregion
 
-        #region Metadata
+        #region Meta properties
         public DataTable Columns { get; private set; }
         public DataTable PrimaryKeys { get; private set; }
         public DataTable ForeignKeys { get; private set; }
@@ -195,11 +178,7 @@ namespace Orko.EntityWorks.Generator
         public DataTable TableNames { get; set; }
         #endregion
 
-        #region Thread safe caching
-        public ConcurrentDictionary<string, Table> Tables { get; private set; }
-        #endregion
-
-        #region Main public methods
+        #region Main methods
         /// <summary>
         /// Load all database data and metadata.
         /// </summary>
@@ -341,23 +320,20 @@ namespace Orko.EntityWorks.Generator
             if (!IsLoaded)
                 throw new Exception("Can not load database graph, database metadata must be loaded.");
 
-            // Get active options.
-            var options = GetActiveEntityWorksGeneratorOptions();
-
             // Use parallel processing.
-            if (options.UseParallelProcessing) Parallel.ForEach(TableNames.AsEnumerable(), drTable => { CreateTableFromRow(drTable); });
+            if (this.Options.UseParallelProcessing) Parallel.ForEach(TableNames.AsEnumerable(), drTable => { CreateTableFromRow(drTable); });
             
             // Use non-parallel processing.
             else foreach (DataRow drTable in TableNames.Rows) { CreateTableFromRow(drTable); }
             
             // Assign language table relations to graph.
-            if (options.UseLanguageTables)
+            if (this.Options.UseLanguageTables)
             {
                 // Get all language tables.
-                var languageTables = Tables.Values.Where(x => x.Name.EndsWith(options.LanguageTableSuffix));
+                var languageTables = Tables.Values.Where(x => x.Name.EndsWith(this.Options.LanguageTableSuffix));
 
                 // Use parallel processing.
-                if (!options.UseParallelProcessing) Parallel.ForEach(languageTables, languageTable => { SetLanguageContext(languageTable); });
+                if (!this.Options.UseParallelProcessing) Parallel.ForEach(languageTables, languageTable => { SetLanguageContext(languageTable); });
 
                 // Use non-parallel processing.
                 else foreach (var languageTable in languageTables) { SetLanguageContext(languageTable); }           
@@ -367,21 +343,6 @@ namespace Orko.EntityWorks.Generator
             IsGraphed = true;
             IsReady = true;
         }        
-        #endregion
-
-        #region Assigment public methods
-        /// <summary>
-        /// Sets specific entity works generator options.
-        /// </summary>
-        public void SetEntityWorksGeneratorOptions(EntityWorksGeneratorOptions options)
-        {
-            // Validation options instance.
-            if (options == null)
-                throw new ArgumentNullException(nameof(options), "EntityWorksGeneratorOptions can not be null.");
-
-            // Set database specific options.
-            this.Options = options;
-        }
         #endregion
 
         #region Helper methods
