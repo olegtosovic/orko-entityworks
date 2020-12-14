@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -18,7 +18,7 @@ namespace Orko.Base
     public sealed partial class VrstaDokumenta : Entity
     {
 		#region Members
-		private KlasaVrsteDokumenta m_FK_VrstaDokumenta_KlasaVrsteDokumenta;
+		private KlasaVrsteDokumenta m_KlasaVrsteDokumenta;
         #endregion
         
 		#region Constructors
@@ -27,21 +27,21 @@ namespace Orko.Base
             // Cache field metadata.
             EntityMeta<VrstaDokumenta>.LoadColumnMetadata
 			(
-				new ColumnMetadata("VrstaDokumentaVrstaDokumenta", @"VrstaDokumentaVrstaDokumenta", SqlDbType.NVarChar, isPrimaryKey: true),
-                new ColumnMetadata("VrstaDokumentaKlasaVrsteDokumenta", @"VrstaDokumentaKlasaVrsteDokumenta", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("VrstaDokumentaPocetniStatus", @"VrstaDokumentaPocetniStatus", SqlDbType.Int, isRequired: false),
-                new ColumnMetadata("VrstaDokumentaAktivnost", @"VrstaDokumentaAktivnost", SqlDbType.Bit, isRequired: true),
-                new ColumnMetadata("VrstaDokumentaUradio", @"VrstaDokumentaUradio", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("VrstaDokumentaDatumIzmjene", @"VrstaDokumentaDatumIzmjene", SqlDbType.DateTime2, isRequired: true),
-                new ColumnMetadata("VrstaDokumentaJezik", @"VrstaDokumentaJezik", SqlDbType.Char, isLanguageCode: true, isPrimaryKey: true),
-                new ColumnMetadata("VrstaDokumentaNaziv", @"VrstaDokumentaNaziv", SqlDbType.NVarChar, isRequired: true, isLanguage: true),
-                new ColumnMetadata("VrstaDokumentaOpis", @"VrstaDokumentaOpis", SqlDbType.NVarChar, isRequired: false, isLanguage: true)
+				new ColumnMetadata(nameof(VrstaDokumentaVrstaDokumenta), @"VrstaDokumentaVrstaDokumenta", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(VrstaDokumentaKlasaVrsteDokumenta), @"VrstaDokumentaKlasaVrsteDokumenta", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(VrstaDokumentaPocetniStatus), @"VrstaDokumentaPocetniStatus", DbType.Int32, isRequired: false),
+                new ColumnMetadata(nameof(VrstaDokumentaAktivnost), @"VrstaDokumentaAktivnost", DbType.Boolean, isRequired: true),
+                new ColumnMetadata(nameof(VrstaDokumentaUradio), @"VrstaDokumentaUradio", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(VrstaDokumentaDatumIzmjene), @"VrstaDokumentaDatumIzmjene", DbType.DateTime2, isRequired: true),
+                new ColumnMetadata(nameof(VrstaDokumentaJezik), @"VrstaDokumentaJezik", DbType.AnsiStringFixedLength, isRequired: true, isLanguageCode: true),
+                new ColumnMetadata(nameof(VrstaDokumentaNaziv), @"VrstaDokumentaNaziv", DbType.String, isRequired: true, isLanguage: true),
+                new ColumnMetadata(nameof(VrstaDokumentaOpis), @"VrstaDokumentaOpis", DbType.String, isRequired: false, isLanguage: true)
 			);
 
             // Cache entites metadata.
             EntityMeta<VrstaDokumenta>.LoadRelationMetadata
 			(
-				new RelationMetadata("FK_VrstaDokumenta_KlasaVrsteDokumenta", "VrstaDokumentaKlasaVrsteDokumenta", "KlasaVrsteDokumentaKlasaVrsteDokumenta")
+				new RelationMetadata(nameof(KlasaVrsteDokumenta), nameof(VrstaDokumentaKlasaVrsteDokumenta), nameof(Orko.Base.KlasaVrsteDokumenta.KlasaVrsteDokumentaKlasaVrsteDokumenta))
 			);
 
 			// Cache table metadata.
@@ -66,10 +66,10 @@ namespace Orko.Base
         #endregion
 
         #region Entities
-		public KlasaVrsteDokumenta FK_VrstaDokumenta_KlasaVrsteDokumenta
+		public KlasaVrsteDokumenta KlasaVrsteDokumenta
         {
-            get { return EntityContext<KlasaVrsteDokumenta>.Get(ref m_FK_VrstaDokumenta_KlasaVrsteDokumenta, this, "FK_VrstaDokumenta_KlasaVrsteDokumenta"); }
-            set { EntityContext<KlasaVrsteDokumenta>.Set(ref m_FK_VrstaDokumenta_KlasaVrsteDokumenta, this, value, "FK_VrstaDokumenta_KlasaVrsteDokumenta"); }
+            get { return EntityContext<KlasaVrsteDokumenta>.Get(ref m_KlasaVrsteDokumenta, this, nameof(KlasaVrsteDokumenta)); }
+            set { EntityContext<KlasaVrsteDokumenta>.Set(ref m_KlasaVrsteDokumenta, this, value, nameof(KlasaVrsteDokumenta)); }
         }
         #endregion
 
@@ -91,24 +91,5 @@ namespace Orko.Base
             return await TryGetByPrimaryKeyAsync<VrstaDokumenta>(VrstaDokumentaVrstaDokumenta);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<VrstaDokumenta> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<VrstaDokumenta>(queryConditions);
-        }
-        public static IEnumerable<VrstaDokumenta> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<VrstaDokumenta>(columnName, queryOp, value);
-        }
-		public static VrstaDokumenta GetByPrimaryKey(string VrstaDokumentaVrstaDokumenta)
-        {
-            return GetByPrimaryKey<VrstaDokumenta>(VrstaDokumentaVrstaDokumenta);
-        }
-		public static VrstaDokumenta TryGetByPrimaryKey(string VrstaDokumentaVrstaDokumenta)
-        {
-            return TryGetByPrimaryKey<VrstaDokumenta>(VrstaDokumentaVrstaDokumenta);
-        }
-        #endregion
     }
 }

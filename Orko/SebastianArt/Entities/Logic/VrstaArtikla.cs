@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Intended for modification.
 
@@ -14,19 +14,10 @@ namespace Orko.SebastianArt
     public partial class VrstaArtikla
     {
 		#region Methods
-		public void Save()
-        {
-			Validate<VrstaArtikla>();
-            Save<VrstaArtikla>();
-        }
 		public async Task SaveAsync()
         {
 			Validate<VrstaArtikla>();
             await SaveAsync<VrstaArtikla>();
-        }
-        public void Delete()
-        {
-            Delete<VrstaArtikla>();
         }
 		public async Task DeleteAsync()
         {

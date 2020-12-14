@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -27,11 +27,11 @@ namespace Orko.Watersports
             // Cache field metadata.
             EntityMeta<TipBroda>.LoadColumnMetadata
 			(
-				new ColumnMetadata("TipBrodaTipBroda", @"TipBrodaTipBroda", SqlDbType.NVarChar, isPrimaryKey: true),
-                new ColumnMetadata("TipBrodaAktivnost", @"TipBrodaAktivnost", SqlDbType.Bit, isRequired: true),
-                new ColumnMetadata("TipBrodaJezik", @"TipBrodaJezik", SqlDbType.Char, isLanguageCode: true, isPrimaryKey: true),
-                new ColumnMetadata("TipBrodaNaziv", @"TipBrodaNaziv", SqlDbType.NVarChar, isRequired: true, isLanguage: true),
-                new ColumnMetadata("TipBrodaOpis", @"TipBrodaOpis", SqlDbType.NVarChar, isRequired: false, isLanguage: true)
+				new ColumnMetadata(nameof(TipBrodaTipBroda), @"TipBrodaTipBroda", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(TipBrodaAktivnost), @"TipBrodaAktivnost", DbType.Boolean, isRequired: true),
+                new ColumnMetadata(nameof(TipBrodaJezik), @"TipBrodaJezik", DbType.AnsiStringFixedLength, isRequired: true, isLanguageCode: true),
+                new ColumnMetadata(nameof(TipBrodaNaziv), @"TipBrodaNaziv", DbType.String, isRequired: true, isLanguage: true),
+                new ColumnMetadata(nameof(TipBrodaOpis), @"TipBrodaOpis", DbType.String, isRequired: false, isLanguage: true)
 			);
 
             // Cache entites metadata.
@@ -79,24 +79,5 @@ namespace Orko.Watersports
             return await TryGetByPrimaryKeyAsync<TipBroda>(TipBrodaTipBroda);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<TipBroda> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<TipBroda>(queryConditions);
-        }
-        public static IEnumerable<TipBroda> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<TipBroda>(columnName, queryOp, value);
-        }
-		public static TipBroda GetByPrimaryKey(string TipBrodaTipBroda)
-        {
-            return GetByPrimaryKey<TipBroda>(TipBrodaTipBroda);
-        }
-		public static TipBroda TryGetByPrimaryKey(string TipBrodaTipBroda)
-        {
-            return TryGetByPrimaryKey<TipBroda>(TipBrodaTipBroda);
-        }
-        #endregion
     }
 }

@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -27,12 +27,12 @@ namespace Orko.Base
             // Cache field metadata.
             EntityMeta<PrijelazStatusaAkcija>.LoadColumnMetadata
 			(
-				new ColumnMetadata("PrijelazStatusaAkcijaPrijelazStatusaID", @"PrijelazStatusaAkcijaPrijelazStatusaID", SqlDbType.Int, isPrimaryKey: true),
-                new ColumnMetadata("PrijelazStatusaAkcijaRedoslijed", @"PrijelazStatusaAkcijaRedoslijed", SqlDbType.Int, isPrimaryKey: true),
-                new ColumnMetadata("PrijelazStatusaAkcijaProcedura", @"PrijelazStatusaAkcijaProcedura", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("PrijelazStatusaAkcijaUputa", @"PrijelazStatusaAkcijaUputa", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("PrijelazStatusaAkcijaUradio", @"PrijelazStatusaAkcijaUradio", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("PrijelazStatusaAkcijaDatumIzmjene", @"PrijelazStatusaAkcijaDatumIzmjene", SqlDbType.DateTime2, isRequired: true)
+				new ColumnMetadata(nameof(PrijelazStatusaAkcijaPrijelazStatusaID), @"PrijelazStatusaAkcijaPrijelazStatusaID", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(PrijelazStatusaAkcijaRedoslijed), @"PrijelazStatusaAkcijaRedoslijed", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(PrijelazStatusaAkcijaProcedura), @"PrijelazStatusaAkcijaProcedura", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(PrijelazStatusaAkcijaUputa), @"PrijelazStatusaAkcijaUputa", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(PrijelazStatusaAkcijaUradio), @"PrijelazStatusaAkcijaUradio", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(PrijelazStatusaAkcijaDatumIzmjene), @"PrijelazStatusaAkcijaDatumIzmjene", DbType.DateTime2, isRequired: true)
 			);
 
             // Cache entites metadata.
@@ -81,24 +81,5 @@ namespace Orko.Base
             return await TryGetByPrimaryKeyAsync<PrijelazStatusaAkcija>(PrijelazStatusaAkcijaPrijelazStatusaID, PrijelazStatusaAkcijaRedoslijed);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<PrijelazStatusaAkcija> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<PrijelazStatusaAkcija>(queryConditions);
-        }
-        public static IEnumerable<PrijelazStatusaAkcija> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<PrijelazStatusaAkcija>(columnName, queryOp, value);
-        }
-		public static PrijelazStatusaAkcija GetByPrimaryKey(int PrijelazStatusaAkcijaPrijelazStatusaID, int PrijelazStatusaAkcijaRedoslijed)
-        {
-            return GetByPrimaryKey<PrijelazStatusaAkcija>(PrijelazStatusaAkcijaPrijelazStatusaID, PrijelazStatusaAkcijaRedoslijed);
-        }
-		public static PrijelazStatusaAkcija TryGetByPrimaryKey(int PrijelazStatusaAkcijaPrijelazStatusaID, int PrijelazStatusaAkcijaRedoslijed)
-        {
-            return TryGetByPrimaryKey<PrijelazStatusaAkcija>(PrijelazStatusaAkcijaPrijelazStatusaID, PrijelazStatusaAkcijaRedoslijed);
-        }
-        #endregion
     }
 }

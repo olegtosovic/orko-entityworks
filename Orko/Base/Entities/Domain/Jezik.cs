@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -27,10 +27,10 @@ namespace Orko.Base
             // Cache field metadata.
             EntityMeta<Jezik>.LoadColumnMetadata
 			(
-				new ColumnMetadata("JezikJezik", @"JezikJezik", SqlDbType.Char, isPrimaryKey: true),
-                new ColumnMetadata("JezikAktivnost", @"JezikAktivnost", SqlDbType.Bit, isRequired: true),
-                new ColumnMetadata("JezikJezikJezik", @"JezikJezikJezik", SqlDbType.Char, isLanguageCode: true, isPrimaryKey: true),
-                new ColumnMetadata("JezikNaziv", @"JezikNaziv", SqlDbType.NVarChar, isRequired: false, isLanguage: true)
+				new ColumnMetadata(nameof(JezikJezik), @"JezikJezik", DbType.AnsiStringFixedLength, isRequired: true),
+                new ColumnMetadata(nameof(JezikAktivnost), @"JezikAktivnost", DbType.Boolean, isRequired: true),
+                new ColumnMetadata(nameof(JezikJezikJezik), @"JezikJezikJezik", DbType.AnsiStringFixedLength, isRequired: true, isLanguageCode: true),
+                new ColumnMetadata(nameof(JezikNaziv), @"JezikNaziv", DbType.String, isRequired: false, isLanguage: true)
 			);
 
             // Cache entites metadata.
@@ -77,24 +77,5 @@ namespace Orko.Base
             return await TryGetByPrimaryKeyAsync<Jezik>(JezikJezik);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<Jezik> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<Jezik>(queryConditions);
-        }
-        public static IEnumerable<Jezik> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<Jezik>(columnName, queryOp, value);
-        }
-		public static Jezik GetByPrimaryKey(string JezikJezik)
-        {
-            return GetByPrimaryKey<Jezik>(JezikJezik);
-        }
-		public static Jezik TryGetByPrimaryKey(string JezikJezik)
-        {
-            return TryGetByPrimaryKey<Jezik>(JezikJezik);
-        }
-        #endregion
     }
 }

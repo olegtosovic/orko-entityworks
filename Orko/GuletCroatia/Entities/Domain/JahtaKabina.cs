@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -18,8 +18,8 @@ namespace Orko.GuletCroatia
     public sealed partial class JahtaKabina : Entity
     {
 		#region Members
-		private Jahta m_FK_JahtaKabina_Jahta;
-        private VrstaKabine m_FK_JahtaKabina_VrstaKabine;
+		private Jahta m_Jahta;
+        private VrstaKabine m_VrstaKabine;
         #endregion
         
 		#region Constructors
@@ -28,18 +28,18 @@ namespace Orko.GuletCroatia
             // Cache field metadata.
             EntityMeta<JahtaKabina>.LoadColumnMetadata
 			(
-				new ColumnMetadata("JahtaKabinaJahta", @"JahtaKabinaJahta", SqlDbType.NVarChar, isPrimaryKey: true),
-                new ColumnMetadata("JahtaKabinaVrstaKabine", @"JahtaKabinaVrstaKabine", SqlDbType.NVarChar, isPrimaryKey: true),
-                new ColumnMetadata("JahtaKabinaBroj", @"JahtaKabinaBroj", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("JahtaKabinaJezik", @"JahtaKabinaJezik", SqlDbType.Char, isLanguageCode: true, isPrimaryKey: true),
-                new ColumnMetadata("JahtaKabinaDodatno", @"JahtaKabinaDodatno", SqlDbType.NVarChar, isRequired: false, isLanguage: true)
+				new ColumnMetadata(nameof(JahtaKabinaJahta), @"JahtaKabinaJahta", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(JahtaKabinaVrstaKabine), @"JahtaKabinaVrstaKabine", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(JahtaKabinaBroj), @"JahtaKabinaBroj", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(JahtaKabinaJezik), @"JahtaKabinaJezik", DbType.AnsiStringFixedLength, isRequired: true, isLanguageCode: true),
+                new ColumnMetadata(nameof(JahtaKabinaDodatno), @"JahtaKabinaDodatno", DbType.String, isRequired: false, isLanguage: true)
 			);
 
             // Cache entites metadata.
             EntityMeta<JahtaKabina>.LoadRelationMetadata
 			(
-				new RelationMetadata("FK_JahtaKabina_Jahta", "JahtaKabinaJahta", "JahtaJahta"),
-                new RelationMetadata("FK_JahtaKabina_VrstaKabine", "JahtaKabinaVrstaKabine", "VrstaKabineVrstaKabine")
+				new RelationMetadata(nameof(Jahta), nameof(JahtaKabinaJahta), nameof(Orko.GuletCroatia.Jahta.JahtaJahta)),
+                new RelationMetadata(nameof(VrstaKabine), nameof(JahtaKabinaVrstaKabine), nameof(Orko.GuletCroatia.VrstaKabine.VrstaKabineVrstaKabine))
 			);
 
 			// Cache table metadata.
@@ -60,15 +60,15 @@ namespace Orko.GuletCroatia
         #endregion
 
         #region Entities
-		public Jahta FK_JahtaKabina_Jahta
+		public Jahta Jahta
         {
-            get { return EntityContext<Jahta>.Get(ref m_FK_JahtaKabina_Jahta, this, "FK_JahtaKabina_Jahta"); }
-            set { EntityContext<Jahta>.Set(ref m_FK_JahtaKabina_Jahta, this, value, "FK_JahtaKabina_Jahta"); }
+            get { return EntityContext<Jahta>.Get(ref m_Jahta, this, nameof(Jahta)); }
+            set { EntityContext<Jahta>.Set(ref m_Jahta, this, value, nameof(Jahta)); }
         }
-        public VrstaKabine FK_JahtaKabina_VrstaKabine
+        public VrstaKabine VrstaKabine
         {
-            get { return EntityContext<VrstaKabine>.Get(ref m_FK_JahtaKabina_VrstaKabine, this, "FK_JahtaKabina_VrstaKabine"); }
-            set { EntityContext<VrstaKabine>.Set(ref m_FK_JahtaKabina_VrstaKabine, this, value, "FK_JahtaKabina_VrstaKabine"); }
+            get { return EntityContext<VrstaKabine>.Get(ref m_VrstaKabine, this, nameof(VrstaKabine)); }
+            set { EntityContext<VrstaKabine>.Set(ref m_VrstaKabine, this, value, nameof(VrstaKabine)); }
         }
         #endregion
 
@@ -90,24 +90,5 @@ namespace Orko.GuletCroatia
             return await TryGetByPrimaryKeyAsync<JahtaKabina>(JahtaKabinaJahta, JahtaKabinaVrstaKabine);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<JahtaKabina> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<JahtaKabina>(queryConditions);
-        }
-        public static IEnumerable<JahtaKabina> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<JahtaKabina>(columnName, queryOp, value);
-        }
-		public static JahtaKabina GetByPrimaryKey(string JahtaKabinaJahta, string JahtaKabinaVrstaKabine)
-        {
-            return GetByPrimaryKey<JahtaKabina>(JahtaKabinaJahta, JahtaKabinaVrstaKabine);
-        }
-		public static JahtaKabina TryGetByPrimaryKey(string JahtaKabinaJahta, string JahtaKabinaVrstaKabine)
-        {
-            return TryGetByPrimaryKey<JahtaKabina>(JahtaKabinaJahta, JahtaKabinaVrstaKabine);
-        }
-        #endregion
     }
 }

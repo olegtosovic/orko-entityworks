@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -18,8 +18,8 @@ namespace Orko.Base
     public sealed partial class Opcina : Entity
     {
 		#region Members
-		private Drzava m_FK_Opcina_Drzava;
-        private Zupanija m_FK_Opcina_Zupanija;
+		private Drzava m_Drzava;
+        private Zupanija m_Zupanija;
         #endregion
         
 		#region Constructors
@@ -28,22 +28,22 @@ namespace Orko.Base
             // Cache field metadata.
             EntityMeta<Opcina>.LoadColumnMetadata
 			(
-				new ColumnMetadata("OpcinaOpcina", @"OpcinaOpcina", SqlDbType.NVarChar, isPrimaryKey: true),
-                new ColumnMetadata("OpcinaDrzava", @"OpcinaDrzava", SqlDbType.Char, isPrimaryKey: true),
-                new ColumnMetadata("OpcinaZupanija", @"OpcinaZupanija", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("OpcinaStopaPrireza", @"OpcinaStopaPrireza", SqlDbType.Decimal, isRequired: false),
-                new ColumnMetadata("OpcinaZiroRacun", @"OpcinaZiroRacun", SqlDbType.Char, isRequired: false),
-                new ColumnMetadata("OpcinaIBAN", @"OpcinaIBAN", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("OpcinaJezik", @"OpcinaJezik", SqlDbType.Char, isLanguageCode: true, isPrimaryKey: true),
-                new ColumnMetadata("OpcinaNaziv", @"OpcinaNaziv", SqlDbType.NVarChar, isRequired: true, isLanguage: true)
+				new ColumnMetadata(nameof(OpcinaOpcina), @"OpcinaOpcina", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(OpcinaDrzava), @"OpcinaDrzava", DbType.AnsiStringFixedLength, isRequired: true),
+                new ColumnMetadata(nameof(OpcinaZupanija), @"OpcinaZupanija", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(OpcinaStopaPrireza), @"OpcinaStopaPrireza", DbType.Decimal, isRequired: false),
+                new ColumnMetadata(nameof(OpcinaZiroRacun), @"OpcinaZiroRacun", DbType.AnsiStringFixedLength, isRequired: false),
+                new ColumnMetadata(nameof(OpcinaIBAN), @"OpcinaIBAN", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(OpcinaJezik), @"OpcinaJezik", DbType.AnsiStringFixedLength, isRequired: true, isLanguageCode: true),
+                new ColumnMetadata(nameof(OpcinaNaziv), @"OpcinaNaziv", DbType.String, isRequired: true, isLanguage: true)
 			);
 
             // Cache entites metadata.
             EntityMeta<Opcina>.LoadRelationMetadata
 			(
-				new RelationMetadata("FK_Opcina_Drzava", "OpcinaDrzava", "DrzavaDrzava"),
-                new RelationMetadata("FK_Opcina_Zupanija", "OpcinaZupanija", "ZupanijaZupanija"),
-                new RelationMetadata("FK_Opcina_Zupanija", "OpcinaDrzava", "ZupanijaDrzava")
+				new RelationMetadata(nameof(Drzava), nameof(OpcinaDrzava), nameof(Orko.Base.Drzava.DrzavaDrzava)),
+                new RelationMetadata(nameof(Zupanija), nameof(OpcinaZupanija), nameof(Orko.Base.Zupanija.ZupanijaZupanija)),
+                new RelationMetadata(nameof(Zupanija), nameof(OpcinaDrzava), nameof(Orko.Base.Zupanija.ZupanijaDrzava))
 			);
 
 			// Cache table metadata.
@@ -67,15 +67,15 @@ namespace Orko.Base
         #endregion
 
         #region Entities
-		public Drzava FK_Opcina_Drzava
+		public Drzava Drzava
         {
-            get { return EntityContext<Drzava>.Get(ref m_FK_Opcina_Drzava, this, "FK_Opcina_Drzava"); }
-            set { EntityContext<Drzava>.Set(ref m_FK_Opcina_Drzava, this, value, "FK_Opcina_Drzava"); }
+            get { return EntityContext<Drzava>.Get(ref m_Drzava, this, nameof(Drzava)); }
+            set { EntityContext<Drzava>.Set(ref m_Drzava, this, value, nameof(Drzava)); }
         }
-        public Zupanija FK_Opcina_Zupanija
+        public Zupanija Zupanija
         {
-            get { return EntityContext<Zupanija>.Get(ref m_FK_Opcina_Zupanija, this, "FK_Opcina_Zupanija"); }
-            set { EntityContext<Zupanija>.Set(ref m_FK_Opcina_Zupanija, this, value, "FK_Opcina_Zupanija"); }
+            get { return EntityContext<Zupanija>.Get(ref m_Zupanija, this, nameof(Zupanija)); }
+            set { EntityContext<Zupanija>.Set(ref m_Zupanija, this, value, nameof(Zupanija)); }
         }
         #endregion
 
@@ -97,24 +97,5 @@ namespace Orko.Base
             return await TryGetByPrimaryKeyAsync<Opcina>(OpcinaOpcina, OpcinaDrzava);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<Opcina> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<Opcina>(queryConditions);
-        }
-        public static IEnumerable<Opcina> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<Opcina>(columnName, queryOp, value);
-        }
-		public static Opcina GetByPrimaryKey(string OpcinaOpcina, string OpcinaDrzava)
-        {
-            return GetByPrimaryKey<Opcina>(OpcinaOpcina, OpcinaDrzava);
-        }
-		public static Opcina TryGetByPrimaryKey(string OpcinaOpcina, string OpcinaDrzava)
-        {
-            return TryGetByPrimaryKey<Opcina>(OpcinaOpcina, OpcinaDrzava);
-        }
-        #endregion
     }
 }

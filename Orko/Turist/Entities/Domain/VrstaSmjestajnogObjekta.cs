@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -18,7 +18,7 @@ namespace Orko.Turist
     public sealed partial class VrstaSmjestajnogObjekta : Entity
     {
 		#region Members
-		private SkupinaSmjestajnogObjekta m_FK_VrstaSmjestajnogObjekta_SkupinaSmjestajnogObjekta;
+		private SkupinaSmjestajnogObjekta m_SkupinaSmjestajnogObjekta;
         #endregion
         
 		#region Constructors
@@ -27,18 +27,18 @@ namespace Orko.Turist
             // Cache field metadata.
             EntityMeta<VrstaSmjestajnogObjekta>.LoadColumnMetadata
 			(
-				new ColumnMetadata("VrstaSmjestajnogObjektaVrstaSmjestajnogObjekta", @"VrstaSmjestajnogObjektaVrstaSmjestajnogObjekta", SqlDbType.NVarChar, isPrimaryKey: true),
-                new ColumnMetadata("VrstaSmjestajnogObjektaSkupinaSmjestajnogObjekta", @"VrstaSmjestajnogObjektaSkupinaSmjestajnogObjekta", SqlDbType.NVarChar, isPrimaryKey: true),
-                new ColumnMetadata("VrstaSmjestajnogObjektaAktivnost", @"VrstaSmjestajnogObjektaAktivnost", SqlDbType.Bit, isRequired: true),
-                new ColumnMetadata("VrstaSmjestajnogObjektaJezik", @"VrstaSmjestajnogObjektaJezik", SqlDbType.Char, isLanguageCode: true, isPrimaryKey: true),
-                new ColumnMetadata("VrstaSmjestajnogObjektaNaziv", @"VrstaSmjestajnogObjektaNaziv", SqlDbType.NVarChar, isRequired: true, isLanguage: true),
-                new ColumnMetadata("VrstaSmjestajnogObjektaOpis", @"VrstaSmjestajnogObjektaOpis", SqlDbType.NVarChar, isRequired: false, isLanguage: true)
+				new ColumnMetadata(nameof(VrstaSmjestajnogObjektaVrstaSmjestajnogObjekta), @"VrstaSmjestajnogObjektaVrstaSmjestajnogObjekta", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(VrstaSmjestajnogObjektaSkupinaSmjestajnogObjekta), @"VrstaSmjestajnogObjektaSkupinaSmjestajnogObjekta", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(VrstaSmjestajnogObjektaAktivnost), @"VrstaSmjestajnogObjektaAktivnost", DbType.Boolean, isRequired: true),
+                new ColumnMetadata(nameof(VrstaSmjestajnogObjektaJezik), @"VrstaSmjestajnogObjektaJezik", DbType.AnsiStringFixedLength, isRequired: true, isLanguageCode: true),
+                new ColumnMetadata(nameof(VrstaSmjestajnogObjektaNaziv), @"VrstaSmjestajnogObjektaNaziv", DbType.String, isRequired: true, isLanguage: true),
+                new ColumnMetadata(nameof(VrstaSmjestajnogObjektaOpis), @"VrstaSmjestajnogObjektaOpis", DbType.String, isRequired: false, isLanguage: true)
 			);
 
             // Cache entites metadata.
             EntityMeta<VrstaSmjestajnogObjekta>.LoadRelationMetadata
 			(
-				new RelationMetadata("FK_VrstaSmjestajnogObjekta_SkupinaSmjestajnogObjekta", "VrstaSmjestajnogObjektaSkupinaSmjestajnogObjekta", "SkupinaSmjestajnogObjektaSkupinaSmjestajnogObjekta")
+				new RelationMetadata(nameof(SkupinaSmjestajnogObjekta), nameof(VrstaSmjestajnogObjektaSkupinaSmjestajnogObjekta), nameof(Orko.Turist.SkupinaSmjestajnogObjekta.SkupinaSmjestajnogObjektaSkupinaSmjestajnogObjekta))
 			);
 
 			// Cache table metadata.
@@ -60,10 +60,10 @@ namespace Orko.Turist
         #endregion
 
         #region Entities
-		public SkupinaSmjestajnogObjekta FK_VrstaSmjestajnogObjekta_SkupinaSmjestajnogObjekta
+		public SkupinaSmjestajnogObjekta SkupinaSmjestajnogObjekta
         {
-            get { return EntityContext<SkupinaSmjestajnogObjekta>.Get(ref m_FK_VrstaSmjestajnogObjekta_SkupinaSmjestajnogObjekta, this, "FK_VrstaSmjestajnogObjekta_SkupinaSmjestajnogObjekta"); }
-            set { EntityContext<SkupinaSmjestajnogObjekta>.Set(ref m_FK_VrstaSmjestajnogObjekta_SkupinaSmjestajnogObjekta, this, value, "FK_VrstaSmjestajnogObjekta_SkupinaSmjestajnogObjekta"); }
+            get { return EntityContext<SkupinaSmjestajnogObjekta>.Get(ref m_SkupinaSmjestajnogObjekta, this, nameof(SkupinaSmjestajnogObjekta)); }
+            set { EntityContext<SkupinaSmjestajnogObjekta>.Set(ref m_SkupinaSmjestajnogObjekta, this, value, nameof(SkupinaSmjestajnogObjekta)); }
         }
         #endregion
 
@@ -85,24 +85,5 @@ namespace Orko.Turist
             return await TryGetByPrimaryKeyAsync<VrstaSmjestajnogObjekta>(VrstaSmjestajnogObjektaVrstaSmjestajnogObjekta, VrstaSmjestajnogObjektaSkupinaSmjestajnogObjekta);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<VrstaSmjestajnogObjekta> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<VrstaSmjestajnogObjekta>(queryConditions);
-        }
-        public static IEnumerable<VrstaSmjestajnogObjekta> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<VrstaSmjestajnogObjekta>(columnName, queryOp, value);
-        }
-		public static VrstaSmjestajnogObjekta GetByPrimaryKey(string VrstaSmjestajnogObjektaVrstaSmjestajnogObjekta, string VrstaSmjestajnogObjektaSkupinaSmjestajnogObjekta)
-        {
-            return GetByPrimaryKey<VrstaSmjestajnogObjekta>(VrstaSmjestajnogObjektaVrstaSmjestajnogObjekta, VrstaSmjestajnogObjektaSkupinaSmjestajnogObjekta);
-        }
-		public static VrstaSmjestajnogObjekta TryGetByPrimaryKey(string VrstaSmjestajnogObjektaVrstaSmjestajnogObjekta, string VrstaSmjestajnogObjektaSkupinaSmjestajnogObjekta)
-        {
-            return TryGetByPrimaryKey<VrstaSmjestajnogObjekta>(VrstaSmjestajnogObjektaVrstaSmjestajnogObjekta, VrstaSmjestajnogObjektaSkupinaSmjestajnogObjekta);
-        }
-        #endregion
     }
 }

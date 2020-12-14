@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -18,9 +18,9 @@ namespace Orko.Base
     public sealed partial class VezaDokumenata : Entity
     {
 		#region Members
-		private Protokol m_FK_VezaDokumenata_ProtokolPrethodni;
-        private Protokol m_FK_VezaDokumenata_ProtokolSlijedni;
-        private VezaDokumenataUputa m_FK_VezaDokumenata_VezaDokumenataUputa;
+		private Protokol m_ProtokolPrethodni;
+        private Protokol m_ProtokolSlijedni;
+        private VezaDokumenataUputa m_VezaDokumenataUputa;
         #endregion
         
 		#region Constructors
@@ -29,20 +29,20 @@ namespace Orko.Base
             // Cache field metadata.
             EntityMeta<VezaDokumenata>.LoadColumnMetadata
 			(
-				new ColumnMetadata("VezaDokumenataID", @"VezaDokumenataID", SqlDbType.Int, isIdentity: true, isPrimaryKey: true),
-                new ColumnMetadata("VezaDokumenataPrethodniProtokolID", @"VezaDokumenataPrethodniProtokolID", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("VezaDokumenataSlijedniProtokolID", @"VezaDokumenataSlijedniProtokolID", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("VezaDokumenataVezaDokumenataUputaID", @"VezaDokumenataVezaDokumenataUputaID", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("VezaDokumenataUradio", @"VezaDokumenataUradio", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("VezaDokumenataDatumIzmjene", @"VezaDokumenataDatumIzmjene", SqlDbType.DateTime2, isRequired: true)
+				new ColumnMetadata(nameof(VezaDokumenataID), @"VezaDokumenataID", DbType.Int32, isIdentity: true, isRequired: true),
+                new ColumnMetadata(nameof(VezaDokumenataPrethodniProtokolID), @"VezaDokumenataPrethodniProtokolID", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(VezaDokumenataSlijedniProtokolID), @"VezaDokumenataSlijedniProtokolID", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(VezaDokumenataVezaDokumenataUputaID), @"VezaDokumenataVezaDokumenataUputaID", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(VezaDokumenataUradio), @"VezaDokumenataUradio", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(VezaDokumenataDatumIzmjene), @"VezaDokumenataDatumIzmjene", DbType.DateTime2, isRequired: true)
 			);
 
             // Cache entites metadata.
             EntityMeta<VezaDokumenata>.LoadRelationMetadata
 			(
-				new RelationMetadata("FK_VezaDokumenata_ProtokolPrethodni", "VezaDokumenataPrethodniProtokolID", "ProtokolID"),
-                new RelationMetadata("FK_VezaDokumenata_ProtokolSlijedni", "VezaDokumenataSlijedniProtokolID", "ProtokolID"),
-                new RelationMetadata("FK_VezaDokumenata_VezaDokumenataUputa", "VezaDokumenataVezaDokumenataUputaID", "VezaDokumenataUputaID")
+				new RelationMetadata(nameof(ProtokolPrethodni), nameof(VezaDokumenataPrethodniProtokolID), nameof(Orko.Base.Protokol.ProtokolID)),
+                new RelationMetadata(nameof(ProtokolSlijedni), nameof(VezaDokumenataSlijedniProtokolID), nameof(Orko.Base.Protokol.ProtokolID)),
+                new RelationMetadata(nameof(VezaDokumenataUputa), nameof(VezaDokumenataVezaDokumenataUputaID), nameof(Orko.Base.VezaDokumenataUputa.VezaDokumenataUputaID))
 			);
 
 			// Cache table metadata.
@@ -64,20 +64,20 @@ namespace Orko.Base
         #endregion
 
         #region Entities
-		public Protokol FK_VezaDokumenata_ProtokolPrethodni
+		public Protokol ProtokolPrethodni
         {
-            get { return EntityContext<Protokol>.Get(ref m_FK_VezaDokumenata_ProtokolPrethodni, this, "FK_VezaDokumenata_ProtokolPrethodni"); }
-            set { EntityContext<Protokol>.Set(ref m_FK_VezaDokumenata_ProtokolPrethodni, this, value, "FK_VezaDokumenata_ProtokolPrethodni"); }
+            get { return EntityContext<Protokol>.Get(ref m_ProtokolPrethodni, this, nameof(ProtokolPrethodni)); }
+            set { EntityContext<Protokol>.Set(ref m_ProtokolPrethodni, this, value, nameof(ProtokolPrethodni)); }
         }
-        public Protokol FK_VezaDokumenata_ProtokolSlijedni
+        public Protokol ProtokolSlijedni
         {
-            get { return EntityContext<Protokol>.Get(ref m_FK_VezaDokumenata_ProtokolSlijedni, this, "FK_VezaDokumenata_ProtokolSlijedni"); }
-            set { EntityContext<Protokol>.Set(ref m_FK_VezaDokumenata_ProtokolSlijedni, this, value, "FK_VezaDokumenata_ProtokolSlijedni"); }
+            get { return EntityContext<Protokol>.Get(ref m_ProtokolSlijedni, this, nameof(ProtokolSlijedni)); }
+            set { EntityContext<Protokol>.Set(ref m_ProtokolSlijedni, this, value, nameof(ProtokolSlijedni)); }
         }
-        public VezaDokumenataUputa FK_VezaDokumenata_VezaDokumenataUputa
+        public VezaDokumenataUputa VezaDokumenataUputa
         {
-            get { return EntityContext<VezaDokumenataUputa>.Get(ref m_FK_VezaDokumenata_VezaDokumenataUputa, this, "FK_VezaDokumenata_VezaDokumenataUputa"); }
-            set { EntityContext<VezaDokumenataUputa>.Set(ref m_FK_VezaDokumenata_VezaDokumenataUputa, this, value, "FK_VezaDokumenata_VezaDokumenataUputa"); }
+            get { return EntityContext<VezaDokumenataUputa>.Get(ref m_VezaDokumenataUputa, this, nameof(VezaDokumenataUputa)); }
+            set { EntityContext<VezaDokumenataUputa>.Set(ref m_VezaDokumenataUputa, this, value, nameof(VezaDokumenataUputa)); }
         }
         #endregion
 
@@ -99,24 +99,5 @@ namespace Orko.Base
             return await TryGetByPrimaryKeyAsync<VezaDokumenata>(VezaDokumenataID);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<VezaDokumenata> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<VezaDokumenata>(queryConditions);
-        }
-        public static IEnumerable<VezaDokumenata> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<VezaDokumenata>(columnName, queryOp, value);
-        }
-		public static VezaDokumenata GetByPrimaryKey(int VezaDokumenataID)
-        {
-            return GetByPrimaryKey<VezaDokumenata>(VezaDokumenataID);
-        }
-		public static VezaDokumenata TryGetByPrimaryKey(int VezaDokumenataID)
-        {
-            return TryGetByPrimaryKey<VezaDokumenata>(VezaDokumenataID);
-        }
-        #endregion
     }
 }

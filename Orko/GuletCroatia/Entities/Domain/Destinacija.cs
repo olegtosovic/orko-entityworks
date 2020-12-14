@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -27,25 +27,25 @@ namespace Orko.GuletCroatia
             // Cache field metadata.
             EntityMeta<Destinacija>.LoadColumnMetadata
 			(
-				new ColumnMetadata("DestinacijaDestinacija", @"DestinacijaDestinacija", SqlDbType.NVarChar, isPrimaryKey: true),
-                new ColumnMetadata("DestinacijaSlug", @"DestinacijaSlug", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("DestinacijaPlaces", @"DestinacijaPlaces", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("DestinacijaHeaderImage", @"DestinacijaHeaderImage", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("DestinacijaThumbImage", @"DestinacijaThumbImage", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("DestinacijaContentImage", @"DestinacijaContentImage", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("DestinacijaMapImage", @"DestinacijaMapImage", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("DestinacijaIstaknuta", @"DestinacijaIstaknuta", SqlDbType.Bit, isRequired: true),
-                new ColumnMetadata("DestinacijaAktivnost", @"DestinacijaAktivnost", SqlDbType.Bit, isRequired: true),
-                new ColumnMetadata("DestinacijaLatitude", @"DestinacijaLatitude", SqlDbType.Decimal, isRequired: false),
-                new ColumnMetadata("DestinacijaLongitude", @"DestinacijaLongitude", SqlDbType.Decimal, isRequired: false),
-                new ColumnMetadata("DestinacijaZoomLevel", @"DestinacijaZoomLevel", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("DestinacijaJezik", @"DestinacijaJezik", SqlDbType.Char, isLanguageCode: true, isPrimaryKey: true),
-                new ColumnMetadata("DestinacijaNaziv", @"DestinacijaNaziv", SqlDbType.NVarChar, isRequired: true, isLanguage: true),
-                new ColumnMetadata("DestinacijaTekst", @"DestinacijaTekst", SqlDbType.NVarChar, isRequired: false, isLanguage: true),
-                new ColumnMetadata("DestinacijaTitle", @"DestinacijaTitle", SqlDbType.NVarChar, isRequired: false, isLanguage: true),
-                new ColumnMetadata("DestinacijaVisit", @"DestinacijaVisit", SqlDbType.NVarChar, isRequired: false, isLanguage: true),
-                new ColumnMetadata("DestinacijaMetaTitle", @"DestinacijaMetaTitle", SqlDbType.NVarChar, isRequired: false, isLanguage: true),
-                new ColumnMetadata("DestinacijaMetaDescription", @"DestinacijaMetaDescription", SqlDbType.NVarChar, isRequired: false, isLanguage: true)
+				new ColumnMetadata(nameof(DestinacijaDestinacija), @"DestinacijaDestinacija", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(DestinacijaSlug), @"DestinacijaSlug", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(DestinacijaPlaces), @"DestinacijaPlaces", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(DestinacijaHeaderImage), @"DestinacijaHeaderImage", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(DestinacijaThumbImage), @"DestinacijaThumbImage", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(DestinacijaContentImage), @"DestinacijaContentImage", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(DestinacijaMapImage), @"DestinacijaMapImage", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(DestinacijaIstaknuta), @"DestinacijaIstaknuta", DbType.Boolean, isRequired: true),
+                new ColumnMetadata(nameof(DestinacijaAktivnost), @"DestinacijaAktivnost", DbType.Boolean, isRequired: true),
+                new ColumnMetadata(nameof(DestinacijaLatitude), @"DestinacijaLatitude", DbType.Decimal, isRequired: false),
+                new ColumnMetadata(nameof(DestinacijaLongitude), @"DestinacijaLongitude", DbType.Decimal, isRequired: false),
+                new ColumnMetadata(nameof(DestinacijaZoomLevel), @"DestinacijaZoomLevel", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(DestinacijaJezik), @"DestinacijaJezik", DbType.AnsiStringFixedLength, isRequired: true, isLanguageCode: true),
+                new ColumnMetadata(nameof(DestinacijaNaziv), @"DestinacijaNaziv", DbType.String, isRequired: true, isLanguage: true),
+                new ColumnMetadata(nameof(DestinacijaTekst), @"DestinacijaTekst", DbType.String, isRequired: false, isLanguage: true),
+                new ColumnMetadata(nameof(DestinacijaTitle), @"DestinacijaTitle", DbType.String, isRequired: false, isLanguage: true),
+                new ColumnMetadata(nameof(DestinacijaVisit), @"DestinacijaVisit", DbType.String, isRequired: false, isLanguage: true),
+                new ColumnMetadata(nameof(DestinacijaMetaTitle), @"DestinacijaMetaTitle", DbType.String, isRequired: false, isLanguage: true),
+                new ColumnMetadata(nameof(DestinacijaMetaDescription), @"DestinacijaMetaDescription", DbType.String, isRequired: false, isLanguage: true)
 			);
 
             // Cache entites metadata.
@@ -107,32 +107,5 @@ namespace Orko.GuletCroatia
             return await TryGetByPrimaryKeyAsync<Destinacija>(DestinacijaDestinacija);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<Destinacija> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<Destinacija>(queryConditions);
-        }
-        public static IEnumerable<Destinacija> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<Destinacija>(columnName, queryOp, value);
-        }
-		public static Destinacija GetByPrimaryKey(string DestinacijaDestinacija)
-        {
-            return GetByPrimaryKey<Destinacija>(DestinacijaDestinacija);
-        }
-		public static Destinacija TryGetByPrimaryKey(string DestinacijaDestinacija)
-        {
-            return TryGetByPrimaryKey<Destinacija>(DestinacijaDestinacija);
-        }
-        public static Destinacija GetByUnique1(string DestinacijaSlug)
-        {
-            return GetByCallingParameters<Destinacija>(DestinacijaSlug);
-        }
-		public static Destinacija TryGetByUnique1(string DestinacijaSlug)
-        {
-            return TryGetByCallingParameters<Destinacija>(DestinacijaSlug);
-        }
-        #endregion
     }
 }

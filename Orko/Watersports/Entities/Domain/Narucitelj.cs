@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -18,9 +18,9 @@ namespace Orko.Watersports
     public sealed partial class Narucitelj : Entity
     {
 		#region Members
-		private Base.Firma m_FK_Narucitelj_Firma;
-        private Base.Osoba m_FK_Narucitelj_Osoba;
-        private Base.PravnaOsobnost m_FK_Narucitelj_PravnaOsobnost;
+		private Base.Firma m_Firma;
+        private Base.Osoba m_Osoba;
+        private Base.PravnaOsobnost m_PravnaOsobnost;
         #endregion
         
 		#region Constructors
@@ -29,28 +29,28 @@ namespace Orko.Watersports
             // Cache field metadata.
             EntityMeta<Narucitelj>.LoadColumnMetadata
 			(
-				new ColumnMetadata("NaruciteljID", @"NaruciteljID", SqlDbType.Int, isIdentity: true, isPrimaryKey: true),
-                new ColumnMetadata("NaruciteljPravnaOsobnost", @"NaruciteljPravnaOsobnost", SqlDbType.Char, isRequired: false),
-                new ColumnMetadata("NaruciteljOsobaID", @"NaruciteljOsobaID", SqlDbType.Int, isRequired: false),
-                new ColumnMetadata("NaruciteljFirma", @"NaruciteljFirma", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("NaruciteljDomaci", @"NaruciteljDomaci", SqlDbType.Bit, isRequired: false),
-                new ColumnMetadata("NaruciteljOIB", @"NaruciteljOIB", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("NaruciteljIme", @"NaruciteljIme", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("NaruciteljPrezime", @"NaruciteljPrezime", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("NaruciteljNaziv", @"NaruciteljNaziv", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("NaruciteljTelefon1", @"NaruciteljTelefon1", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("NaruciteljTelefon2", @"NaruciteljTelefon2", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("NaruciteljMobitel1", @"NaruciteljMobitel1", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("NaruciteljMobitel2", @"NaruciteljMobitel2", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("NaruciteljEmail", @"NaruciteljEmail", SqlDbType.NVarChar, isRequired: false)
+				new ColumnMetadata(nameof(NaruciteljID), @"NaruciteljID", DbType.Int32, isIdentity: true, isRequired: true),
+                new ColumnMetadata(nameof(NaruciteljPravnaOsobnost), @"NaruciteljPravnaOsobnost", DbType.AnsiStringFixedLength, isRequired: false),
+                new ColumnMetadata(nameof(NaruciteljOsobaID), @"NaruciteljOsobaID", DbType.Int32, isRequired: false),
+                new ColumnMetadata(nameof(NaruciteljFirma), @"NaruciteljFirma", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(NaruciteljDomaci), @"NaruciteljDomaci", DbType.Boolean, isRequired: false),
+                new ColumnMetadata(nameof(NaruciteljOIB), @"NaruciteljOIB", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(NaruciteljIme), @"NaruciteljIme", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(NaruciteljPrezime), @"NaruciteljPrezime", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(NaruciteljNaziv), @"NaruciteljNaziv", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(NaruciteljTelefon1), @"NaruciteljTelefon1", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(NaruciteljTelefon2), @"NaruciteljTelefon2", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(NaruciteljMobitel1), @"NaruciteljMobitel1", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(NaruciteljMobitel2), @"NaruciteljMobitel2", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(NaruciteljEmail), @"NaruciteljEmail", DbType.String, isRequired: false)
 			);
 
             // Cache entites metadata.
             EntityMeta<Narucitelj>.LoadRelationMetadata
 			(
-				new RelationMetadata("FK_Narucitelj_Firma", "NaruciteljFirma", "FirmaFirma"),
-                new RelationMetadata("FK_Narucitelj_Osoba", "NaruciteljOsobaID", "OsobaID"),
-                new RelationMetadata("FK_Narucitelj_PravnaOsobnost", "NaruciteljPravnaOsobnost", "PravnaOsobnostPravnaOsobnost")
+				new RelationMetadata(nameof(Firma), nameof(NaruciteljFirma), nameof(Orko.Base.Firma.FirmaFirma)),
+                new RelationMetadata(nameof(Osoba), nameof(NaruciteljOsobaID), nameof(Orko.Base.Osoba.OsobaID)),
+                new RelationMetadata(nameof(PravnaOsobnost), nameof(NaruciteljPravnaOsobnost), nameof(Orko.Base.PravnaOsobnost.PravnaOsobnostPravnaOsobnost))
 			);
 
 			// Cache table metadata.
@@ -80,20 +80,20 @@ namespace Orko.Watersports
         #endregion
 
         #region Entities
-		public Base.Firma FK_Narucitelj_Firma
+		public Base.Firma Firma
         {
-            get { return EntityContext<Base.Firma>.Get(ref m_FK_Narucitelj_Firma, this, "FK_Narucitelj_Firma"); }
-            set { EntityContext<Base.Firma>.Set(ref m_FK_Narucitelj_Firma, this, value, "FK_Narucitelj_Firma"); }
+            get { return EntityContext<Base.Firma>.Get(ref m_Firma, this, nameof(Firma)); }
+            set { EntityContext<Base.Firma>.Set(ref m_Firma, this, value, nameof(Firma)); }
         }
-        public Base.Osoba FK_Narucitelj_Osoba
+        public Base.Osoba Osoba
         {
-            get { return EntityContext<Base.Osoba>.Get(ref m_FK_Narucitelj_Osoba, this, "FK_Narucitelj_Osoba"); }
-            set { EntityContext<Base.Osoba>.Set(ref m_FK_Narucitelj_Osoba, this, value, "FK_Narucitelj_Osoba"); }
+            get { return EntityContext<Base.Osoba>.Get(ref m_Osoba, this, nameof(Osoba)); }
+            set { EntityContext<Base.Osoba>.Set(ref m_Osoba, this, value, nameof(Osoba)); }
         }
-        public Base.PravnaOsobnost FK_Narucitelj_PravnaOsobnost
+        public Base.PravnaOsobnost PravnaOsobnost
         {
-            get { return EntityContext<Base.PravnaOsobnost>.Get(ref m_FK_Narucitelj_PravnaOsobnost, this, "FK_Narucitelj_PravnaOsobnost"); }
-            set { EntityContext<Base.PravnaOsobnost>.Set(ref m_FK_Narucitelj_PravnaOsobnost, this, value, "FK_Narucitelj_PravnaOsobnost"); }
+            get { return EntityContext<Base.PravnaOsobnost>.Get(ref m_PravnaOsobnost, this, nameof(PravnaOsobnost)); }
+            set { EntityContext<Base.PravnaOsobnost>.Set(ref m_PravnaOsobnost, this, value, nameof(PravnaOsobnost)); }
         }
         #endregion
 
@@ -115,24 +115,5 @@ namespace Orko.Watersports
             return await TryGetByPrimaryKeyAsync<Narucitelj>(NaruciteljID);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<Narucitelj> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<Narucitelj>(queryConditions);
-        }
-        public static IEnumerable<Narucitelj> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<Narucitelj>(columnName, queryOp, value);
-        }
-		public static Narucitelj GetByPrimaryKey(int NaruciteljID)
-        {
-            return GetByPrimaryKey<Narucitelj>(NaruciteljID);
-        }
-		public static Narucitelj TryGetByPrimaryKey(int NaruciteljID)
-        {
-            return TryGetByPrimaryKey<Narucitelj>(NaruciteljID);
-        }
-        #endregion
     }
 }

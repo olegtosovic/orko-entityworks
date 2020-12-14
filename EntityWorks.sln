@@ -21,15 +21,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{EF
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{F2E6EE17-D811-4D73-A295-E74C807BDF71}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventureWorks", "AdventureWorks\AdventureWorks.csproj", "{D26DBDC8-3523-4246-9407-CD7ECAC2E112}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventureWorks", "AdventureWorks\AdventureWorks.csproj", "{D26DBDC8-3523-4246-9407-CD7ECAC2E112}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Northwind", "Northwind\Northwind.csproj", "{E636C4F7-15BB-4B56-9750-3363480BE0B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Northwind", "Northwind\Northwind.csproj", "{E636C4F7-15BB-4B56-9750-3363480BE0B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orko", "Orko\Orko.csproj", "{A3A891CD-B935-4315-9430-1E6EC56B01C4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Orko", "Orko\Orko.csproj", "{A3A891CD-B935-4315-9430-1E6EC56B01C4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Desktop", "Desktop", "{89C5B5A3-8AD3-4DEC-AA05-A3FCE07C055E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orko.WinForms", "Orko.WinForms\Orko.WinForms.csproj", "{3F705147-E371-4773-89BC-2C261B4C6E15}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Orko.WinForms", "Orko.WinForms\Orko.WinForms.csproj", "{3F705147-E371-4773-89BC-2C261B4C6E15}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

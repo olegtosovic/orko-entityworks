@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -18,7 +18,7 @@ namespace Orko.Turist
     public sealed partial class VrstaSmjestajneJedinice : Entity
     {
 		#region Members
-		private VrstaSmjestajnogObjekta m_FK_VrstaSmjestajneJedinice_VrstaSmjestajnogObjekta;
+		private VrstaSmjestajnogObjekta m_VrstaSmjestajnogObjekta;
         #endregion
         
 		#region Constructors
@@ -27,20 +27,20 @@ namespace Orko.Turist
             // Cache field metadata.
             EntityMeta<VrstaSmjestajneJedinice>.LoadColumnMetadata
 			(
-				new ColumnMetadata("VrstaSmjestajneJediniceVrstaSmjestajneJedinice", @"VrstaSmjestajneJediniceVrstaSmjestajneJedinice", SqlDbType.NVarChar, isPrimaryKey: true),
-                new ColumnMetadata("VrstaSmjestajneJediniceVrstaSmjestajnogObjekta", @"VrstaSmjestajneJediniceVrstaSmjestajnogObjekta", SqlDbType.NVarChar, isPrimaryKey: true),
-                new ColumnMetadata("VrstaSmjestajneJediniceSkupinaSmjestajnogObjekta", @"VrstaSmjestajneJediniceSkupinaSmjestajnogObjekta", SqlDbType.NVarChar, isPrimaryKey: true),
-                new ColumnMetadata("VrstaSmjestajneJediniceAktivnost", @"VrstaSmjestajneJediniceAktivnost", SqlDbType.Bit, isRequired: true),
-                new ColumnMetadata("VrstaSmjestajneJediniceJezik", @"VrstaSmjestajneJediniceJezik", SqlDbType.Char, isLanguageCode: true, isPrimaryKey: true),
-                new ColumnMetadata("VrstaSmjestajneJediniceNaziv", @"VrstaSmjestajneJediniceNaziv", SqlDbType.NVarChar, isRequired: true, isLanguage: true),
-                new ColumnMetadata("VrstaSmjestajneJediniceOpis", @"VrstaSmjestajneJediniceOpis", SqlDbType.NVarChar, isRequired: false, isLanguage: true)
+				new ColumnMetadata(nameof(VrstaSmjestajneJediniceVrstaSmjestajneJedinice), @"VrstaSmjestajneJediniceVrstaSmjestajneJedinice", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(VrstaSmjestajneJediniceVrstaSmjestajnogObjekta), @"VrstaSmjestajneJediniceVrstaSmjestajnogObjekta", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(VrstaSmjestajneJediniceSkupinaSmjestajnogObjekta), @"VrstaSmjestajneJediniceSkupinaSmjestajnogObjekta", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(VrstaSmjestajneJediniceAktivnost), @"VrstaSmjestajneJediniceAktivnost", DbType.Boolean, isRequired: true),
+                new ColumnMetadata(nameof(VrstaSmjestajneJediniceJezik), @"VrstaSmjestajneJediniceJezik", DbType.AnsiStringFixedLength, isRequired: true, isLanguageCode: true),
+                new ColumnMetadata(nameof(VrstaSmjestajneJediniceNaziv), @"VrstaSmjestajneJediniceNaziv", DbType.String, isRequired: true, isLanguage: true),
+                new ColumnMetadata(nameof(VrstaSmjestajneJediniceOpis), @"VrstaSmjestajneJediniceOpis", DbType.String, isRequired: false, isLanguage: true)
 			);
 
             // Cache entites metadata.
             EntityMeta<VrstaSmjestajneJedinice>.LoadRelationMetadata
 			(
-				new RelationMetadata("FK_VrstaSmjestajneJedinice_VrstaSmjestajnogObjekta", "VrstaSmjestajneJediniceVrstaSmjestajnogObjekta", "VrstaSmjestajnogObjektaVrstaSmjestajnogObjekta"),
-                new RelationMetadata("FK_VrstaSmjestajneJedinice_VrstaSmjestajnogObjekta", "VrstaSmjestajneJediniceSkupinaSmjestajnogObjekta", "VrstaSmjestajnogObjektaSkupinaSmjestajnogObjekta")
+				new RelationMetadata(nameof(VrstaSmjestajnogObjekta), nameof(VrstaSmjestajneJediniceVrstaSmjestajnogObjekta), nameof(Orko.Turist.VrstaSmjestajnogObjekta.VrstaSmjestajnogObjektaVrstaSmjestajnogObjekta)),
+                new RelationMetadata(nameof(VrstaSmjestajnogObjekta), nameof(VrstaSmjestajneJediniceSkupinaSmjestajnogObjekta), nameof(Orko.Turist.VrstaSmjestajnogObjekta.VrstaSmjestajnogObjektaSkupinaSmjestajnogObjekta))
 			);
 
 			// Cache table metadata.
@@ -63,10 +63,10 @@ namespace Orko.Turist
         #endregion
 
         #region Entities
-		public VrstaSmjestajnogObjekta FK_VrstaSmjestajneJedinice_VrstaSmjestajnogObjekta
+		public VrstaSmjestajnogObjekta VrstaSmjestajnogObjekta
         {
-            get { return EntityContext<VrstaSmjestajnogObjekta>.Get(ref m_FK_VrstaSmjestajneJedinice_VrstaSmjestajnogObjekta, this, "FK_VrstaSmjestajneJedinice_VrstaSmjestajnogObjekta"); }
-            set { EntityContext<VrstaSmjestajnogObjekta>.Set(ref m_FK_VrstaSmjestajneJedinice_VrstaSmjestajnogObjekta, this, value, "FK_VrstaSmjestajneJedinice_VrstaSmjestajnogObjekta"); }
+            get { return EntityContext<VrstaSmjestajnogObjekta>.Get(ref m_VrstaSmjestajnogObjekta, this, nameof(VrstaSmjestajnogObjekta)); }
+            set { EntityContext<VrstaSmjestajnogObjekta>.Set(ref m_VrstaSmjestajnogObjekta, this, value, nameof(VrstaSmjestajnogObjekta)); }
         }
         #endregion
 
@@ -88,24 +88,5 @@ namespace Orko.Turist
             return await TryGetByPrimaryKeyAsync<VrstaSmjestajneJedinice>(VrstaSmjestajneJediniceVrstaSmjestajneJedinice, VrstaSmjestajneJediniceVrstaSmjestajnogObjekta, VrstaSmjestajneJediniceSkupinaSmjestajnogObjekta);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<VrstaSmjestajneJedinice> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<VrstaSmjestajneJedinice>(queryConditions);
-        }
-        public static IEnumerable<VrstaSmjestajneJedinice> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<VrstaSmjestajneJedinice>(columnName, queryOp, value);
-        }
-		public static VrstaSmjestajneJedinice GetByPrimaryKey(string VrstaSmjestajneJediniceVrstaSmjestajneJedinice, string VrstaSmjestajneJediniceVrstaSmjestajnogObjekta, string VrstaSmjestajneJediniceSkupinaSmjestajnogObjekta)
-        {
-            return GetByPrimaryKey<VrstaSmjestajneJedinice>(VrstaSmjestajneJediniceVrstaSmjestajneJedinice, VrstaSmjestajneJediniceVrstaSmjestajnogObjekta, VrstaSmjestajneJediniceSkupinaSmjestajnogObjekta);
-        }
-		public static VrstaSmjestajneJedinice TryGetByPrimaryKey(string VrstaSmjestajneJediniceVrstaSmjestajneJedinice, string VrstaSmjestajneJediniceVrstaSmjestajnogObjekta, string VrstaSmjestajneJediniceSkupinaSmjestajnogObjekta)
-        {
-            return TryGetByPrimaryKey<VrstaSmjestajneJedinice>(VrstaSmjestajneJediniceVrstaSmjestajneJedinice, VrstaSmjestajneJediniceVrstaSmjestajnogObjekta, VrstaSmjestajneJediniceSkupinaSmjestajnogObjekta);
-        }
-        #endregion
     }
 }

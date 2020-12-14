@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -18,8 +18,8 @@ namespace Orko.Blog
     public sealed partial class Clanak : Entity
     {
 		#region Members
-		private Kategorija m_FK_Clanak_Kategorija;
-        private Sistem.Korisnik m_FK_Clanak_Korisnik;
+		private Kategorija m_Kategorija;
+        private Sistem.Korisnik m_Korisnik;
         #endregion
         
 		#region Constructors
@@ -28,29 +28,29 @@ namespace Orko.Blog
             // Cache field metadata.
             EntityMeta<Clanak>.LoadColumnMetadata
 			(
-				new ColumnMetadata("ClanakID", @"ClanakID", SqlDbType.Int, isIdentity: true, isPrimaryKey: true),
-                new ColumnMetadata("ClanakKorisnikID", @"ClanakKorisnikID", SqlDbType.Int, isRequired: false),
-                new ColumnMetadata("ClanakKategorijaID", @"ClanakKategorijaID", SqlDbType.Int, isRequired: false),
-                new ColumnMetadata("ClanakDatumOd", @"ClanakDatumOd", SqlDbType.DateTime2, isRequired: true),
-                new ColumnMetadata("ClanakDatumDo", @"ClanakDatumDo", SqlDbType.DateTime2, isRequired: false),
-                new ColumnMetadata("ClanakIstaknut", @"ClanakIstaknut", SqlDbType.Bit, isRequired: true),
-                new ColumnMetadata("ClanakAktivnost", @"ClanakAktivnost", SqlDbType.Bit, isRequired: true),
-                new ColumnMetadata("ClanakJezik", @"ClanakJezik", SqlDbType.Char, isLanguageCode: true, isPrimaryKey: true),
-                new ColumnMetadata("ClanakSlug", @"ClanakSlug", SqlDbType.NVarChar, isRequired: true, isLanguage: true),
-                new ColumnMetadata("ClanakNaslov", @"ClanakNaslov", SqlDbType.NVarChar, isRequired: true, isLanguage: true),
-                new ColumnMetadata("ClanakPodnaslov", @"ClanakPodnaslov", SqlDbType.NVarChar, isRequired: false, isLanguage: true),
-                new ColumnMetadata("ClanakSadrzaj", @"ClanakSadrzaj", SqlDbType.NVarChar, isRequired: true, isLanguage: true),
-                new ColumnMetadata("ClanakMetaTitle", @"ClanakMetaTitle", SqlDbType.NVarChar, isRequired: false, isLanguage: true),
-                new ColumnMetadata("ClanakMetaDescription", @"ClanakMetaDescription", SqlDbType.NVarChar, isRequired: false, isLanguage: true),
-                new ColumnMetadata("ClanakMetaSingleAlt", @"ClanakMetaSingleAlt", SqlDbType.NVarChar, isRequired: false, isLanguage: true),
-                new ColumnMetadata("ClanakMetaListAlt", @"ClanakMetaListAlt", SqlDbType.NVarChar, isRequired: false, isLanguage: true)
+				new ColumnMetadata(nameof(ClanakID), @"ClanakID", DbType.Int32, isIdentity: true, isRequired: true),
+                new ColumnMetadata(nameof(ClanakKorisnikID), @"ClanakKorisnikID", DbType.Int32, isRequired: false),
+                new ColumnMetadata(nameof(ClanakKategorijaID), @"ClanakKategorijaID", DbType.Int32, isRequired: false),
+                new ColumnMetadata(nameof(ClanakDatumOd), @"ClanakDatumOd", DbType.DateTime2, isRequired: true),
+                new ColumnMetadata(nameof(ClanakDatumDo), @"ClanakDatumDo", DbType.DateTime2, isRequired: false),
+                new ColumnMetadata(nameof(ClanakIstaknut), @"ClanakIstaknut", DbType.Boolean, isRequired: true),
+                new ColumnMetadata(nameof(ClanakAktivnost), @"ClanakAktivnost", DbType.Boolean, isRequired: true),
+                new ColumnMetadata(nameof(ClanakJezik), @"ClanakJezik", DbType.AnsiStringFixedLength, isRequired: true, isLanguageCode: true),
+                new ColumnMetadata(nameof(ClanakSlug), @"ClanakSlug", DbType.String, isRequired: true, isLanguage: true),
+                new ColumnMetadata(nameof(ClanakNaslov), @"ClanakNaslov", DbType.String, isRequired: true, isLanguage: true),
+                new ColumnMetadata(nameof(ClanakPodnaslov), @"ClanakPodnaslov", DbType.String, isRequired: false, isLanguage: true),
+                new ColumnMetadata(nameof(ClanakSadrzaj), @"ClanakSadrzaj", DbType.String, isRequired: true, isLanguage: true),
+                new ColumnMetadata(nameof(ClanakMetaTitle), @"ClanakMetaTitle", DbType.String, isRequired: false, isLanguage: true),
+                new ColumnMetadata(nameof(ClanakMetaDescription), @"ClanakMetaDescription", DbType.String, isRequired: false, isLanguage: true),
+                new ColumnMetadata(nameof(ClanakMetaSingleAlt), @"ClanakMetaSingleAlt", DbType.String, isRequired: false, isLanguage: true),
+                new ColumnMetadata(nameof(ClanakMetaListAlt), @"ClanakMetaListAlt", DbType.String, isRequired: false, isLanguage: true)
 			);
 
             // Cache entites metadata.
             EntityMeta<Clanak>.LoadRelationMetadata
 			(
-				new RelationMetadata("FK_Clanak_Kategorija", "ClanakKategorijaID", "KategorijaID"),
-                new RelationMetadata("FK_Clanak_Korisnik", "ClanakKorisnikID", "KorisnikID")
+				new RelationMetadata(nameof(Kategorija), nameof(ClanakKategorijaID), nameof(Orko.Blog.Kategorija.KategorijaID)),
+                new RelationMetadata(nameof(Korisnik), nameof(ClanakKorisnikID), nameof(Orko.Sistem.Korisnik.KorisnikID))
 			);
 
 			// Cache table metadata.
@@ -82,15 +82,15 @@ namespace Orko.Blog
         #endregion
 
         #region Entities
-		public Kategorija FK_Clanak_Kategorija
+		public Kategorija Kategorija
         {
-            get { return EntityContext<Kategorija>.Get(ref m_FK_Clanak_Kategorija, this, "FK_Clanak_Kategorija"); }
-            set { EntityContext<Kategorija>.Set(ref m_FK_Clanak_Kategorija, this, value, "FK_Clanak_Kategorija"); }
+            get { return EntityContext<Kategorija>.Get(ref m_Kategorija, this, nameof(Kategorija)); }
+            set { EntityContext<Kategorija>.Set(ref m_Kategorija, this, value, nameof(Kategorija)); }
         }
-        public Sistem.Korisnik FK_Clanak_Korisnik
+        public Sistem.Korisnik Korisnik
         {
-            get { return EntityContext<Sistem.Korisnik>.Get(ref m_FK_Clanak_Korisnik, this, "FK_Clanak_Korisnik"); }
-            set { EntityContext<Sistem.Korisnik>.Set(ref m_FK_Clanak_Korisnik, this, value, "FK_Clanak_Korisnik"); }
+            get { return EntityContext<Sistem.Korisnik>.Get(ref m_Korisnik, this, nameof(Korisnik)); }
+            set { EntityContext<Sistem.Korisnik>.Set(ref m_Korisnik, this, value, nameof(Korisnik)); }
         }
         #endregion
 
@@ -112,24 +112,5 @@ namespace Orko.Blog
             return await TryGetByPrimaryKeyAsync<Clanak>(ClanakID);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<Clanak> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<Clanak>(queryConditions);
-        }
-        public static IEnumerable<Clanak> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<Clanak>(columnName, queryOp, value);
-        }
-		public static Clanak GetByPrimaryKey(int ClanakID)
-        {
-            return GetByPrimaryKey<Clanak>(ClanakID);
-        }
-		public static Clanak TryGetByPrimaryKey(int ClanakID)
-        {
-            return TryGetByPrimaryKey<Clanak>(ClanakID);
-        }
-        #endregion
     }
 }

@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -18,8 +18,8 @@ namespace Orko.GuletCroatia
     public sealed partial class KrstarenjeDan : Entity
     {
 		#region Members
-		private Destinacija m_FK_KrstarenjeDan_Destinacija;
-        private Krstarenje m_FK_KrstarenjeDan_Krstarenje;
+		private Destinacija m_Destinacija;
+        private Krstarenje m_Krstarenje;
         #endregion
         
 		#region Constructors
@@ -28,20 +28,20 @@ namespace Orko.GuletCroatia
             // Cache field metadata.
             EntityMeta<KrstarenjeDan>.LoadColumnMetadata
 			(
-				new ColumnMetadata("KrstarenjeDanID", @"KrstarenjeDanID", SqlDbType.Int, isIdentity: true, isPrimaryKey: true),
-                new ColumnMetadata("KrstarenjeDanDestinacija", @"KrstarenjeDanDestinacija", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("KrstarenjeDanKrstarenje", @"KrstarenjeDanKrstarenje", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("KrstarenjeDanBrojDana", @"KrstarenjeDanBrojDana", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("KrstarenjeDanJezik", @"KrstarenjeDanJezik", SqlDbType.Char, isLanguageCode: true, isPrimaryKey: true),
-                new ColumnMetadata("KrstarenjeDanTekst", @"KrstarenjeDanTekst", SqlDbType.NVarChar, isRequired: true, isLanguage: true),
-                new ColumnMetadata("KrstarenjeDanNaslov", @"KrstarenjeDanNaslov", SqlDbType.NVarChar, isRequired: true, isLanguage: true)
+				new ColumnMetadata(nameof(KrstarenjeDanID), @"KrstarenjeDanID", DbType.Int32, isIdentity: true, isRequired: true),
+                new ColumnMetadata(nameof(KrstarenjeDanDestinacija), @"KrstarenjeDanDestinacija", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(KrstarenjeDanKrstarenje), @"KrstarenjeDanKrstarenje", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(KrstarenjeDanBrojDana), @"KrstarenjeDanBrojDana", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(KrstarenjeDanJezik), @"KrstarenjeDanJezik", DbType.AnsiStringFixedLength, isRequired: true, isLanguageCode: true),
+                new ColumnMetadata(nameof(KrstarenjeDanTekst), @"KrstarenjeDanTekst", DbType.String, isRequired: true, isLanguage: true),
+                new ColumnMetadata(nameof(KrstarenjeDanNaslov), @"KrstarenjeDanNaslov", DbType.String, isRequired: true, isLanguage: true)
 			);
 
             // Cache entites metadata.
             EntityMeta<KrstarenjeDan>.LoadRelationMetadata
 			(
-				new RelationMetadata("FK_KrstarenjeDan_Destinacija", "KrstarenjeDanDestinacija", "DestinacijaDestinacija"),
-                new RelationMetadata("FK_KrstarenjeDan_Krstarenje", "KrstarenjeDanKrstarenje", "KrstarenjeKrstarenje")
+				new RelationMetadata(nameof(Destinacija), nameof(KrstarenjeDanDestinacija), nameof(Orko.GuletCroatia.Destinacija.DestinacijaDestinacija)),
+                new RelationMetadata(nameof(Krstarenje), nameof(KrstarenjeDanKrstarenje), nameof(Orko.GuletCroatia.Krstarenje.KrstarenjeKrstarenje))
 			);
 
 			// Cache table metadata.
@@ -64,15 +64,15 @@ namespace Orko.GuletCroatia
         #endregion
 
         #region Entities
-		public Destinacija FK_KrstarenjeDan_Destinacija
+		public Destinacija Destinacija
         {
-            get { return EntityContext<Destinacija>.Get(ref m_FK_KrstarenjeDan_Destinacija, this, "FK_KrstarenjeDan_Destinacija"); }
-            set { EntityContext<Destinacija>.Set(ref m_FK_KrstarenjeDan_Destinacija, this, value, "FK_KrstarenjeDan_Destinacija"); }
+            get { return EntityContext<Destinacija>.Get(ref m_Destinacija, this, nameof(Destinacija)); }
+            set { EntityContext<Destinacija>.Set(ref m_Destinacija, this, value, nameof(Destinacija)); }
         }
-        public Krstarenje FK_KrstarenjeDan_Krstarenje
+        public Krstarenje Krstarenje
         {
-            get { return EntityContext<Krstarenje>.Get(ref m_FK_KrstarenjeDan_Krstarenje, this, "FK_KrstarenjeDan_Krstarenje"); }
-            set { EntityContext<Krstarenje>.Set(ref m_FK_KrstarenjeDan_Krstarenje, this, value, "FK_KrstarenjeDan_Krstarenje"); }
+            get { return EntityContext<Krstarenje>.Get(ref m_Krstarenje, this, nameof(Krstarenje)); }
+            set { EntityContext<Krstarenje>.Set(ref m_Krstarenje, this, value, nameof(Krstarenje)); }
         }
         #endregion
 
@@ -94,24 +94,5 @@ namespace Orko.GuletCroatia
             return await TryGetByPrimaryKeyAsync<KrstarenjeDan>(KrstarenjeDanID);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<KrstarenjeDan> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<KrstarenjeDan>(queryConditions);
-        }
-        public static IEnumerable<KrstarenjeDan> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<KrstarenjeDan>(columnName, queryOp, value);
-        }
-		public static KrstarenjeDan GetByPrimaryKey(int KrstarenjeDanID)
-        {
-            return GetByPrimaryKey<KrstarenjeDan>(KrstarenjeDanID);
-        }
-		public static KrstarenjeDan TryGetByPrimaryKey(int KrstarenjeDanID)
-        {
-            return TryGetByPrimaryKey<KrstarenjeDan>(KrstarenjeDanID);
-        }
-        #endregion
     }
 }

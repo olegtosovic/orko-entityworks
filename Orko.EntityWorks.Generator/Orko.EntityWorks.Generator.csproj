@@ -11,6 +11,8 @@
 
   <ItemGroup>
     <None Remove="Templates\Domain.txt" />
+    <None Remove="Templates\Entities\Domain\DomainAsync.txt" />
+    <None Remove="Templates\Entities\Logic\LogicAsync.txt" />
     <None Remove="Templates\EntityList.txt" />
     <None Remove="Templates\FieldList.txt" />
     <None Remove="Templates\FieldMetadataList.txt" />
@@ -24,8 +26,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Templates\Entities\Domain\DomainAsync.txt" />
     <EmbeddedResource Include="Templates\Entities\Domain\Domain.txt" />
     <EmbeddedResource Include="Templates\Entities\Domain\EntityList.txt" />
+    <EmbeddedResource Include="Templates\Entities\Logic\LogicAsync.txt" />
     <EmbeddedResource Include="Templates\Entities\Static\StaticList.txt" />
     <EmbeddedResource Include="Templates\Entities\Domain\FieldList.txt" />
     <EmbeddedResource Include="Templates\Entities\Domain\FieldMetadataList.txt" />
@@ -35,10 +39,6 @@
     <EmbeddedResource Include="Templates\Entities\Static\Static.txt" />
     <EmbeddedResource Include="Templates\Entities\Domain\TableMetadata.txt" />
     <EmbeddedResource Include="Templates\Entities\Domain\UniqueMethodList.txt" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="2.0.1" />
   </ItemGroup>
 
   <ItemGroup>

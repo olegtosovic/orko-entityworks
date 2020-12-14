@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -27,9 +27,9 @@ namespace Orko.Sistem
             // Cache field metadata.
             EntityMeta<Instalacija>.LoadColumnMetadata
 			(
-				new ColumnMetadata("InstalacijaInstalacija", @"InstalacijaInstalacija", SqlDbType.NVarChar, isPrimaryKey: true),
-                new ColumnMetadata("InstalacijaNaziv", @"InstalacijaNaziv", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("InstalacijaAktivnost", @"InstalacijaAktivnost", SqlDbType.Bit, isRequired: true)
+				new ColumnMetadata(nameof(InstalacijaInstalacija), @"InstalacijaInstalacija", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(InstalacijaNaziv), @"InstalacijaNaziv", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(InstalacijaAktivnost), @"InstalacijaAktivnost", DbType.Boolean, isRequired: true)
 			);
 
             // Cache entites metadata.
@@ -75,24 +75,5 @@ namespace Orko.Sistem
             return await TryGetByPrimaryKeyAsync<Instalacija>(InstalacijaInstalacija);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<Instalacija> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<Instalacija>(queryConditions);
-        }
-        public static IEnumerable<Instalacija> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<Instalacija>(columnName, queryOp, value);
-        }
-		public static Instalacija GetByPrimaryKey(string InstalacijaInstalacija)
-        {
-            return GetByPrimaryKey<Instalacija>(InstalacijaInstalacija);
-        }
-		public static Instalacija TryGetByPrimaryKey(string InstalacijaInstalacija)
-        {
-            return TryGetByPrimaryKey<Instalacija>(InstalacijaInstalacija);
-        }
-        #endregion
     }
 }

@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -27,13 +27,13 @@ namespace Orko.Base
             // Cache field metadata.
             EntityMeta<VrstaProtokola>.LoadColumnMetadata
 			(
-				new ColumnMetadata("VrstaProtokolaVrstaProtokola", @"VrstaProtokolaVrstaProtokola", SqlDbType.NVarChar, isPrimaryKey: true),
-                new ColumnMetadata("VrstaProtokolaAktivnost", @"VrstaProtokolaAktivnost", SqlDbType.Bit, isRequired: true),
-                new ColumnMetadata("VrstaProtokolaUradio", @"VrstaProtokolaUradio", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("VrstaProtokolaDatumIzmjene", @"VrstaProtokolaDatumIzmjene", SqlDbType.DateTime2, isRequired: true),
-                new ColumnMetadata("VrstaProtokolaJezik", @"VrstaProtokolaJezik", SqlDbType.Char, isLanguageCode: true, isPrimaryKey: true),
-                new ColumnMetadata("VrstaProtokolaNaziv", @"VrstaProtokolaNaziv", SqlDbType.NVarChar, isRequired: true, isLanguage: true),
-                new ColumnMetadata("VrstaProtokolaOpis", @"VrstaProtokolaOpis", SqlDbType.NVarChar, isRequired: false, isLanguage: true)
+				new ColumnMetadata(nameof(VrstaProtokolaVrstaProtokola), @"VrstaProtokolaVrstaProtokola", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(VrstaProtokolaAktivnost), @"VrstaProtokolaAktivnost", DbType.Boolean, isRequired: true),
+                new ColumnMetadata(nameof(VrstaProtokolaUradio), @"VrstaProtokolaUradio", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(VrstaProtokolaDatumIzmjene), @"VrstaProtokolaDatumIzmjene", DbType.DateTime2, isRequired: true),
+                new ColumnMetadata(nameof(VrstaProtokolaJezik), @"VrstaProtokolaJezik", DbType.AnsiStringFixedLength, isRequired: true, isLanguageCode: true),
+                new ColumnMetadata(nameof(VrstaProtokolaNaziv), @"VrstaProtokolaNaziv", DbType.String, isRequired: true, isLanguage: true),
+                new ColumnMetadata(nameof(VrstaProtokolaOpis), @"VrstaProtokolaOpis", DbType.String, isRequired: false, isLanguage: true)
 			);
 
             // Cache entites metadata.
@@ -83,24 +83,5 @@ namespace Orko.Base
             return await TryGetByPrimaryKeyAsync<VrstaProtokola>(VrstaProtokolaVrstaProtokola);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<VrstaProtokola> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<VrstaProtokola>(queryConditions);
-        }
-        public static IEnumerable<VrstaProtokola> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<VrstaProtokola>(columnName, queryOp, value);
-        }
-		public static VrstaProtokola GetByPrimaryKey(string VrstaProtokolaVrstaProtokola)
-        {
-            return GetByPrimaryKey<VrstaProtokola>(VrstaProtokolaVrstaProtokola);
-        }
-		public static VrstaProtokola TryGetByPrimaryKey(string VrstaProtokolaVrstaProtokola)
-        {
-            return TryGetByPrimaryKey<VrstaProtokola>(VrstaProtokolaVrstaProtokola);
-        }
-        #endregion
     }
 }

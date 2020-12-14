@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -27,10 +27,10 @@ namespace Orko.Turist
             // Cache field metadata.
             EntityMeta<PogledSmjestajneJedinice>.LoadColumnMetadata
 			(
-				new ColumnMetadata("PogledSmjestajneJedinicePogledSmjestajneJedinice", @"PogledSmjestajneJedinicePogledSmjestajneJedinice", SqlDbType.NVarChar, isPrimaryKey: true),
-                new ColumnMetadata("PogledSmjestajneJediniceAktivnost", @"PogledSmjestajneJediniceAktivnost", SqlDbType.Bit, isRequired: true),
-                new ColumnMetadata("PogledSmjestajneJediniceJezik", @"PogledSmjestajneJediniceJezik", SqlDbType.Char, isLanguageCode: true, isPrimaryKey: true),
-                new ColumnMetadata("PogledSmjestajneJediniceNaziv", @"PogledSmjestajneJediniceNaziv", SqlDbType.NVarChar, isRequired: true, isLanguage: true)
+				new ColumnMetadata(nameof(PogledSmjestajneJedinicePogledSmjestajneJedinice), @"PogledSmjestajneJedinicePogledSmjestajneJedinice", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(PogledSmjestajneJediniceAktivnost), @"PogledSmjestajneJediniceAktivnost", DbType.Boolean, isRequired: true),
+                new ColumnMetadata(nameof(PogledSmjestajneJediniceJezik), @"PogledSmjestajneJediniceJezik", DbType.AnsiStringFixedLength, isRequired: true, isLanguageCode: true),
+                new ColumnMetadata(nameof(PogledSmjestajneJediniceNaziv), @"PogledSmjestajneJediniceNaziv", DbType.String, isRequired: true, isLanguage: true)
 			);
 
             // Cache entites metadata.
@@ -77,24 +77,5 @@ namespace Orko.Turist
             return await TryGetByPrimaryKeyAsync<PogledSmjestajneJedinice>(PogledSmjestajneJedinicePogledSmjestajneJedinice);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<PogledSmjestajneJedinice> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<PogledSmjestajneJedinice>(queryConditions);
-        }
-        public static IEnumerable<PogledSmjestajneJedinice> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<PogledSmjestajneJedinice>(columnName, queryOp, value);
-        }
-		public static PogledSmjestajneJedinice GetByPrimaryKey(string PogledSmjestajneJedinicePogledSmjestajneJedinice)
-        {
-            return GetByPrimaryKey<PogledSmjestajneJedinice>(PogledSmjestajneJedinicePogledSmjestajneJedinice);
-        }
-		public static PogledSmjestajneJedinice TryGetByPrimaryKey(string PogledSmjestajneJedinicePogledSmjestajneJedinice)
-        {
-            return TryGetByPrimaryKey<PogledSmjestajneJedinice>(PogledSmjestajneJedinicePogledSmjestajneJedinice);
-        }
-        #endregion
     }
 }

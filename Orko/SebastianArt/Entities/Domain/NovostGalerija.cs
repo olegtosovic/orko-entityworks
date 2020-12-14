@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -18,7 +18,7 @@ namespace Orko.SebastianArt
     public sealed partial class NovostGalerija : Entity
     {
 		#region Members
-		private Novost m_FK_NovostGalerija_Novost;
+		private Novost m_Novost;
         #endregion
         
 		#region Constructors
@@ -27,18 +27,18 @@ namespace Orko.SebastianArt
             // Cache field metadata.
             EntityMeta<NovostGalerija>.LoadColumnMetadata
 			(
-				new ColumnMetadata("NovostGalerijaID", @"NovostGalerijaID", SqlDbType.Int, isIdentity: true, isPrimaryKey: true),
-                new ColumnMetadata("NovostGalerijaNovostID", @"NovostGalerijaNovostID", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("NovostGalerijaSlikaNaziv", @"NovostGalerijaSlikaNaziv", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("NovostGalerijaAktivnost", @"NovostGalerijaAktivnost", SqlDbType.Bit, isRequired: false),
-                new ColumnMetadata("NovostGalerijaJezik", @"NovostGalerijaJezik", SqlDbType.Char, isLanguageCode: true, isPrimaryKey: true),
-                new ColumnMetadata("NovostGalerijaSlikaOpis", @"NovostGalerijaSlikaOpis", SqlDbType.NVarChar, isRequired: false, isLanguage: true)
+				new ColumnMetadata(nameof(NovostGalerijaID), @"NovostGalerijaID", DbType.Int32, isIdentity: true, isRequired: true),
+                new ColumnMetadata(nameof(NovostGalerijaNovostID), @"NovostGalerijaNovostID", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(NovostGalerijaSlikaNaziv), @"NovostGalerijaSlikaNaziv", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(NovostGalerijaAktivnost), @"NovostGalerijaAktivnost", DbType.Boolean, isRequired: false),
+                new ColumnMetadata(nameof(NovostGalerijaJezik), @"NovostGalerijaJezik", DbType.AnsiStringFixedLength, isRequired: true, isLanguageCode: true),
+                new ColumnMetadata(nameof(NovostGalerijaSlikaOpis), @"NovostGalerijaSlikaOpis", DbType.String, isRequired: false, isLanguage: true)
 			);
 
             // Cache entites metadata.
             EntityMeta<NovostGalerija>.LoadRelationMetadata
 			(
-				new RelationMetadata("FK_NovostGalerija_Novost", "NovostGalerijaNovostID", "NovostID")
+				new RelationMetadata(nameof(Novost), nameof(NovostGalerijaNovostID), nameof(Orko.SebastianArt.Novost.NovostID))
 			);
 
 			// Cache table metadata.
@@ -60,10 +60,10 @@ namespace Orko.SebastianArt
         #endregion
 
         #region Entities
-		public Novost FK_NovostGalerija_Novost
+		public Novost Novost
         {
-            get { return EntityContext<Novost>.Get(ref m_FK_NovostGalerija_Novost, this, "FK_NovostGalerija_Novost"); }
-            set { EntityContext<Novost>.Set(ref m_FK_NovostGalerija_Novost, this, value, "FK_NovostGalerija_Novost"); }
+            get { return EntityContext<Novost>.Get(ref m_Novost, this, nameof(Novost)); }
+            set { EntityContext<Novost>.Set(ref m_Novost, this, value, nameof(Novost)); }
         }
         #endregion
 
@@ -85,24 +85,5 @@ namespace Orko.SebastianArt
             return await TryGetByPrimaryKeyAsync<NovostGalerija>(NovostGalerijaID);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<NovostGalerija> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<NovostGalerija>(queryConditions);
-        }
-        public static IEnumerable<NovostGalerija> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<NovostGalerija>(columnName, queryOp, value);
-        }
-		public static NovostGalerija GetByPrimaryKey(int NovostGalerijaID)
-        {
-            return GetByPrimaryKey<NovostGalerija>(NovostGalerijaID);
-        }
-		public static NovostGalerija TryGetByPrimaryKey(int NovostGalerijaID)
-        {
-            return TryGetByPrimaryKey<NovostGalerija>(NovostGalerijaID);
-        }
-        #endregion
     }
 }

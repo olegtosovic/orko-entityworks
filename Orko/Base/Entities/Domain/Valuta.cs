@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -27,12 +27,12 @@ namespace Orko.Base
             // Cache field metadata.
             EntityMeta<Valuta>.LoadColumnMetadata
 			(
-				new ColumnMetadata("ValutaValuta", @"ValutaValuta", SqlDbType.Char, isPrimaryKey: true),
-                new ColumnMetadata("ValutaOznaka", @"ValutaOznaka", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("ValutaBrojcanaSifra", @"ValutaBrojcanaSifra", SqlDbType.Char, isRequired: false),
-                new ColumnMetadata("ValutaAktivnost", @"ValutaAktivnost", SqlDbType.Bit, isRequired: true),
-                new ColumnMetadata("ValutaJezik", @"ValutaJezik", SqlDbType.Char, isLanguageCode: true, isPrimaryKey: true),
-                new ColumnMetadata("ValutaNaziv", @"ValutaNaziv", SqlDbType.NVarChar, isRequired: true, isLanguage: true)
+				new ColumnMetadata(nameof(ValutaValuta), @"ValutaValuta", DbType.AnsiStringFixedLength, isRequired: true),
+                new ColumnMetadata(nameof(ValutaOznaka), @"ValutaOznaka", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(ValutaBrojcanaSifra), @"ValutaBrojcanaSifra", DbType.AnsiStringFixedLength, isRequired: false),
+                new ColumnMetadata(nameof(ValutaAktivnost), @"ValutaAktivnost", DbType.Boolean, isRequired: true),
+                new ColumnMetadata(nameof(ValutaJezik), @"ValutaJezik", DbType.AnsiStringFixedLength, isRequired: true, isLanguageCode: true),
+                new ColumnMetadata(nameof(ValutaNaziv), @"ValutaNaziv", DbType.String, isRequired: true, isLanguage: true)
 			);
 
             // Cache entites metadata.
@@ -81,24 +81,5 @@ namespace Orko.Base
             return await TryGetByPrimaryKeyAsync<Valuta>(ValutaValuta);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<Valuta> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<Valuta>(queryConditions);
-        }
-        public static IEnumerable<Valuta> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<Valuta>(columnName, queryOp, value);
-        }
-		public static Valuta GetByPrimaryKey(string ValutaValuta)
-        {
-            return GetByPrimaryKey<Valuta>(ValutaValuta);
-        }
-		public static Valuta TryGetByPrimaryKey(string ValutaValuta)
-        {
-            return TryGetByPrimaryKey<Valuta>(ValutaValuta);
-        }
-        #endregion
     }
 }

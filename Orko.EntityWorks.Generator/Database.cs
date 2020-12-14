@@ -1,8 +1,9 @@
-﻿using Microsoft.Data.SqlClient;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Data;
+using System.Data.Common;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace Orko.EntityWorks.Generator
@@ -17,25 +18,56 @@ namespace Orko.EntityWorks.Generator
         /// <summary>
         /// Ensures syntax validity and database name existance in connection string.
         /// </summary>
-        private SqlConnectionStringBuilder m_stringBuilder;
-		#endregion
+        private DbConnectionStringBuilder m_stringBuilder;
+        #endregion
 
-		#region Methods
-		/// <summary>
-		/// Loads database name.
-		/// </summary>
-		private void SetDatabaseName()
+        #region Methods
+        /// <summary>
+        /// Sets specific db provider factory.
+        /// </summary>
+        private void SetDbProvider()
+		{
+            // Get provider assembly.
+            var providerAssembly = Assembly.Load(Options.DbProviderAssembly);
+
+            // Get provider assembly.
+            var providerType = providerAssembly.GetType(Options.DbProviderFactory);
+
+            // Get provider instance.
+            var providerInstance = providerType.GetField("Instance").GetValue(null);
+
+            // Set db provider factory.
+            this.DbProviderFactory = (DbProviderFactory)providerInstance;
+        }
+        /// <summary>
+        /// Sets entity works generator specific provider.
+        /// </summary>
+        private void SetEwgProvider()
+        {
+            // Set ewg provider factory via db provider factory mapping.
+            this.EwgProviderFactory = EwgProviderFactory.GetSpecificProvider(this.Options);
+        }
+        /// <summary>
+        /// Loads database name.
+        /// </summary>
+        private void SetDatabaseName()
         {
             // Create connection builder from connection string.
-            m_stringBuilder = new SqlConnectionStringBuilder(this.ConnectionString);
+            m_stringBuilder = DbProviderFactory.CreateConnectionStringBuilder();
+
+            // Set connection string.
+            m_stringBuilder.ConnectionString = ConnectionString;
+
+            // Get database name from string.
+            var databaseName = m_stringBuilder["Initial Catalog"] as string;
 
             // Check database name existance.
-            if (string.IsNullOrWhiteSpace(m_stringBuilder.InitialCatalog))
+            if (string.IsNullOrWhiteSpace(databaseName))
                 throw new EntityWorksGeneratorException("Connection string of database object does not have defined database name or initial catalog." +
                     "Please check your connection string or refer to documentation.");
 
             // Set database name.
-            this.DatabaseName = m_stringBuilder.InitialCatalog;
+            this.DatabaseName = databaseName;
         }
         /// <summary>
         /// If table has language table extend table with additional language table data.
@@ -46,7 +78,7 @@ namespace Orko.EntityWorks.Generator
             var options = languageTable.Database.Options;
 
             // Assign theirs parents.
-            string parentTableName = languageTable.FullName.Replace(options.LanguageTableSuffix, string.Empty);
+            string parentTableName = languageTable.SqlFullName.Replace(options.LanguageTableSuffix, string.Empty);
             Table parentTable = null;
             if (Tables.TryGetValue(parentTableName, out parentTable))
             {
@@ -91,7 +123,7 @@ namespace Orko.EntityWorks.Generator
         /// <summary>
         /// Creates instance of database object.
         /// </summary>
-        public Database()
+        private Database()
         {
             // Create instances.
             Tables = new ConcurrentDictionary<string, Table>();
@@ -105,12 +137,12 @@ namespace Orko.EntityWorks.Generator
         /// <param name="connectionString">Database connection string</param>
         public Database(string connectionString) : this()
         {
-            // Set properties.
-            ConnectionString = !string.IsNullOrWhiteSpace(connectionString) ?
-                connectionString : throw new ArgumentNullException(nameof(connectionString), "Connection string can not be null");
+            // Set db provider.
+            // DbProviderFactory = dbProvider ?? throw new ArgumentNullException(nameof(dbProvider), "Db provider factory object can not be null.");
 
-            // Set database name.
-            SetDatabaseName();
+            // Set connection string.
+            ConnectionString = !string.IsNullOrWhiteSpace(connectionString) ?
+                connectionString : throw new ArgumentNullException(nameof(connectionString), "Connection string can not be null.");
         }
         /// <summary>
         /// Creates instance of database object.
@@ -119,20 +151,29 @@ namespace Orko.EntityWorks.Generator
         /// <param name="options">Database generator options for this database</param>
         public Database(string connectionString, DatabaseGeneratorOptions options) : this(connectionString)
         {
-			// Set entity works generator options.
-			this.Options = options ?? throw new ArgumentNullException(nameof(options), "DatabaseGeneratorOptions can not be null.");
+            // Set entity works generator options.
+            this.Options = options ?? throw new ArgumentNullException(nameof(options), "DatabaseGeneratorOptions can not be null.");
+
+            // Set specific db provider factory.
+            SetDbProvider();
+
+            // Set database name.
+            SetDatabaseName();
+
+            // Set entity works generator specific provider.
+            SetEwgProvider();
         }
+        #endregion
+
+        #region Provider properties
         /// <summary>
-        /// Creates instance of database object.
+        /// EWG .NET provider for code generation logic.
         /// </summary>
-        /// <param name="connectionString">Database connection string</param>
-        /// <param name="options">Database generator options for this database</param>
-        /// <param name="prepare">Immediately load database name, data and graph metadata</param>
-        public Database(string connectionString, DatabaseGeneratorOptions options, bool prepare) : this(connectionString, options)
-        {
-            // Prepare database for entity generation.
-            if (prepare) Prepare();
-        }
+        public EwgProviderFactory EwgProviderFactory { get; private set; }
+        /// <summary>
+        /// ADO .NET connectivity provider.
+        /// </summary>
+        public DbProviderFactory DbProviderFactory { get; private set; }
         #endregion
 
         #region General properties
@@ -202,111 +243,22 @@ namespace Orko.EntityWorks.Generator
         public void LoadDatabaseData()
         {
             // Retrieve all table names from database created by user query.
-            string tableNamesQuery =
-                "SELECT SCHEMA_NAME(t.schema_id) table_schema_name, "+
-                "COUNT(fkeys.object_id) foreign_keys_count, " +
-                "SCHEMA_NAME(t.schema_id) + '.' + t.name table_fullname, " +
-                "t.name AS table_name FROM sys.tables t " +
-                "LEFT JOIN sys.extended_properties ep " +
-                "ON ep.major_id = t.object_id " +
-                "AND ep.name = 'microsoft_database_tools_support' " +
-                "AND ep.class_desc = 'OBJECT_OR_COLUMN' " +
-                "LEFT JOIN sys.foreign_keys fkeys " +
-                "ON fkeys.parent_object_id = t.object_id " +
-                "WHERE t.is_ms_shipped = 0 " +
-                "AND OBJECTPROPERTY(t.object_id,'TableHasPrimaryKey') = 1 " +
-                "AND ep.major_id IS NULL " +
-                "GROUP BY SCHEMA_NAME(t.schema_id), t.name " +
-                "ORDER BY COUNT(fkeys.object_id) DESC;";
-            TableNames = new Sql(ConnectionString).ExecuteSql(tableNamesQuery);
+            TableNames = new Sql(ConnectionString, DbProviderFactory).ExecuteSql(EwgProviderFactory.SqlProvider.TableNamesQuery);
 
             // Retrieve all columns from database.
-            string columnsQuery =
-                "SELECT sys.columns.name column_name, " +
-                "sys.columns.column_id column_id, " +
-                "SCHEMA_NAME(t.schema_id) table_schema_name, " +
-                "OBJECT_NAME(sys.columns.object_id) table_name, " +
-                "COLUMNPROPERTY(sys.columns.object_id, sys.columns.name, 'charmaxlen') max_characters, " +
-                "TYPE_NAME(user_type_id) sql_data_type, " +
-                "is_identity, " +
-                "is_nullable FROM sys.columns " +
-                "inner join sys.tables t on t.object_id = sys.columns.object_id " +
-                "LEFT JOIN sys.extended_properties ep " +
-                "ON ep.major_id = t.object_id " +
-                "AND ep.name = 'microsoft_database_tools_support' " +
-                "AND ep.class_desc = 'OBJECT_OR_COLUMN' " +
-                "WHERE t.is_ms_shipped = 0 " +
-                "AND OBJECTPROPERTY(t.object_id, 'TableHasPrimaryKey') = 1 " +
-                "AND ep.major_id IS NULL " +
-                "ORDER BY table_schema_name ASC, table_name ASC, column_id ASC;";
-            Columns = new Sql(ConnectionString).ExecuteSql(columnsQuery);
+            Columns = new Sql(ConnectionString, DbProviderFactory).ExecuteSql(EwgProviderFactory.SqlProvider.ColumnsQuery);
 
             // Retrieve all primary keys.
-            string primaryKeysQuery =
-                "SELECT c.name column_name, i.name primarykey_name, " +
-                "SCHEMA_NAME(t.schema_id) table_schema_name, " + 
-                "OBJECT_NAME(i.object_id) table_name " +
-                "FROM sys.indexes AS i " +
-                "INNER JOIN sys.index_columns AS ic ON i.object_id = ic.object_id AND i.index_id = ic.index_id " +
-                "INNER JOIN sys.columns AS c ON ic.object_id = c.object_id AND c.column_id = ic.column_id " +
-                "INNER JOIN sys.tables t ON ic.object_id = t.object_id  " +
-                "WHERE i.is_primary_key = 1; ";
-            PrimaryKeys = new Sql(ConnectionString).ExecuteSql(primaryKeysQuery);
+            PrimaryKeys = new Sql(ConnectionString, DbProviderFactory).ExecuteSql(EwgProviderFactory.SqlProvider.PrimaryKeysQuery);
 
             // Retrieve all foreign keys.
-            string foreignKeysQuery =
-                "SELECT DISTINCT OBJECT_NAME(fkeys.object_id) AS foreign_key_name, " +
-                "SCHEMA_NAME(tbls.schema_id) table_schema_name,  " +
-                "OBJECT_NAME(fkeys.parent_object_id) table_name " +
-                "FROM sys.foreign_keys fkeys " +
-                "INNER JOIN sys.foreign_key_columns fkeyc ON fkeys.object_id = fkeyc.constraint_object_id " +
-                "INNER JOIN sys.tables tbls ON tbls.object_id = fkeys.parent_object_id " +
-                "ORDER BY 1 ASC";
-            ForeignKeys = new Sql(ConnectionString).ExecuteSql(foreignKeysQuery);
+            ForeignKeys = new Sql(ConnectionString, DbProviderFactory).ExecuteSql(EwgProviderFactory.SqlProvider.ForeignKeysQuery);
 
             // Retrieve all unique keys.
-            string uniqueKeysQuery =
-                "SELECT SCHEMA_NAME(t.schema_id) table_schema_name, " +
-                "OBJECT_NAME(si.object_id) table_name, " +
-                "si.name unique_key_name, " +
-                "COL_NAME(t.object_id, ic.column_id) column_name " +
-                "FROM sys.indexes si " +
-                "INNER JOIN sys.index_columns ic on ic.object_id = si.object_id and ic.index_id = si.index_id " +
-                "INNER JOIN sys.tables t on t.object_id = si.object_id " +
-                "LEFT JOIN sys.extended_properties ep " +
-                "ON ep.major_id = t.object_id " +
-                "AND ep.name = 'microsoft_database_tools_support' " +
-                "AND ep.class_desc = 'OBJECT_OR_COLUMN' " +
-                "WHERE t.is_ms_shipped = 0 " +
-                "AND OBJECTPROPERTY(t.object_id, 'TableHasPrimaryKey') = 1 " +
-                "AND ep.major_id IS NULL " +
-                "AND si.is_unique_constraint = 1 " +
-                "ORDER BY 1 ASC, 2 ASC; ";
-            UniqueKeys = new Sql(ConnectionString).ExecuteSql(uniqueKeysQuery);
+            UniqueKeys = new Sql(ConnectionString, DbProviderFactory).ExecuteSql(EwgProviderFactory.SqlProvider.UniqueKeysQuery);
 
             // Retrieve all relations.
-            string relationsQuery =
-                "SELECT OBJECT_NAME(fkeys.object_id) AS foreign_key_name, " +
-                "OBJECT_NAME(fkeys.parent_object_id) AS foreign_key_table, " +
-                "SCHEMA_NAME(fk_table.schema_id) AS foreign_key_table_schema, " +
-                "(SCHEMA_NAME(fk_table.schema_id) + '.' + OBJECT_NAME(fkeys.parent_object_id)) foreign_key_table_fullname, " +
-                "COL_NAME(fkeyc.parent_object_id, fkeyc.parent_column_id) AS foreign_key_column, " +
-                "OBJECT_NAME(fkeys.referenced_object_id) AS primary_key_table, " +
-                "SCHEMA_NAME(pk_table.schema_id) AS primary_key_table_schema, " +
-                "(SCHEMA_NAME(pk_table.schema_id) + '.' + OBJECT_NAME(fkeys.referenced_object_id)) primary_key_table_fullname, " +
-                "COL_NAME(fkeyc.referenced_object_id,fkeyc.referenced_column_id) primary_key_column " +
-                "FROM sys.foreign_keys fkeys " +
-                "INNER JOIN sys.foreign_key_columns fkeyc ON fkeys.object_id = fkeyc.constraint_object_id " +
-                "INNER JOIN sys.tables fk_table ON fk_table.object_id = fkeys.parent_object_id " +
-                "INNER JOIN sys.tables pk_table ON pk_table.object_id = fkeys.referenced_object_id " +
-                "LEFT JOIN sys.extended_properties ep " +
-                "ON ep.major_id = fk_table.object_id " +
-                "AND ep.name = 'microsoft_database_tools_support' " +
-                "AND ep.class_desc = 'OBJECT_OR_COLUMN' " +
-                "WHERE fk_table.is_ms_shipped = 0 " +
-                "AND OBJECTPROPERTY(fk_table.object_id, 'TableHasPrimaryKey') = 1 " +
-                "AND ep.major_id IS NULL ";
-            Relations = new Sql(ConnectionString).ExecuteSql(relationsQuery);
+            Relations = new Sql(ConnectionString, DbProviderFactory).ExecuteSql(EwgProviderFactory.SqlProvider.ForeignKeyRelationsQuery);
 
             // Mark as loaded.
             IsLoaded = true;
@@ -330,7 +282,7 @@ namespace Orko.EntityWorks.Generator
             if (this.Options.UseLanguageTables)
             {
                 // Get all language tables.
-                var languageTables = Tables.Values.Where(x => x.Name.EndsWith(this.Options.LanguageTableSuffix));
+                var languageTables = Tables.Values.Where(x => x.SqlName.EndsWith(this.Options.LanguageTableSuffix));
 
                 // Use parallel processing.
                 if (!this.Options.UseParallelProcessing) Parallel.ForEach(languageTables, languageTable => { SetLanguageContext(languageTable); });

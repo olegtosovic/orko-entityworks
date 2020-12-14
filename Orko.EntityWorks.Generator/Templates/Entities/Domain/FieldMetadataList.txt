@@ -1,1 +1,1 @@
-﻿new ColumnMetadata("[COLUMN_NAME]", @"[SQL_COLUMN_NAME]", [FIELD_METADATA_ARGS])
+﻿new ColumnMetadata(nameof([COLUMN_NAME]), @"[SQL_COLUMN_NAME]", [FIELD_METADATA_ARGS])

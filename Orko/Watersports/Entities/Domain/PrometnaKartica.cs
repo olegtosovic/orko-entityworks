@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -18,12 +18,12 @@ namespace Orko.Watersports
     public sealed partial class PrometnaKartica : Entity
     {
 		#region Members
-		private Brod m_FK_PrometnaKartica_Brod;
-        private Base.Protokol m_FK_PrometnaKartica_Protokol;
-        private Termin m_FK_PrometnaKartica_Termin;
-        private TipRezervacije m_FK_PrometnaKartica_TipRezervacije;
-        private VrstaIzleta m_FK_PrometnaKartica_VrstaIzleta;
-        private VrstaUsluge m_FK_PrometnaKartica_VrstaUsluge;
+		private Brod m_Brod;
+        private Base.Protokol m_Protokol;
+        private Termin m_Termin;
+        private TipRezervacije m_TipRezervacije;
+        private VrstaIzleta m_VrstaIzleta;
+        private VrstaUsluge m_VrstaUsluge;
         #endregion
         
 		#region Constructors
@@ -32,44 +32,44 @@ namespace Orko.Watersports
             // Cache field metadata.
             EntityMeta<PrometnaKartica>.LoadColumnMetadata
 			(
-				new ColumnMetadata("PrometnaKarticaProtokolID", @"PrometnaKarticaProtokolID", SqlDbType.Int, isPrimaryKey: true),
-                new ColumnMetadata("PrometnaKarticaBrod", @"PrometnaKarticaBrod", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("PrometnaKarticaVrstaUsluge", @"PrometnaKarticaVrstaUsluge", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("PrometnaKarticaVrstaIzleta", @"PrometnaKarticaVrstaIzleta", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("PrometnaKarticaTipRezervacije", @"PrometnaKarticaTipRezervacije", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("PrometnaKarticaTerminID", @"PrometnaKarticaTerminID", SqlDbType.Int, isRequired: false),
-                new ColumnMetadata("PrometnaKarticaDatumUsluge", @"PrometnaKarticaDatumUsluge", SqlDbType.DateTime2, isRequired: true),
-                new ColumnMetadata("PrometnaKarticaDatumVrijemeOd", @"PrometnaKarticaDatumVrijemeOd", SqlDbType.DateTime2, isRequired: true),
-                new ColumnMetadata("PrometnaKarticaDatumVrijemeDo", @"PrometnaKarticaDatumVrijemeDo", SqlDbType.DateTime2, isRequired: true),
-                new ColumnMetadata("PrometnaKarticaVrijemeOd", @"PrometnaKarticaVrijemeOd", SqlDbType.Time, isRequired: true),
-                new ColumnMetadata("PrometnaKarticaVrijemeDo", @"PrometnaKarticaVrijemeDo", SqlDbType.Time, isRequired: true),
-                new ColumnMetadata("PrometnaKarticaTrajanjeIdealno", @"PrometnaKarticaTrajanjeIdealno", SqlDbType.Time, isRequired: false),
-                new ColumnMetadata("PrometnaKarticaTrajanjeStvarno", @"PrometnaKarticaTrajanjeStvarno", SqlDbType.Time, isRequired: false),
-                new ColumnMetadata("PrometnaKarticaPovratakProcjena", @"PrometnaKarticaPovratakProcjena", SqlDbType.Time, isRequired: false),
-                new ColumnMetadata("PrometnaKarticaPovratakStvarno", @"PrometnaKarticaPovratakStvarno", SqlDbType.Time, isRequired: false),
-                new ColumnMetadata("PrometnaKarticaBrojOsobaStvarno", @"PrometnaKarticaBrojOsobaStvarno", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("PrometnaKarticaBrojOsobaPreostaloStvarno", @"PrometnaKarticaBrojOsobaPreostaloStvarno", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("PrometnaKarticaBrojOsobaKalkulativno", @"PrometnaKarticaBrojOsobaKalkulativno", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("PrometnaKarticaBrojOsobaPreostaloKalkulativno", @"PrometnaKarticaBrojOsobaPreostaloKalkulativno", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("PrometnaKarticaBrojOdraslih", @"PrometnaKarticaBrojOdraslih", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("PrometnaKarticaBrojDjece", @"PrometnaKarticaBrojDjece", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("PrometnaKarticaSkiperUkljucen", @"PrometnaKarticaSkiperUkljucen", SqlDbType.Bit, isRequired: false),
-                new ColumnMetadata("PrometnaKarticaCijenaUslugeCjenik", @"PrometnaKarticaCijenaUslugeCjenik", SqlDbType.Decimal, isRequired: true),
-                new ColumnMetadata("PrometnaKarticaCijenaUslugePopustPostotak", @"PrometnaKarticaCijenaUslugePopustPostotak", SqlDbType.Decimal, isRequired: true),
-                new ColumnMetadata("PrometnaKarticaCijenaUslugePopustIznos", @"PrometnaKarticaCijenaUslugePopustIznos", SqlDbType.Decimal, isRequired: true),
-                new ColumnMetadata("PrometnaKarticaCijenaUslugeKonacno", @"PrometnaKarticaCijenaUslugeKonacno", SqlDbType.Decimal, isRequired: true),
-                new ColumnMetadata("PrometnaKarticaCijenaUslugeNaplaceno", @"PrometnaKarticaCijenaUslugeNaplaceno", SqlDbType.Decimal, isRequired: true)
+				new ColumnMetadata(nameof(PrometnaKarticaProtokolID), @"PrometnaKarticaProtokolID", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(PrometnaKarticaBrod), @"PrometnaKarticaBrod", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(PrometnaKarticaVrstaUsluge), @"PrometnaKarticaVrstaUsluge", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(PrometnaKarticaVrstaIzleta), @"PrometnaKarticaVrstaIzleta", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(PrometnaKarticaTipRezervacije), @"PrometnaKarticaTipRezervacije", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(PrometnaKarticaTerminID), @"PrometnaKarticaTerminID", DbType.Int32, isRequired: false),
+                new ColumnMetadata(nameof(PrometnaKarticaDatumUsluge), @"PrometnaKarticaDatumUsluge", DbType.DateTime2, isRequired: true),
+                new ColumnMetadata(nameof(PrometnaKarticaDatumVrijemeOd), @"PrometnaKarticaDatumVrijemeOd", DbType.DateTime2, isRequired: true),
+                new ColumnMetadata(nameof(PrometnaKarticaDatumVrijemeDo), @"PrometnaKarticaDatumVrijemeDo", DbType.DateTime2, isRequired: true),
+                new ColumnMetadata(nameof(PrometnaKarticaVrijemeOd), @"PrometnaKarticaVrijemeOd", DbType.Time, isRequired: true),
+                new ColumnMetadata(nameof(PrometnaKarticaVrijemeDo), @"PrometnaKarticaVrijemeDo", DbType.Time, isRequired: true),
+                new ColumnMetadata(nameof(PrometnaKarticaTrajanjeIdealno), @"PrometnaKarticaTrajanjeIdealno", DbType.Time, isRequired: false),
+                new ColumnMetadata(nameof(PrometnaKarticaTrajanjeStvarno), @"PrometnaKarticaTrajanjeStvarno", DbType.Time, isRequired: false),
+                new ColumnMetadata(nameof(PrometnaKarticaPovratakProcjena), @"PrometnaKarticaPovratakProcjena", DbType.Time, isRequired: false),
+                new ColumnMetadata(nameof(PrometnaKarticaPovratakStvarno), @"PrometnaKarticaPovratakStvarno", DbType.Time, isRequired: false),
+                new ColumnMetadata(nameof(PrometnaKarticaBrojOsobaStvarno), @"PrometnaKarticaBrojOsobaStvarno", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(PrometnaKarticaBrojOsobaPreostaloStvarno), @"PrometnaKarticaBrojOsobaPreostaloStvarno", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(PrometnaKarticaBrojOsobaKalkulativno), @"PrometnaKarticaBrojOsobaKalkulativno", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(PrometnaKarticaBrojOsobaPreostaloKalkulativno), @"PrometnaKarticaBrojOsobaPreostaloKalkulativno", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(PrometnaKarticaBrojOdraslih), @"PrometnaKarticaBrojOdraslih", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(PrometnaKarticaBrojDjece), @"PrometnaKarticaBrojDjece", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(PrometnaKarticaSkiperUkljucen), @"PrometnaKarticaSkiperUkljucen", DbType.Boolean, isRequired: false),
+                new ColumnMetadata(nameof(PrometnaKarticaCijenaUslugeCjenik), @"PrometnaKarticaCijenaUslugeCjenik", DbType.Decimal, isRequired: true),
+                new ColumnMetadata(nameof(PrometnaKarticaCijenaUslugePopustPostotak), @"PrometnaKarticaCijenaUslugePopustPostotak", DbType.Decimal, isRequired: true),
+                new ColumnMetadata(nameof(PrometnaKarticaCijenaUslugePopustIznos), @"PrometnaKarticaCijenaUslugePopustIznos", DbType.Decimal, isRequired: true),
+                new ColumnMetadata(nameof(PrometnaKarticaCijenaUslugeKonacno), @"PrometnaKarticaCijenaUslugeKonacno", DbType.Decimal, isRequired: true),
+                new ColumnMetadata(nameof(PrometnaKarticaCijenaUslugeNaplaceno), @"PrometnaKarticaCijenaUslugeNaplaceno", DbType.Decimal, isRequired: true)
 			);
 
             // Cache entites metadata.
             EntityMeta<PrometnaKartica>.LoadRelationMetadata
 			(
-				new RelationMetadata("FK_PrometnaKartica_Brod", "PrometnaKarticaBrod", "BrodBrod"),
-                new RelationMetadata("FK_PrometnaKartica_Protokol", "PrometnaKarticaProtokolID", "ProtokolID"),
-                new RelationMetadata("FK_PrometnaKartica_Termin", "PrometnaKarticaTerminID", "TerminID"),
-                new RelationMetadata("FK_PrometnaKartica_TipRezervacije", "PrometnaKarticaTipRezervacije", "TipRezervacijeTipRezervacije"),
-                new RelationMetadata("FK_PrometnaKartica_VrstaIzleta", "PrometnaKarticaVrstaIzleta", "VrstaIzletaVrstaIzleta"),
-                new RelationMetadata("FK_PrometnaKartica_VrstaUsluge", "PrometnaKarticaVrstaUsluge", "VrstaUslugeVrstaUsluge")
+				new RelationMetadata(nameof(Brod), nameof(PrometnaKarticaBrod), nameof(Orko.Watersports.Brod.BrodBrod)),
+                new RelationMetadata(nameof(Protokol), nameof(PrometnaKarticaProtokolID), nameof(Orko.Base.Protokol.ProtokolID)),
+                new RelationMetadata(nameof(Termin), nameof(PrometnaKarticaTerminID), nameof(Orko.Watersports.Termin.TerminID)),
+                new RelationMetadata(nameof(TipRezervacije), nameof(PrometnaKarticaTipRezervacije), nameof(Orko.Watersports.TipRezervacije.TipRezervacijeTipRezervacije)),
+                new RelationMetadata(nameof(VrstaIzleta), nameof(PrometnaKarticaVrstaIzleta), nameof(Orko.Watersports.VrstaIzleta.VrstaIzletaVrstaIzleta)),
+                new RelationMetadata(nameof(VrstaUsluge), nameof(PrometnaKarticaVrstaUsluge), nameof(Orko.Watersports.VrstaUsluge.VrstaUslugeVrstaUsluge))
 			);
 
 			// Cache table metadata.
@@ -112,35 +112,35 @@ namespace Orko.Watersports
         #endregion
 
         #region Entities
-		public Brod FK_PrometnaKartica_Brod
+		public Brod Brod
         {
-            get { return EntityContext<Brod>.Get(ref m_FK_PrometnaKartica_Brod, this, "FK_PrometnaKartica_Brod"); }
-            set { EntityContext<Brod>.Set(ref m_FK_PrometnaKartica_Brod, this, value, "FK_PrometnaKartica_Brod"); }
+            get { return EntityContext<Brod>.Get(ref m_Brod, this, nameof(Brod)); }
+            set { EntityContext<Brod>.Set(ref m_Brod, this, value, nameof(Brod)); }
         }
-        public Base.Protokol FK_PrometnaKartica_Protokol
+        public Base.Protokol Protokol
         {
-            get { return EntityContext<Base.Protokol>.Get(ref m_FK_PrometnaKartica_Protokol, this, "FK_PrometnaKartica_Protokol"); }
-            set { EntityContext<Base.Protokol>.Set(ref m_FK_PrometnaKartica_Protokol, this, value, "FK_PrometnaKartica_Protokol"); }
+            get { return EntityContext<Base.Protokol>.Get(ref m_Protokol, this, nameof(Protokol)); }
+            set { EntityContext<Base.Protokol>.Set(ref m_Protokol, this, value, nameof(Protokol)); }
         }
-        public Termin FK_PrometnaKartica_Termin
+        public Termin Termin
         {
-            get { return EntityContext<Termin>.Get(ref m_FK_PrometnaKartica_Termin, this, "FK_PrometnaKartica_Termin"); }
-            set { EntityContext<Termin>.Set(ref m_FK_PrometnaKartica_Termin, this, value, "FK_PrometnaKartica_Termin"); }
+            get { return EntityContext<Termin>.Get(ref m_Termin, this, nameof(Termin)); }
+            set { EntityContext<Termin>.Set(ref m_Termin, this, value, nameof(Termin)); }
         }
-        public TipRezervacije FK_PrometnaKartica_TipRezervacije
+        public TipRezervacije TipRezervacije
         {
-            get { return EntityContext<TipRezervacije>.Get(ref m_FK_PrometnaKartica_TipRezervacije, this, "FK_PrometnaKartica_TipRezervacije"); }
-            set { EntityContext<TipRezervacije>.Set(ref m_FK_PrometnaKartica_TipRezervacije, this, value, "FK_PrometnaKartica_TipRezervacije"); }
+            get { return EntityContext<TipRezervacije>.Get(ref m_TipRezervacije, this, nameof(TipRezervacije)); }
+            set { EntityContext<TipRezervacije>.Set(ref m_TipRezervacije, this, value, nameof(TipRezervacije)); }
         }
-        public VrstaIzleta FK_PrometnaKartica_VrstaIzleta
+        public VrstaIzleta VrstaIzleta
         {
-            get { return EntityContext<VrstaIzleta>.Get(ref m_FK_PrometnaKartica_VrstaIzleta, this, "FK_PrometnaKartica_VrstaIzleta"); }
-            set { EntityContext<VrstaIzleta>.Set(ref m_FK_PrometnaKartica_VrstaIzleta, this, value, "FK_PrometnaKartica_VrstaIzleta"); }
+            get { return EntityContext<VrstaIzleta>.Get(ref m_VrstaIzleta, this, nameof(VrstaIzleta)); }
+            set { EntityContext<VrstaIzleta>.Set(ref m_VrstaIzleta, this, value, nameof(VrstaIzleta)); }
         }
-        public VrstaUsluge FK_PrometnaKartica_VrstaUsluge
+        public VrstaUsluge VrstaUsluge
         {
-            get { return EntityContext<VrstaUsluge>.Get(ref m_FK_PrometnaKartica_VrstaUsluge, this, "FK_PrometnaKartica_VrstaUsluge"); }
-            set { EntityContext<VrstaUsluge>.Set(ref m_FK_PrometnaKartica_VrstaUsluge, this, value, "FK_PrometnaKartica_VrstaUsluge"); }
+            get { return EntityContext<VrstaUsluge>.Get(ref m_VrstaUsluge, this, nameof(VrstaUsluge)); }
+            set { EntityContext<VrstaUsluge>.Set(ref m_VrstaUsluge, this, value, nameof(VrstaUsluge)); }
         }
         #endregion
 
@@ -162,32 +162,5 @@ namespace Orko.Watersports
             return await TryGetByPrimaryKeyAsync<PrometnaKartica>(PrometnaKarticaProtokolID);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<PrometnaKartica> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<PrometnaKartica>(queryConditions);
-        }
-        public static IEnumerable<PrometnaKartica> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<PrometnaKartica>(columnName, queryOp, value);
-        }
-		public static PrometnaKartica GetByPrimaryKey(int PrometnaKarticaProtokolID)
-        {
-            return GetByPrimaryKey<PrometnaKartica>(PrometnaKarticaProtokolID);
-        }
-		public static PrometnaKartica TryGetByPrimaryKey(int PrometnaKarticaProtokolID)
-        {
-            return TryGetByPrimaryKey<PrometnaKartica>(PrometnaKarticaProtokolID);
-        }
-        public static PrometnaKartica GetByUnique1(int PrometnaKarticaBrod, string PrometnaKarticaVrstaUsluge, string PrometnaKarticaVrstaIzleta, DateTime PrometnaKarticaDatumVrijemeOd, DateTime PrometnaKarticaDatumVrijemeDo)
-        {
-            return GetByCallingParameters<PrometnaKartica>(PrometnaKarticaBrod, PrometnaKarticaVrstaUsluge, PrometnaKarticaVrstaIzleta, PrometnaKarticaDatumVrijemeOd, PrometnaKarticaDatumVrijemeDo);
-        }
-		public static PrometnaKartica TryGetByUnique1(int PrometnaKarticaBrod, string PrometnaKarticaVrstaUsluge, string PrometnaKarticaVrstaIzleta, DateTime PrometnaKarticaDatumVrijemeOd, DateTime PrometnaKarticaDatumVrijemeDo)
-        {
-            return TryGetByCallingParameters<PrometnaKartica>(PrometnaKarticaBrod, PrometnaKarticaVrstaUsluge, PrometnaKarticaVrstaIzleta, PrometnaKarticaDatumVrijemeOd, PrometnaKarticaDatumVrijemeDo);
-        }
-        #endregion
     }
 }

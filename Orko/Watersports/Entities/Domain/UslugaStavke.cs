@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -18,7 +18,7 @@ namespace Orko.Watersports
     public sealed partial class UslugaStavke : Entity
     {
 		#region Members
-		private VrstaUslugeStavke m_FK_UslugaStavke_VrstaUslugeStavke;
+		private VrstaUslugeStavke m_VrstaUslugeStavke;
         #endregion
         
 		#region Constructors
@@ -27,18 +27,18 @@ namespace Orko.Watersports
             // Cache field metadata.
             EntityMeta<UslugaStavke>.LoadColumnMetadata
 			(
-				new ColumnMetadata("UslugaStavkeUslugaStavke", @"UslugaStavkeUslugaStavke", SqlDbType.NVarChar, isPrimaryKey: true),
-                new ColumnMetadata("UslugaStavkeVrstaUslugeStavke", @"UslugaStavkeVrstaUslugeStavke", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("UslugaStavkeAktivnost", @"UslugaStavkeAktivnost", SqlDbType.Bit, isRequired: true),
-                new ColumnMetadata("UslugaStavkeJezik", @"UslugaStavkeJezik", SqlDbType.Char, isLanguageCode: true, isPrimaryKey: true),
-                new ColumnMetadata("UslugaStavkeNaziv", @"UslugaStavkeNaziv", SqlDbType.NVarChar, isRequired: true, isLanguage: true),
-                new ColumnMetadata("UslugaStavkeOpis", @"UslugaStavkeOpis", SqlDbType.NVarChar, isRequired: false, isLanguage: true)
+				new ColumnMetadata(nameof(UslugaStavkeUslugaStavke), @"UslugaStavkeUslugaStavke", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(UslugaStavkeVrstaUslugeStavke), @"UslugaStavkeVrstaUslugeStavke", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(UslugaStavkeAktivnost), @"UslugaStavkeAktivnost", DbType.Boolean, isRequired: true),
+                new ColumnMetadata(nameof(UslugaStavkeJezik), @"UslugaStavkeJezik", DbType.AnsiStringFixedLength, isRequired: true, isLanguageCode: true),
+                new ColumnMetadata(nameof(UslugaStavkeNaziv), @"UslugaStavkeNaziv", DbType.String, isRequired: true, isLanguage: true),
+                new ColumnMetadata(nameof(UslugaStavkeOpis), @"UslugaStavkeOpis", DbType.String, isRequired: false, isLanguage: true)
 			);
 
             // Cache entites metadata.
             EntityMeta<UslugaStavke>.LoadRelationMetadata
 			(
-				new RelationMetadata("FK_UslugaStavke_VrstaUslugeStavke", "UslugaStavkeVrstaUslugeStavke", "VrstaUslugeStavkeVrstaUslugeStavke")
+				new RelationMetadata(nameof(VrstaUslugeStavke), nameof(UslugaStavkeVrstaUslugeStavke), nameof(Orko.Watersports.VrstaUslugeStavke.VrstaUslugeStavkeVrstaUslugeStavke))
 			);
 
 			// Cache table metadata.
@@ -60,10 +60,10 @@ namespace Orko.Watersports
         #endregion
 
         #region Entities
-		public VrstaUslugeStavke FK_UslugaStavke_VrstaUslugeStavke
+		public VrstaUslugeStavke VrstaUslugeStavke
         {
-            get { return EntityContext<VrstaUslugeStavke>.Get(ref m_FK_UslugaStavke_VrstaUslugeStavke, this, "FK_UslugaStavke_VrstaUslugeStavke"); }
-            set { EntityContext<VrstaUslugeStavke>.Set(ref m_FK_UslugaStavke_VrstaUslugeStavke, this, value, "FK_UslugaStavke_VrstaUslugeStavke"); }
+            get { return EntityContext<VrstaUslugeStavke>.Get(ref m_VrstaUslugeStavke, this, nameof(VrstaUslugeStavke)); }
+            set { EntityContext<VrstaUslugeStavke>.Set(ref m_VrstaUslugeStavke, this, value, nameof(VrstaUslugeStavke)); }
         }
         #endregion
 
@@ -85,24 +85,5 @@ namespace Orko.Watersports
             return await TryGetByPrimaryKeyAsync<UslugaStavke>(UslugaStavkeUslugaStavke);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<UslugaStavke> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<UslugaStavke>(queryConditions);
-        }
-        public static IEnumerable<UslugaStavke> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<UslugaStavke>(columnName, queryOp, value);
-        }
-		public static UslugaStavke GetByPrimaryKey(string UslugaStavkeUslugaStavke)
-        {
-            return GetByPrimaryKey<UslugaStavke>(UslugaStavkeUslugaStavke);
-        }
-		public static UslugaStavke TryGetByPrimaryKey(string UslugaStavkeUslugaStavke)
-        {
-            return TryGetByPrimaryKey<UslugaStavke>(UslugaStavkeUslugaStavke);
-        }
-        #endregion
     }
 }

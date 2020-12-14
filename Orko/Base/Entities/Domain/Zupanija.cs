@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -18,7 +18,7 @@ namespace Orko.Base
     public sealed partial class Zupanija : Entity
     {
 		#region Members
-		private Drzava m_FK_Zupanija_Drzava;
+		private Drzava m_Drzava;
         #endregion
         
 		#region Constructors
@@ -27,19 +27,19 @@ namespace Orko.Base
             // Cache field metadata.
             EntityMeta<Zupanija>.LoadColumnMetadata
 			(
-				new ColumnMetadata("ZupanijaZupanija", @"ZupanijaZupanija", SqlDbType.NVarChar, isPrimaryKey: true),
-                new ColumnMetadata("ZupanijaDrzava", @"ZupanijaDrzava", SqlDbType.Char, isPrimaryKey: true),
-                new ColumnMetadata("ZupanijaSjedisteGrad", @"ZupanijaSjedisteGrad", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("ZupanijaSjedistePostanskiBroj", @"ZupanijaSjedistePostanskiBroj", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("ZupanijaRegistarskiBroj", @"ZupanijaRegistarskiBroj", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("ZupanijaJezik", @"ZupanijaJezik", SqlDbType.Char, isLanguageCode: true, isPrimaryKey: true),
-                new ColumnMetadata("ZupanijaNaziv", @"ZupanijaNaziv", SqlDbType.NVarChar, isRequired: true, isLanguage: true)
+				new ColumnMetadata(nameof(ZupanijaZupanija), @"ZupanijaZupanija", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(ZupanijaDrzava), @"ZupanijaDrzava", DbType.AnsiStringFixedLength, isRequired: true),
+                new ColumnMetadata(nameof(ZupanijaSjedisteGrad), @"ZupanijaSjedisteGrad", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(ZupanijaSjedistePostanskiBroj), @"ZupanijaSjedistePostanskiBroj", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(ZupanijaRegistarskiBroj), @"ZupanijaRegistarskiBroj", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(ZupanijaJezik), @"ZupanijaJezik", DbType.AnsiStringFixedLength, isRequired: true, isLanguageCode: true),
+                new ColumnMetadata(nameof(ZupanijaNaziv), @"ZupanijaNaziv", DbType.String, isRequired: true, isLanguage: true)
 			);
 
             // Cache entites metadata.
             EntityMeta<Zupanija>.LoadRelationMetadata
 			(
-				new RelationMetadata("FK_Zupanija_Drzava", "ZupanijaDrzava", "DrzavaDrzava")
+				new RelationMetadata(nameof(Drzava), nameof(ZupanijaDrzava), nameof(Orko.Base.Drzava.DrzavaDrzava))
 			);
 
 			// Cache table metadata.
@@ -62,10 +62,10 @@ namespace Orko.Base
         #endregion
 
         #region Entities
-		public Drzava FK_Zupanija_Drzava
+		public Drzava Drzava
         {
-            get { return EntityContext<Drzava>.Get(ref m_FK_Zupanija_Drzava, this, "FK_Zupanija_Drzava"); }
-            set { EntityContext<Drzava>.Set(ref m_FK_Zupanija_Drzava, this, value, "FK_Zupanija_Drzava"); }
+            get { return EntityContext<Drzava>.Get(ref m_Drzava, this, nameof(Drzava)); }
+            set { EntityContext<Drzava>.Set(ref m_Drzava, this, value, nameof(Drzava)); }
         }
         #endregion
 
@@ -87,24 +87,5 @@ namespace Orko.Base
             return await TryGetByPrimaryKeyAsync<Zupanija>(ZupanijaZupanija, ZupanijaDrzava);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<Zupanija> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<Zupanija>(queryConditions);
-        }
-        public static IEnumerable<Zupanija> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<Zupanija>(columnName, queryOp, value);
-        }
-		public static Zupanija GetByPrimaryKey(string ZupanijaZupanija, string ZupanijaDrzava)
-        {
-            return GetByPrimaryKey<Zupanija>(ZupanijaZupanija, ZupanijaDrzava);
-        }
-		public static Zupanija TryGetByPrimaryKey(string ZupanijaZupanija, string ZupanijaDrzava)
-        {
-            return TryGetByPrimaryKey<Zupanija>(ZupanijaZupanija, ZupanijaDrzava);
-        }
-        #endregion
     }
 }

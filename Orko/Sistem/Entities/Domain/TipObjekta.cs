@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -27,8 +27,8 @@ namespace Orko.Sistem
             // Cache field metadata.
             EntityMeta<TipObjekta>.LoadColumnMetadata
 			(
-				new ColumnMetadata("TipObjektaTipObjekta", @"TipObjektaTipObjekta", SqlDbType.NVarChar, isPrimaryKey: true),
-                new ColumnMetadata("TipObjektaAktivnost", @"TipObjektaAktivnost", SqlDbType.Bit, isRequired: true)
+				new ColumnMetadata(nameof(TipObjektaTipObjekta), @"TipObjektaTipObjekta", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(TipObjektaAktivnost), @"TipObjektaAktivnost", DbType.Boolean, isRequired: true)
 			);
 
             // Cache entites metadata.
@@ -73,24 +73,5 @@ namespace Orko.Sistem
             return await TryGetByPrimaryKeyAsync<TipObjekta>(TipObjektaTipObjekta);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<TipObjekta> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<TipObjekta>(queryConditions);
-        }
-        public static IEnumerable<TipObjekta> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<TipObjekta>(columnName, queryOp, value);
-        }
-		public static TipObjekta GetByPrimaryKey(string TipObjektaTipObjekta)
-        {
-            return GetByPrimaryKey<TipObjekta>(TipObjektaTipObjekta);
-        }
-		public static TipObjekta TryGetByPrimaryKey(string TipObjektaTipObjekta)
-        {
-            return TryGetByPrimaryKey<TipObjekta>(TipObjektaTipObjekta);
-        }
-        #endregion
     }
 }

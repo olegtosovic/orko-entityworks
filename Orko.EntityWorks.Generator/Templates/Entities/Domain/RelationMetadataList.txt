@@ -1,1 +1,1 @@
-﻿new RelationMetadata("[FK_TABLE]", "[FK_FIELD]", "[PK_FIELD]")
+﻿new RelationMetadata(nameof([FK_TABLE]), nameof([FK_FIELD]), nameof([PK_FIELD]))

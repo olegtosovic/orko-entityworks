@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -18,8 +18,8 @@ namespace Orko.Base
     public sealed partial class Firma : Entity
     {
 		#region Members
-		private Drzava m_FK_Firma_Drzava;
-        private Posta m_FK_Firma_Posta;
+		private Drzava m_Drzava;
+        private Posta m_Posta;
         #endregion
         
 		#region Constructors
@@ -28,28 +28,28 @@ namespace Orko.Base
             // Cache field metadata.
             EntityMeta<Firma>.LoadColumnMetadata
 			(
-				new ColumnMetadata("FirmaFirma", @"FirmaFirma", SqlDbType.NVarChar, isPrimaryKey: true),
-                new ColumnMetadata("FirmaMaticniBroj", @"FirmaMaticniBroj", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("FirmaOIB", @"FirmaOIB", SqlDbType.Char, isRequired: true),
-                new ColumnMetadata("FirmaAdresa", @"FirmaAdresa", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("FirmaDrzava", @"FirmaDrzava", SqlDbType.Char, isRequired: true),
-                new ColumnMetadata("FirmaPosta", @"FirmaPosta", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("FirmaTelefon", @"FirmaTelefon", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("FirmaFax", @"FirmaFax", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("FirmaMobitel", @"FirmaMobitel", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("FirmaEmail", @"FirmaEmail", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("FirmaBaza", @"FirmaBaza", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("FirmaBazaPrikaz", @"FirmaBazaPrikaz", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("FirmaJezik", @"FirmaJezik", SqlDbType.Char, isLanguageCode: true, isPrimaryKey: true),
-                new ColumnMetadata("FirmaNaziv", @"FirmaNaziv", SqlDbType.NVarChar, isRequired: true, isLanguage: true)
+				new ColumnMetadata(nameof(FirmaFirma), @"FirmaFirma", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(FirmaMaticniBroj), @"FirmaMaticniBroj", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(FirmaOIB), @"FirmaOIB", DbType.AnsiStringFixedLength, isRequired: true),
+                new ColumnMetadata(nameof(FirmaAdresa), @"FirmaAdresa", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(FirmaDrzava), @"FirmaDrzava", DbType.AnsiStringFixedLength, isRequired: true),
+                new ColumnMetadata(nameof(FirmaPosta), @"FirmaPosta", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(FirmaTelefon), @"FirmaTelefon", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(FirmaFax), @"FirmaFax", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(FirmaMobitel), @"FirmaMobitel", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(FirmaEmail), @"FirmaEmail", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(FirmaBaza), @"FirmaBaza", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(FirmaBazaPrikaz), @"FirmaBazaPrikaz", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(FirmaJezik), @"FirmaJezik", DbType.AnsiStringFixedLength, isRequired: true, isLanguageCode: true),
+                new ColumnMetadata(nameof(FirmaNaziv), @"FirmaNaziv", DbType.String, isRequired: true, isLanguage: true)
 			);
 
             // Cache entites metadata.
             EntityMeta<Firma>.LoadRelationMetadata
 			(
-				new RelationMetadata("FK_Firma_Drzava", "FirmaDrzava", "DrzavaDrzava"),
-                new RelationMetadata("FK_Firma_Posta", "FirmaPosta", "PostaPosta"),
-                new RelationMetadata("FK_Firma_Posta", "FirmaDrzava", "PostaDrzava")
+				new RelationMetadata(nameof(Drzava), nameof(FirmaDrzava), nameof(Orko.Base.Drzava.DrzavaDrzava)),
+                new RelationMetadata(nameof(Posta), nameof(FirmaPosta), nameof(Orko.Base.Posta.PostaPosta)),
+                new RelationMetadata(nameof(Posta), nameof(FirmaDrzava), nameof(Orko.Base.Posta.PostaDrzava))
 			);
 
 			// Cache table metadata.
@@ -79,15 +79,15 @@ namespace Orko.Base
         #endregion
 
         #region Entities
-		public Drzava FK_Firma_Drzava
+		public Drzava Drzava
         {
-            get { return EntityContext<Drzava>.Get(ref m_FK_Firma_Drzava, this, "FK_Firma_Drzava"); }
-            set { EntityContext<Drzava>.Set(ref m_FK_Firma_Drzava, this, value, "FK_Firma_Drzava"); }
+            get { return EntityContext<Drzava>.Get(ref m_Drzava, this, nameof(Drzava)); }
+            set { EntityContext<Drzava>.Set(ref m_Drzava, this, value, nameof(Drzava)); }
         }
-        public Posta FK_Firma_Posta
+        public Posta Posta
         {
-            get { return EntityContext<Posta>.Get(ref m_FK_Firma_Posta, this, "FK_Firma_Posta"); }
-            set { EntityContext<Posta>.Set(ref m_FK_Firma_Posta, this, value, "FK_Firma_Posta"); }
+            get { return EntityContext<Posta>.Get(ref m_Posta, this, nameof(Posta)); }
+            set { EntityContext<Posta>.Set(ref m_Posta, this, value, nameof(Posta)); }
         }
         #endregion
 
@@ -109,24 +109,5 @@ namespace Orko.Base
             return await TryGetByPrimaryKeyAsync<Firma>(FirmaFirma);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<Firma> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<Firma>(queryConditions);
-        }
-        public static IEnumerable<Firma> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<Firma>(columnName, queryOp, value);
-        }
-		public static Firma GetByPrimaryKey(string FirmaFirma)
-        {
-            return GetByPrimaryKey<Firma>(FirmaFirma);
-        }
-		public static Firma TryGetByPrimaryKey(string FirmaFirma)
-        {
-            return TryGetByPrimaryKey<Firma>(FirmaFirma);
-        }
-        #endregion
     }
 }

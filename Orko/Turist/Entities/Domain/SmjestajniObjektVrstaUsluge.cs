@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -18,8 +18,8 @@ namespace Orko.Turist
     public sealed partial class SmjestajniObjektVrstaUsluge : Entity
     {
 		#region Members
-		private SmjestajniObjekt m_FK_SmjestajniObjektVrstaUsluge_SmjestajniObjekt;
-        private VrstaUsluge m_FK_SmjestajniObjektVrstaUsluge_VrstaUsluge;
+		private SmjestajniObjekt m_SmjestajniObjekt;
+        private VrstaUsluge m_VrstaUsluge;
         #endregion
         
 		#region Constructors
@@ -28,17 +28,17 @@ namespace Orko.Turist
             // Cache field metadata.
             EntityMeta<SmjestajniObjektVrstaUsluge>.LoadColumnMetadata
 			(
-				new ColumnMetadata("SmjestajniObjektVrstaUslugeID", @"SmjestajniObjektVrstaUslugeID", SqlDbType.Int, isIdentity: true, isPrimaryKey: true),
-                new ColumnMetadata("SmjestajniObjektVrstaUslugeSmjestajniObjekt", @"SmjestajniObjektVrstaUslugeSmjestajniObjekt", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("SmjestajniObjektVrstaUslugeVrstaUsluge", @"SmjestajniObjektVrstaUslugeVrstaUsluge", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("SmjestajniObjektVrstaUslugeAktivnost", @"SmjestajniObjektVrstaUslugeAktivnost", SqlDbType.Bit, isRequired: true)
+				new ColumnMetadata(nameof(SmjestajniObjektVrstaUslugeID), @"SmjestajniObjektVrstaUslugeID", DbType.Int32, isIdentity: true, isRequired: true),
+                new ColumnMetadata(nameof(SmjestajniObjektVrstaUslugeSmjestajniObjekt), @"SmjestajniObjektVrstaUslugeSmjestajniObjekt", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(SmjestajniObjektVrstaUslugeVrstaUsluge), @"SmjestajniObjektVrstaUslugeVrstaUsluge", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(SmjestajniObjektVrstaUslugeAktivnost), @"SmjestajniObjektVrstaUslugeAktivnost", DbType.Boolean, isRequired: true)
 			);
 
             // Cache entites metadata.
             EntityMeta<SmjestajniObjektVrstaUsluge>.LoadRelationMetadata
 			(
-				new RelationMetadata("FK_SmjestajniObjektVrstaUsluge_SmjestajniObjekt", "SmjestajniObjektVrstaUslugeSmjestajniObjekt", "SmjestajniObjektSmjestajniObjekt"),
-                new RelationMetadata("FK_SmjestajniObjektVrstaUsluge_VrstaUsluge", "SmjestajniObjektVrstaUslugeVrstaUsluge", "VrstaUslugeVrstaUsluge")
+				new RelationMetadata(nameof(SmjestajniObjekt), nameof(SmjestajniObjektVrstaUslugeSmjestajniObjekt), nameof(Orko.Turist.SmjestajniObjekt.SmjestajniObjektSmjestajniObjekt)),
+                new RelationMetadata(nameof(VrstaUsluge), nameof(SmjestajniObjektVrstaUslugeVrstaUsluge), nameof(Orko.Turist.VrstaUsluge.VrstaUslugeVrstaUsluge))
 			);
 
 			// Cache table metadata.
@@ -58,15 +58,15 @@ namespace Orko.Turist
         #endregion
 
         #region Entities
-		public SmjestajniObjekt FK_SmjestajniObjektVrstaUsluge_SmjestajniObjekt
+		public SmjestajniObjekt SmjestajniObjekt
         {
-            get { return EntityContext<SmjestajniObjekt>.Get(ref m_FK_SmjestajniObjektVrstaUsluge_SmjestajniObjekt, this, "FK_SmjestajniObjektVrstaUsluge_SmjestajniObjekt"); }
-            set { EntityContext<SmjestajniObjekt>.Set(ref m_FK_SmjestajniObjektVrstaUsluge_SmjestajniObjekt, this, value, "FK_SmjestajniObjektVrstaUsluge_SmjestajniObjekt"); }
+            get { return EntityContext<SmjestajniObjekt>.Get(ref m_SmjestajniObjekt, this, nameof(SmjestajniObjekt)); }
+            set { EntityContext<SmjestajniObjekt>.Set(ref m_SmjestajniObjekt, this, value, nameof(SmjestajniObjekt)); }
         }
-        public VrstaUsluge FK_SmjestajniObjektVrstaUsluge_VrstaUsluge
+        public VrstaUsluge VrstaUsluge
         {
-            get { return EntityContext<VrstaUsluge>.Get(ref m_FK_SmjestajniObjektVrstaUsluge_VrstaUsluge, this, "FK_SmjestajniObjektVrstaUsluge_VrstaUsluge"); }
-            set { EntityContext<VrstaUsluge>.Set(ref m_FK_SmjestajniObjektVrstaUsluge_VrstaUsluge, this, value, "FK_SmjestajniObjektVrstaUsluge_VrstaUsluge"); }
+            get { return EntityContext<VrstaUsluge>.Get(ref m_VrstaUsluge, this, nameof(VrstaUsluge)); }
+            set { EntityContext<VrstaUsluge>.Set(ref m_VrstaUsluge, this, value, nameof(VrstaUsluge)); }
         }
         #endregion
 
@@ -88,32 +88,5 @@ namespace Orko.Turist
             return await TryGetByPrimaryKeyAsync<SmjestajniObjektVrstaUsluge>(SmjestajniObjektVrstaUslugeID);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<SmjestajniObjektVrstaUsluge> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<SmjestajniObjektVrstaUsluge>(queryConditions);
-        }
-        public static IEnumerable<SmjestajniObjektVrstaUsluge> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<SmjestajniObjektVrstaUsluge>(columnName, queryOp, value);
-        }
-		public static SmjestajniObjektVrstaUsluge GetByPrimaryKey(int SmjestajniObjektVrstaUslugeID)
-        {
-            return GetByPrimaryKey<SmjestajniObjektVrstaUsluge>(SmjestajniObjektVrstaUslugeID);
-        }
-		public static SmjestajniObjektVrstaUsluge TryGetByPrimaryKey(int SmjestajniObjektVrstaUslugeID)
-        {
-            return TryGetByPrimaryKey<SmjestajniObjektVrstaUsluge>(SmjestajniObjektVrstaUslugeID);
-        }
-        public static SmjestajniObjektVrstaUsluge GetByUnique1(int SmjestajniObjektVrstaUslugeSmjestajniObjekt, int SmjestajniObjektVrstaUslugeVrstaUsluge)
-        {
-            return GetByCallingParameters<SmjestajniObjektVrstaUsluge>(SmjestajniObjektVrstaUslugeSmjestajniObjekt, SmjestajniObjektVrstaUslugeVrstaUsluge);
-        }
-		public static SmjestajniObjektVrstaUsluge TryGetByUnique1(int SmjestajniObjektVrstaUslugeSmjestajniObjekt, int SmjestajniObjektVrstaUslugeVrstaUsluge)
-        {
-            return TryGetByCallingParameters<SmjestajniObjektVrstaUsluge>(SmjestajniObjektVrstaUslugeSmjestajniObjekt, SmjestajniObjektVrstaUslugeVrstaUsluge);
-        }
-        #endregion
     }
 }

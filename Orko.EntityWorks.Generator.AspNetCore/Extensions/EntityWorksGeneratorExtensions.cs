@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Reflection;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.IO;
 using System.Linq;
 
@@ -38,7 +40,7 @@ namespace Orko.EntityWorks.Generator.AspNetCore
 					"Please refer to documentation.");
 
 			// Get database models configuration section.
-			var contextModelsSection = entityWorksGeneratorSection.GetSection("ContextModels") ??
+			var contextModelsSection = entityWorksGeneratorSection.GetSection("Databases") ??
 				throw new EntityWorksGeneratorException("EntityWorksGenerator section does not have required ContextModels section. " +
 					"Please refer to documentation.");
 
@@ -111,17 +113,20 @@ namespace Orko.EntityWorks.Generator.AspNetCore
 				.Select(section => new Database(
 
 					// Pass connection string.
-					stringsSection.GetSection(GetSectionValue<string>("ConnectionName", true, section, section.Key, null)).Value,
-					
-					// Pass entity generator options.
+					GetConnectionString(stringsSection, section.Key),
+
+					// Pass database generator options.
 					new DatabaseGeneratorOptions()
 					{
+						Namespace = GetSectionValue("Namespace", false, section, section.Key, options.Namespace),
 						UseLanguageTables = GetSectionValue("UseLanguageTables", false, section, section.Key, options.UseLanguageTables),
 						RemoveGlobalTablePreffix = GetSectionValue("RemoveGlobalTablePreffix", false, section, section.Key, options.RemoveGlobalTablePreffix),
 						GlobalTablePreffix = GetSectionValue<string>("GlobalTablePreffix", false, section, section.Key, options.GlobalTablePreffix),
 						LanguageTableSuffix = GetSectionValue<string>("LanguageTableSuffix", false, section, section.Key, options.LanguageTableSuffix),
 						ForeignKeyNamingConvention = GetSectionValue("ForeignKeyNamingConvention", true, section, section.Key, options.ForeignKeyNamingConvention),
-						ForeignKeyNameNamingConverter = options.ForeignKeyNameNamingConverter
+						ForeignKeyNameNamingConverter = options.ForeignKeyNameNamingConverter,
+						DbProviderAssembly = stringsSection.GetSection(section.Key).GetSection("ProviderAssembly").Value,
+						DbProviderFactory = stringsSection.GetSection(section.Key).GetSection("ProviderFactory").Value,
 					}
 				));
 
@@ -196,6 +201,15 @@ namespace Orko.EntityWorks.Generator.AspNetCore
 
 			// Return value.
 			return returnValue;
+		}
+		/// <summary>
+		/// Gets connection string.
+		/// </summary>
+		/// <param name="section">Connection string section</param>
+		private static string GetConnectionString(IConfigurationSection section, string connectionStringKey)
+		{
+			// Get connection string.
+			return section.GetSection(connectionStringKey).GetSection("ConnectionString").Value;
 		}
 		#endregion
 	}

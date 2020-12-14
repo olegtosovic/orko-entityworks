@@ -6,12 +6,16 @@ namespace Orko.EntityWorks
     /// <summary>
     /// Represents entity / table field that acts as parameter for sql command object.
     /// </summary>
-    public class Parameter
+    public sealed class Parameter
     {
         #region Constructors
+        /// <summary>
+        /// Creates instance of parameter object.
+        /// </summary>
         public Parameter(
+            string sqlParameterName,
             ParameterInfo ParameterInfo,
-            SqlDbType sqlDbType, 
+            DbType sqlDbType, 
             string SqlPath, 
             string SqlLanguagePath = null, 
             bool isLanguage = false,
@@ -21,8 +25,8 @@ namespace Orko.EntityWorks
             bool isPrimary = false)
         {
             ParameterName = ParameterInfo.Name;
-            SqlParameterName = SqlPath + "." + ParameterName;
-            SqlLangParameterName = SqlLanguagePath + "." + ParameterName;
+            SqlParameterName = SqlPath + "." + sqlParameterName;
+            SqlLangParameterName = SqlLanguagePath + "." + sqlParameterName;
             ParameterNameWithMonkey = "@" + ParameterName;
             SqlDbType = sqlDbType;
             IsLanguage = isLanguage;
@@ -31,9 +35,13 @@ namespace Orko.EntityWorks
 			IsTimestamp = isTimestamp;
             IsPrimary = isPrimary;
         }
+        /// <summary>
+        /// Creates instance of parameter object.
+        /// </summary>
         public Parameter(
+            string sqlParameterName,
             PropertyInfo PropertyInfo,
-            SqlDbType sqlDbType,
+            DbType sqlDbType,
             string SqlPath, 
             string SqlLanguagePath = null, 
             bool isLanguage = false, 
@@ -43,8 +51,8 @@ namespace Orko.EntityWorks
             bool isPrimary = false)
         {
             ParameterName = PropertyInfo.Name;
-            SqlParameterName = SqlPath + "." + ParameterName;
-            SqlLangParameterName = SqlLanguagePath + "." + ParameterName;
+            SqlParameterName = SqlPath + "." + "[" + sqlParameterName + "]";
+            SqlLangParameterName = SqlLanguagePath + "." + "[" + sqlParameterName + "]";
             ParameterNameWithMonkey = "@" + ParameterName;
             SqlDbType = sqlDbType;
             IsLanguage = isLanguage;
@@ -60,7 +68,7 @@ namespace Orko.EntityWorks
         public string SqlParameterName { get; private set; }
         public string SqlLangParameterName { get; private set; }
         public string ParameterNameWithMonkey { get; private set; }
-        public SqlDbType SqlDbType { get; private set; }
+        public DbType SqlDbType { get; private set; }
         public bool IsLanguage { get; private set; }
         public bool IsLanguageCode { get; set; }
 		public bool IsTimestamp { get; set; }

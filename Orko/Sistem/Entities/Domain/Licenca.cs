@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -18,9 +18,9 @@ namespace Orko.Sistem
     public sealed partial class Licenca : Entity
     {
 		#region Members
-		private Base.Firma m_FK_Licenca_Firma;
-        private Sustav m_FK_Licenca_Sustav;
-        private VrstaLicence m_FK_Licenca_VrstaLicence;
+		private Base.Firma m_Firma;
+        private Sustav m_Sustav;
+        private VrstaLicence m_VrstaLicence;
         #endregion
         
 		#region Constructors
@@ -29,21 +29,21 @@ namespace Orko.Sistem
             // Cache field metadata.
             EntityMeta<Licenca>.LoadColumnMetadata
 			(
-				new ColumnMetadata("LicencaID", @"LicencaID", SqlDbType.Int, isIdentity: true, isPrimaryKey: true),
-                new ColumnMetadata("LicencaFirma", @"LicencaFirma", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("LicencaSustav", @"LicencaSustav", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("LicencaVrstaLicence", @"LicencaVrstaLicence", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("LicencaOd", @"LicencaOd", SqlDbType.DateTime2, isRequired: true),
-                new ColumnMetadata("LicencaDo", @"LicencaDo", SqlDbType.DateTime2, isRequired: false),
-                new ColumnMetadata("LicencaAktivnost", @"LicencaAktivnost", SqlDbType.Bit, isRequired: true)
+				new ColumnMetadata(nameof(LicencaID), @"LicencaID", DbType.Int32, isIdentity: true, isRequired: true),
+                new ColumnMetadata(nameof(LicencaFirma), @"LicencaFirma", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(LicencaSustav), @"LicencaSustav", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(LicencaVrstaLicence), @"LicencaVrstaLicence", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(LicencaOd), @"LicencaOd", DbType.DateTime2, isRequired: true),
+                new ColumnMetadata(nameof(LicencaDo), @"LicencaDo", DbType.DateTime2, isRequired: false),
+                new ColumnMetadata(nameof(LicencaAktivnost), @"LicencaAktivnost", DbType.Boolean, isRequired: true)
 			);
 
             // Cache entites metadata.
             EntityMeta<Licenca>.LoadRelationMetadata
 			(
-				new RelationMetadata("FK_Licenca_Firma", "LicencaFirma", "FirmaFirma"),
-                new RelationMetadata("FK_Licenca_Sustav", "LicencaSustav", "SustavSustav"),
-                new RelationMetadata("FK_Licenca_VrstaLicence", "LicencaVrstaLicence", "VrstaLicenceVrstaLicence")
+				new RelationMetadata(nameof(Firma), nameof(LicencaFirma), nameof(Orko.Base.Firma.FirmaFirma)),
+                new RelationMetadata(nameof(Sustav), nameof(LicencaSustav), nameof(Orko.Sistem.Sustav.SustavSustav)),
+                new RelationMetadata(nameof(VrstaLicence), nameof(LicencaVrstaLicence), nameof(Orko.Sistem.VrstaLicence.VrstaLicenceVrstaLicence))
 			);
 
 			// Cache table metadata.
@@ -66,20 +66,20 @@ namespace Orko.Sistem
         #endregion
 
         #region Entities
-		public Base.Firma FK_Licenca_Firma
+		public Base.Firma Firma
         {
-            get { return EntityContext<Base.Firma>.Get(ref m_FK_Licenca_Firma, this, "FK_Licenca_Firma"); }
-            set { EntityContext<Base.Firma>.Set(ref m_FK_Licenca_Firma, this, value, "FK_Licenca_Firma"); }
+            get { return EntityContext<Base.Firma>.Get(ref m_Firma, this, nameof(Firma)); }
+            set { EntityContext<Base.Firma>.Set(ref m_Firma, this, value, nameof(Firma)); }
         }
-        public Sustav FK_Licenca_Sustav
+        public Sustav Sustav
         {
-            get { return EntityContext<Sustav>.Get(ref m_FK_Licenca_Sustav, this, "FK_Licenca_Sustav"); }
-            set { EntityContext<Sustav>.Set(ref m_FK_Licenca_Sustav, this, value, "FK_Licenca_Sustav"); }
+            get { return EntityContext<Sustav>.Get(ref m_Sustav, this, nameof(Sustav)); }
+            set { EntityContext<Sustav>.Set(ref m_Sustav, this, value, nameof(Sustav)); }
         }
-        public VrstaLicence FK_Licenca_VrstaLicence
+        public VrstaLicence VrstaLicence
         {
-            get { return EntityContext<VrstaLicence>.Get(ref m_FK_Licenca_VrstaLicence, this, "FK_Licenca_VrstaLicence"); }
-            set { EntityContext<VrstaLicence>.Set(ref m_FK_Licenca_VrstaLicence, this, value, "FK_Licenca_VrstaLicence"); }
+            get { return EntityContext<VrstaLicence>.Get(ref m_VrstaLicence, this, nameof(VrstaLicence)); }
+            set { EntityContext<VrstaLicence>.Set(ref m_VrstaLicence, this, value, nameof(VrstaLicence)); }
         }
         #endregion
 
@@ -101,24 +101,5 @@ namespace Orko.Sistem
             return await TryGetByPrimaryKeyAsync<Licenca>(LicencaID);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<Licenca> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<Licenca>(queryConditions);
-        }
-        public static IEnumerable<Licenca> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<Licenca>(columnName, queryOp, value);
-        }
-		public static Licenca GetByPrimaryKey(int LicencaID)
-        {
-            return GetByPrimaryKey<Licenca>(LicencaID);
-        }
-		public static Licenca TryGetByPrimaryKey(int LicencaID)
-        {
-            return TryGetByPrimaryKey<Licenca>(LicencaID);
-        }
-        #endregion
     }
 }

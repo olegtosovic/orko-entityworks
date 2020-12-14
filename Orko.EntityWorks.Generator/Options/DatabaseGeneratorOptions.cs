@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.IO;
 
 namespace Orko.EntityWorks.Generator
@@ -19,13 +20,22 @@ namespace Orko.EntityWorks.Generator
             ForeignKeyNamingConvention = ForeignKeyNamingConvention.FK_FN;
 
             // True by default. Was left for debuging purposes.
-            UseParallelProcessing = true;
+            UseParallelProcessing = false;
 
             // We can not presume by default that user will use entityworks language table structure.
             UseLanguageTables = false;
 
-            //  We can not presume by default that user database has all tables preffixed by some value.
+            // We can not presume by default that user database has all tables preffixed by some value.
             RemoveGlobalTablePreffix = false;
+
+            // Default namespace is sql database name.
+            Namespace = null;
+
+            // Default provider assembly.
+            DbProviderAssembly = null;
+
+            // Default provider factory name.
+            DbProviderFactory = null;
         }
         #endregion
 
@@ -64,6 +74,14 @@ namespace Orko.EntityWorks.Generator
         /// </summary>
         public ForeignKeyNamingConvention ForeignKeyNamingConvention { get; set; }
         /// <summary>
+        /// Db Provider assembly name.
+        /// </summary>
+        public string DbProviderAssembly { get; set; }
+        /// <summary>
+        /// Db Provider assembly factory.
+        /// </summary>
+        public string DbProviderFactory { get; set; }
+        /// <summary>
         /// Table preffix to be removed for generated entities.
         /// </summary>
         public string GlobalTablePreffix { get; set; }
@@ -71,6 +89,10 @@ namespace Orko.EntityWorks.Generator
         /// Language table name suffix that marks table as language table.
         /// </summary>
         public string LanguageTableSuffix { get; set; }
+        /// <summary>
+        /// Custom namespace instead of default, where default is exact sql database name.
+        /// </summary>
+        public string Namespace { get; set; }
         #endregion
     }
 }

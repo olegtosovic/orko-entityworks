@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -18,7 +18,7 @@ namespace Orko.Watersports
     public sealed partial class Lokacija2 : Entity
     {
 		#region Members
-		private TipLokacije m_FK_Lokacija2_TipLokacije;
+		private TipLokacije m_TipLokacije;
         #endregion
         
 		#region Constructors
@@ -27,20 +27,20 @@ namespace Orko.Watersports
             // Cache field metadata.
             EntityMeta<Lokacija2>.LoadColumnMetadata
 			(
-				new ColumnMetadata("LokacijaID", @"LokacijaID", SqlDbType.Int, isIdentity: true, isPrimaryKey: true),
-                new ColumnMetadata("LokacijaTipLokacije", @"LokacijaTipLokacije", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("LokacijaNaziv", @"LokacijaNaziv", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("LokacijaAdresa", @"LokacijaAdresa", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("LokacijaLatitude", @"LokacijaLatitude", SqlDbType.Decimal, isRequired: false),
-                new ColumnMetadata("LokacijaLongitude", @"LokacijaLongitude", SqlDbType.Decimal, isRequired: false),
-                new ColumnMetadata("LokacijaZoomLevel", @"LokacijaZoomLevel", SqlDbType.Int, isRequired: false),
-                new ColumnMetadata("LokacijaAktivnost", @"LokacijaAktivnost", SqlDbType.Bit, isRequired: true)
+				new ColumnMetadata(nameof(LokacijaID), @"LokacijaID", DbType.Int32, isIdentity: true, isRequired: true),
+                new ColumnMetadata(nameof(LokacijaTipLokacije), @"LokacijaTipLokacije", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(LokacijaNaziv), @"LokacijaNaziv", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(LokacijaAdresa), @"LokacijaAdresa", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(LokacijaLatitude), @"LokacijaLatitude", DbType.Decimal, isRequired: false),
+                new ColumnMetadata(nameof(LokacijaLongitude), @"LokacijaLongitude", DbType.Decimal, isRequired: false),
+                new ColumnMetadata(nameof(LokacijaZoomLevel), @"LokacijaZoomLevel", DbType.Int32, isRequired: false),
+                new ColumnMetadata(nameof(LokacijaAktivnost), @"LokacijaAktivnost", DbType.Boolean, isRequired: true)
 			);
 
             // Cache entites metadata.
             EntityMeta<Lokacija2>.LoadRelationMetadata
 			(
-				new RelationMetadata("FK_Lokacija2_TipLokacije", "LokacijaTipLokacije", "TipLokacijeTipLokacije")
+				new RelationMetadata(nameof(TipLokacije), nameof(LokacijaTipLokacije), nameof(Orko.Watersports.TipLokacije.TipLokacijeTipLokacije))
 			);
 
 			// Cache table metadata.
@@ -64,10 +64,10 @@ namespace Orko.Watersports
         #endregion
 
         #region Entities
-		public TipLokacije FK_Lokacija2_TipLokacije
+		public TipLokacije TipLokacije
         {
-            get { return EntityContext<TipLokacije>.Get(ref m_FK_Lokacija2_TipLokacije, this, "FK_Lokacija2_TipLokacije"); }
-            set { EntityContext<TipLokacije>.Set(ref m_FK_Lokacija2_TipLokacije, this, value, "FK_Lokacija2_TipLokacije"); }
+            get { return EntityContext<TipLokacije>.Get(ref m_TipLokacije, this, nameof(TipLokacije)); }
+            set { EntityContext<TipLokacije>.Set(ref m_TipLokacije, this, value, nameof(TipLokacije)); }
         }
         #endregion
 
@@ -89,24 +89,5 @@ namespace Orko.Watersports
             return await TryGetByPrimaryKeyAsync<Lokacija2>(LokacijaID);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<Lokacija2> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<Lokacija2>(queryConditions);
-        }
-        public static IEnumerable<Lokacija2> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<Lokacija2>(columnName, queryOp, value);
-        }
-		public static Lokacija2 GetByPrimaryKey(int LokacijaID)
-        {
-            return GetByPrimaryKey<Lokacija2>(LokacijaID);
-        }
-		public static Lokacija2 TryGetByPrimaryKey(int LokacijaID)
-        {
-            return TryGetByPrimaryKey<Lokacija2>(LokacijaID);
-        }
-        #endregion
     }
 }

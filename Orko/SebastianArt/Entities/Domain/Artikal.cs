@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -18,8 +18,8 @@ namespace Orko.SebastianArt
     public sealed partial class Artikal : Entity
     {
 		#region Members
-		private Orijentacija m_FK_Artikal_Orijentacija;
-        private VrstaArtikla m_FK_Artikal_VrstaArtikla;
+		private Orijentacija m_Orijentacija;
+        private VrstaArtikla m_VrstaArtikla;
         #endregion
         
 		#region Constructors
@@ -28,28 +28,28 @@ namespace Orko.SebastianArt
             // Cache field metadata.
             EntityMeta<Artikal>.LoadColumnMetadata
 			(
-				new ColumnMetadata("ArtikalID", @"ArtikalID", SqlDbType.Int, isPrimaryKey: true),
-                new ColumnMetadata("ArtikalSifra", @"ArtikalSifra", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("ArtikalVrstaArtikla", @"ArtikalVrstaArtikla", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("ArtikalAutor", @"ArtikalAutor", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("ArtikalDimenzije", @"ArtikalDimenzije", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("ArtikalKolicina", @"ArtikalKolicina", SqlDbType.Decimal, isRequired: false),
-                new ColumnMetadata("ArtikalOrijentacija", @"ArtikalOrijentacija", SqlDbType.Char, isRequired: false),
-                new ColumnMetadata("ArtikalCijena", @"ArtikalCijena", SqlDbType.Decimal, isRequired: false),
-                new ColumnMetadata("ArtikalDobavljivo", @"ArtikalDobavljivo", SqlDbType.Bit, isRequired: false),
-                new ColumnMetadata("ArtikalGrupa", @"ArtikalGrupa", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("ArtikalBrojNaziv", @"ArtikalBrojNaziv", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("ArtikalAktivnost", @"ArtikalAktivnost", SqlDbType.Bit, isRequired: true),
-                new ColumnMetadata("ArtikalJezik", @"ArtikalJezik", SqlDbType.Char, isLanguageCode: true, isPrimaryKey: true),
-                new ColumnMetadata("ArtikalNaziv", @"ArtikalNaziv", SqlDbType.NVarChar, isRequired: true, isLanguage: true),
-                new ColumnMetadata("ArtikalOpis", @"ArtikalOpis", SqlDbType.NVarChar, isRequired: false, isLanguage: true)
+				new ColumnMetadata(nameof(ArtikalID), @"ArtikalID", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(ArtikalSifra), @"ArtikalSifra", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(ArtikalVrstaArtikla), @"ArtikalVrstaArtikla", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(ArtikalAutor), @"ArtikalAutor", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(ArtikalDimenzije), @"ArtikalDimenzije", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(ArtikalKolicina), @"ArtikalKolicina", DbType.Decimal, isRequired: false),
+                new ColumnMetadata(nameof(ArtikalOrijentacija), @"ArtikalOrijentacija", DbType.AnsiStringFixedLength, isRequired: false),
+                new ColumnMetadata(nameof(ArtikalCijena), @"ArtikalCijena", DbType.Decimal, isRequired: false),
+                new ColumnMetadata(nameof(ArtikalDobavljivo), @"ArtikalDobavljivo", DbType.Boolean, isRequired: false),
+                new ColumnMetadata(nameof(ArtikalGrupa), @"ArtikalGrupa", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(ArtikalBrojNaziv), @"ArtikalBrojNaziv", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(ArtikalAktivnost), @"ArtikalAktivnost", DbType.Boolean, isRequired: true),
+                new ColumnMetadata(nameof(ArtikalJezik), @"ArtikalJezik", DbType.AnsiStringFixedLength, isRequired: true, isLanguageCode: true),
+                new ColumnMetadata(nameof(ArtikalNaziv), @"ArtikalNaziv", DbType.String, isRequired: true, isLanguage: true),
+                new ColumnMetadata(nameof(ArtikalOpis), @"ArtikalOpis", DbType.String, isRequired: false, isLanguage: true)
 			);
 
             // Cache entites metadata.
             EntityMeta<Artikal>.LoadRelationMetadata
 			(
-				new RelationMetadata("FK_Artikal_Orijentacija", "ArtikalOrijentacija", "OrijentacijaOrijentacija"),
-                new RelationMetadata("FK_Artikal_VrstaArtikla", "ArtikalVrstaArtikla", "VrstaArtiklaVrstaArtikla")
+				new RelationMetadata(nameof(Orijentacija), nameof(ArtikalOrijentacija), nameof(Orko.SebastianArt.Orijentacija.OrijentacijaOrijentacija)),
+                new RelationMetadata(nameof(VrstaArtikla), nameof(ArtikalVrstaArtikla), nameof(Orko.SebastianArt.VrstaArtikla.VrstaArtiklaVrstaArtikla))
 			);
 
 			// Cache table metadata.
@@ -80,15 +80,15 @@ namespace Orko.SebastianArt
         #endregion
 
         #region Entities
-		public Orijentacija FK_Artikal_Orijentacija
+		public Orijentacija Orijentacija
         {
-            get { return EntityContext<Orijentacija>.Get(ref m_FK_Artikal_Orijentacija, this, "FK_Artikal_Orijentacija"); }
-            set { EntityContext<Orijentacija>.Set(ref m_FK_Artikal_Orijentacija, this, value, "FK_Artikal_Orijentacija"); }
+            get { return EntityContext<Orijentacija>.Get(ref m_Orijentacija, this, nameof(Orijentacija)); }
+            set { EntityContext<Orijentacija>.Set(ref m_Orijentacija, this, value, nameof(Orijentacija)); }
         }
-        public VrstaArtikla FK_Artikal_VrstaArtikla
+        public VrstaArtikla VrstaArtikla
         {
-            get { return EntityContext<VrstaArtikla>.Get(ref m_FK_Artikal_VrstaArtikla, this, "FK_Artikal_VrstaArtikla"); }
-            set { EntityContext<VrstaArtikla>.Set(ref m_FK_Artikal_VrstaArtikla, this, value, "FK_Artikal_VrstaArtikla"); }
+            get { return EntityContext<VrstaArtikla>.Get(ref m_VrstaArtikla, this, nameof(VrstaArtikla)); }
+            set { EntityContext<VrstaArtikla>.Set(ref m_VrstaArtikla, this, value, nameof(VrstaArtikla)); }
         }
         #endregion
 
@@ -110,24 +110,5 @@ namespace Orko.SebastianArt
             return await TryGetByPrimaryKeyAsync<Artikal>(ArtikalID);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<Artikal> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<Artikal>(queryConditions);
-        }
-        public static IEnumerable<Artikal> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<Artikal>(columnName, queryOp, value);
-        }
-		public static Artikal GetByPrimaryKey(int ArtikalID)
-        {
-            return GetByPrimaryKey<Artikal>(ArtikalID);
-        }
-		public static Artikal TryGetByPrimaryKey(int ArtikalID)
-        {
-            return TryGetByPrimaryKey<Artikal>(ArtikalID);
-        }
-        #endregion
     }
 }

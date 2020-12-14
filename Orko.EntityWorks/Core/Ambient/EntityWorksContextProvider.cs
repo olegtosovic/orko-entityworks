@@ -51,8 +51,6 @@ namespace Orko.EntityWorks
 				throw new EntityWorksException("EntityWorksContext factory already set.");
 			if (factory == null)
 				throw new EntityWorksException("EntityWorksContext factory cannot be null. Make sure to initialize proper method that retrieves valid instance.");
-			//if (factory() == null)
-			//	throw new EntityWorksException("EntityWorksContext instance cannot be null. Make sure to retrive valid instance from factory method.");
 
 			// Set factory.
 			m_contextFactory = factory;

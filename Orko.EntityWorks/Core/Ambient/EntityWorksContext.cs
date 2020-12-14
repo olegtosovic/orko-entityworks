@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Runtime.CompilerServices;
 using System.Text;
 
@@ -14,7 +15,14 @@ namespace Orko.EntityWorks
 	public sealed class EntityWorksContext
 	{
 		#region Members
+		/// <summary>
+		/// Unique instance identificator, debuging purposes.
+		/// </summary>
 		public Guid m_guid;
+		#endregion
+
+		#region Ambient properties
+		private ConcurrentDictionary<string, Stack<QueryContext>> m_contextStacks;
 		#endregion
 
 		#region Constructors
@@ -52,11 +60,7 @@ namespace Orko.EntityWorks
 		internal static IDictionary<string, string> ContextMappings { get; set; }
 		#endregion
 
-		#region Ambient properties
-		private ConcurrentDictionary<string, Stack<QueryContext>> m_contextStacks;
-		#endregion
-
-		#region Public properties
+		#region Properties
 		/// <summary>
 		/// Indicated if debug mode is enabled.
 		/// </summary>

@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -27,12 +27,12 @@ namespace Orko.SebastianArt
             // Cache field metadata.
             EntityMeta<VrstaArtikla>.LoadColumnMetadata
 			(
-				new ColumnMetadata("VrstaArtiklaVrstaArtikla", @"VrstaArtiklaVrstaArtikla", SqlDbType.NVarChar, isPrimaryKey: true),
-                new ColumnMetadata("VrstaArtiklaPostojiKolicina", @"VrstaArtiklaPostojiKolicina", SqlDbType.Bit, isRequired: true),
-                new ColumnMetadata("VrstaArtiklaAktivnost", @"VrstaArtiklaAktivnost", SqlDbType.Bit, isRequired: true),
-                new ColumnMetadata("VrstaArtiklaJezik", @"VrstaArtiklaJezik", SqlDbType.Char, isLanguageCode: true, isPrimaryKey: true),
-                new ColumnMetadata("VrstaArtiklaNaziv", @"VrstaArtiklaNaziv", SqlDbType.NVarChar, isRequired: true, isLanguage: true),
-                new ColumnMetadata("VrstaArtiklaOpis", @"VrstaArtiklaOpis", SqlDbType.NVarChar, isRequired: false, isLanguage: true)
+				new ColumnMetadata(nameof(VrstaArtiklaVrstaArtikla), @"VrstaArtiklaVrstaArtikla", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(VrstaArtiklaPostojiKolicina), @"VrstaArtiklaPostojiKolicina", DbType.Boolean, isRequired: true),
+                new ColumnMetadata(nameof(VrstaArtiklaAktivnost), @"VrstaArtiklaAktivnost", DbType.Boolean, isRequired: true),
+                new ColumnMetadata(nameof(VrstaArtiklaJezik), @"VrstaArtiklaJezik", DbType.AnsiStringFixedLength, isRequired: true, isLanguageCode: true),
+                new ColumnMetadata(nameof(VrstaArtiklaNaziv), @"VrstaArtiklaNaziv", DbType.String, isRequired: true, isLanguage: true),
+                new ColumnMetadata(nameof(VrstaArtiklaOpis), @"VrstaArtiklaOpis", DbType.String, isRequired: false, isLanguage: true)
 			);
 
             // Cache entites metadata.
@@ -81,24 +81,5 @@ namespace Orko.SebastianArt
             return await TryGetByPrimaryKeyAsync<VrstaArtikla>(VrstaArtiklaVrstaArtikla);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<VrstaArtikla> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<VrstaArtikla>(queryConditions);
-        }
-        public static IEnumerable<VrstaArtikla> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<VrstaArtikla>(columnName, queryOp, value);
-        }
-		public static VrstaArtikla GetByPrimaryKey(string VrstaArtiklaVrstaArtikla)
-        {
-            return GetByPrimaryKey<VrstaArtikla>(VrstaArtiklaVrstaArtikla);
-        }
-		public static VrstaArtikla TryGetByPrimaryKey(string VrstaArtiklaVrstaArtikla)
-        {
-            return TryGetByPrimaryKey<VrstaArtikla>(VrstaArtiklaVrstaArtikla);
-        }
-        #endregion
     }
 }

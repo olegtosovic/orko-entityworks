@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -27,11 +27,11 @@ namespace Orko.Turist
             // Cache field metadata.
             EntityMeta<RazinaUsluge>.LoadColumnMetadata
 			(
-				new ColumnMetadata("RazinaUslugeRazinaUsluge", @"RazinaUslugeRazinaUsluge", SqlDbType.NVarChar, isPrimaryKey: true),
-                new ColumnMetadata("RazinaUslugeAktivnost", @"RazinaUslugeAktivnost", SqlDbType.Bit, isRequired: true),
-                new ColumnMetadata("RazinaUslugeJezik", @"RazinaUslugeJezik", SqlDbType.Char, isLanguageCode: true, isPrimaryKey: true),
-                new ColumnMetadata("RazinaUslugeNaziv", @"RazinaUslugeNaziv", SqlDbType.NVarChar, isRequired: true, isLanguage: true),
-                new ColumnMetadata("RazinaUslugeOpis", @"RazinaUslugeOpis", SqlDbType.NVarChar, isRequired: false, isLanguage: true)
+				new ColumnMetadata(nameof(RazinaUslugeRazinaUsluge), @"RazinaUslugeRazinaUsluge", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(RazinaUslugeAktivnost), @"RazinaUslugeAktivnost", DbType.Boolean, isRequired: true),
+                new ColumnMetadata(nameof(RazinaUslugeJezik), @"RazinaUslugeJezik", DbType.AnsiStringFixedLength, isRequired: true, isLanguageCode: true),
+                new ColumnMetadata(nameof(RazinaUslugeNaziv), @"RazinaUslugeNaziv", DbType.String, isRequired: true, isLanguage: true),
+                new ColumnMetadata(nameof(RazinaUslugeOpis), @"RazinaUslugeOpis", DbType.String, isRequired: false, isLanguage: true)
 			);
 
             // Cache entites metadata.
@@ -79,24 +79,5 @@ namespace Orko.Turist
             return await TryGetByPrimaryKeyAsync<RazinaUsluge>(RazinaUslugeRazinaUsluge);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<RazinaUsluge> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<RazinaUsluge>(queryConditions);
-        }
-        public static IEnumerable<RazinaUsluge> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<RazinaUsluge>(columnName, queryOp, value);
-        }
-		public static RazinaUsluge GetByPrimaryKey(string RazinaUslugeRazinaUsluge)
-        {
-            return GetByPrimaryKey<RazinaUsluge>(RazinaUslugeRazinaUsluge);
-        }
-		public static RazinaUsluge TryGetByPrimaryKey(string RazinaUslugeRazinaUsluge)
-        {
-            return TryGetByPrimaryKey<RazinaUsluge>(RazinaUslugeRazinaUsluge);
-        }
-        #endregion
     }
 }

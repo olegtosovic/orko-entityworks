@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -27,19 +27,19 @@ namespace Orko.GuletCroatia
             // Cache field metadata.
             EntityMeta<Krstarenje>.LoadColumnMetadata
 			(
-				new ColumnMetadata("KrstarenjeKrstarenje", @"KrstarenjeKrstarenje", SqlDbType.NVarChar, isPrimaryKey: true),
-                new ColumnMetadata("KrstarenjeSlug", @"KrstarenjeSlug", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("KrstarenjeHeaderImage", @"KrstarenjeHeaderImage", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("KrstarenjeThumbImage", @"KrstarenjeThumbImage", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("KrstarenjeBrojDana", @"KrstarenjeBrojDana", SqlDbType.Int, isRequired: false),
-                new ColumnMetadata("KrstarenjeAktivnost", @"KrstarenjeAktivnost", SqlDbType.Bit, isRequired: true),
-                new ColumnMetadata("KrstarenjeJezik", @"KrstarenjeJezik", SqlDbType.Char, isLanguageCode: true, isPrimaryKey: true),
-                new ColumnMetadata("KrstarenjeNaziv", @"KrstarenjeNaziv", SqlDbType.NVarChar, isRequired: true, isLanguage: true),
-                new ColumnMetadata("KrstarenjeUvodNaslov", @"KrstarenjeUvodNaslov", SqlDbType.NVarChar, isRequired: false, isLanguage: true),
-                new ColumnMetadata("KrstarenjeUvodTekst", @"KrstarenjeUvodTekst", SqlDbType.NVarChar, isRequired: false, isLanguage: true),
-                new ColumnMetadata("KrstarenjeIskrcajTekst", @"KrstarenjeIskrcajTekst", SqlDbType.NVarChar, isRequired: false, isLanguage: true),
-                new ColumnMetadata("KrstarenjeMetaTitle", @"KrstarenjeMetaTitle", SqlDbType.NVarChar, isRequired: false, isLanguage: true),
-                new ColumnMetadata("KrstarenjeMetaDescription", @"KrstarenjeMetaDescription", SqlDbType.NVarChar, isRequired: false, isLanguage: true)
+				new ColumnMetadata(nameof(KrstarenjeKrstarenje), @"KrstarenjeKrstarenje", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(KrstarenjeSlug), @"KrstarenjeSlug", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(KrstarenjeHeaderImage), @"KrstarenjeHeaderImage", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(KrstarenjeThumbImage), @"KrstarenjeThumbImage", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(KrstarenjeBrojDana), @"KrstarenjeBrojDana", DbType.Int32, isRequired: false),
+                new ColumnMetadata(nameof(KrstarenjeAktivnost), @"KrstarenjeAktivnost", DbType.Boolean, isRequired: true),
+                new ColumnMetadata(nameof(KrstarenjeJezik), @"KrstarenjeJezik", DbType.AnsiStringFixedLength, isRequired: true, isLanguageCode: true),
+                new ColumnMetadata(nameof(KrstarenjeNaziv), @"KrstarenjeNaziv", DbType.String, isRequired: true, isLanguage: true),
+                new ColumnMetadata(nameof(KrstarenjeUvodNaslov), @"KrstarenjeUvodNaslov", DbType.String, isRequired: false, isLanguage: true),
+                new ColumnMetadata(nameof(KrstarenjeUvodTekst), @"KrstarenjeUvodTekst", DbType.String, isRequired: false, isLanguage: true),
+                new ColumnMetadata(nameof(KrstarenjeIskrcajTekst), @"KrstarenjeIskrcajTekst", DbType.String, isRequired: false, isLanguage: true),
+                new ColumnMetadata(nameof(KrstarenjeMetaTitle), @"KrstarenjeMetaTitle", DbType.String, isRequired: false, isLanguage: true),
+                new ColumnMetadata(nameof(KrstarenjeMetaDescription), @"KrstarenjeMetaDescription", DbType.String, isRequired: false, isLanguage: true)
 			);
 
             // Cache entites metadata.
@@ -95,32 +95,5 @@ namespace Orko.GuletCroatia
             return await TryGetByPrimaryKeyAsync<Krstarenje>(KrstarenjeKrstarenje);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<Krstarenje> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<Krstarenje>(queryConditions);
-        }
-        public static IEnumerable<Krstarenje> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<Krstarenje>(columnName, queryOp, value);
-        }
-		public static Krstarenje GetByPrimaryKey(string KrstarenjeKrstarenje)
-        {
-            return GetByPrimaryKey<Krstarenje>(KrstarenjeKrstarenje);
-        }
-		public static Krstarenje TryGetByPrimaryKey(string KrstarenjeKrstarenje)
-        {
-            return TryGetByPrimaryKey<Krstarenje>(KrstarenjeKrstarenje);
-        }
-        public static Krstarenje GetByUnique1(string KrstarenjeSlug)
-        {
-            return GetByCallingParameters<Krstarenje>(KrstarenjeSlug);
-        }
-		public static Krstarenje TryGetByUnique1(string KrstarenjeSlug)
-        {
-            return TryGetByCallingParameters<Krstarenje>(KrstarenjeSlug);
-        }
-        #endregion
     }
 }

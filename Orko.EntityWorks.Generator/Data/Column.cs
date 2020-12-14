@@ -9,93 +9,20 @@ using System.Xml.Linq;
 
 namespace Orko.EntityWorks.Generator
 {
+    /// <summary>
+    /// Represents database table column with all schema metadata.
+    /// </summary>
     public sealed class Column
     {
         #region Members
         private static bool[] _lookup;
+        private Dictionary<string, Type> NetTypes { get; set; }
+        private Dictionary<string, DbType> DbTypes { get; set; }
         #endregion
 
-        #region Constructors
+        #region Static
         static Column()
         {
-            // Initialization
-            NetTypes = new Dictionary<string, Type>(35);
-            SqlDbTypes = new Dictionary<string, SqlDbType>(35);
-
-            // Load net types.
-            NetTypes.Add("bigint", typeof(Int64));
-            NetTypes.Add("binary", typeof(byte[]));
-            NetTypes.Add("bit", typeof(bool));
-            NetTypes.Add("char", typeof(string));
-            NetTypes.Add("date", typeof(DateTime));
-            NetTypes.Add("datetime", typeof(DateTime));
-            NetTypes.Add("datetime2", typeof(DateTime));
-            NetTypes.Add("datetimeoffset", typeof(DateTimeOffset));
-            NetTypes.Add("decimal", typeof(decimal));
-            NetTypes.Add("float", typeof(double));
-            NetTypes.Add("geography", typeof(object));
-            NetTypes.Add("geometry", typeof(object));
-            NetTypes.Add("hierarchyid", typeof(object));
-            NetTypes.Add("image", typeof(byte[]));
-            NetTypes.Add("int", typeof(Int32));
-            NetTypes.Add("money", typeof(decimal));
-            NetTypes.Add("nchar", typeof(string));
-            NetTypes.Add("ntext", typeof(string));
-            NetTypes.Add("numeric", typeof(decimal));
-            NetTypes.Add("nvarchar", typeof(string));
-            NetTypes.Add("real", typeof(float));
-            NetTypes.Add("rowversion", typeof(byte[]));
-            NetTypes.Add("smalldatetime", typeof(DateTime));
-            NetTypes.Add("smallint", typeof(Int16));
-            NetTypes.Add("smallmoney", typeof(decimal));
-            NetTypes.Add("sql_variant", typeof(object));
-            NetTypes.Add("sysname", typeof(string));
-            NetTypes.Add("text", typeof(string));
-            NetTypes.Add("time", typeof(TimeSpan));
-            NetTypes.Add("timestamp", typeof(byte[]));
-            NetTypes.Add("tinyint", typeof(byte));
-            NetTypes.Add("uniqueidentifier", typeof(Guid));
-            NetTypes.Add("varbinary", typeof(byte[]));
-            NetTypes.Add("varchar", typeof(string));
-            NetTypes.Add("xml", typeof(XElement));
-
-            // Load sql db types.
-            SqlDbTypes.Add("bigint", SqlDbType.BigInt);
-            SqlDbTypes.Add("binary", SqlDbType.Binary);
-            SqlDbTypes.Add("bit", SqlDbType.Bit);
-            SqlDbTypes.Add("char", SqlDbType.Char);
-            SqlDbTypes.Add("date", SqlDbType.Date);
-            SqlDbTypes.Add("datetime", SqlDbType.DateTime);
-            SqlDbTypes.Add("datetime2", SqlDbType.DateTime2);
-            SqlDbTypes.Add("datetimeoffset", SqlDbType.DateTimeOffset);
-            SqlDbTypes.Add("decimal", SqlDbType.Decimal);
-            SqlDbTypes.Add("float", SqlDbType.Float);
-            SqlDbTypes.Add("geography", SqlDbType.Variant);
-            SqlDbTypes.Add("geometry", SqlDbType.Variant);
-            SqlDbTypes.Add("hierarchyid", SqlDbType.Variant);
-            SqlDbTypes.Add("image", SqlDbType.Image);
-            SqlDbTypes.Add("int", SqlDbType.Int);
-            SqlDbTypes.Add("money", SqlDbType.Money);
-            SqlDbTypes.Add("nchar", SqlDbType.NChar);
-            SqlDbTypes.Add("ntext", SqlDbType.NText);
-            SqlDbTypes.Add("numeric", SqlDbType.Decimal);
-            SqlDbTypes.Add("nvarchar", SqlDbType.NVarChar);
-            SqlDbTypes.Add("real", SqlDbType.Real);
-            SqlDbTypes.Add("rowversion", SqlDbType.Variant);
-            SqlDbTypes.Add("smalldatetime", SqlDbType.SmallDateTime);
-            SqlDbTypes.Add("smallint", SqlDbType.SmallInt);
-            SqlDbTypes.Add("smallmoney", SqlDbType.SmallMoney);
-            SqlDbTypes.Add("sql_variant", SqlDbType.Variant);
-            SqlDbTypes.Add("sysname", SqlDbType.NVarChar);
-            SqlDbTypes.Add("text", SqlDbType.Text);
-            SqlDbTypes.Add("time", SqlDbType.Time);
-            SqlDbTypes.Add("timestamp", SqlDbType.Timestamp);
-            SqlDbTypes.Add("tinyint", SqlDbType.TinyInt);
-            SqlDbTypes.Add("uniqueidentifier", SqlDbType.UniqueIdentifier);
-            SqlDbTypes.Add("varbinary", SqlDbType.VarBinary);
-            SqlDbTypes.Add("varchar", SqlDbType.VarChar);
-            SqlDbTypes.Add("xml", SqlDbType.Xml);
-
             // Valid characters lookup.
             // Optimization taken from stack overflow.
             // https://stackoverflow.com/questions/1120198/most-efficient-way-to-remove-special-characters-from-string
@@ -107,12 +34,30 @@ namespace Orko.EntityWorks.Generator
             _lookup['_'] = true;
 
         }
-        public Column(string columnName, Table table, bool isPartOfPrimaryKey = false, bool isPartOfUniqueKey = false)
+        #endregion
+
+        #region Constructors
+        /// <summary>
+        /// Creates instance of column object.
+        /// </summary>
+        private Column(Table table)
+		{
+            // Set types from database to member converion.
+            NetTypes = table.Database.EwgProviderFactory.TypeProvider.NetTypes;
+
+            // Set types from database to dbtype conversion.
+            DbTypes = table.Database.EwgProviderFactory.TypeProvider.DbTypes;
+        }
+        /// <summary>
+        /// Creates instance of column object.
+        /// </summary>
+        public Column(string columnName, Table table, bool isPartOfPrimaryKey = false, bool isPartOfUniqueKey = false) : this(table)
         {
             // Initialization
+            Table = table;
             SqlName = columnName;
             NetName = GetNetValidName(columnName);
-            Table = table;
+
 
             // Retrive columns from data cache.
             var tableColumn = Table.ColumnRows
@@ -124,26 +69,29 @@ namespace Orko.EntityWorks.Generator
             SqlDataTypeName = tableColumn["sql_data_type"].ToString();
             NetDataTypeName = GetSqlDataTypeName(SqlDataTypeName);
             NetDataArgumentTypeName = GetSqlDataArgumentTypeName(SqlDataTypeName);
-            SqlDbType = GetSqlDbType(SqlDataTypeName);
+            DbType = GetDbType(SqlDataTypeName);
             IsPartOfPrimaryKey = (IsPartOfPrimaryKey == true) ? true : isPartOfPrimaryKey;
             IsPartOfUniqueKey = (IsPartOfUniqueKey == true) ? true : isPartOfUniqueKey;
             IsNullable = (bool)tableColumn["is_nullable"];
             IsIdentity = (bool)tableColumn["is_identity"];
             OrdinalPosition = (int)tableColumn["column_id"];
         }
-        public Column(DataRow column, Table table)
+        /// <summary>
+        /// Creates instance of column object.
+        /// </summary>
+        public Column(DataRow column, Table table) : this(table)
         {
             // Initialization
+            Table = table;
             SqlName = column["column_name"].ToString();
             NetName = GetNetValidName(SqlName);
-            Table = table;
             table.Columns.GetOrAdd(SqlName, this);
 
             // Assign column properties.
             SqlDataTypeName = column["sql_data_type"].ToString();
             NetDataTypeName = GetSqlDataTypeName(SqlDataTypeName);
             NetDataArgumentTypeName = GetSqlDataArgumentTypeName(SqlDataTypeName);
-            SqlDbType = GetSqlDbType(SqlDataTypeName);
+            DbType = GetDbType(SqlDataTypeName);
             IsNullable = (bool)column["is_nullable"];
             IsIdentity = (bool)column["is_identity"];
             OrdinalPosition = (int)column["column_id"];
@@ -152,18 +100,13 @@ namespace Orko.EntityWorks.Generator
 
         #region Attributes
         public string SqlName { get; private set; }
-        public SqlDbType SqlDbType { get; private set; }
+        public DbType DbType { get; private set; }
         public string SqlDataTypeName { get; private set; }
         public string NetName { get; set; }
         public string NetDataTypeName { get; private set; }
         public string NetDataArgumentTypeName { get; private set; }
         public int OrdinalPosition { get; set; }
         public Table Table { get; private set; }
-        #endregion
-
-        #region Cache type conversion
-        private static Dictionary<string, Type> NetTypes { get; set; }
-        private static Dictionary<string, SqlDbType> SqlDbTypes { get; set; }
         #endregion
 
         #region Key function
@@ -178,11 +121,11 @@ namespace Orko.EntityWorks.Generator
         #endregion
 
         #region Helper methods
-        public SqlDbType GetSqlDbType(string sqlDataTypeName)
+        public DbType GetDbType(string sqlDataTypeName)
         {
-            SqlDbType sqlDbType = SqlDbType.Variant;
-            if (SqlDbTypes.ContainsKey(SqlDataTypeName))
-                sqlDbType = SqlDbTypes[SqlDataTypeName];
+            DbType sqlDbType = DbType.Object;
+            if (DbTypes.ContainsKey(sqlDataTypeName))
+                sqlDbType = DbTypes[sqlDataTypeName];
             return sqlDbType;
         }
         public string GetSqlDataTypeName(string sqlDataTypeName)
@@ -228,6 +171,15 @@ namespace Orko.EntityWorks.Generator
 		{
             // Remove special characters.
             var validNetColumnName = RemoveSpecialCharacters(fieldName);
+
+            // Rename if column name is identical to parent name.
+            if (this.Table.NetName == validNetColumnName)
+			{
+                // Add preffix so that it does not match entity class name.
+                // For columns add "c_".
+                // For entity properties add "e_".
+                validNetColumnName = "c_" + validNetColumnName;
+			}
 
             // Return valid net name.
             return validNetColumnName;

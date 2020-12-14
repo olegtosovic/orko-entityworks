@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -27,11 +27,11 @@ namespace Orko.GuletCroatia
             // Cache field metadata.
             EntityMeta<TipUslugeHrane>.LoadColumnMetadata
 			(
-				new ColumnMetadata("TipUslugeHraneTipUslugeHrane", @"TipUslugeHraneTipUslugeHrane", SqlDbType.NVarChar, isPrimaryKey: true),
-                new ColumnMetadata("TipUslugeHraneAktivnost", @"TipUslugeHraneAktivnost", SqlDbType.Bit, isRequired: true),
-                new ColumnMetadata("TipUslugeHraneJezik", @"TipUslugeHraneJezik", SqlDbType.Char, isLanguageCode: true, isPrimaryKey: true),
-                new ColumnMetadata("TipUslugeHraneNaziv", @"TipUslugeHraneNaziv", SqlDbType.NVarChar, isRequired: true, isLanguage: true),
-                new ColumnMetadata("TipUslugeHraneOpis", @"TipUslugeHraneOpis", SqlDbType.NVarChar, isRequired: false, isLanguage: true)
+				new ColumnMetadata(nameof(TipUslugeHraneTipUslugeHrane), @"TipUslugeHraneTipUslugeHrane", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(TipUslugeHraneAktivnost), @"TipUslugeHraneAktivnost", DbType.Boolean, isRequired: true),
+                new ColumnMetadata(nameof(TipUslugeHraneJezik), @"TipUslugeHraneJezik", DbType.AnsiStringFixedLength, isRequired: true, isLanguageCode: true),
+                new ColumnMetadata(nameof(TipUslugeHraneNaziv), @"TipUslugeHraneNaziv", DbType.String, isRequired: true, isLanguage: true),
+                new ColumnMetadata(nameof(TipUslugeHraneOpis), @"TipUslugeHraneOpis", DbType.String, isRequired: false, isLanguage: true)
 			);
 
             // Cache entites metadata.
@@ -79,24 +79,5 @@ namespace Orko.GuletCroatia
             return await TryGetByPrimaryKeyAsync<TipUslugeHrane>(TipUslugeHraneTipUslugeHrane);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<TipUslugeHrane> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<TipUslugeHrane>(queryConditions);
-        }
-        public static IEnumerable<TipUslugeHrane> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<TipUslugeHrane>(columnName, queryOp, value);
-        }
-		public static TipUslugeHrane GetByPrimaryKey(string TipUslugeHraneTipUslugeHrane)
-        {
-            return GetByPrimaryKey<TipUslugeHrane>(TipUslugeHraneTipUslugeHrane);
-        }
-		public static TipUslugeHrane TryGetByPrimaryKey(string TipUslugeHraneTipUslugeHrane)
-        {
-            return TryGetByPrimaryKey<TipUslugeHrane>(TipUslugeHraneTipUslugeHrane);
-        }
-        #endregion
     }
 }

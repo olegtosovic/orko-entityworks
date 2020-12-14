@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using Microsoft.Data.SqlClient;
+using System.Data.Common;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -9,15 +9,19 @@ using System.Threading.Tasks;
 
 namespace Orko.EntityWorks
 {
-    /// <summary>
-    /// Provides support for entity crud string generation.
-    /// </summary>
-    /// <typeparam name="TEntity"></typeparam>
-    internal sealed class Query<TEntity> where TEntity : Entity, new()
+	/// <summary>
+	/// Provides support for entity crud string generation.
+	/// </summary>
+	/// <typeparam name="TEntity">Entity type, eg. Person, Customer, Product</typeparam>
+	internal sealed class Query<TEntity> where TEntity : Entity, new()
     {
         #region Constructors
-        public Query()
+        /// <summary>
+        /// 
+        /// </summary>
+        private Query()
         {
+
         }
         #endregion
 
@@ -31,9 +35,10 @@ namespace Orko.EntityWorks
             List<QueryCondition> joinQueryConditions = new List<QueryCondition>();
             foreach (var parameter in entityContext.PrimaryKeyParameters)
             {
+                //joinQueryConditions.Add(new QueryCondition(parameter.SqlParameterName, QueryOp.Equal, parameter.SqlLangParameterName));
                 joinQueryConditions.Add(new QueryCondition(parameter.SqlParameterName, QueryOp.Equal, parameter.SqlLangParameterName));
             }
-            query.Join(entityContext.SqlLanguagePathPrefix, joinQueryConditions.ToArray());
+            query.Join(entityContext.SqlLanguageTablePathWithSchema, joinQueryConditions.ToArray());
         }
         /// <summary>
         /// Generates parametrized sql select string for
@@ -41,14 +46,17 @@ namespace Orko.EntityWorks
         /// </summary>
         public static string GenerateSelectQuery(EntityContext<TEntity> entityContext)
         {
-            // Select query.
+            // Create query instance.
             Query query = new Query();
-            query.From(entityContext.SqlPathPrefix);
+
+            // Set from clause.
+            query.From(entityContext.SqlTablePathWithSchema);
 
             // If using language tables.
             if (entityContext.HasLanguageTable)
             {
                 // Select columns from both tables.
+                // This is special version of select only used by internals of entity works.
                 query.Select(entityContext, true);
 
                 // Join, where language table.
@@ -59,7 +67,7 @@ namespace Orko.EntityWorks
                     joinQueryConditions.Add(new QueryCondition(parameter.SqlParameterName, QueryOp.Equal, parameter.SqlLangParameterName));
                     whereQueryConditions.Add(new QueryCondition(parameter.SqlParameterName, QueryOp.Equal, parameter.ParameterNameWithMonkey));
                 }
-                query.Join(entityContext.SqlLanguagePathPrefix, joinQueryConditions.ToArray());
+                query.Join(entityContext.SqlLanguageTablePathWithSchema, joinQueryConditions.ToArray());
                 query.Where(whereQueryConditions.ToArray());
 
                 // Specific language code.
@@ -68,7 +76,11 @@ namespace Orko.EntityWorks
             }
             else
             {
+                // Select columns from both tables.
+                // This is special version of select only used by internals of entity works.
                 query.Select(entityContext);
+
+                // Dynamically add select parameters.
                 foreach (var parameter in entityContext.PrimaryKeyParameters.Where(x => x.IsLanguage == false))
                     query.Where(parameter.SqlParameterName, QueryOp.Equal, parameter.ParameterNameWithMonkey);
             }
@@ -101,9 +113,10 @@ namespace Orko.EntityWorks
 
                 if (parameter.IsIdentity)
                     returnIdentity = "SET " + parameter.ParameterNameWithMonkey + " = SCOPE_IDENTITY();";
-                else query.Insert(parameter.ParameterName, parameter.ParameterNameWithMonkey);
+                //else query.Insert(parameter.ParameterName, parameter.ParameterNameWithMonkey);
+                else query.Insert(parameter.SqlParameterName, parameter.ParameterNameWithMonkey);
             }
-            query.Into(entityContext.SqlPathPrefix);
+            query.Into(entityContext.SqlTablePathWithSchema);
 
             // Build language insert query.
             if (entityContext.HasLanguageTable)
@@ -114,8 +127,8 @@ namespace Orko.EntityWorks
 
                 // Add parameters to query.
                 foreach (var parameter in languageQueryParameters)
-                    languageQuery.Insert(parameter.ParameterName, parameter.ParameterNameWithMonkey);
-                languageQuery.Into(entityContext.SqlLanguagePathPrefix);
+                    languageQuery.Insert(parameter.SqlParameterName, parameter.ParameterNameWithMonkey);
+                languageQuery.Into(entityContext.SqlLanguageTablePathWithSchema);
             }
 
 			// Return complete insert string.
@@ -132,24 +145,24 @@ namespace Orko.EntityWorks
             Query languageQuery = new Query();
 
             // Build update query.
-            query.Update(entityContext.SqlPathPrefix);
+            query.Update(entityContext.SqlTablePathWithSchema);
             var queryParameters = entityContext.Parameters.Values.Where(x => !x.IsLanguage && !x.IsLanguageCode && !x.IsPrimary && !x.IsIdentity && !x.IsTimestamp);
             foreach (var parameter in queryParameters)
-                query.Set(parameter.ParameterName, parameter.ParameterNameWithMonkey);
+                query.Set(parameter.SqlParameterName, parameter.ParameterNameWithMonkey);
             foreach (var parameter in entityContext.PrimaryKeyParameters)
-                query.Where(parameter.ParameterName, QueryOp.Equal, parameter.ParameterNameWithMonkey);
+                query.Where(parameter.SqlParameterName, QueryOp.Equal, parameter.ParameterNameWithMonkey);
 
             // If using language table.
             if (entityContext.HasLanguageTable)
             {
                 // Build language query.
                 var languageQueryParameters = entityContext.Parameters.Values.Where(x => x.IsLanguage && !x.IsLanguageCode && !x.IsPrimary);
-                languageQuery.Update(entityContext.SqlLanguagePathPrefix);
+                languageQuery.Update(entityContext.SqlLanguageTablePathWithSchema);
                 foreach (var parameter in languageQueryParameters)
-                    languageQuery.Set(parameter.ParameterName, parameter.ParameterNameWithMonkey);
+                    languageQuery.Set(parameter.SqlLangParameterName, parameter.ParameterNameWithMonkey);
                 var languageQueryWhereParameters = entityContext.Parameters.Values.Where(x => x.IsPrimary);
                 foreach (var parameter in languageQueryWhereParameters)
-                    languageQuery.Where(parameter.ParameterName, QueryOp.Equal, parameter.ParameterNameWithMonkey);
+                    languageQuery.Where(parameter.SqlLangParameterName, QueryOp.Equal, parameter.ParameterNameWithMonkey);
                 
             }
             return query.ToString() + Environment.NewLine + languageQuery.ToString();
@@ -165,18 +178,18 @@ namespace Orko.EntityWorks
             Query languageQuery = new Query();
 
             // Build delete query.
-            query.Delete(entityContext.SqlPathPrefix);
-            query.From(entityContext.SqlPathPrefix);
+            query.Delete(entityContext.SqlTablePathWithSchema);
+            query.From(entityContext.SqlTablePathWithSchema);
             foreach (var parameter in entityContext.PrimaryKeyParameters.Where(x => x.IsLanguage == false))
-                query.Where(parameter.ParameterName, QueryOp.Equal, parameter.ParameterNameWithMonkey);
+                query.Where(parameter.SqlParameterName, QueryOp.Equal, parameter.ParameterNameWithMonkey);
 
             // If using language tables.
             if (entityContext.HasLanguageTable)
             {
-                languageQuery.Delete(entityContext.SqlLanguagePathPrefix);
-                languageQuery.From(entityContext.SqlLanguagePathPrefix);
+                languageQuery.Delete(entityContext.SqlLanguageTablePathWithSchema);
+                languageQuery.From(entityContext.SqlLanguageTablePathWithSchema);
                 foreach (var parameter in entityContext.PrimaryKeyParameters.Where(x => x.IsLanguage == false))
-                    languageQuery.Where(parameter.ParameterName, QueryOp.Equal, parameter.ParameterNameWithMonkey);
+                    languageQuery.Where(parameter.SqlParameterName, QueryOp.Equal, parameter.ParameterNameWithMonkey);
             }
             return languageQuery.ToString() + Environment.NewLine + query.ToString();
         }
@@ -647,7 +660,7 @@ namespace Orko.EntityWorks
 			var queryContext = QueryContext.GetAmbientQueryContext();
 
             // Set from segment.
-            string tableName = entityContext.SqlPathPrefix;
+            string tableName = entityContext.SqlTablePathWithSchema;
             if (string.IsNullOrEmpty(alias))
                 FromSegment = tableName;
             else FromSegment = tableName + " AS " + alias;
@@ -662,7 +675,7 @@ namespace Orko.EntityWorks
                 }
                 joinQueryConditions.Add(
                     new QueryCondition(entityContext.LanguageCodeParameter.SqlLangParameterName, QueryOp.Equal, Query.Quote(queryContext.LanguageCode)));
-                this.Join(entityContext.SqlLanguagePathPrefix, joinQueryConditions.ToArray());
+                this.Join(entityContext.SqlLanguageTablePathWithSchema, joinQueryConditions.ToArray());
             }
 
             // Return instance.
@@ -1611,8 +1624,17 @@ namespace Orko.EntityWorks
         /// <returns>Entity collection</returns>
         public IEnumerable<TEntity> GetEntityCollection<TEntity>() where TEntity : Entity, new()
         {
-            // Create sql command.
-            SqlCommand command = new SqlCommand(ToString());
+            // Get ambient query context.
+            var ambientContext = QueryContext.GetAmbientQueryContext();
+
+            // Get provider factory.
+            var providerFactory = ambientContext.DbProviderFactory;
+
+            // Create db command.
+            var command = providerFactory.CreateCommand();
+
+            // Set connection string.
+            command.CommandText = this.ToString();
 
             // Set command.
             command.CommandText = ToString();
@@ -1628,8 +1650,17 @@ namespace Orko.EntityWorks
         /// <returns>Non entity object collection</returns>
         public IEnumerable<TObject> GetObjectCollection<TObject>(ObjectMappingType objectMappingType = ObjectMappingType.Intersect) where TObject : class, new()
         {
-            // Create sql command.
-            SqlCommand command = new SqlCommand();
+            // Get ambient query context.
+            var ambientContext = QueryContext.GetAmbientQueryContext();
+
+            // Get provider factory.
+            var providerFactory = ambientContext.DbProviderFactory;
+
+            // Create db command.
+            var command = providerFactory.CreateCommand();
+
+            // Set connection string.
+            command.CommandText = this.ToString();
 
             // Set command.
             command.CommandText = ToString();
@@ -1653,16 +1684,19 @@ namespace Orko.EntityWorks
         public TScalar GetScalar<TScalar>()
         {
 			// Get ambient query context.
-			QueryContext ambientContext = QueryContext.GetAmbientQueryContext();
+			var ambientContext = QueryContext.GetAmbientQueryContext();
+
+            // Get provider.
+            var providerFactory = ambientContext.DbProviderFactory;
 
 			// Create connection to database from ambient query context.
-			using (SqlConnection connection = ambientContext.CreateConnection())
+			using (DbConnection connection = ambientContext.CreateConnection())
 			{
-				// Create sql command.
-				SqlCommand command = new SqlCommand();
+                // Create db command.
+                var command = providerFactory.CreateCommand();
 
 				// Set command.
-				command.CommandText = ToString();
+				command.CommandText = this.ToString();
 
 				// Pass connection to command object.
 				command.Connection = connection;
@@ -1701,14 +1735,23 @@ namespace Orko.EntityWorks
 		/// <returns>Non entity object collection</returns>
 		public async Task<IEnumerable<TObject>> GetObjectCollectionAsync<TObject>(ObjectMappingType objectMappingType = ObjectMappingType.Intersect) where TObject : class, new()
 		{
-			// Create sql command.
-			SqlCommand command = new SqlCommand();
+            // Get ambient query context.
+            var ambientContext = QueryContext.GetAmbientQueryContext();
 
-			// Set command.
-			command.CommandText = ToString();
+            // Get provider factory.
+            var providerFactory = ambientContext.DbProviderFactory;
 
-			// Execute and return object collection.
-			return await ObjectMechanic<TObject>.GetByQueryCommandAsync(command, objectMappingType);
+            // Create db command.
+            var command = providerFactory.CreateCommand();
+
+            // Set connection string.
+            command.CommandText = this.ToString();
+
+            // Set command.
+            command.CommandText = ToString();
+
+            // Execute and return object collection.
+            return await ObjectMechanic<TObject>.GetByQueryCommandAsync(command, objectMappingType);
 		}
 		/// <summary>
 		/// Executes query async.
@@ -1717,14 +1760,23 @@ namespace Orko.EntityWorks
 		/// <returns>Entity collection</returns>
 		public async Task<IEnumerable<TEntity>> GetEntityCollectionAsync<TEntity>() where TEntity : Entity, new()
 		{
-			// Create sql command.
-			SqlCommand command = new SqlCommand();
+            // Get ambient query context.
+            var ambientContext = QueryContext.GetAmbientQueryContext();
 
-			// Set command.
-			command.CommandText = ToString();
+            // Get provider factory.
+            var providerFactory = ambientContext.DbProviderFactory;
 
-			// Execute and return entity collection.
-			return await EntityMechanic<TEntity>.GetByQueryCommandAsync(command);
+            // Create db command.
+            var command = providerFactory.CreateCommand();
+
+            // Set connection string.
+            command.CommandText = this.ToString();
+
+            // Set command.
+            command.CommandText = ToString();
+
+            // Execute and return entity collection.
+            return await EntityMechanic<TEntity>.GetByQueryCommandAsync(command);
 		}
 		/// <summary>
 		/// Executes query.
@@ -1736,11 +1788,14 @@ namespace Orko.EntityWorks
 			// Get ambient query context.
 			QueryContext ambientContext = QueryContext.GetAmbientQueryContext();
 
-			// Create connection to database from ambient query context.
-			using (SqlConnection connection = ambientContext.CreateConnection())
+            // Get provider.
+            var providerFactory = ambientContext.DbProviderFactory;
+
+            // Create connection to database from ambient query context.
+            using (DbConnection connection = ambientContext.CreateConnection())
 			{
-				// Create sql command.
-				SqlCommand command = new SqlCommand();
+                // Create db command.
+                var command = providerFactory.CreateCommand();
 
 				// Set command.
 				command.CommandText = ToString();

@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -27,11 +27,11 @@ namespace Orko.Turist
             // Cache field metadata.
             EntityMeta<VrstaPutneIsprave>.LoadColumnMetadata
 			(
-				new ColumnMetadata("VrstaPutneIspraveVrstaPutneIsprave", @"VrstaPutneIspraveVrstaPutneIsprave", SqlDbType.NVarChar, isPrimaryKey: true),
-                new ColumnMetadata("VrstaPutneIspraveAktivnost", @"VrstaPutneIspraveAktivnost", SqlDbType.Bit, isRequired: true),
-                new ColumnMetadata("VrstaPutneIspraveJezik", @"VrstaPutneIspraveJezik", SqlDbType.Char, isLanguageCode: true, isPrimaryKey: true),
-                new ColumnMetadata("VrstaPutneIspraveNaziv", @"VrstaPutneIspraveNaziv", SqlDbType.NVarChar, isRequired: true, isLanguage: true),
-                new ColumnMetadata("VrstaPutneIspraveOpis", @"VrstaPutneIspraveOpis", SqlDbType.NVarChar, isRequired: false, isLanguage: true)
+				new ColumnMetadata(nameof(VrstaPutneIspraveVrstaPutneIsprave), @"VrstaPutneIspraveVrstaPutneIsprave", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(VrstaPutneIspraveAktivnost), @"VrstaPutneIspraveAktivnost", DbType.Boolean, isRequired: true),
+                new ColumnMetadata(nameof(VrstaPutneIspraveJezik), @"VrstaPutneIspraveJezik", DbType.AnsiStringFixedLength, isRequired: true, isLanguageCode: true),
+                new ColumnMetadata(nameof(VrstaPutneIspraveNaziv), @"VrstaPutneIspraveNaziv", DbType.String, isRequired: true, isLanguage: true),
+                new ColumnMetadata(nameof(VrstaPutneIspraveOpis), @"VrstaPutneIspraveOpis", DbType.String, isRequired: false, isLanguage: true)
 			);
 
             // Cache entites metadata.
@@ -79,24 +79,5 @@ namespace Orko.Turist
             return await TryGetByPrimaryKeyAsync<VrstaPutneIsprave>(VrstaPutneIspraveVrstaPutneIsprave);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<VrstaPutneIsprave> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<VrstaPutneIsprave>(queryConditions);
-        }
-        public static IEnumerable<VrstaPutneIsprave> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<VrstaPutneIsprave>(columnName, queryOp, value);
-        }
-		public static VrstaPutneIsprave GetByPrimaryKey(string VrstaPutneIspraveVrstaPutneIsprave)
-        {
-            return GetByPrimaryKey<VrstaPutneIsprave>(VrstaPutneIspraveVrstaPutneIsprave);
-        }
-		public static VrstaPutneIsprave TryGetByPrimaryKey(string VrstaPutneIspraveVrstaPutneIsprave)
-        {
-            return TryGetByPrimaryKey<VrstaPutneIsprave>(VrstaPutneIspraveVrstaPutneIsprave);
-        }
-        #endregion
     }
 }

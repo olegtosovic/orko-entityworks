@@ -1,13 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.DependencyInjection;
-//using Northwind;
-//using Northwind.Dbo;
 using Orko.AspNetCore.Models;
+using Orko.Base;
 using Orko.EntityWorks;
 using Orko.EntityWorks.Generator;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace Orko.AspNetCore.Controllers
 {
@@ -17,94 +20,180 @@ namespace Orko.AspNetCore.Controllers
 	public class TestController : Controller
 	{
 		#region Constructrors
-		public TestController(EntityWorksContext context)
+		/// <summary>
+		/// Creates instance of test controller.
+		/// </summary>
+		public TestController()
 		{
-			// It's a same instance throught request lifecycle.
-			var guidConstructor = context.m_guid;
-			var guidStaticCall = EntityWorksContext.GetEntityWorksContext().m_guid;
+
 		}
 		#endregion
 
+		#region Entity context test actions
 		/// <summary>
-		/// Database read test.
+		/// Entity works context test.
+		/// Uses Orko.SmjestajniObjekt for sample.
 		/// </summary>
-		[HttpGet("/test-entityworks")]
+		[HttpGet("/test-entitycontext")]
 		public async Task<IActionResult> TestDbEntityWorks()
 		{
+			// Get data.
+			var result = await Drzava.GetByAnyAsync();
 
-			// Simple query.
-			var query = new Query();
+			// Convert data to json.
+			var jsonResult = JsonSerializer.Serialize(result, null);
 
-			// Get entity works context.
-			var entityWorksContext = EntityWorksContext.GetEntityWorksContext();
-			
-			// Select.
-			query.Select("Drzava.DrzavaDrzava", "TwoLetterCode");
-			query.Select("Drzava.DrzavaTroslovnaKratica", "ThreeLetterCode");
-			query.Select("Drzava.DrzavaKod", "Code");
-			query.Select("DrzavaNaziv", "Name");
-			query.From("Base.Drzava");
-
-			// Join language table.
-			query.Join("Base.Drzava_jezik AS jezik",
-				new QueryCondition("jezik.DrzavaDrzava", QueryOp.Equal, "Drzava.DrzavaDrzava"),
-				new QueryCondition("jezik.DrzavaJezik", QueryOp.Equal, Query.Quote(entityWorksContext.LanguageCode)));
-
-			// Map to model.
-			var result = await query.GetObjectCollectionAsync<Country>();
-
-			// To Json.
-			var jsonResult = JsonSerializer.Serialize<IEnumerable<Country>>(result, null);
-
+			// Display json data.
 			return Content(jsonResult, "application/json");
+		}
+		#endregion
+
+		#region Entity mapping actions
+		/// <summary>
+		/// Database read test.
+		/// </summary>
+		[HttpGet("/test-orko-save")]
+		public async Task<IActionResult> TestDbOrko1()
+		{
+			// Use transaction that wont commit.
+			using (TransactionScope transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+			{
+				// SELECT + UPDATE + SAVE.
+				var drzava = await Drzava.GetByPrimaryKeyAsync("HR");
+				drzava.DrzavaNaziv = drzava.DrzavaNaziv + "_s";
+				await drzava.SaveAsync();
+
+				// CREATE + SAVE.
+				var drzava2 = new Drzava();
+				drzava2.DrzavaDrzava = "XX";
+				drzava2.DrzavaKod = "KOD";
+				drzava2.DrzavaTroslovnaKratica = "TRK";
+				drzava2.DrzavaValuta = "HRK";
+				drzava2.DrzavaNaziv = "Testna država";
+				await drzava2.SaveAsync();				
+
+				// Convert data to json.
+				var jsonResult = JsonSerializer.Serialize(drzava2, null);
+
+				// Display json data.
+				return Content(jsonResult, "application/json");
+			}
 		}
 
 		/// <summary>
 		/// Database read test.
 		/// </summary>
-		[HttpGet("/test-adventureworks")]
-		public async Task<IActionResult> TestDbAventureWorks()
-		{
-			// Simple query.
-			var query = new Query();
+		//[HttpGet("/test-context")]
+		//public async Task<IActionResult> TestDbOrko()
+		//{
+		//	// Get data.
+		//	var result = "";
 
-			// Get entity works context.
-			var entityWorksContext = EntityWorksContext.GetEntityWorksContext();
+		//	// Convert data to json.
+		//	var jsonResult = JsonSerializer.Serialize(result, null);
 
-			// Select.
-			query.Select("Drzava.DrzavaDrzava", "TwoLetterCode");
-			query.Select("Drzava.DrzavaTroslovnaKratica", "ThreeLetterCode");
-			query.Select("Drzava.DrzavaKod", "Code");
-			query.Select("DrzavaNaziv", "Name");
-			query.From("Base.Drzava");
+		//	// Display json data.
+		//	return Content(jsonResult, "application/json");
+		//}
 
-			// Join language table.
-			query.Join("Base.Drzava_jezik AS jezik",
-				new QueryCondition("jezik.DrzavaDrzava", QueryOp.Equal, "Drzava.DrzavaDrzava"),
-				new QueryCondition("jezik.DrzavaJezik", QueryOp.Equal, Query.Quote(entityWorksContext.LanguageCode)));
-
-			// Map to model.
-			var result = await query.GetObjectCollectionAsync<Country>();
-
-			// To Json.
-			var jsonResult = JsonSerializer.Serialize<IEnumerable<Country>>(result, null);
-
-			return Content(jsonResult, "application/json");
-		}
-
+		/// <summary>
 		/// Database read test.
 		/// </summary>
-		//[HttpGet("/test-northwind")]
-		//public async Task<IActionResult> TestDbNorthwind()
+		//[HttpGet("/test-orko")]
+		//public async Task<IActionResult> TestEntityContext()
 		//{
-		//	var result = await Categories.GetCategories(5);
+		//	// Use specific query context, instead of ambient.
+		//	using (var context = new QueryContext("Orko"))
+		//	{
+		//		// Simple query.
+		//		var query = new Query();
+
+		//		// Select.
+		//		query.Select("Drzava.DrzavaDrzava", "TwoLetterCode");
+		//		query.Select("Drzava.DrzavaTroslovnaKratica", "ThreeLetterCode");
+		//		query.Select("Drzava.DrzavaKod", "Code");
+		//		query.Select("DrzavaNaziv", "Name");
+		//		query.From("Base.Drzava");
+
+		//		// Join language table.
+		//		query.Join("Base.Drzava_jezik AS jezik",
+		//			new QueryCondition("jezik.DrzavaDrzava", QueryOp.Equal, "Drzava.DrzavaDrzava"),
+		//			new QueryCondition("jezik.DrzavaJezik", QueryOp.Equal, Query.Quote(context.LanguageCode)));
+
+		//		// Get data.
+		//		var result = await query.GetObjectCollectionAsync<Country>();
+
+		//		// Convert data to json.
+		//		var jsonResult = JsonSerializer.Serialize(result, null);
+
+		//		// Display json data.
+		//		return Content(jsonResult, "application/json");
+		//	}
+		//}
+
+		/// <summary>
+		/// Database read test.
+		/// </summary>
+		//[HttpGet("/test-orko2")]
+		//public async Task<IActionResult> TestDbOrko2()
+		//{
+		//	// Use specific query context, instead of ambient.
+		//	using (var context = new QueryContext("Orko"))
+		//	{
+		//		// Simple query.
+		//		var query = new Query();
+
+		//		// Select.
+		//		query.Select("Drzava.DrzavaDrzava", "TwoLetterCode");
+		//		query.Select("Drzava.DrzavaTroslovnaKratica", "ThreeLetterCode");
+		//		query.Select("Drzava.DrzavaKod", "Code");
+		//		query.Select("DrzavaNaziv", "Name");
+		//		query.From("Base.Drzava");
+
+		//		// Join language table.
+		//		query.Join("Base.Drzava_jezik AS jezik",
+		//			new QueryCondition("jezik.DrzavaDrzava", QueryOp.Equal, "Drzava.DrzavaDrzava"),
+		//			new QueryCondition("jezik.DrzavaJezik", QueryOp.Equal, Query.Quote(context.LanguageCode)));
+
+		//		// Get data.
+		//		var result = await query.GetObjectCollectionAsync<Country>();
+
+		//		// Convert data to json.
+		//		var jsonResult = JsonSerializer.Serialize(result, null);
+
+		//		// Display json data.
+		//		return Content(jsonResult, "application/json");
+		//	}
+		//}
+
+		// Database read test.
+		//[HttpGet("/test-northwind")]
+		//public async Task<IActionResult> TestDbNorthwind1()
+		//{
+		//	var result = await OrderDetails.GetByAnyAsync();
 
 		//	// To Json.
-		//	var jsonResult = JsonSerializer.Serialize<IEnumerable<Categories>>(result, null);
+		//	var jsonResult = JsonSerializer.Serialize<IEnumerable<OrderDetails>>(result, null);
 
 		//	return Content(jsonResult, "application/json");
 		//}
 
+		// Database read test.
+		//[HttpGet("/test-northwind2")]
+		//public async Task<IActionResult> TestDbNorthwind2()
+		//{
+		//	// Get data.
+		//	var result = await Products.GetByAnyAsync();
+
+		//	// Convert data to json.
+		//	var jsonResult = JsonSerializer.Serialize(result, null);
+
+		//	// Display json data.
+		//	return Content(jsonResult, "application/json");
+		//}
+		#endregion
+
+		#region Entity generator test actions
 		/// <summary>
 		/// Database generator test.
 		/// </summary>
@@ -120,5 +209,6 @@ namespace Orko.AspNetCore.Controllers
 			// Return OK.
 			return Content("OK");
 		}
+		#endregion
 	}
 }

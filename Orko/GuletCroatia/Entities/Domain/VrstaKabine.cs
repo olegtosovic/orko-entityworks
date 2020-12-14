@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -27,10 +27,10 @@ namespace Orko.GuletCroatia
             // Cache field metadata.
             EntityMeta<VrstaKabine>.LoadColumnMetadata
 			(
-				new ColumnMetadata("VrstaKabineVrstaKabine", @"VrstaKabineVrstaKabine", SqlDbType.NVarChar, isPrimaryKey: true),
-                new ColumnMetadata("VrstaKabineAktivnost", @"VrstaKabineAktivnost", SqlDbType.Bit, isRequired: true),
-                new ColumnMetadata("VrstaKabineJezik", @"VrstaKabineJezik", SqlDbType.Char, isLanguageCode: true, isPrimaryKey: true),
-                new ColumnMetadata("VrstaKabineNaziv", @"VrstaKabineNaziv", SqlDbType.NVarChar, isRequired: false, isLanguage: true)
+				new ColumnMetadata(nameof(VrstaKabineVrstaKabine), @"VrstaKabineVrstaKabine", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(VrstaKabineAktivnost), @"VrstaKabineAktivnost", DbType.Boolean, isRequired: true),
+                new ColumnMetadata(nameof(VrstaKabineJezik), @"VrstaKabineJezik", DbType.AnsiStringFixedLength, isRequired: true, isLanguageCode: true),
+                new ColumnMetadata(nameof(VrstaKabineNaziv), @"VrstaKabineNaziv", DbType.String, isRequired: false, isLanguage: true)
 			);
 
             // Cache entites metadata.
@@ -77,24 +77,5 @@ namespace Orko.GuletCroatia
             return await TryGetByPrimaryKeyAsync<VrstaKabine>(VrstaKabineVrstaKabine);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<VrstaKabine> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<VrstaKabine>(queryConditions);
-        }
-        public static IEnumerable<VrstaKabine> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<VrstaKabine>(columnName, queryOp, value);
-        }
-		public static VrstaKabine GetByPrimaryKey(string VrstaKabineVrstaKabine)
-        {
-            return GetByPrimaryKey<VrstaKabine>(VrstaKabineVrstaKabine);
-        }
-		public static VrstaKabine TryGetByPrimaryKey(string VrstaKabineVrstaKabine)
-        {
-            return TryGetByPrimaryKey<VrstaKabine>(VrstaKabineVrstaKabine);
-        }
-        #endregion
     }
 }

@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -27,11 +27,11 @@ namespace Orko.Sistem
             // Cache field metadata.
             EntityMeta<Sustav>.LoadColumnMetadata
 			(
-				new ColumnMetadata("SustavSustav", @"SustavSustav", SqlDbType.NVarChar, isPrimaryKey: true),
-                new ColumnMetadata("SustavAktivnost", @"SustavAktivnost", SqlDbType.Bit, isRequired: true),
-                new ColumnMetadata("SustavJezik", @"SustavJezik", SqlDbType.Char, isLanguageCode: true, isPrimaryKey: true),
-                new ColumnMetadata("SustavNaziv", @"SustavNaziv", SqlDbType.NVarChar, isRequired: true, isLanguage: true),
-                new ColumnMetadata("SustavOpis", @"SustavOpis", SqlDbType.NVarChar, isRequired: false, isLanguage: true)
+				new ColumnMetadata(nameof(SustavSustav), @"SustavSustav", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(SustavAktivnost), @"SustavAktivnost", DbType.Boolean, isRequired: true),
+                new ColumnMetadata(nameof(SustavJezik), @"SustavJezik", DbType.AnsiStringFixedLength, isRequired: true, isLanguageCode: true),
+                new ColumnMetadata(nameof(SustavNaziv), @"SustavNaziv", DbType.String, isRequired: true, isLanguage: true),
+                new ColumnMetadata(nameof(SustavOpis), @"SustavOpis", DbType.String, isRequired: false, isLanguage: true)
 			);
 
             // Cache entites metadata.
@@ -79,24 +79,5 @@ namespace Orko.Sistem
             return await TryGetByPrimaryKeyAsync<Sustav>(SustavSustav);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<Sustav> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<Sustav>(queryConditions);
-        }
-        public static IEnumerable<Sustav> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<Sustav>(columnName, queryOp, value);
-        }
-		public static Sustav GetByPrimaryKey(string SustavSustav)
-        {
-            return GetByPrimaryKey<Sustav>(SustavSustav);
-        }
-		public static Sustav TryGetByPrimaryKey(string SustavSustav)
-        {
-            return TryGetByPrimaryKey<Sustav>(SustavSustav);
-        }
-        #endregion
     }
 }

@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -27,14 +27,14 @@ namespace Orko.SebastianArt
             // Cache field metadata.
             EntityMeta<ArtikalEx>.LoadColumnMetadata
 			(
-				new ColumnMetadata("ArtikalExID", @"ArtikalExID", SqlDbType.Int, isPrimaryKey: true),
-                new ColumnMetadata("ArtikalExAutor", @"ArtikalExAutor", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("ArtikalExDimenzije", @"ArtikalExDimenzije", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("ArtikalAktivnost", @"ArtikalAktivnost", SqlDbType.Bit, isRequired: true),
-                new ColumnMetadata("ArtikalBrojNaziv", @"ArtikalBrojNaziv", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("ArtikalExJezik", @"ArtikalExJezik", SqlDbType.Char, isLanguageCode: true, isPrimaryKey: true),
-                new ColumnMetadata("ArtikalExNaziv", @"ArtikalExNaziv", SqlDbType.NVarChar, isRequired: false, isLanguage: true),
-                new ColumnMetadata("ArtikalExOpis", @"ArtikalExOpis", SqlDbType.NVarChar, isRequired: false, isLanguage: true)
+				new ColumnMetadata(nameof(ArtikalExID), @"ArtikalExID", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(ArtikalExAutor), @"ArtikalExAutor", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(ArtikalExDimenzije), @"ArtikalExDimenzije", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(ArtikalAktivnost), @"ArtikalAktivnost", DbType.Boolean, isRequired: true),
+                new ColumnMetadata(nameof(ArtikalBrojNaziv), @"ArtikalBrojNaziv", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(ArtikalExJezik), @"ArtikalExJezik", DbType.AnsiStringFixedLength, isRequired: true, isLanguageCode: true),
+                new ColumnMetadata(nameof(ArtikalExNaziv), @"ArtikalExNaziv", DbType.String, isRequired: false, isLanguage: true),
+                new ColumnMetadata(nameof(ArtikalExOpis), @"ArtikalExOpis", DbType.String, isRequired: false, isLanguage: true)
 			);
 
             // Cache entites metadata.
@@ -85,24 +85,5 @@ namespace Orko.SebastianArt
             return await TryGetByPrimaryKeyAsync<ArtikalEx>(ArtikalExID);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<ArtikalEx> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<ArtikalEx>(queryConditions);
-        }
-        public static IEnumerable<ArtikalEx> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<ArtikalEx>(columnName, queryOp, value);
-        }
-		public static ArtikalEx GetByPrimaryKey(int ArtikalExID)
-        {
-            return GetByPrimaryKey<ArtikalEx>(ArtikalExID);
-        }
-		public static ArtikalEx TryGetByPrimaryKey(int ArtikalExID)
-        {
-            return TryGetByPrimaryKey<ArtikalEx>(ArtikalExID);
-        }
-        #endregion
     }
 }

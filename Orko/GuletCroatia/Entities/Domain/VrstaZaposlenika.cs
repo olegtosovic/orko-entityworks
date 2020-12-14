@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -27,11 +27,11 @@ namespace Orko.GuletCroatia
             // Cache field metadata.
             EntityMeta<VrstaZaposlenika>.LoadColumnMetadata
 			(
-				new ColumnMetadata("VrstaZaposlenikaVrstaZaposlenika", @"VrstaZaposlenikaVrstaZaposlenika", SqlDbType.NVarChar, isPrimaryKey: true),
-                new ColumnMetadata("VrstaZaposlenikaAktivnost", @"VrstaZaposlenikaAktivnost", SqlDbType.Bit, isRequired: true),
-                new ColumnMetadata("VrstaZaposlenikaJezik", @"VrstaZaposlenikaJezik", SqlDbType.Char, isLanguageCode: true, isPrimaryKey: true),
-                new ColumnMetadata("VrstaZaposlenikaNaziv", @"VrstaZaposlenikaNaziv", SqlDbType.NVarChar, isRequired: false, isLanguage: true),
-                new ColumnMetadata("VrstaZaposlenikaOpis", @"VrstaZaposlenikaOpis", SqlDbType.NVarChar, isRequired: false, isLanguage: true)
+				new ColumnMetadata(nameof(VrstaZaposlenikaVrstaZaposlenika), @"VrstaZaposlenikaVrstaZaposlenika", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(VrstaZaposlenikaAktivnost), @"VrstaZaposlenikaAktivnost", DbType.Boolean, isRequired: true),
+                new ColumnMetadata(nameof(VrstaZaposlenikaJezik), @"VrstaZaposlenikaJezik", DbType.AnsiStringFixedLength, isRequired: true, isLanguageCode: true),
+                new ColumnMetadata(nameof(VrstaZaposlenikaNaziv), @"VrstaZaposlenikaNaziv", DbType.String, isRequired: false, isLanguage: true),
+                new ColumnMetadata(nameof(VrstaZaposlenikaOpis), @"VrstaZaposlenikaOpis", DbType.String, isRequired: false, isLanguage: true)
 			);
 
             // Cache entites metadata.
@@ -79,24 +79,5 @@ namespace Orko.GuletCroatia
             return await TryGetByPrimaryKeyAsync<VrstaZaposlenika>(VrstaZaposlenikaVrstaZaposlenika);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<VrstaZaposlenika> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<VrstaZaposlenika>(queryConditions);
-        }
-        public static IEnumerable<VrstaZaposlenika> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<VrstaZaposlenika>(columnName, queryOp, value);
-        }
-		public static VrstaZaposlenika GetByPrimaryKey(string VrstaZaposlenikaVrstaZaposlenika)
-        {
-            return GetByPrimaryKey<VrstaZaposlenika>(VrstaZaposlenikaVrstaZaposlenika);
-        }
-		public static VrstaZaposlenika TryGetByPrimaryKey(string VrstaZaposlenikaVrstaZaposlenika)
-        {
-            return TryGetByPrimaryKey<VrstaZaposlenika>(VrstaZaposlenikaVrstaZaposlenika);
-        }
-        #endregion
     }
 }

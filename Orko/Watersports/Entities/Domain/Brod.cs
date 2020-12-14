@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -18,10 +18,10 @@ namespace Orko.Watersports
     public sealed partial class Brod : Entity
     {
 		#region Members
-		private Lokacija m_FK_Brod_Lokacija;
-        private Obveznik m_FK_Brod_Obveznik;
-        private TipBroda m_FK_Brod_TipBroda;
-        private VrstaBroda m_FK_Brod_VrstaBroda;
+		private Lokacija m_Lokacija;
+        private Obveznik m_Obveznik;
+        private TipBroda m_TipBroda;
+        private VrstaBroda m_VrstaBroda;
         #endregion
         
 		#region Constructors
@@ -30,31 +30,31 @@ namespace Orko.Watersports
             // Cache field metadata.
             EntityMeta<Brod>.LoadColumnMetadata
 			(
-				new ColumnMetadata("BrodBrod", @"BrodBrod", SqlDbType.Int, isIdentity: true, isPrimaryKey: true),
-                new ColumnMetadata("BrodObveznikID", @"BrodObveznikID", SqlDbType.Int, isRequired: false),
-                new ColumnMetadata("BrodVrstaBroda", @"BrodVrstaBroda", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("BrodTipBroda", @"BrodTipBroda", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("BrodLokacija", @"BrodLokacija", SqlDbType.Int, isRequired: false),
-                new ColumnMetadata("BrodRegistracija", @"BrodRegistracija", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("BrodKapacitet", @"BrodKapacitet", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("BrodGodinaGradnje", @"BrodGodinaGradnje", SqlDbType.Int, isRequired: false),
-                new ColumnMetadata("BrodSirina", @"BrodSirina", SqlDbType.Decimal, isRequired: false),
-                new ColumnMetadata("BrodDuzina", @"BrodDuzina", SqlDbType.Decimal, isRequired: false),
-                new ColumnMetadata("BrodMotor", @"BrodMotor", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("BrodUNajmu", @"BrodUNajmu", SqlDbType.Bit, isRequired: true),
-                new ColumnMetadata("BrodAktivnost", @"BrodAktivnost", SqlDbType.Bit, isRequired: true),
-                new ColumnMetadata("BrodJezik", @"BrodJezik", SqlDbType.Char, isLanguageCode: true, isPrimaryKey: true),
-                new ColumnMetadata("BrodNaziv", @"BrodNaziv", SqlDbType.NVarChar, isRequired: true, isLanguage: true),
-                new ColumnMetadata("BrodOpis", @"BrodOpis", SqlDbType.NVarChar, isRequired: false, isLanguage: true)
+				new ColumnMetadata(nameof(BrodBrod), @"BrodBrod", DbType.Int32, isIdentity: true, isRequired: true),
+                new ColumnMetadata(nameof(BrodObveznikID), @"BrodObveznikID", DbType.Int32, isRequired: false),
+                new ColumnMetadata(nameof(BrodVrstaBroda), @"BrodVrstaBroda", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(BrodTipBroda), @"BrodTipBroda", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(BrodLokacija), @"BrodLokacija", DbType.Int32, isRequired: false),
+                new ColumnMetadata(nameof(BrodRegistracija), @"BrodRegistracija", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(BrodKapacitet), @"BrodKapacitet", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(BrodGodinaGradnje), @"BrodGodinaGradnje", DbType.Int32, isRequired: false),
+                new ColumnMetadata(nameof(BrodSirina), @"BrodSirina", DbType.Decimal, isRequired: false),
+                new ColumnMetadata(nameof(BrodDuzina), @"BrodDuzina", DbType.Decimal, isRequired: false),
+                new ColumnMetadata(nameof(BrodMotor), @"BrodMotor", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(BrodUNajmu), @"BrodUNajmu", DbType.Boolean, isRequired: true),
+                new ColumnMetadata(nameof(BrodAktivnost), @"BrodAktivnost", DbType.Boolean, isRequired: true),
+                new ColumnMetadata(nameof(BrodJezik), @"BrodJezik", DbType.AnsiStringFixedLength, isRequired: true, isLanguageCode: true),
+                new ColumnMetadata(nameof(BrodNaziv), @"BrodNaziv", DbType.String, isRequired: true, isLanguage: true),
+                new ColumnMetadata(nameof(BrodOpis), @"BrodOpis", DbType.String, isRequired: false, isLanguage: true)
 			);
 
             // Cache entites metadata.
             EntityMeta<Brod>.LoadRelationMetadata
 			(
-				new RelationMetadata("FK_Brod_Lokacija", "BrodLokacija", "LokacijaLokacija"),
-                new RelationMetadata("FK_Brod_Obveznik", "BrodObveznikID", "ObveznikID"),
-                new RelationMetadata("FK_Brod_TipBroda", "BrodTipBroda", "TipBrodaTipBroda"),
-                new RelationMetadata("FK_Brod_VrstaBroda", "BrodVrstaBroda", "VrstaBrodaVrstaBroda")
+				new RelationMetadata(nameof(Lokacija), nameof(BrodLokacija), nameof(Orko.Watersports.Lokacija.LokacijaLokacija)),
+                new RelationMetadata(nameof(Obveznik), nameof(BrodObveznikID), nameof(Orko.Watersports.Obveznik.ObveznikID)),
+                new RelationMetadata(nameof(TipBroda), nameof(BrodTipBroda), nameof(Orko.Watersports.TipBroda.TipBrodaTipBroda)),
+                new RelationMetadata(nameof(VrstaBroda), nameof(BrodVrstaBroda), nameof(Orko.Watersports.VrstaBroda.VrstaBrodaVrstaBroda))
 			);
 
 			// Cache table metadata.
@@ -86,25 +86,25 @@ namespace Orko.Watersports
         #endregion
 
         #region Entities
-		public Lokacija FK_Brod_Lokacija
+		public Lokacija Lokacija
         {
-            get { return EntityContext<Lokacija>.Get(ref m_FK_Brod_Lokacija, this, "FK_Brod_Lokacija"); }
-            set { EntityContext<Lokacija>.Set(ref m_FK_Brod_Lokacija, this, value, "FK_Brod_Lokacija"); }
+            get { return EntityContext<Lokacija>.Get(ref m_Lokacija, this, nameof(Lokacija)); }
+            set { EntityContext<Lokacija>.Set(ref m_Lokacija, this, value, nameof(Lokacija)); }
         }
-        public Obveznik FK_Brod_Obveznik
+        public Obveznik Obveznik
         {
-            get { return EntityContext<Obveznik>.Get(ref m_FK_Brod_Obveznik, this, "FK_Brod_Obveznik"); }
-            set { EntityContext<Obveznik>.Set(ref m_FK_Brod_Obveznik, this, value, "FK_Brod_Obveznik"); }
+            get { return EntityContext<Obveznik>.Get(ref m_Obveznik, this, nameof(Obveznik)); }
+            set { EntityContext<Obveznik>.Set(ref m_Obveznik, this, value, nameof(Obveznik)); }
         }
-        public TipBroda FK_Brod_TipBroda
+        public TipBroda TipBroda
         {
-            get { return EntityContext<TipBroda>.Get(ref m_FK_Brod_TipBroda, this, "FK_Brod_TipBroda"); }
-            set { EntityContext<TipBroda>.Set(ref m_FK_Brod_TipBroda, this, value, "FK_Brod_TipBroda"); }
+            get { return EntityContext<TipBroda>.Get(ref m_TipBroda, this, nameof(TipBroda)); }
+            set { EntityContext<TipBroda>.Set(ref m_TipBroda, this, value, nameof(TipBroda)); }
         }
-        public VrstaBroda FK_Brod_VrstaBroda
+        public VrstaBroda VrstaBroda
         {
-            get { return EntityContext<VrstaBroda>.Get(ref m_FK_Brod_VrstaBroda, this, "FK_Brod_VrstaBroda"); }
-            set { EntityContext<VrstaBroda>.Set(ref m_FK_Brod_VrstaBroda, this, value, "FK_Brod_VrstaBroda"); }
+            get { return EntityContext<VrstaBroda>.Get(ref m_VrstaBroda, this, nameof(VrstaBroda)); }
+            set { EntityContext<VrstaBroda>.Set(ref m_VrstaBroda, this, value, nameof(VrstaBroda)); }
         }
         #endregion
 
@@ -126,24 +126,5 @@ namespace Orko.Watersports
             return await TryGetByPrimaryKeyAsync<Brod>(BrodBrod);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<Brod> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<Brod>(queryConditions);
-        }
-        public static IEnumerable<Brod> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<Brod>(columnName, queryOp, value);
-        }
-		public static Brod GetByPrimaryKey(int BrodBrod)
-        {
-            return GetByPrimaryKey<Brod>(BrodBrod);
-        }
-		public static Brod TryGetByPrimaryKey(int BrodBrod)
-        {
-            return TryGetByPrimaryKey<Brod>(BrodBrod);
-        }
-        #endregion
     }
 }

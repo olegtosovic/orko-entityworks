@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -18,8 +18,8 @@ namespace Orko.Sistem
     public sealed partial class Korisnik : Entity
     {
 		#region Members
-		private Base.Firma m_FK_Korisnik_Firma;
-        private Base.Osoba m_FK_Korisnik_Osoba;
+		private Base.Firma m_Firma;
+        private Base.Osoba m_Osoba;
         #endregion
         
 		#region Constructors
@@ -28,26 +28,26 @@ namespace Orko.Sistem
             // Cache field metadata.
             EntityMeta<Korisnik>.LoadColumnMetadata
 			(
-				new ColumnMetadata("KorisnikID", @"KorisnikID", SqlDbType.Int, isIdentity: true, isPrimaryKey: true),
-                new ColumnMetadata("KorisnikOsobaID", @"KorisnikOsobaID", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("KorisnikFirma", @"KorisnikFirma", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("KorisnikUsername", @"KorisnikUsername", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("KorisnikPassword", @"KorisnikPassword", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("KorisnikPasswordSalt", @"KorisnikPasswordSalt", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("KorisnikEmailRegistracije", @"KorisnikEmailRegistracije", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("KorisnikTrajanjeLozinke", @"KorisnikTrajanjeLozinke", SqlDbType.DateTime2, isRequired: false),
-                new ColumnMetadata("KorisnikTrajanjeKorisnika", @"KorisnikTrajanjeKorisnika", SqlDbType.DateTime2, isRequired: false),
-                new ColumnMetadata("KorisnikDatumRegistracije", @"KorisnikDatumRegistracije", SqlDbType.DateTime2, isRequired: false),
-                new ColumnMetadata("KorisnikAdministrator", @"KorisnikAdministrator", SqlDbType.Bit, isRequired: true),
-                new ColumnMetadata("KorisnikBaza", @"KorisnikBaza", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("KorisnikAktivnost", @"KorisnikAktivnost", SqlDbType.Bit, isRequired: true)
+				new ColumnMetadata(nameof(KorisnikID), @"KorisnikID", DbType.Int32, isIdentity: true, isRequired: true),
+                new ColumnMetadata(nameof(KorisnikOsobaID), @"KorisnikOsobaID", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(KorisnikFirma), @"KorisnikFirma", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(KorisnikUsername), @"KorisnikUsername", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(KorisnikPassword), @"KorisnikPassword", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(KorisnikPasswordSalt), @"KorisnikPasswordSalt", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(KorisnikEmailRegistracije), @"KorisnikEmailRegistracije", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(KorisnikTrajanjeLozinke), @"KorisnikTrajanjeLozinke", DbType.DateTime2, isRequired: false),
+                new ColumnMetadata(nameof(KorisnikTrajanjeKorisnika), @"KorisnikTrajanjeKorisnika", DbType.DateTime2, isRequired: false),
+                new ColumnMetadata(nameof(KorisnikDatumRegistracije), @"KorisnikDatumRegistracije", DbType.DateTime2, isRequired: false),
+                new ColumnMetadata(nameof(KorisnikAdministrator), @"KorisnikAdministrator", DbType.Boolean, isRequired: true),
+                new ColumnMetadata(nameof(KorisnikBaza), @"KorisnikBaza", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(KorisnikAktivnost), @"KorisnikAktivnost", DbType.Boolean, isRequired: true)
 			);
 
             // Cache entites metadata.
             EntityMeta<Korisnik>.LoadRelationMetadata
 			(
-				new RelationMetadata("FK_Korisnik_Firma", "KorisnikFirma", "FirmaFirma"),
-                new RelationMetadata("FK_Korisnik_Osoba", "KorisnikOsobaID", "OsobaID")
+				new RelationMetadata(nameof(Firma), nameof(KorisnikFirma), nameof(Orko.Base.Firma.FirmaFirma)),
+                new RelationMetadata(nameof(Osoba), nameof(KorisnikOsobaID), nameof(Orko.Base.Osoba.OsobaID))
 			);
 
 			// Cache table metadata.
@@ -76,15 +76,15 @@ namespace Orko.Sistem
         #endregion
 
         #region Entities
-		public Base.Firma FK_Korisnik_Firma
+		public Base.Firma Firma
         {
-            get { return EntityContext<Base.Firma>.Get(ref m_FK_Korisnik_Firma, this, "FK_Korisnik_Firma"); }
-            set { EntityContext<Base.Firma>.Set(ref m_FK_Korisnik_Firma, this, value, "FK_Korisnik_Firma"); }
+            get { return EntityContext<Base.Firma>.Get(ref m_Firma, this, nameof(Firma)); }
+            set { EntityContext<Base.Firma>.Set(ref m_Firma, this, value, nameof(Firma)); }
         }
-        public Base.Osoba FK_Korisnik_Osoba
+        public Base.Osoba Osoba
         {
-            get { return EntityContext<Base.Osoba>.Get(ref m_FK_Korisnik_Osoba, this, "FK_Korisnik_Osoba"); }
-            set { EntityContext<Base.Osoba>.Set(ref m_FK_Korisnik_Osoba, this, value, "FK_Korisnik_Osoba"); }
+            get { return EntityContext<Base.Osoba>.Get(ref m_Osoba, this, nameof(Osoba)); }
+            set { EntityContext<Base.Osoba>.Set(ref m_Osoba, this, value, nameof(Osoba)); }
         }
         #endregion
 
@@ -106,32 +106,5 @@ namespace Orko.Sistem
             return await TryGetByPrimaryKeyAsync<Korisnik>(KorisnikID);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<Korisnik> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<Korisnik>(queryConditions);
-        }
-        public static IEnumerable<Korisnik> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<Korisnik>(columnName, queryOp, value);
-        }
-		public static Korisnik GetByPrimaryKey(int KorisnikID)
-        {
-            return GetByPrimaryKey<Korisnik>(KorisnikID);
-        }
-		public static Korisnik TryGetByPrimaryKey(int KorisnikID)
-        {
-            return TryGetByPrimaryKey<Korisnik>(KorisnikID);
-        }
-        public static Korisnik GetByUnique1(int KorisnikOsobaID)
-        {
-            return GetByCallingParameters<Korisnik>(KorisnikOsobaID);
-        }
-		public static Korisnik TryGetByUnique1(int KorisnikOsobaID)
-        {
-            return TryGetByCallingParameters<Korisnik>(KorisnikOsobaID);
-        }
-        #endregion
     }
 }

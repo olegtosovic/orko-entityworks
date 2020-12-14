@@ -12,19 +12,27 @@ namespace Orko.EntityWorks.Generator
     public class ForeignKey
     {
         #region Constructors
+        /// <summary>
+        /// Create foreign key instance.
+        /// </summary>
+        /// <param name="foreignKey">Raw db data for foreign key creation</param>
+        /// <param name="table">Parent table</param>
         public ForeignKey(DataRow foreignKey, Table table)
         {
             // Initialization
             Database = table.Database;
             Table = table;
-            ForeignKeyName = foreignKey["foreign_key_name"].ToString();
-            ForeignKeyColumnName = GetForeignKeyColumnName(ForeignKeyName, table);
+            SqlName = foreignKey["foreign_key_name"].ToString();
+            NetName = TransformForeignKeyNameByConvention(SqlName);
+
+            // Create instances.
+            Columns = new ConcurrentDictionary<string, Column>();
             Relations = new List<Relation>();
 
             // Get relations.
             var relations = table.Database.Relations.AsEnumerable()
-                .Where(relation => relation.Field<string>("foreign_key_name") == ForeignKeyName &&
-                       relation.Field<string>("foreign_key_table_fullname") == table.FullName)
+                .Where(relation => relation.Field<string>("foreign_key_name") == SqlName &&
+                       relation.Field<string>("foreign_key_table_fullname") == table.SqlFullName)
                 .ToList();
 
             // Load relations
@@ -42,7 +50,7 @@ namespace Orko.EntityWorks.Generator
                 string fk_column_name = drRelation["foreign_key_column"].ToString();
                 string pk_column_name = drRelation["primary_key_column"].ToString();
 
-                // Relation
+                // Create new relation
                 Relation relation = new Relation
                     (
                         foreignKeyTableName: fk_table_name,
@@ -54,27 +62,41 @@ namespace Orko.EntityWorks.Generator
                         primaryKeyTableColumnName: pk_column_name,
                         primaryKeyTableFullName: pk_table_fullname
                     );
+
+                // Add relation.
                 Relations.Add(relation);
+
+                // Get column from table columns.
+                var column = table.Columns.GetOrAdd(fk_column_name,
+                    column => { return new Column(fk_column_name, table); }
+                    );
+
+                // Add to column list.
+                this.Columns.TryAdd(fk_column_name, column);
             }
         }
         #endregion
 
         #region Properties
-        public string ForeignKeyName { get; private set; }
-        public string ForeignKeyColumnName { get; private set; }
+        public string SqlName { get; private set; }
+        public string NetName { get; private set; }
         public Database Database { get; private set; }
         public Table Table { get; private set; }
         public List<Relation> Relations { get; private set; }
+        public ConcurrentDictionary<string, Column> Columns { get; private set; }
         #endregion
 
         #region Helper methods
         /// <summary>
-        /// Gets foreign key name.
+        /// Transforms foreign key name by foreign key name convention.
         /// </summary>
-        private string GetForeignKeyColumnName(string foreignKeyName, Table table)
+        private string TransformForeignKeyNameByConvention(string foreignKeyName)
         {
-            // Get options.
-            var options = table.Database.Options;
+            // Parent table.
+            var table = this.Table;
+
+            // Generator options.
+            var options = this.Table.Database.Options;
 
             // If converter is set by user convert and return.
             if (options.ForeignKeyNameNamingConverter != null)
@@ -111,9 +133,36 @@ namespace Orko.EntityWorks.Generator
                 foreignKeyName = firstColumnPartOfKey.Value.SqlName;
 			}
 
+            // If first column full name convention no ID.
+            else if (options.ForeignKeyNamingConvention == ForeignKeyNamingConvention.FK_FC_FN_NID)
+			{
+                // Set foreign key name as first column full name.
+                var firstColumnPartOfKey = table.PrimaryKey.Columns.FirstOrDefault();
+                foreignKeyName = firstColumnPartOfKey.Value.SqlName.Replace("ID", string.Empty);
+            }
+
+            // Transform by member policy.
+            foreignKeyName = TransformForeignKeyNameByNetMemberPolicy(foreignKeyName);
+
             // Return foreign key name.
             return foreignKeyName;
         }
+        /// <summary>
+        /// Transforms foreign key name by foreign key name member policy.
+        /// </summary>
+        private string TransformForeignKeyNameByNetMemberPolicy(string foreignKeyName)
+		{
+            // If foreign key name already transformed by name convention is identical to entity class name than add preffix "e_".
+            if (foreignKeyName == this.Table.NetName)
+                foreignKeyName = "e_" + foreignKeyName;
+
+            // Else, if foreign key name already transformed by name convention is identical to any column name than also add prefix. "e_".
+            else if (this.Table.Columns.GetValueOrDefault(foreignKeyName) != null)
+                foreignKeyName = "e_" + foreignKeyName;
+
+            // Return foreign key name.
+            return foreignKeyName;
+		}
         #endregion
     }
 }

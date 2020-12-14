@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -27,9 +27,9 @@ namespace Orko.GuletCroatia
             // Cache field metadata.
             EntityMeta<JahtaKategorijaJahta>.LoadColumnMetadata
 			(
-				new ColumnMetadata("JahtaKategorijaJahtaKategorija", @"JahtaKategorijaJahtaKategorija", SqlDbType.NVarChar, isPrimaryKey: true),
-                new ColumnMetadata("JahtaKategorijaJahtaJahta", @"JahtaKategorijaJahtaJahta", SqlDbType.NVarChar, isPrimaryKey: true),
-                new ColumnMetadata("JahtaKategorijaJahtaRedoslijed", @"JahtaKategorijaJahtaRedoslijed", SqlDbType.Int, isRequired: true)
+				new ColumnMetadata(nameof(JahtaKategorijaJahtaKategorija), @"JahtaKategorijaJahtaKategorija", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(JahtaKategorijaJahtaJahta), @"JahtaKategorijaJahtaJahta", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(JahtaKategorijaJahtaRedoslijed), @"JahtaKategorijaJahtaRedoslijed", DbType.Int32, isRequired: true)
 			);
 
             // Cache entites metadata.
@@ -75,24 +75,5 @@ namespace Orko.GuletCroatia
             return await TryGetByPrimaryKeyAsync<JahtaKategorijaJahta>(JahtaKategorijaJahtaKategorija, JahtaKategorijaJahtaJahta);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<JahtaKategorijaJahta> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<JahtaKategorijaJahta>(queryConditions);
-        }
-        public static IEnumerable<JahtaKategorijaJahta> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<JahtaKategorijaJahta>(columnName, queryOp, value);
-        }
-		public static JahtaKategorijaJahta GetByPrimaryKey(string JahtaKategorijaJahtaKategorija, string JahtaKategorijaJahtaJahta)
-        {
-            return GetByPrimaryKey<JahtaKategorijaJahta>(JahtaKategorijaJahtaKategorija, JahtaKategorijaJahtaJahta);
-        }
-		public static JahtaKategorijaJahta TryGetByPrimaryKey(string JahtaKategorijaJahtaKategorija, string JahtaKategorijaJahtaJahta)
-        {
-            return TryGetByPrimaryKey<JahtaKategorijaJahta>(JahtaKategorijaJahtaKategorija, JahtaKategorijaJahtaJahta);
-        }
-        #endregion
     }
 }

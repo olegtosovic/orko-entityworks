@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -18,9 +18,9 @@ namespace Orko.Base
     public sealed partial class VezaDokumenataUputa : Entity
     {
 		#region Members
-		private VrstaDokumenta m_FK_VezaDokumenataUputa_VrstaDokumentaPrethodni;
-        private VrstaDokumenta m_FK_VezaDokumenataUputa_VrstaDokumentaSljedni;
-        private VrstaVeze m_FK_VezaDokumenataUputa_VrstaVeze;
+		private VrstaDokumenta m_VrstaDokumentaPrethodni;
+        private VrstaDokumenta m_VrstaDokumentaSljedni;
+        private VrstaVeze m_VrstaVeze;
         #endregion
         
 		#region Constructors
@@ -29,21 +29,21 @@ namespace Orko.Base
             // Cache field metadata.
             EntityMeta<VezaDokumenataUputa>.LoadColumnMetadata
 			(
-				new ColumnMetadata("VezaDokumenataUputaID", @"VezaDokumenataUputaID", SqlDbType.Int, isIdentity: true, isPrimaryKey: true),
-                new ColumnMetadata("VezaDokumenataUputaVrstaDokumentaPrethodni", @"VezaDokumenataUputaVrstaDokumentaPrethodni", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("VezaDokumenataUputaVrstaDokumentaSljedni", @"VezaDokumenataUputaVrstaDokumentaSljedni", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("VezaDokumenataUputaVrstaVeze", @"VezaDokumenataUputaVrstaVeze", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("VezaDokumenataUputaIndikatorUnosa", @"VezaDokumenataUputaIndikatorUnosa", SqlDbType.Bit, isRequired: false),
-                new ColumnMetadata("VezaDokumenataUputaUradio", @"VezaDokumenataUputaUradio", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("VezaDokumenataUputaDatumIzmjene", @"VezaDokumenataUputaDatumIzmjene", SqlDbType.DateTime2, isRequired: false)
+				new ColumnMetadata(nameof(VezaDokumenataUputaID), @"VezaDokumenataUputaID", DbType.Int32, isIdentity: true, isRequired: true),
+                new ColumnMetadata(nameof(VezaDokumenataUputaVrstaDokumentaPrethodni), @"VezaDokumenataUputaVrstaDokumentaPrethodni", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(VezaDokumenataUputaVrstaDokumentaSljedni), @"VezaDokumenataUputaVrstaDokumentaSljedni", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(VezaDokumenataUputaVrstaVeze), @"VezaDokumenataUputaVrstaVeze", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(VezaDokumenataUputaIndikatorUnosa), @"VezaDokumenataUputaIndikatorUnosa", DbType.Boolean, isRequired: false),
+                new ColumnMetadata(nameof(VezaDokumenataUputaUradio), @"VezaDokumenataUputaUradio", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(VezaDokumenataUputaDatumIzmjene), @"VezaDokumenataUputaDatumIzmjene", DbType.DateTime2, isRequired: false)
 			);
 
             // Cache entites metadata.
             EntityMeta<VezaDokumenataUputa>.LoadRelationMetadata
 			(
-				new RelationMetadata("FK_VezaDokumenataUputa_VrstaDokumentaPrethodni", "VezaDokumenataUputaVrstaDokumentaPrethodni", "VrstaDokumentaVrstaDokumenta"),
-                new RelationMetadata("FK_VezaDokumenataUputa_VrstaDokumentaSljedni", "VezaDokumenataUputaVrstaDokumentaSljedni", "VrstaDokumentaVrstaDokumenta"),
-                new RelationMetadata("FK_VezaDokumenataUputa_VrstaVeze", "VezaDokumenataUputaVrstaVeze", "VrstaVezeVrstaVeze")
+				new RelationMetadata(nameof(VrstaDokumentaPrethodni), nameof(VezaDokumenataUputaVrstaDokumentaPrethodni), nameof(Orko.Base.VrstaDokumenta.VrstaDokumentaVrstaDokumenta)),
+                new RelationMetadata(nameof(VrstaDokumentaSljedni), nameof(VezaDokumenataUputaVrstaDokumentaSljedni), nameof(Orko.Base.VrstaDokumenta.VrstaDokumentaVrstaDokumenta)),
+                new RelationMetadata(nameof(VrstaVeze), nameof(VezaDokumenataUputaVrstaVeze), nameof(Orko.Base.VrstaVeze.VrstaVezeVrstaVeze))
 			);
 
 			// Cache table metadata.
@@ -66,20 +66,20 @@ namespace Orko.Base
         #endregion
 
         #region Entities
-		public VrstaDokumenta FK_VezaDokumenataUputa_VrstaDokumentaPrethodni
+		public VrstaDokumenta VrstaDokumentaPrethodni
         {
-            get { return EntityContext<VrstaDokumenta>.Get(ref m_FK_VezaDokumenataUputa_VrstaDokumentaPrethodni, this, "FK_VezaDokumenataUputa_VrstaDokumentaPrethodni"); }
-            set { EntityContext<VrstaDokumenta>.Set(ref m_FK_VezaDokumenataUputa_VrstaDokumentaPrethodni, this, value, "FK_VezaDokumenataUputa_VrstaDokumentaPrethodni"); }
+            get { return EntityContext<VrstaDokumenta>.Get(ref m_VrstaDokumentaPrethodni, this, nameof(VrstaDokumentaPrethodni)); }
+            set { EntityContext<VrstaDokumenta>.Set(ref m_VrstaDokumentaPrethodni, this, value, nameof(VrstaDokumentaPrethodni)); }
         }
-        public VrstaDokumenta FK_VezaDokumenataUputa_VrstaDokumentaSljedni
+        public VrstaDokumenta VrstaDokumentaSljedni
         {
-            get { return EntityContext<VrstaDokumenta>.Get(ref m_FK_VezaDokumenataUputa_VrstaDokumentaSljedni, this, "FK_VezaDokumenataUputa_VrstaDokumentaSljedni"); }
-            set { EntityContext<VrstaDokumenta>.Set(ref m_FK_VezaDokumenataUputa_VrstaDokumentaSljedni, this, value, "FK_VezaDokumenataUputa_VrstaDokumentaSljedni"); }
+            get { return EntityContext<VrstaDokumenta>.Get(ref m_VrstaDokumentaSljedni, this, nameof(VrstaDokumentaSljedni)); }
+            set { EntityContext<VrstaDokumenta>.Set(ref m_VrstaDokumentaSljedni, this, value, nameof(VrstaDokumentaSljedni)); }
         }
-        public VrstaVeze FK_VezaDokumenataUputa_VrstaVeze
+        public VrstaVeze VrstaVeze
         {
-            get { return EntityContext<VrstaVeze>.Get(ref m_FK_VezaDokumenataUputa_VrstaVeze, this, "FK_VezaDokumenataUputa_VrstaVeze"); }
-            set { EntityContext<VrstaVeze>.Set(ref m_FK_VezaDokumenataUputa_VrstaVeze, this, value, "FK_VezaDokumenataUputa_VrstaVeze"); }
+            get { return EntityContext<VrstaVeze>.Get(ref m_VrstaVeze, this, nameof(VrstaVeze)); }
+            set { EntityContext<VrstaVeze>.Set(ref m_VrstaVeze, this, value, nameof(VrstaVeze)); }
         }
         #endregion
 
@@ -101,24 +101,5 @@ namespace Orko.Base
             return await TryGetByPrimaryKeyAsync<VezaDokumenataUputa>(VezaDokumenataUputaID);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<VezaDokumenataUputa> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<VezaDokumenataUputa>(queryConditions);
-        }
-        public static IEnumerable<VezaDokumenataUputa> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<VezaDokumenataUputa>(columnName, queryOp, value);
-        }
-		public static VezaDokumenataUputa GetByPrimaryKey(int VezaDokumenataUputaID)
-        {
-            return GetByPrimaryKey<VezaDokumenataUputa>(VezaDokumenataUputaID);
-        }
-		public static VezaDokumenataUputa TryGetByPrimaryKey(int VezaDokumenataUputaID)
-        {
-            return TryGetByPrimaryKey<VezaDokumenataUputa>(VezaDokumenataUputaID);
-        }
-        #endregion
     }
 }

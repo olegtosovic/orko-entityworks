@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -18,10 +18,10 @@ namespace Orko.Turist
     public sealed partial class Rezervacija : Entity
     {
 		#region Members
-		private Gost m_FK_Rezervacija_Gost;
-        private IzvorRezervacije m_FK_Rezervacija_IzvorRezervacije;
-        private Base.Protokol m_FK_Rezervacija_Protokol;
-        private Base.Valuta m_FK_Rezervacija_Valuta;
+		private Gost m_Gost;
+        private IzvorRezervacije m_IzvorRezervacije;
+        private Base.Protokol m_Protokol;
+        private Base.Valuta m_Valuta;
         #endregion
         
 		#region Constructors
@@ -30,35 +30,35 @@ namespace Orko.Turist
             // Cache field metadata.
             EntityMeta<Rezervacija>.LoadColumnMetadata
 			(
-				new ColumnMetadata("RezervacijaProtokolID", @"RezervacijaProtokolID", SqlDbType.Int, isPrimaryKey: true),
-                new ColumnMetadata("RezervacijaGost", @"RezervacijaGost", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("RezervacijaValuta", @"RezervacijaValuta", SqlDbType.Char, isRequired: true),
-                new ColumnMetadata("RezervacijaIzvorRezervacije", @"RezervacijaIzvorRezervacije", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("RezervacijaDatumNajave", @"RezervacijaDatumNajave", SqlDbType.DateTime2, isRequired: false),
-                new ColumnMetadata("RezervacijaOd", @"RezervacijaOd", SqlDbType.DateTime2, isRequired: false),
-                new ColumnMetadata("RezervacijaDo", @"RezervacijaDo", SqlDbType.DateTime2, isRequired: false),
-                new ColumnMetadata("RezervacijaBrojNoci", @"RezervacijaBrojNoci", SqlDbType.Int, isRequired: false),
-                new ColumnMetadata("RezervacijaBrojNociKalkulativno", @"RezervacijaBrojNociKalkulativno", SqlDbType.Int, isRequired: false),
-                new ColumnMetadata("RezervacijaBrojOdraslih", @"RezervacijaBrojOdraslih", SqlDbType.Int, isRequired: false),
-                new ColumnMetadata("RezervacijaBrojDjece", @"RezervacijaBrojDjece", SqlDbType.Int, isRequired: false),
-                new ColumnMetadata("RezervacijaNapomena", @"RezervacijaNapomena", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("RezervacijaCijenaCjenikIznos", @"RezervacijaCijenaCjenikIznos", SqlDbType.Decimal, isRequired: false),
-                new ColumnMetadata("RezervacijaCijenaKonacnoIznos", @"RezervacijaCijenaKonacnoIznos", SqlDbType.Decimal, isRequired: false),
-                new ColumnMetadata("RezervacijaPopustPostotak", @"RezervacijaPopustPostotak", SqlDbType.Decimal, isRequired: false),
-                new ColumnMetadata("RezervacijaPopustIznos", @"RezervacijaPopustIznos", SqlDbType.Decimal, isRequired: false),
-                new ColumnMetadata("RezervacijaDepozitPostotak", @"RezervacijaDepozitPostotak", SqlDbType.Decimal, isRequired: false),
-                new ColumnMetadata("RezervacijaDepozitIznos", @"RezervacijaDepozitIznos", SqlDbType.Decimal, isRequired: false),
-                new ColumnMetadata("RezervacijaPlacena", @"RezervacijaPlacena", SqlDbType.Bit, isRequired: false),
-                new ColumnMetadata("RezervacijaDepozitPlacen", @"RezervacijaDepozitPlacen", SqlDbType.Bit, isRequired: false)
+				new ColumnMetadata(nameof(RezervacijaProtokolID), @"RezervacijaProtokolID", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(RezervacijaGost), @"RezervacijaGost", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(RezervacijaValuta), @"RezervacijaValuta", DbType.AnsiStringFixedLength, isRequired: true),
+                new ColumnMetadata(nameof(RezervacijaIzvorRezervacije), @"RezervacijaIzvorRezervacije", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(RezervacijaDatumNajave), @"RezervacijaDatumNajave", DbType.DateTime2, isRequired: false),
+                new ColumnMetadata(nameof(RezervacijaOd), @"RezervacijaOd", DbType.DateTime2, isRequired: false),
+                new ColumnMetadata(nameof(RezervacijaDo), @"RezervacijaDo", DbType.DateTime2, isRequired: false),
+                new ColumnMetadata(nameof(RezervacijaBrojNoci), @"RezervacijaBrojNoci", DbType.Int32, isRequired: false),
+                new ColumnMetadata(nameof(RezervacijaBrojNociKalkulativno), @"RezervacijaBrojNociKalkulativno", DbType.Int32, isRequired: false),
+                new ColumnMetadata(nameof(RezervacijaBrojOdraslih), @"RezervacijaBrojOdraslih", DbType.Int32, isRequired: false),
+                new ColumnMetadata(nameof(RezervacijaBrojDjece), @"RezervacijaBrojDjece", DbType.Int32, isRequired: false),
+                new ColumnMetadata(nameof(RezervacijaNapomena), @"RezervacijaNapomena", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(RezervacijaCijenaCjenikIznos), @"RezervacijaCijenaCjenikIznos", DbType.Decimal, isRequired: false),
+                new ColumnMetadata(nameof(RezervacijaCijenaKonacnoIznos), @"RezervacijaCijenaKonacnoIznos", DbType.Decimal, isRequired: false),
+                new ColumnMetadata(nameof(RezervacijaPopustPostotak), @"RezervacijaPopustPostotak", DbType.Decimal, isRequired: false),
+                new ColumnMetadata(nameof(RezervacijaPopustIznos), @"RezervacijaPopustIznos", DbType.Decimal, isRequired: false),
+                new ColumnMetadata(nameof(RezervacijaDepozitPostotak), @"RezervacijaDepozitPostotak", DbType.Decimal, isRequired: false),
+                new ColumnMetadata(nameof(RezervacijaDepozitIznos), @"RezervacijaDepozitIznos", DbType.Decimal, isRequired: false),
+                new ColumnMetadata(nameof(RezervacijaPlacena), @"RezervacijaPlacena", DbType.Boolean, isRequired: false),
+                new ColumnMetadata(nameof(RezervacijaDepozitPlacen), @"RezervacijaDepozitPlacen", DbType.Boolean, isRequired: false)
 			);
 
             // Cache entites metadata.
             EntityMeta<Rezervacija>.LoadRelationMetadata
 			(
-				new RelationMetadata("FK_Rezervacija_Gost", "RezervacijaGost", "GostGost"),
-                new RelationMetadata("FK_Rezervacija_IzvorRezervacije", "RezervacijaIzvorRezervacije", "IzvorRezervacijeIzvorRezervacije"),
-                new RelationMetadata("FK_Rezervacija_Protokol", "RezervacijaProtokolID", "ProtokolID"),
-                new RelationMetadata("FK_Rezervacija_Valuta", "RezervacijaValuta", "ValutaValuta")
+				new RelationMetadata(nameof(Gost), nameof(RezervacijaGost), nameof(Orko.Turist.Gost.GostGost)),
+                new RelationMetadata(nameof(IzvorRezervacije), nameof(RezervacijaIzvorRezervacije), nameof(Orko.Turist.IzvorRezervacije.IzvorRezervacijeIzvorRezervacije)),
+                new RelationMetadata(nameof(Protokol), nameof(RezervacijaProtokolID), nameof(Orko.Base.Protokol.ProtokolID)),
+                new RelationMetadata(nameof(Valuta), nameof(RezervacijaValuta), nameof(Orko.Base.Valuta.ValutaValuta))
 			);
 
 			// Cache table metadata.
@@ -94,25 +94,25 @@ namespace Orko.Turist
         #endregion
 
         #region Entities
-		public Gost FK_Rezervacija_Gost
+		public Gost Gost
         {
-            get { return EntityContext<Gost>.Get(ref m_FK_Rezervacija_Gost, this, "FK_Rezervacija_Gost"); }
-            set { EntityContext<Gost>.Set(ref m_FK_Rezervacija_Gost, this, value, "FK_Rezervacija_Gost"); }
+            get { return EntityContext<Gost>.Get(ref m_Gost, this, nameof(Gost)); }
+            set { EntityContext<Gost>.Set(ref m_Gost, this, value, nameof(Gost)); }
         }
-        public IzvorRezervacije FK_Rezervacija_IzvorRezervacije
+        public IzvorRezervacije IzvorRezervacije
         {
-            get { return EntityContext<IzvorRezervacije>.Get(ref m_FK_Rezervacija_IzvorRezervacije, this, "FK_Rezervacija_IzvorRezervacije"); }
-            set { EntityContext<IzvorRezervacije>.Set(ref m_FK_Rezervacija_IzvorRezervacije, this, value, "FK_Rezervacija_IzvorRezervacije"); }
+            get { return EntityContext<IzvorRezervacije>.Get(ref m_IzvorRezervacije, this, nameof(IzvorRezervacije)); }
+            set { EntityContext<IzvorRezervacije>.Set(ref m_IzvorRezervacije, this, value, nameof(IzvorRezervacije)); }
         }
-        public Base.Protokol FK_Rezervacija_Protokol
+        public Base.Protokol Protokol
         {
-            get { return EntityContext<Base.Protokol>.Get(ref m_FK_Rezervacija_Protokol, this, "FK_Rezervacija_Protokol"); }
-            set { EntityContext<Base.Protokol>.Set(ref m_FK_Rezervacija_Protokol, this, value, "FK_Rezervacija_Protokol"); }
+            get { return EntityContext<Base.Protokol>.Get(ref m_Protokol, this, nameof(Protokol)); }
+            set { EntityContext<Base.Protokol>.Set(ref m_Protokol, this, value, nameof(Protokol)); }
         }
-        public Base.Valuta FK_Rezervacija_Valuta
+        public Base.Valuta Valuta
         {
-            get { return EntityContext<Base.Valuta>.Get(ref m_FK_Rezervacija_Valuta, this, "FK_Rezervacija_Valuta"); }
-            set { EntityContext<Base.Valuta>.Set(ref m_FK_Rezervacija_Valuta, this, value, "FK_Rezervacija_Valuta"); }
+            get { return EntityContext<Base.Valuta>.Get(ref m_Valuta, this, nameof(Valuta)); }
+            set { EntityContext<Base.Valuta>.Set(ref m_Valuta, this, value, nameof(Valuta)); }
         }
         #endregion
 
@@ -134,24 +134,5 @@ namespace Orko.Turist
             return await TryGetByPrimaryKeyAsync<Rezervacija>(RezervacijaProtokolID);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<Rezervacija> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<Rezervacija>(queryConditions);
-        }
-        public static IEnumerable<Rezervacija> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<Rezervacija>(columnName, queryOp, value);
-        }
-		public static Rezervacija GetByPrimaryKey(int RezervacijaProtokolID)
-        {
-            return GetByPrimaryKey<Rezervacija>(RezervacijaProtokolID);
-        }
-		public static Rezervacija TryGetByPrimaryKey(int RezervacijaProtokolID)
-        {
-            return TryGetByPrimaryKey<Rezervacija>(RezervacijaProtokolID);
-        }
-        #endregion
     }
 }

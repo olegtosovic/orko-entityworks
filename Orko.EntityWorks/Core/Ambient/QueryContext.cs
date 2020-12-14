@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.Data.SqlClient;
+﻿using Microsoft.Data.SqlClient;
+using System;
+using System.Data.Common;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("Orko.EntityWorks.AspNetCore")]
@@ -13,15 +12,14 @@ namespace Orko.EntityWorks
 	/// </summary>
 	public class QueryContext : IDisposable
 	{
-		#region Members
-		private SqlConnectionStringBuilder m_builder;
+		#region Properties
+		/// <summary>
+		/// Connection string builder.
+		/// </summary>
+		private DbConnectionStringBuilder DbConnectionStringBuilder { get; set; }
 		#endregion
 
-		#region Private methods
-		protected void Construct(string connectionString)
-		{
-
-		}
+		#region Methods
 		#endregion
 
 		#region Constructors
@@ -30,34 +28,43 @@ namespace Orko.EntityWorks
 		/// </summary>
 		public QueryContext()
 		{
+			// Register provider factory, currently only support for microsoft sql client.
+			DbProviderFactories.RegisterFactory("Microsoft.Data.SqlClient", SqlClientFactory.Instance);
 
+			// Create provider factory.
+			DbProviderFactory = DbProviderFactories.GetFactory("Microsoft.Data.SqlClient");
+
+			// Create connection string string builder.
+			DbConnectionStringBuilder = DbProviderFactory.CreateConnectionStringBuilder();
 		}
 		/// <summary>
 		/// Creates query context which is used by query object.
 		/// </summary>
-		public QueryContext(string connectionName)
+		public QueryContext(string connectionName) : this()
 		{
 			// Get entity works context.
-			//var context = EntityWorksContext.GetEntityWorksContext();
+			var context = EntityWorksContext.GetEntityWorksContext();
 
 			// Get connection string.
 			string connectionString = EntityWorksContext.ConnectionStrings[connectionName];
 
 			// Parse connection string to builder.
-			m_builder = new SqlConnectionStringBuilder(connectionString);
+			DbConnectionStringBuilder.ConnectionString = connectionString;
+			// DbConnectionStringBuilder = new SqlConnectionStringBuilder(connectionString);
+			// DbConnectionStringBuilder.
 
 			// Set connection segments.
 			Name = connectionName;
-			Database = m_builder.InitialCatalog;
-			Username = m_builder.UserID;
-			Password = m_builder.Password;
-			Hostname = m_builder.DataSource;
+			Database = DbConnectionStringBuilder["Initial Catalog"] as string;
+			Username = DbConnectionStringBuilder["User ID"] as string;
+			Password = DbConnectionStringBuilder["Password"] as string;
+			Hostname = DbConnectionStringBuilder["Data Source"] as string;
 
 			// Set connection string.
-			ConnectionString = m_builder.ConnectionString;
+			ConnectionString = DbConnectionStringBuilder.ConnectionString;
 
 			// Set language code.
-			LanguageCode = null;
+			LanguageCode = context.LanguageCode;
 		}
 		#endregion
 
@@ -73,7 +80,14 @@ namespace Orko.EntityWorks
 		public string LanguageCode { get; private set; }
 		#endregion
 
-		#region Public methods
+		#region Database provider
+		/// <summary>
+		/// Provider factory.
+		/// </summary>
+		public DbProviderFactory DbProviderFactory { get; private set; }
+		#endregion
+
+		#region Methods
 		/// <summary>
 		/// Sets language code for database language tables.
 		/// </summary>
@@ -91,7 +105,7 @@ namespace Orko.EntityWorks
 		public QueryContext SetHostname(string host)
 		{
 			// Set hostname.
-			m_builder.DataSource = host;
+			//DbConnectionStringBuilder.DataSource = host;
 
 			// Return instance.
 			return this;
@@ -102,7 +116,7 @@ namespace Orko.EntityWorks
 		public QueryContext SetDatabase(string database)
 		{
 			// Set hostname.
-			m_builder.InitialCatalog = database;
+			//m_builder.InitialCatalog = database;
 
 			// Return instance.
 			return this;
@@ -113,7 +127,7 @@ namespace Orko.EntityWorks
 		public QueryContext SetUsername(string username)
 		{
 			// Set hostname.
-			m_builder.UserID = username;
+			//m_builder.UserID = username;
 
 			// Return instance.
 			return this;
@@ -124,7 +138,7 @@ namespace Orko.EntityWorks
 		public QueryContext SetPassword(string password)
 		{
 			// Set hostname.
-			m_builder.Password = password;
+			//m_builder.Password = password;
 
 			// Return instance.
 			return this;
@@ -132,16 +146,16 @@ namespace Orko.EntityWorks
 		/// <summary>
 		/// Creates sql connection object.
 		/// </summary>
-		public SqlConnection CreateConnection(bool enableStatistics = false)
+		public DbConnection CreateConnection(bool enableStatistics = false)
 		{
-			// Create sql connection instance.
-			var sqlConnection = new SqlConnection(m_builder.ConnectionString);
+			// Create db connection instance.
+			var dbConnection = DbProviderFactory.CreateConnection();
 
-			// Enable statistics.
-			sqlConnection.StatisticsEnabled = enableStatistics;
+			// Set cb connection.
+			dbConnection.ConnectionString = this.ConnectionString;
 
-			// Retrun sql connection instance.
-			return sqlConnection;
+			// Retrun db connection instance.
+			return dbConnection;
 		}
 		#endregion
 

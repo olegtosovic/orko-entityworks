@@ -16,8 +16,8 @@ namespace Orko.EntityWorks
         /// <summary>
         /// Create column metadata instance.
         /// </summary>
-        /// <param name="fieldName">Real field name in database</param>
-        /// <param name="columnName">C# column name. Unfortunately because of bad tehnical allowance to allow spaces in column names we have to map field/column name relation</param>
+        /// <param name="columnSqlName">Real field name in database</param>
+        /// <param name="columnNetName">C# column name. Unfortunately because of bad tehnical allowance to allow spaces in column names we have to map field/column name relation</param>
         /// <param name="sqlDbType">Sql server data type</param>
         /// <param name="isPrimaryKey">Indicated if field is part of primary key</param>
         /// <param name="isRequired">Indicates if filed allows null values</param>
@@ -26,9 +26,9 @@ namespace Orko.EntityWorks
         /// <param name="isTimestamp">Indicates if field is sql timestamp data type</param>
         /// <param name="isLanguageCode"></param>
         public ColumnMetadata(
-            string fieldName,
-            string columnName,
-            SqlDbType sqlDbType,
+            string columnNetName,
+            string columnSqlName,
+            DbType sqlDbType,
             bool isPrimaryKey = false, 
             bool isRequired = false, 
             bool isIdentity = false, 
@@ -36,7 +36,8 @@ namespace Orko.EntityWorks
 			bool isTimestamp = false,
             bool isLanguageCode = false)
         {
-            ColumnName = fieldName;
+            ColumnNetName = columnNetName;
+            ColumnSqlName = columnSqlName;
             IsRequired = isRequired;
             IsPrimaryKey = isPrimaryKey;
             IsIdentity = isIdentity;
@@ -48,15 +49,15 @@ namespace Orko.EntityWorks
         #endregion
 
         #region Properties
-        public string FieldName { get; private set; }
-        public string ColumnName { get; private set; }
+        public string ColumnNetName { get; private set; }
+        public string ColumnSqlName { get; private set; }
         public bool IsRequired { get; private set; }
         public bool IsIdentity { get; private set; }
 		public bool IsTimestamp { get; private set; }
         public bool IsPrimaryKey { get; private set; }
         public bool IsLanguage { get; private set; }
         public bool IsLanguageCode { get; private set; }
-        public SqlDbType SqlDbType { get; private set; }
+        public DbType SqlDbType { get; private set; }
         #endregion
     }
 }

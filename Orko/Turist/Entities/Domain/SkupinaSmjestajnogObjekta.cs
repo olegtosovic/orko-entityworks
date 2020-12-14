@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -27,11 +27,11 @@ namespace Orko.Turist
             // Cache field metadata.
             EntityMeta<SkupinaSmjestajnogObjekta>.LoadColumnMetadata
 			(
-				new ColumnMetadata("SkupinaSmjestajnogObjektaSkupinaSmjestajnogObjekta", @"SkupinaSmjestajnogObjektaSkupinaSmjestajnogObjekta", SqlDbType.NVarChar, isPrimaryKey: true),
-                new ColumnMetadata("SkupinaSmjestajnogObjektaAktivnost", @"SkupinaSmjestajnogObjektaAktivnost", SqlDbType.Bit, isRequired: true),
-                new ColumnMetadata("SkupinaSmjestajnogObjektaJezik", @"SkupinaSmjestajnogObjektaJezik", SqlDbType.Char, isLanguageCode: true, isPrimaryKey: true),
-                new ColumnMetadata("SkupinaSmjestajnogObjektaNaziv", @"SkupinaSmjestajnogObjektaNaziv", SqlDbType.NVarChar, isRequired: true, isLanguage: true),
-                new ColumnMetadata("SkupinaSmjestajnogObjektaOpis", @"SkupinaSmjestajnogObjektaOpis", SqlDbType.NVarChar, isRequired: false, isLanguage: true)
+				new ColumnMetadata(nameof(SkupinaSmjestajnogObjektaSkupinaSmjestajnogObjekta), @"SkupinaSmjestajnogObjektaSkupinaSmjestajnogObjekta", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(SkupinaSmjestajnogObjektaAktivnost), @"SkupinaSmjestajnogObjektaAktivnost", DbType.Boolean, isRequired: true),
+                new ColumnMetadata(nameof(SkupinaSmjestajnogObjektaJezik), @"SkupinaSmjestajnogObjektaJezik", DbType.AnsiStringFixedLength, isRequired: true, isLanguageCode: true),
+                new ColumnMetadata(nameof(SkupinaSmjestajnogObjektaNaziv), @"SkupinaSmjestajnogObjektaNaziv", DbType.String, isRequired: true, isLanguage: true),
+                new ColumnMetadata(nameof(SkupinaSmjestajnogObjektaOpis), @"SkupinaSmjestajnogObjektaOpis", DbType.String, isRequired: false, isLanguage: true)
 			);
 
             // Cache entites metadata.
@@ -79,24 +79,5 @@ namespace Orko.Turist
             return await TryGetByPrimaryKeyAsync<SkupinaSmjestajnogObjekta>(SkupinaSmjestajnogObjektaSkupinaSmjestajnogObjekta);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<SkupinaSmjestajnogObjekta> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<SkupinaSmjestajnogObjekta>(queryConditions);
-        }
-        public static IEnumerable<SkupinaSmjestajnogObjekta> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<SkupinaSmjestajnogObjekta>(columnName, queryOp, value);
-        }
-		public static SkupinaSmjestajnogObjekta GetByPrimaryKey(string SkupinaSmjestajnogObjektaSkupinaSmjestajnogObjekta)
-        {
-            return GetByPrimaryKey<SkupinaSmjestajnogObjekta>(SkupinaSmjestajnogObjektaSkupinaSmjestajnogObjekta);
-        }
-		public static SkupinaSmjestajnogObjekta TryGetByPrimaryKey(string SkupinaSmjestajnogObjektaSkupinaSmjestajnogObjekta)
-        {
-            return TryGetByPrimaryKey<SkupinaSmjestajnogObjekta>(SkupinaSmjestajnogObjektaSkupinaSmjestajnogObjekta);
-        }
-        #endregion
     }
 }

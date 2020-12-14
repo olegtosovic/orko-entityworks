@@ -19,18 +19,9 @@ namespace [NAMESPACE]
 			Validate<[CLASS_NAME]>();
             Save<[CLASS_NAME]>();
         }
-		public async Task SaveAsync()
-        {
-			Validate<[CLASS_NAME]>();
-            await SaveAsync<[CLASS_NAME]>();
-        }
         public void Delete()
         {
             Delete<[CLASS_NAME]>();
-        }
-		public async Task DeleteAsync()
-        {
-            await DeleteAsync<[CLASS_NAME]>();
         }
 		public void Validate()
 		{

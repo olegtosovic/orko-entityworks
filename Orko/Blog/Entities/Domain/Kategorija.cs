@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -27,11 +27,11 @@ namespace Orko.Blog
             // Cache field metadata.
             EntityMeta<Kategorija>.LoadColumnMetadata
 			(
-				new ColumnMetadata("KategorijaID", @"KategorijaID", SqlDbType.Int, isIdentity: true, isPrimaryKey: true),
-                new ColumnMetadata("KategorijaAktivnost", @"KategorijaAktivnost", SqlDbType.Bit, isRequired: true),
-                new ColumnMetadata("KategorijaJezik", @"KategorijaJezik", SqlDbType.Char, isLanguageCode: true, isPrimaryKey: true),
-                new ColumnMetadata("KategorijaNaziv", @"KategorijaNaziv", SqlDbType.NVarChar, isRequired: true, isLanguage: true),
-                new ColumnMetadata("KategorijaOpis", @"KategorijaOpis", SqlDbType.NVarChar, isRequired: true, isLanguage: true)
+				new ColumnMetadata(nameof(KategorijaID), @"KategorijaID", DbType.Int32, isIdentity: true, isRequired: true),
+                new ColumnMetadata(nameof(KategorijaAktivnost), @"KategorijaAktivnost", DbType.Boolean, isRequired: true),
+                new ColumnMetadata(nameof(KategorijaJezik), @"KategorijaJezik", DbType.AnsiStringFixedLength, isRequired: true, isLanguageCode: true),
+                new ColumnMetadata(nameof(KategorijaNaziv), @"KategorijaNaziv", DbType.String, isRequired: true, isLanguage: true),
+                new ColumnMetadata(nameof(KategorijaOpis), @"KategorijaOpis", DbType.String, isRequired: true, isLanguage: true)
 			);
 
             // Cache entites metadata.
@@ -79,24 +79,5 @@ namespace Orko.Blog
             return await TryGetByPrimaryKeyAsync<Kategorija>(KategorijaID);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<Kategorija> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<Kategorija>(queryConditions);
-        }
-        public static IEnumerable<Kategorija> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<Kategorija>(columnName, queryOp, value);
-        }
-		public static Kategorija GetByPrimaryKey(int KategorijaID)
-        {
-            return GetByPrimaryKey<Kategorija>(KategorijaID);
-        }
-		public static Kategorija TryGetByPrimaryKey(int KategorijaID)
-        {
-            return TryGetByPrimaryKey<Kategorija>(KategorijaID);
-        }
-        #endregion
     }
 }

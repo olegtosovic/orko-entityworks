@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Intended for modification.
 
@@ -14,19 +14,10 @@ namespace Orko.Watersports
     public partial class UputaUsluga
     {
 		#region Methods
-		public void Save()
-        {
-			Validate<UputaUsluga>();
-            Save<UputaUsluga>();
-        }
 		public async Task SaveAsync()
         {
 			Validate<UputaUsluga>();
             await SaveAsync<UputaUsluga>();
-        }
-        public void Delete()
-        {
-            Delete<UputaUsluga>();
         }
 		public async Task DeleteAsync()
         {

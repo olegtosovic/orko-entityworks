@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -18,13 +18,13 @@ namespace Orko.Turist
     public sealed partial class Faktura : Entity
     {
 		#region Members
-		private Base.Firma m_FK_Faktura_Firma;
-        private Gost m_FK_Faktura_Gost;
-        private Obveznik m_FK_Faktura_Obveznik;
-        private Base.Protokol m_FK_Faktura_Protokol;
-        private Base.TecajnaLista m_FK_Faktura_TecajnaLista;
-        private Base.Valuta m_FK_Faktura_ValutaDevizna;
-        private Base.Valuta m_FK_Faktura_ValutaOsnovna;
+		private Base.Firma m_Firma;
+        private Gost m_Gost;
+        private Obveznik m_Obveznik;
+        private Base.Protokol m_Protokol;
+        private Base.TecajnaLista m_TecajnaLista;
+        private Base.Valuta m_ValutaDevizna;
+        private Base.Valuta m_ValutaOsnovna;
         #endregion
         
 		#region Constructors
@@ -33,35 +33,35 @@ namespace Orko.Turist
             // Cache field metadata.
             EntityMeta<Faktura>.LoadColumnMetadata
 			(
-				new ColumnMetadata("FakturaProtokolID", @"FakturaProtokolID", SqlDbType.Int, isPrimaryKey: true),
-                new ColumnMetadata("FakturaTecajnaListaID", @"FakturaTecajnaListaID", SqlDbType.Int, isRequired: false),
-                new ColumnMetadata("FakturaRezervacijeOd", @"FakturaRezervacijeOd", SqlDbType.DateTime2, isRequired: false),
-                new ColumnMetadata("FakturaRezervacijeDo", @"FakturaRezervacijeDo", SqlDbType.DateTime2, isRequired: false),
-                new ColumnMetadata("FakturaObveznik", @"FakturaObveznik", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("FakturaGost", @"FakturaGost", SqlDbType.Int, isRequired: false),
-                new ColumnMetadata("FakturaFirma", @"FakturaFirma", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("FakturaBroj", @"FakturaBroj", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("FakturaValutaOsnovna", @"FakturaValutaOsnovna", SqlDbType.Char, isRequired: true),
-                new ColumnMetadata("FakturaValutaDevizna", @"FakturaValutaDevizna", SqlDbType.Char, isRequired: false),
-                new ColumnMetadata("FakturaIznosBezPopusta", @"FakturaIznosBezPopusta", SqlDbType.Decimal, isRequired: true),
-                new ColumnMetadata("FakturaPopustPostotak", @"FakturaPopustPostotak", SqlDbType.Decimal, isRequired: true),
-                new ColumnMetadata("FakturaPopustIznos", @"FakturaPopustIznos", SqlDbType.Decimal, isRequired: true),
-                new ColumnMetadata("FakturaUkupniIznos", @"FakturaUkupniIznos", SqlDbType.Decimal, isRequired: true),
-                new ColumnMetadata("FakturaUkupniIznosDevize", @"FakturaUkupniIznosDevize", SqlDbType.Decimal, isRequired: false),
-                new ColumnMetadata("FakturaUradio", @"FakturaUradio", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("FakturaDatumIzmjene", @"FakturaDatumIzmjene", SqlDbType.DateTime2, isRequired: true)
+				new ColumnMetadata(nameof(FakturaProtokolID), @"FakturaProtokolID", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(FakturaTecajnaListaID), @"FakturaTecajnaListaID", DbType.Int32, isRequired: false),
+                new ColumnMetadata(nameof(FakturaRezervacijeOd), @"FakturaRezervacijeOd", DbType.DateTime2, isRequired: false),
+                new ColumnMetadata(nameof(FakturaRezervacijeDo), @"FakturaRezervacijeDo", DbType.DateTime2, isRequired: false),
+                new ColumnMetadata(nameof(FakturaObveznik), @"FakturaObveznik", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(FakturaGost), @"FakturaGost", DbType.Int32, isRequired: false),
+                new ColumnMetadata(nameof(FakturaFirma), @"FakturaFirma", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(FakturaBroj), @"FakturaBroj", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(FakturaValutaOsnovna), @"FakturaValutaOsnovna", DbType.AnsiStringFixedLength, isRequired: true),
+                new ColumnMetadata(nameof(FakturaValutaDevizna), @"FakturaValutaDevizna", DbType.AnsiStringFixedLength, isRequired: false),
+                new ColumnMetadata(nameof(FakturaIznosBezPopusta), @"FakturaIznosBezPopusta", DbType.Decimal, isRequired: true),
+                new ColumnMetadata(nameof(FakturaPopustPostotak), @"FakturaPopustPostotak", DbType.Decimal, isRequired: true),
+                new ColumnMetadata(nameof(FakturaPopustIznos), @"FakturaPopustIznos", DbType.Decimal, isRequired: true),
+                new ColumnMetadata(nameof(FakturaUkupniIznos), @"FakturaUkupniIznos", DbType.Decimal, isRequired: true),
+                new ColumnMetadata(nameof(FakturaUkupniIznosDevize), @"FakturaUkupniIznosDevize", DbType.Decimal, isRequired: false),
+                new ColumnMetadata(nameof(FakturaUradio), @"FakturaUradio", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(FakturaDatumIzmjene), @"FakturaDatumIzmjene", DbType.DateTime2, isRequired: true)
 			);
 
             // Cache entites metadata.
             EntityMeta<Faktura>.LoadRelationMetadata
 			(
-				new RelationMetadata("FK_Faktura_Firma", "FakturaFirma", "FirmaFirma"),
-                new RelationMetadata("FK_Faktura_Gost", "FakturaGost", "GostGost"),
-                new RelationMetadata("FK_Faktura_Obveznik", "FakturaObveznik", "ObveznikObveznik"),
-                new RelationMetadata("FK_Faktura_Protokol", "FakturaProtokolID", "ProtokolID"),
-                new RelationMetadata("FK_Faktura_TecajnaLista", "FakturaTecajnaListaID", "TecajnaListaID"),
-                new RelationMetadata("FK_Faktura_ValutaDevizna", "FakturaValutaDevizna", "ValutaValuta"),
-                new RelationMetadata("FK_Faktura_ValutaOsnovna", "FakturaValutaOsnovna", "ValutaValuta")
+				new RelationMetadata(nameof(Firma), nameof(FakturaFirma), nameof(Orko.Base.Firma.FirmaFirma)),
+                new RelationMetadata(nameof(Gost), nameof(FakturaGost), nameof(Orko.Turist.Gost.GostGost)),
+                new RelationMetadata(nameof(Obveznik), nameof(FakturaObveznik), nameof(Orko.Turist.Obveznik.ObveznikObveznik)),
+                new RelationMetadata(nameof(Protokol), nameof(FakturaProtokolID), nameof(Orko.Base.Protokol.ProtokolID)),
+                new RelationMetadata(nameof(TecajnaLista), nameof(FakturaTecajnaListaID), nameof(Orko.Base.TecajnaLista.TecajnaListaID)),
+                new RelationMetadata(nameof(ValutaDevizna), nameof(FakturaValutaDevizna), nameof(Orko.Base.Valuta.ValutaValuta)),
+                new RelationMetadata(nameof(ValutaOsnovna), nameof(FakturaValutaOsnovna), nameof(Orko.Base.Valuta.ValutaValuta))
 			);
 
 			// Cache table metadata.
@@ -94,40 +94,40 @@ namespace Orko.Turist
         #endregion
 
         #region Entities
-		public Base.Firma FK_Faktura_Firma
+		public Base.Firma Firma
         {
-            get { return EntityContext<Base.Firma>.Get(ref m_FK_Faktura_Firma, this, "FK_Faktura_Firma"); }
-            set { EntityContext<Base.Firma>.Set(ref m_FK_Faktura_Firma, this, value, "FK_Faktura_Firma"); }
+            get { return EntityContext<Base.Firma>.Get(ref m_Firma, this, nameof(Firma)); }
+            set { EntityContext<Base.Firma>.Set(ref m_Firma, this, value, nameof(Firma)); }
         }
-        public Gost FK_Faktura_Gost
+        public Gost Gost
         {
-            get { return EntityContext<Gost>.Get(ref m_FK_Faktura_Gost, this, "FK_Faktura_Gost"); }
-            set { EntityContext<Gost>.Set(ref m_FK_Faktura_Gost, this, value, "FK_Faktura_Gost"); }
+            get { return EntityContext<Gost>.Get(ref m_Gost, this, nameof(Gost)); }
+            set { EntityContext<Gost>.Set(ref m_Gost, this, value, nameof(Gost)); }
         }
-        public Obveznik FK_Faktura_Obveznik
+        public Obveznik Obveznik
         {
-            get { return EntityContext<Obveznik>.Get(ref m_FK_Faktura_Obveznik, this, "FK_Faktura_Obveznik"); }
-            set { EntityContext<Obveznik>.Set(ref m_FK_Faktura_Obveznik, this, value, "FK_Faktura_Obveznik"); }
+            get { return EntityContext<Obveznik>.Get(ref m_Obveznik, this, nameof(Obveznik)); }
+            set { EntityContext<Obveznik>.Set(ref m_Obveznik, this, value, nameof(Obveznik)); }
         }
-        public Base.Protokol FK_Faktura_Protokol
+        public Base.Protokol Protokol
         {
-            get { return EntityContext<Base.Protokol>.Get(ref m_FK_Faktura_Protokol, this, "FK_Faktura_Protokol"); }
-            set { EntityContext<Base.Protokol>.Set(ref m_FK_Faktura_Protokol, this, value, "FK_Faktura_Protokol"); }
+            get { return EntityContext<Base.Protokol>.Get(ref m_Protokol, this, nameof(Protokol)); }
+            set { EntityContext<Base.Protokol>.Set(ref m_Protokol, this, value, nameof(Protokol)); }
         }
-        public Base.TecajnaLista FK_Faktura_TecajnaLista
+        public Base.TecajnaLista TecajnaLista
         {
-            get { return EntityContext<Base.TecajnaLista>.Get(ref m_FK_Faktura_TecajnaLista, this, "FK_Faktura_TecajnaLista"); }
-            set { EntityContext<Base.TecajnaLista>.Set(ref m_FK_Faktura_TecajnaLista, this, value, "FK_Faktura_TecajnaLista"); }
+            get { return EntityContext<Base.TecajnaLista>.Get(ref m_TecajnaLista, this, nameof(TecajnaLista)); }
+            set { EntityContext<Base.TecajnaLista>.Set(ref m_TecajnaLista, this, value, nameof(TecajnaLista)); }
         }
-        public Base.Valuta FK_Faktura_ValutaDevizna
+        public Base.Valuta ValutaDevizna
         {
-            get { return EntityContext<Base.Valuta>.Get(ref m_FK_Faktura_ValutaDevizna, this, "FK_Faktura_ValutaDevizna"); }
-            set { EntityContext<Base.Valuta>.Set(ref m_FK_Faktura_ValutaDevizna, this, value, "FK_Faktura_ValutaDevizna"); }
+            get { return EntityContext<Base.Valuta>.Get(ref m_ValutaDevizna, this, nameof(ValutaDevizna)); }
+            set { EntityContext<Base.Valuta>.Set(ref m_ValutaDevizna, this, value, nameof(ValutaDevizna)); }
         }
-        public Base.Valuta FK_Faktura_ValutaOsnovna
+        public Base.Valuta ValutaOsnovna
         {
-            get { return EntityContext<Base.Valuta>.Get(ref m_FK_Faktura_ValutaOsnovna, this, "FK_Faktura_ValutaOsnovna"); }
-            set { EntityContext<Base.Valuta>.Set(ref m_FK_Faktura_ValutaOsnovna, this, value, "FK_Faktura_ValutaOsnovna"); }
+            get { return EntityContext<Base.Valuta>.Get(ref m_ValutaOsnovna, this, nameof(ValutaOsnovna)); }
+            set { EntityContext<Base.Valuta>.Set(ref m_ValutaOsnovna, this, value, nameof(ValutaOsnovna)); }
         }
         #endregion
 
@@ -149,32 +149,5 @@ namespace Orko.Turist
             return await TryGetByPrimaryKeyAsync<Faktura>(FakturaProtokolID);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<Faktura> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<Faktura>(queryConditions);
-        }
-        public static IEnumerable<Faktura> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<Faktura>(columnName, queryOp, value);
-        }
-		public static Faktura GetByPrimaryKey(int FakturaProtokolID)
-        {
-            return GetByPrimaryKey<Faktura>(FakturaProtokolID);
-        }
-		public static Faktura TryGetByPrimaryKey(int FakturaProtokolID)
-        {
-            return TryGetByPrimaryKey<Faktura>(FakturaProtokolID);
-        }
-        public static Faktura GetByUnique1(int FakturaObveznik, int FakturaBroj)
-        {
-            return GetByCallingParameters<Faktura>(FakturaObveznik, FakturaBroj);
-        }
-		public static Faktura TryGetByUnique1(int FakturaObveznik, int FakturaBroj)
-        {
-            return TryGetByCallingParameters<Faktura>(FakturaObveznik, FakturaBroj);
-        }
-        #endregion
     }
 }

@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -27,10 +27,10 @@ namespace Orko.Base
             // Cache field metadata.
             EntityMeta<PravnaOsobnost>.LoadColumnMetadata
 			(
-				new ColumnMetadata("PravnaOsobnostPravnaOsobnost", @"PravnaOsobnostPravnaOsobnost", SqlDbType.Char, isPrimaryKey: true),
-                new ColumnMetadata("PravnaOsobnostJezik", @"PravnaOsobnostJezik", SqlDbType.Char, isLanguageCode: true, isPrimaryKey: true),
-                new ColumnMetadata("PravnaOsobnostNaziv", @"PravnaOsobnostNaziv", SqlDbType.NVarChar, isRequired: true, isLanguage: true),
-                new ColumnMetadata("PravnaOsobnostOpis", @"PravnaOsobnostOpis", SqlDbType.NVarChar, isRequired: false, isLanguage: true)
+				new ColumnMetadata(nameof(PravnaOsobnostPravnaOsobnost), @"PravnaOsobnostPravnaOsobnost", DbType.AnsiStringFixedLength, isRequired: true),
+                new ColumnMetadata(nameof(PravnaOsobnostJezik), @"PravnaOsobnostJezik", DbType.AnsiStringFixedLength, isRequired: true, isLanguageCode: true),
+                new ColumnMetadata(nameof(PravnaOsobnostNaziv), @"PravnaOsobnostNaziv", DbType.String, isRequired: true, isLanguage: true),
+                new ColumnMetadata(nameof(PravnaOsobnostOpis), @"PravnaOsobnostOpis", DbType.String, isRequired: false, isLanguage: true)
 			);
 
             // Cache entites metadata.
@@ -77,24 +77,5 @@ namespace Orko.Base
             return await TryGetByPrimaryKeyAsync<PravnaOsobnost>(PravnaOsobnostPravnaOsobnost);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<PravnaOsobnost> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<PravnaOsobnost>(queryConditions);
-        }
-        public static IEnumerable<PravnaOsobnost> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<PravnaOsobnost>(columnName, queryOp, value);
-        }
-		public static PravnaOsobnost GetByPrimaryKey(string PravnaOsobnostPravnaOsobnost)
-        {
-            return GetByPrimaryKey<PravnaOsobnost>(PravnaOsobnostPravnaOsobnost);
-        }
-		public static PravnaOsobnost TryGetByPrimaryKey(string PravnaOsobnostPravnaOsobnost)
-        {
-            return TryGetByPrimaryKey<PravnaOsobnost>(PravnaOsobnostPravnaOsobnost);
-        }
-        #endregion
     }
 }

@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -18,9 +18,9 @@ namespace Orko.Base
     public sealed partial class PrijelazStatusa : Entity
     {
 		#region Members
-		private Status m_FK_PrijelazStatusa_PocetniStatus;
-        private VrstaDokumenta m_FK_PrijelazStatusa_VrstaDokumenta;
-        private Status m_FK_PrijelazStatusa_ZavrsniStatus;
+		private Status m_PocetniStatus;
+        private VrstaDokumenta m_VrstaDokumenta;
+        private Status m_ZavrsniStatus;
         #endregion
         
 		#region Constructors
@@ -29,26 +29,26 @@ namespace Orko.Base
             // Cache field metadata.
             EntityMeta<PrijelazStatusa>.LoadColumnMetadata
 			(
-				new ColumnMetadata("PrijelazStatusaID", @"PrijelazStatusaID", SqlDbType.Int, isIdentity: true, isPrimaryKey: true),
-                new ColumnMetadata("PrijelazStatusaVrstaDokumenta", @"PrijelazStatusaVrstaDokumenta", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("PrijelazStatusaStatusPocetni", @"PrijelazStatusaStatusPocetni", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("PrijelazStatusaStatusZavrsni", @"PrijelazStatusaStatusZavrsni", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("PrijelazStatusaSamoSistemski", @"PrijelazStatusaSamoSistemski", SqlDbType.Bit, isRequired: true),
-                new ColumnMetadata("PrijelazStatusaAktivnost", @"PrijelazStatusaAktivnost", SqlDbType.Bit, isRequired: true),
-                new ColumnMetadata("PrijelazStatusaUradio", @"PrijelazStatusaUradio", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("PrijelazStatusaDatumIzmjene", @"PrijelazStatusaDatumIzmjene", SqlDbType.DateTime2, isRequired: true),
-                new ColumnMetadata("PrijelazStatusaJezik", @"PrijelazStatusaJezik", SqlDbType.Char, isLanguageCode: true, isPrimaryKey: true),
-                new ColumnMetadata("PrijelazStatusaOpis", @"PrijelazStatusaOpis", SqlDbType.NVarChar, isRequired: true, isLanguage: true)
+				new ColumnMetadata(nameof(PrijelazStatusaID), @"PrijelazStatusaID", DbType.Int32, isIdentity: true, isRequired: true),
+                new ColumnMetadata(nameof(PrijelazStatusaVrstaDokumenta), @"PrijelazStatusaVrstaDokumenta", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(PrijelazStatusaStatusPocetni), @"PrijelazStatusaStatusPocetni", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(PrijelazStatusaStatusZavrsni), @"PrijelazStatusaStatusZavrsni", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(PrijelazStatusaSamoSistemski), @"PrijelazStatusaSamoSistemski", DbType.Boolean, isRequired: true),
+                new ColumnMetadata(nameof(PrijelazStatusaAktivnost), @"PrijelazStatusaAktivnost", DbType.Boolean, isRequired: true),
+                new ColumnMetadata(nameof(PrijelazStatusaUradio), @"PrijelazStatusaUradio", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(PrijelazStatusaDatumIzmjene), @"PrijelazStatusaDatumIzmjene", DbType.DateTime2, isRequired: true),
+                new ColumnMetadata(nameof(PrijelazStatusaJezik), @"PrijelazStatusaJezik", DbType.AnsiStringFixedLength, isRequired: true, isLanguageCode: true),
+                new ColumnMetadata(nameof(PrijelazStatusaOpis), @"PrijelazStatusaOpis", DbType.String, isRequired: true, isLanguage: true)
 			);
 
             // Cache entites metadata.
             EntityMeta<PrijelazStatusa>.LoadRelationMetadata
 			(
-				new RelationMetadata("FK_PrijelazStatusa_PocetniStatus", "PrijelazStatusaStatusPocetni", "StatusStatus"),
-                new RelationMetadata("FK_PrijelazStatusa_PocetniStatus", "PrijelazStatusaVrstaDokumenta", "StatusVrstaDokumenta"),
-                new RelationMetadata("FK_PrijelazStatusa_VrstaDokumenta", "PrijelazStatusaVrstaDokumenta", "VrstaDokumentaVrstaDokumenta"),
-                new RelationMetadata("FK_PrijelazStatusa_ZavrsniStatus", "PrijelazStatusaStatusZavrsni", "StatusStatus"),
-                new RelationMetadata("FK_PrijelazStatusa_ZavrsniStatus", "PrijelazStatusaVrstaDokumenta", "StatusVrstaDokumenta")
+				new RelationMetadata(nameof(PocetniStatus), nameof(PrijelazStatusaStatusPocetni), nameof(Orko.Base.Status.StatusStatus)),
+                new RelationMetadata(nameof(PocetniStatus), nameof(PrijelazStatusaVrstaDokumenta), nameof(Orko.Base.Status.StatusVrstaDokumenta)),
+                new RelationMetadata(nameof(VrstaDokumenta), nameof(PrijelazStatusaVrstaDokumenta), nameof(Orko.Base.VrstaDokumenta.VrstaDokumentaVrstaDokumenta)),
+                new RelationMetadata(nameof(ZavrsniStatus), nameof(PrijelazStatusaStatusZavrsni), nameof(Orko.Base.Status.StatusStatus)),
+                new RelationMetadata(nameof(ZavrsniStatus), nameof(PrijelazStatusaVrstaDokumenta), nameof(Orko.Base.Status.StatusVrstaDokumenta))
 			);
 
 			// Cache table metadata.
@@ -74,20 +74,20 @@ namespace Orko.Base
         #endregion
 
         #region Entities
-		public Status FK_PrijelazStatusa_PocetniStatus
+		public Status PocetniStatus
         {
-            get { return EntityContext<Status>.Get(ref m_FK_PrijelazStatusa_PocetniStatus, this, "FK_PrijelazStatusa_PocetniStatus"); }
-            set { EntityContext<Status>.Set(ref m_FK_PrijelazStatusa_PocetniStatus, this, value, "FK_PrijelazStatusa_PocetniStatus"); }
+            get { return EntityContext<Status>.Get(ref m_PocetniStatus, this, nameof(PocetniStatus)); }
+            set { EntityContext<Status>.Set(ref m_PocetniStatus, this, value, nameof(PocetniStatus)); }
         }
-        public VrstaDokumenta FK_PrijelazStatusa_VrstaDokumenta
+        public VrstaDokumenta VrstaDokumenta
         {
-            get { return EntityContext<VrstaDokumenta>.Get(ref m_FK_PrijelazStatusa_VrstaDokumenta, this, "FK_PrijelazStatusa_VrstaDokumenta"); }
-            set { EntityContext<VrstaDokumenta>.Set(ref m_FK_PrijelazStatusa_VrstaDokumenta, this, value, "FK_PrijelazStatusa_VrstaDokumenta"); }
+            get { return EntityContext<VrstaDokumenta>.Get(ref m_VrstaDokumenta, this, nameof(VrstaDokumenta)); }
+            set { EntityContext<VrstaDokumenta>.Set(ref m_VrstaDokumenta, this, value, nameof(VrstaDokumenta)); }
         }
-        public Status FK_PrijelazStatusa_ZavrsniStatus
+        public Status ZavrsniStatus
         {
-            get { return EntityContext<Status>.Get(ref m_FK_PrijelazStatusa_ZavrsniStatus, this, "FK_PrijelazStatusa_ZavrsniStatus"); }
-            set { EntityContext<Status>.Set(ref m_FK_PrijelazStatusa_ZavrsniStatus, this, value, "FK_PrijelazStatusa_ZavrsniStatus"); }
+            get { return EntityContext<Status>.Get(ref m_ZavrsniStatus, this, nameof(ZavrsniStatus)); }
+            set { EntityContext<Status>.Set(ref m_ZavrsniStatus, this, value, nameof(ZavrsniStatus)); }
         }
         #endregion
 
@@ -109,24 +109,5 @@ namespace Orko.Base
             return await TryGetByPrimaryKeyAsync<PrijelazStatusa>(PrijelazStatusaID);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<PrijelazStatusa> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<PrijelazStatusa>(queryConditions);
-        }
-        public static IEnumerable<PrijelazStatusa> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<PrijelazStatusa>(columnName, queryOp, value);
-        }
-		public static PrijelazStatusa GetByPrimaryKey(int PrijelazStatusaID)
-        {
-            return GetByPrimaryKey<PrijelazStatusa>(PrijelazStatusaID);
-        }
-		public static PrijelazStatusa TryGetByPrimaryKey(int PrijelazStatusaID)
-        {
-            return TryGetByPrimaryKey<PrijelazStatusa>(PrijelazStatusaID);
-        }
-        #endregion
     }
 }

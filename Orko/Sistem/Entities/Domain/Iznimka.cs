@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -18,7 +18,7 @@ namespace Orko.Sistem
     public sealed partial class Iznimka : Entity
     {
 		#region Members
-		private Iznimka m_FK_Iznimka_UnutarnjaIznimka;
+		private Iznimka m_UnutarnjaIznimka;
         #endregion
         
 		#region Constructors
@@ -27,18 +27,18 @@ namespace Orko.Sistem
             // Cache field metadata.
             EntityMeta<Iznimka>.LoadColumnMetadata
 			(
-				new ColumnMetadata("IznimkaID", @"IznimkaID", SqlDbType.Int, isPrimaryKey: true),
-                new ColumnMetadata("IznimkaMessage", @"IznimkaMessage", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("IznimkaSource", @"IznimkaSource", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("IznimkaStackTrace", @"IznimkaStackTrace", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("IznimkaTargetSite", @"IznimkaTargetSite", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("IznimkaInnerExceptionID", @"IznimkaInnerExceptionID", SqlDbType.Int, isRequired: false)
+				new ColumnMetadata(nameof(IznimkaID), @"IznimkaID", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(IznimkaMessage), @"IznimkaMessage", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(IznimkaSource), @"IznimkaSource", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(IznimkaStackTrace), @"IznimkaStackTrace", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(IznimkaTargetSite), @"IznimkaTargetSite", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(IznimkaInnerExceptionID), @"IznimkaInnerExceptionID", DbType.Int32, isRequired: false)
 			);
 
             // Cache entites metadata.
             EntityMeta<Iznimka>.LoadRelationMetadata
 			(
-				new RelationMetadata("FK_Iznimka_UnutarnjaIznimka", "IznimkaInnerExceptionID", "IznimkaID")
+				new RelationMetadata(nameof(UnutarnjaIznimka), nameof(IznimkaInnerExceptionID), nameof(Orko.Sistem.Iznimka.IznimkaID))
 			);
 
 			// Cache table metadata.
@@ -60,10 +60,10 @@ namespace Orko.Sistem
         #endregion
 
         #region Entities
-		public Iznimka FK_Iznimka_UnutarnjaIznimka
+		public Iznimka UnutarnjaIznimka
         {
-            get { return EntityContext<Iznimka>.Get(ref m_FK_Iznimka_UnutarnjaIznimka, this, "FK_Iznimka_UnutarnjaIznimka"); }
-            set { EntityContext<Iznimka>.Set(ref m_FK_Iznimka_UnutarnjaIznimka, this, value, "FK_Iznimka_UnutarnjaIznimka"); }
+            get { return EntityContext<Iznimka>.Get(ref m_UnutarnjaIznimka, this, nameof(UnutarnjaIznimka)); }
+            set { EntityContext<Iznimka>.Set(ref m_UnutarnjaIznimka, this, value, nameof(UnutarnjaIznimka)); }
         }
         #endregion
 
@@ -85,24 +85,5 @@ namespace Orko.Sistem
             return await TryGetByPrimaryKeyAsync<Iznimka>(IznimkaID);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<Iznimka> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<Iznimka>(queryConditions);
-        }
-        public static IEnumerable<Iznimka> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<Iznimka>(columnName, queryOp, value);
-        }
-		public static Iznimka GetByPrimaryKey(int IznimkaID)
-        {
-            return GetByPrimaryKey<Iznimka>(IznimkaID);
-        }
-		public static Iznimka TryGetByPrimaryKey(int IznimkaID)
-        {
-            return TryGetByPrimaryKey<Iznimka>(IznimkaID);
-        }
-        #endregion
     }
 }

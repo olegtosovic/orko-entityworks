@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 [assembly: InternalsVisibleTo("Orko.EntityWorks.Generator.AspNetCore")]
 namespace Orko.EntityWorks.Generator
 {
-    /// <summary>
-    /// Orko entityworks code generator.
-    /// Provides support to generate code files for entities, views and stored procedures.
-    /// </summary>
-    public class EntityWorksGenerator
+	/// <summary>
+	/// Orko entityworks code generator.
+	/// Provides support to generate code files for entities, views and stored procedures.
+	/// </summary>
+	public class EntityWorksGenerator
     {
         #region Path constants
         private const string PATH_ENTITIES_DOMAIN = "Entities/Domain";
@@ -66,11 +66,11 @@ namespace Orko.EntityWorks.Generator
             foreach (var table in tables)
             {
                 // Open domain class template
-                string domainTemplate = ReadTextTemplate(ConvertFileToNamespacePath(PATH_ENTITIES_DOMAIN), "Domain.txt");
+                string domainTemplate = ReadTextTemplate(ConvertFileToNamespacePath(PATH_ENTITIES_DOMAIN), "Domain.txt", true);
 
                 // Get tags data.
                 string nameSpace = GetNamespace(table);
-                string className = GetClassName(table);
+                string className = table.NetName;
                 string typeParameterList = GetTypeParameterList(table);
                 string valueParameterList = GetValueParameterList(table);
                 string fieldMetadata = GetFieldsMetadata(table);
@@ -125,12 +125,12 @@ namespace Orko.EntityWorks.Generator
             foreach (Table table in tables)
             {
                 // Open logic class template
-                string logicTemplate = ReadTextTemplate(ConvertFileToNamespacePath(PATH_ENTITIES_LOGIC), "Logic.txt");
+                string logicTemplate = ReadTextTemplate(ConvertFileToNamespacePath(PATH_ENTITIES_LOGIC), "Logic.txt", true);
 
                 // Get tags data.
                 string nameSpace = GetNamespace(table);
 
-                string className = GetClassName(table);
+                string className = table.NetName;
                 string typeParameterList = GetTypeParameterList(table);
                 string valueParameterList = GetValueParameterList(table);
                 string date = GetCurrentDate();
@@ -177,7 +177,7 @@ namespace Orko.EntityWorks.Generator
                 string staticList = GetStaticList(table);
                 string nameSpace = GetNamespace(table);
                 string tableSchema = table.Schema;
-                string className = GetClassName(table);
+                string className = table.NetName;
                 string date = GetCurrentDate();
                 string time = GetCurrentTime();
 
@@ -308,8 +308,11 @@ namespace Orko.EntityWorks.Generator
             if (database == null)
                 throw new ArgumentNullException(nameof(database), "Database object can not be null.");
 
-            // Set generator.
-            // database.Generator = this;
+            // Validate duplicate database.
+            if (this.Databases.Where(x => x.ConnectionString == database.ConnectionString).Any())
+                throw new EntityWorksGeneratorException(string.Format("Unable to add database model. " +
+                    "Database model with identical connection string already exists. Connection string: '{0}'. " +
+                    "Please check your entity works generator configuration.", database.ConnectionString));
 
             // Set database.
             Databases.Add(database);
@@ -332,7 +335,7 @@ namespace Orko.EntityWorks.Generator
         }
         private string GetFieldsMetadata(Table table)
         {
-            // Database specific options if null than global options.
+            // Database generator options.
             var options = table.Database.Options;
 
             // Field metadata container.
@@ -345,8 +348,8 @@ namespace Orko.EntityWorks.Generator
                 string fieldMetadataTemplate = ReadTextTemplate(ConvertFileToNamespacePath(PATH_ENTITIES_DOMAIN), "FieldMetadataList.txt");
 
                 // Get tags data.
-                string memberName = GetValidColumnName(column);
-                string sqlFieldName = GetColumnName(column);
+                string memberName = column.NetName;
+                string sqlFieldName = column.SqlName;
                 string fieldMetadataArguments = GetFieldMetadataArguments(column);
 
                 // Replace tags with actual data.
@@ -369,8 +372,8 @@ namespace Orko.EntityWorks.Generator
                     string fieldMetadataTemplate = ReadTextTemplate(ConvertFileToNamespacePath(PATH_ENTITIES_DOMAIN), "FieldMetadataList.txt");
 
                     // Get tags data.
-                    string memberName = GetValidColumnName(column);
-                    string sqlFieldName = GetColumnName(column);
+                    string memberName = column.NetName;
+                    string sqlFieldName = column.SqlName;
                     string fieldMetadataArguments = GetFieldMetadataArguments(column);
 
                     // Replace tags with actual data.
@@ -391,7 +394,7 @@ namespace Orko.EntityWorks.Generator
             if (table.ForeignKeys.Values.Any())
                 relationMetadataList = string.Empty;
 
-            foreach (ForeignKey foreignKey in table.ForeignKeys.Values.OrderBy(x => x.ForeignKeyColumnName))
+            foreach (ForeignKey foreignKey in table.ForeignKeys.Values.OrderBy(x => x.NetName))
             {
                 foreach (Relation relation in foreignKey.Relations.OrderBy(x => x.ForeignKeyTableName))
                 {
@@ -399,14 +402,17 @@ namespace Orko.EntityWorks.Generator
                     string relationMetadataTemplate = ReadTextTemplate(ConvertFileToNamespacePath(PATH_ENTITIES_DOMAIN), "RelationMetadataList.txt");
 
                     // Get tags data.
-                    string fkTable = foreignKey.ForeignKeyColumnName;
-                    string pkField = relation.PrimaryKeyTableColumnName;
+                    string fkTable = foreignKey.NetName;
                     string fkField = relation.ForeignKeyTableColumnName;
+                    string pkField = 
+                        foreignKey.Database.DatabaseName + "." + 
+                        relation.PrimaryKeyTableFullName.ToUpperCamelCase() + "." + 
+                        relation.PrimaryKeyTableColumnName;
 
                     // Replace tags with actual data.
                     relationMetadataTemplate = relationMetadataTemplate.Replace("[FK_TABLE]", fkTable);
-                    relationMetadataTemplate = relationMetadataTemplate.Replace("[PK_FIELD]", pkField);
                     relationMetadataTemplate = relationMetadataTemplate.Replace("[FK_FIELD]", fkField);
+                    relationMetadataTemplate = relationMetadataTemplate.Replace("[PK_FIELD]", pkField);
 
                     // Add to field metadata list.
                     relationMetadataList += relationMetadataTemplate + "," + STR_NEWLINE + STR_TAB + STR_TAB;
@@ -422,9 +428,10 @@ namespace Orko.EntityWorks.Generator
             // Get tags data.
             string hasLanguageTable = table.LanguageTable != null ? "true" : "false";
             string tableSchema = table.Schema;
-            string tableName = table.Name;
+            string tableName = table.SqlName;
+            string className = table.NetName;
             string languageTableSchema = table.LanguageTable != null ? "@\"" + table.LanguageTable.Schema + "\"" : "null";
-            string languageTableName = table.LanguageTable != null ? "@\"" + table.LanguageTable.Name + "\"" : "null";
+            string languageTableName = table.LanguageTable != null ? "@\"" + table.LanguageTable.SqlName + "\"" : "null";
 
             // Replace tags with actual data.
             tableMetadataList = tableMetadataList.Replace("[HLT]", hasLanguageTable);
@@ -432,18 +439,14 @@ namespace Orko.EntityWorks.Generator
             tableMetadataList = tableMetadataList.Replace("[TN]", tableName);
             tableMetadataList = tableMetadataList.Replace("[LTS]", languageTableSchema);
             tableMetadataList = tableMetadataList.Replace("[LTN]", languageTableName);
-            tableMetadataList = tableMetadataList.Replace("[TABLE_NAME]", tableName);
+            tableMetadataList = tableMetadataList.Replace("[TABLE_NAME]", className);
 
             // Return table metadata.
             return tableMetadataList;
         }
-        private string GetClassName(Table table)
-        {
-            return table.Name;
-        }
         private string GetFieldList(Table table)
         {
-            // Database specific options if null than global options.
+            // Database generator options.
             var options = table.Database.Options;
 
             // Field list container.
@@ -458,7 +461,7 @@ namespace Orko.EntityWorks.Generator
                 // Get tags data.
                 string access = GetAccess(column);
                 string clrType = GetClrType(column);
-                string columnName = GetValidColumnName(column);
+                string columnName = column.NetName;
                 string set = GetSet(column);
 
                 // Replate tags with actual data.
@@ -485,7 +488,7 @@ namespace Orko.EntityWorks.Generator
                     // Get tags data.
                     string access = GetAccess(column);
                     string clrType = GetClrType(column);
-                    string columnName = GetColumnName(column);
+                    string columnName = column.SqlName;
                     string set = GetSet(column);
 
                     // Replate tags with actual data.
@@ -507,7 +510,7 @@ namespace Orko.EntityWorks.Generator
             string memberList = string.Empty;
 
             // For each foreign table key generate member property.
-            foreach (ForeignKey foreignKey in table.ForeignKeys.Values.OrderBy(x => x.ForeignKeyColumnName))
+            foreach (ForeignKey foreignKey in table.ForeignKeys.Values.OrderBy(x => x.NetName))
             {
                 // Open member list section template.
                 string memberTemplate = ReadTextTemplate(ConvertFileToNamespacePath(PATH_ENTITIES_DOMAIN), "MemberList.txt");
@@ -531,7 +534,7 @@ namespace Orko.EntityWorks.Generator
             string nodeList = string.Empty;
 
             // For each foreign table key generate entity property.
-            foreach (ForeignKey foreignKey in table.ForeignKeys.Values.OrderBy(x => x.ForeignKeyColumnName))
+            foreach (ForeignKey foreignKey in table.ForeignKeys.Values.OrderBy(x => x.NetName))
             {
                 // Open node entity section template.
                 string nodeTemplate = ReadTextTemplate(ConvertFileToNamespacePath(PATH_ENTITIES_DOMAIN), "EntityList.txt");
@@ -571,7 +574,7 @@ namespace Orko.EntityWorks.Generator
                 string uniqueTemplate = ReadTextTemplate(ConvertFileToNamespacePath(PATH_ENTITIES_DOMAIN), "UniqueMethodList.txt");
 
                 // Get tags data.
-                string className = GetClassName(table);
+                string className = table.NetName;
                 string typeParameterList = GetTypeParameterList(uniqueKey);
                 string valueParameterList = GetValueParameterList(uniqueKey);
                 string index = counter.ToString();
@@ -587,10 +590,6 @@ namespace Orko.EntityWorks.Generator
                     uniqueList += STR_NEWLINE + STR_TAB + uniqueTemplate + STR_NEWLINE + STR_TAB;
                 else uniqueList += uniqueTemplate + STR_NEWLINE + STR_TAB;
             }
-            //if (counter == 0)
-            //{
-            //    return uniqueList.TrimEnd(STR_TAB.ToCharArray()).TrimEnd(STR_NEWLINE.ToCharArray()).TrimEnd(STR_TAB.ToCharArray()).TrimEnd(STR_NEWLINE.ToCharArray());
-            //}
             return uniqueList.TrimEnd(STR_TAB.ToCharArray()).TrimEnd(STR_NEWLINE.ToCharArray());
         }
         private string GetCurrentDate()
@@ -608,7 +607,7 @@ namespace Orko.EntityWorks.Generator
         {
             List<string> fieldArgumentList = new List<string>();
 
-            fieldArgumentList.Add("SqlDbType." + column.SqlDbType.ToString());
+            fieldArgumentList.Add("DbType." + column.DbType.ToString());
 
             if (column.IsIdentity)
                 fieldArgumentList.Add("isIdentity: true");
@@ -642,14 +641,6 @@ namespace Orko.EntityWorks.Generator
         {
             return column.NetDataTypeName;
         }
-        private string GetColumnName(Column column)
-        {
-            return column.SqlName;
-        }
-        private string GetValidColumnName(Column column)
-		{
-            return column.NetName;
-		}
         private string GetSet(Column column)
         {
             if (column.IsIdentity || column.IsLanguageCode)
@@ -663,24 +654,33 @@ namespace Orko.EntityWorks.Generator
         #region Member generation methods
         private string GetForeignKeyColumnName(ForeignKey foreignKey)
         {
-            return foreignKey.ForeignKeyColumnName;
+            return foreignKey.NetName;
         }
-        private string GetForeignKeyClassName(ForeignKey foreignKey)
+        private string GetForeignKeyClassName(ForeignKey foreignKey, bool enforceShema = false)
         {
-            if (foreignKey.Relations[0].PrimaryKeyTableSchema != foreignKey.Relations[0].ForeignKeyTableSchema)
-                return foreignKey.Relations[0].PrimaryKeyTableFullName.ToUpperCamelCase();
-            else return foreignKey.Relations[0].PrimaryKeyTableName;
+            if (enforceShema == false)
+            {
+                if (foreignKey.Relations[0].PrimaryKeyTableSchema != foreignKey.Relations[0].ForeignKeyTableSchema)
+                    return foreignKey.Relations[0].PrimaryKeyTableFullName.ToUpperCamelCase();
+                else return foreignKey.Relations[0].PrimaryKeyTableName;
+            }
+            else
+			{
+                if (foreignKey.Relations[0].PrimaryKeyTableSchema != foreignKey.Relations[0].ForeignKeyTableSchema)
+                    return foreignKey.Relations[0].PrimaryKeyTableFullName.ToUpperCamelCase();
+                else return foreignKey.Relations[0].PrimaryKeyTableName;
+            }
         }
         #endregion
 
-        #region Entity generation methods
+        #region Entity generation methods        
         private string GetForeignKeyDeclaringClassName(ForeignKey foreignKey)
         {
-            return foreignKey.Table.Name;
+            return foreignKey.Table.NetFullName;
         }
         private string GetForeignKeyMemberColumnName(ForeignKey foreignKey)
         {
-            return "m_" + foreignKey.ForeignKeyColumnName;
+            return "m_" + foreignKey.NetName;
         }
         private string GetGetAccessor(ForeignKey foreignKey)
         {
@@ -689,7 +689,7 @@ namespace Orko.EntityWorks.Generator
             string fkMemberColumnName = GetForeignKeyMemberColumnName(foreignKey);
             string fkDeclaringClassName = GetForeignKeyDeclaringClassName(foreignKey);
 
-            string getTemplate = "get { return EntityContext<" + fkClassName + ">.Get(ref " + fkMemberColumnName + ", this, \"" + fkColumnName + "\"); }";
+            string getTemplate = "get { return EntityContext<" + fkClassName + ">.Get(ref " + fkMemberColumnName + ", this, nameof(" + fkColumnName + ")); }";
             return getTemplate;
         }
         private string GetSetAccessor(ForeignKey foreignKey)
@@ -699,18 +699,21 @@ namespace Orko.EntityWorks.Generator
             string fkMemberColumnName = GetForeignKeyMemberColumnName(foreignKey);
             string fkDeclaringClassName = GetForeignKeyDeclaringClassName(foreignKey);
 
-            string setTemplate = "set { EntityContext<" + fkClassName + ">.Set(ref " + fkMemberColumnName + ", this, value, \"" + fkColumnName + "\"); }";
+            string setTemplate = "set { EntityContext<" + fkClassName + ">.Set(ref " + fkMemberColumnName + ", this, value, nameof(" + fkColumnName + ")); }";
             return setTemplate;
         }
-        #endregion
+		#endregion
 
-        #region Logic generation methods
-        private string GetTypeParameterList(Table table)
+		#region Relations generation methods
+		#endregion
+
+		#region Logic generation methods
+		private string GetTypeParameterList(Table table)
         {
             string typeList = string.Empty;
             foreach (Column column in table.PrimaryKey.Columns.Values.OrderBy(x => x.OrdinalPosition))
             {
-                typeList += column.NetDataArgumentTypeName + " " + GetValidColumnName(column) + ", ";
+                typeList += column.NetDataArgumentTypeName + " " + column.NetName + ", ";
             }
             typeList = typeList.TrimEnd(new char[] { ',', ' ' });
             return typeList;
@@ -720,8 +723,7 @@ namespace Orko.EntityWorks.Generator
             string valueList = string.Empty;
             foreach (Column column in table.PrimaryKey.Columns.Values.OrderBy(x => x.OrdinalPosition))
             {
-                //valueList += column.Name + ", ";
-                valueList += GetValidColumnName(column) + ", ";
+                valueList += column.NetName + ", ";
             }
             valueList = valueList.TrimEnd(new char[] { ',', ' ' });
             return valueList;
@@ -744,13 +746,13 @@ namespace Orko.EntityWorks.Generator
                 string staticColumnsTemplate = ReadTextTemplate(ConvertFileToNamespacePath(PATH_ENTITIES_STATIC), "StaticList.txt");
 
                 // Get tags data.
-                string columnName = GetValidColumnName(column);
-                string sqlFieldName = GetColumnName(column);
+                string columnName = column.NetName;
+                string sqlFieldName = column.SqlName;
                 string hasLanguageTable = table.LanguageTable != null ? "true" : "false";
                 string tableSchema = table.Schema;
-                string tableName = table.Name;
+                string tableName = table.SqlName;
                 string languageTableSchema = table.LanguageTable != null ? "\"" + table.LanguageTable.Schema + "\"" : "null";
-                string languageTableName = table.LanguageTable != null ? "\"" + table.LanguageTable.Name + "\"" : "null";
+                string languageTableName = table.LanguageTable != null ? "\"" + table.LanguageTable.SqlName + "\"" : "null";
 
                 // Replace tags with actual data.
                 staticColumnsTemplate = staticColumnsTemplate.Replace("[TS]", tableSchema);
@@ -800,21 +802,29 @@ namespace Orko.EntityWorks.Generator
         /// <summary>
         /// Reads template from embeded resource.
         /// </summary>
-        private string ReadTextTemplate(string documentGroup, string documentName)
+        private string ReadTextTemplate(string documentGroup, string documentName, bool asyncTemplate = false)
         {
+            // Replace file path with resource path.
             var namespaceDocumentGroup = documentGroup.Replace("/", ".");
+
+            // Get resource name.
             string resourceName = m_execAssemblyName + ".Templates." + namespaceDocumentGroup + "." + documentName;
-            string template = null;
+
+            // If generate async only option true, add "Async" to template name but 
+            // only if async indicator is true, noting that such template should exist and make sanse.
+            if (this.Options.GenerateOnlyAsyncTemplates && asyncTemplate)
+                resourceName = resourceName.Replace(".txt", "Async.txt");
 
             // Get stream and read embeded resource template.
             using (Stream stream = m_execAssembly.GetManifestResourceStream(resourceName))
             {
+                // Create new stream reader.
                 using (StreamReader streamReader = new StreamReader(stream))
                 {
-                    template = streamReader.ReadToEnd();
+                    // Read and return template.
+                    return streamReader.ReadToEnd();
                 }
             }
-            return template;
         }
         /// <summary>
         /// Writes substituted template to disk.
@@ -829,7 +839,7 @@ namespace Orko.EntityWorks.Generator
             var directoryPath = Path.Combine(this.Options.OutputDirectory.FullName, table.Database.DatabaseName, table.Schema, folder);
 			
 			// Class full name.
-			string classFullName = Path.Combine(directoryPath, table.Name + ".cs");
+			string classFullName = Path.Combine(directoryPath, table.NetName + ".cs");
 
 			// Create class directory if does not exists.
 			if (Directory.Exists(directoryPath) == false)

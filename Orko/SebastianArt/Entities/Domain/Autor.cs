@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -27,16 +27,16 @@ namespace Orko.SebastianArt
             // Cache field metadata.
             EntityMeta<Autor>.LoadColumnMetadata
 			(
-				new ColumnMetadata("AutorID", @"AutorID", SqlDbType.Int, isPrimaryKey: true),
-                new ColumnMetadata("AutorIme", @"AutorIme", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("AutorPrezime", @"AutorPrezime", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("AutorNaziv", @"AutorNaziv", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("AutorDatumRodjenja", @"AutorDatumRodjenja", SqlDbType.DateTime2, isRequired: false),
-                new ColumnMetadata("AutorEmail", @"AutorEmail", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("AutorTelefon", @"AutorTelefon", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("AutorMobitel", @"AutorMobitel", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("AutorJezik", @"AutorJezik", SqlDbType.Char, isLanguageCode: true, isPrimaryKey: true),
-                new ColumnMetadata("AutorOpis", @"AutorOpis", SqlDbType.NVarChar, isRequired: false, isLanguage: true)
+				new ColumnMetadata(nameof(AutorID), @"AutorID", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(AutorIme), @"AutorIme", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(AutorPrezime), @"AutorPrezime", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(AutorNaziv), @"AutorNaziv", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(AutorDatumRodjenja), @"AutorDatumRodjenja", DbType.DateTime2, isRequired: false),
+                new ColumnMetadata(nameof(AutorEmail), @"AutorEmail", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(AutorTelefon), @"AutorTelefon", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(AutorMobitel), @"AutorMobitel", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(AutorJezik), @"AutorJezik", DbType.AnsiStringFixedLength, isRequired: true, isLanguageCode: true),
+                new ColumnMetadata(nameof(AutorOpis), @"AutorOpis", DbType.String, isRequired: false, isLanguage: true)
 			);
 
             // Cache entites metadata.
@@ -89,24 +89,5 @@ namespace Orko.SebastianArt
             return await TryGetByPrimaryKeyAsync<Autor>(AutorID);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<Autor> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<Autor>(queryConditions);
-        }
-        public static IEnumerable<Autor> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<Autor>(columnName, queryOp, value);
-        }
-		public static Autor GetByPrimaryKey(int AutorID)
-        {
-            return GetByPrimaryKey<Autor>(AutorID);
-        }
-		public static Autor TryGetByPrimaryKey(int AutorID)
-        {
-            return TryGetByPrimaryKey<Autor>(AutorID);
-        }
-        #endregion
     }
 }

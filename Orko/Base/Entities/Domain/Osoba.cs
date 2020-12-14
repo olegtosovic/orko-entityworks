@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -18,9 +18,9 @@ namespace Orko.Base
     public sealed partial class Osoba : Entity
     {
 		#region Members
-		private Drzava m_FK_Osoba_DrzavaRodjenja;
-        private Opcina m_FK_Osoba_OpcinaRodjenja;
-        private Spol m_FK_Osoba_Spol;
+		private Drzava m_DrzavaRodjenja;
+        private Opcina m_OpcinaRodjenja;
+        private Spol m_Spol;
         #endregion
         
 		#region Constructors
@@ -29,35 +29,35 @@ namespace Orko.Base
             // Cache field metadata.
             EntityMeta<Osoba>.LoadColumnMetadata
 			(
-				new ColumnMetadata("OsobaID", @"OsobaID", SqlDbType.Int, isIdentity: true, isPrimaryKey: true),
-                new ColumnMetadata("OsobaIme", @"OsobaIme", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("OsobaPrezime", @"OsobaPrezime", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("OsobaPorezniBroj", @"OsobaPorezniBroj", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("OsobaSpol", @"OsobaSpol", SqlDbType.Char, isRequired: true),
-                new ColumnMetadata("OsobaTitula", @"OsobaTitula", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("OsobaDatumRodjenja", @"OsobaDatumRodjenja", SqlDbType.DateTime2, isRequired: false),
-                new ColumnMetadata("OsobaRodjenoPrezime", @"OsobaRodjenoPrezime", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("OsobaMjestoRodjenja", @"OsobaMjestoRodjenja", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("OsobaOpcinaRodjenja", @"OsobaOpcinaRodjenja", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("OsobaDrzavaRodjenja", @"OsobaDrzavaRodjenja", SqlDbType.Char, isRequired: false),
-                new ColumnMetadata("OsobaNarodnost", @"OsobaNarodnost", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("OsobaTelefonPosao", @"OsobaTelefonPosao", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("OsobaTelefonKucni", @"OsobaTelefonKucni", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("OsobaFaxPosao", @"OsobaFaxPosao", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("OsobaFaxKucni", @"OsobaFaxKucni", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("OsobaMobitelOsobni", @"OsobaMobitelOsobni", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("OsobaMobitelSluzbeni", @"OsobaMobitelSluzbeni", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("OsobaEmailOsobni", @"OsobaEmailOsobni", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("OsobaEmailPosao", @"OsobaEmailPosao", SqlDbType.NVarChar, isRequired: false)
+				new ColumnMetadata(nameof(OsobaID), @"OsobaID", DbType.Int32, isIdentity: true, isRequired: true),
+                new ColumnMetadata(nameof(OsobaIme), @"OsobaIme", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(OsobaPrezime), @"OsobaPrezime", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(OsobaPorezniBroj), @"OsobaPorezniBroj", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(OsobaSpol), @"OsobaSpol", DbType.AnsiStringFixedLength, isRequired: true),
+                new ColumnMetadata(nameof(OsobaTitula), @"OsobaTitula", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(OsobaDatumRodjenja), @"OsobaDatumRodjenja", DbType.DateTime2, isRequired: false),
+                new ColumnMetadata(nameof(OsobaRodjenoPrezime), @"OsobaRodjenoPrezime", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(OsobaMjestoRodjenja), @"OsobaMjestoRodjenja", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(OsobaOpcinaRodjenja), @"OsobaOpcinaRodjenja", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(OsobaDrzavaRodjenja), @"OsobaDrzavaRodjenja", DbType.AnsiStringFixedLength, isRequired: false),
+                new ColumnMetadata(nameof(OsobaNarodnost), @"OsobaNarodnost", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(OsobaTelefonPosao), @"OsobaTelefonPosao", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(OsobaTelefonKucni), @"OsobaTelefonKucni", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(OsobaFaxPosao), @"OsobaFaxPosao", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(OsobaFaxKucni), @"OsobaFaxKucni", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(OsobaMobitelOsobni), @"OsobaMobitelOsobni", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(OsobaMobitelSluzbeni), @"OsobaMobitelSluzbeni", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(OsobaEmailOsobni), @"OsobaEmailOsobni", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(OsobaEmailPosao), @"OsobaEmailPosao", DbType.String, isRequired: false)
 			);
 
             // Cache entites metadata.
             EntityMeta<Osoba>.LoadRelationMetadata
 			(
-				new RelationMetadata("FK_Osoba_DrzavaRodjenja", "OsobaDrzavaRodjenja", "DrzavaDrzava"),
-                new RelationMetadata("FK_Osoba_OpcinaRodjenja", "OsobaOpcinaRodjenja", "OpcinaOpcina"),
-                new RelationMetadata("FK_Osoba_OpcinaRodjenja", "OsobaDrzavaRodjenja", "OpcinaDrzava"),
-                new RelationMetadata("FK_Osoba_Spol", "OsobaSpol", "SpolSpol")
+				new RelationMetadata(nameof(DrzavaRodjenja), nameof(OsobaDrzavaRodjenja), nameof(Orko.Base.Drzava.DrzavaDrzava)),
+                new RelationMetadata(nameof(OpcinaRodjenja), nameof(OsobaOpcinaRodjenja), nameof(Orko.Base.Opcina.OpcinaOpcina)),
+                new RelationMetadata(nameof(OpcinaRodjenja), nameof(OsobaDrzavaRodjenja), nameof(Orko.Base.Opcina.OpcinaDrzava)),
+                new RelationMetadata(nameof(Spol), nameof(OsobaSpol), nameof(Orko.Base.Spol.SpolSpol))
 			);
 
 			// Cache table metadata.
@@ -93,20 +93,20 @@ namespace Orko.Base
         #endregion
 
         #region Entities
-		public Drzava FK_Osoba_DrzavaRodjenja
+		public Drzava DrzavaRodjenja
         {
-            get { return EntityContext<Drzava>.Get(ref m_FK_Osoba_DrzavaRodjenja, this, "FK_Osoba_DrzavaRodjenja"); }
-            set { EntityContext<Drzava>.Set(ref m_FK_Osoba_DrzavaRodjenja, this, value, "FK_Osoba_DrzavaRodjenja"); }
+            get { return EntityContext<Drzava>.Get(ref m_DrzavaRodjenja, this, nameof(DrzavaRodjenja)); }
+            set { EntityContext<Drzava>.Set(ref m_DrzavaRodjenja, this, value, nameof(DrzavaRodjenja)); }
         }
-        public Opcina FK_Osoba_OpcinaRodjenja
+        public Opcina OpcinaRodjenja
         {
-            get { return EntityContext<Opcina>.Get(ref m_FK_Osoba_OpcinaRodjenja, this, "FK_Osoba_OpcinaRodjenja"); }
-            set { EntityContext<Opcina>.Set(ref m_FK_Osoba_OpcinaRodjenja, this, value, "FK_Osoba_OpcinaRodjenja"); }
+            get { return EntityContext<Opcina>.Get(ref m_OpcinaRodjenja, this, nameof(OpcinaRodjenja)); }
+            set { EntityContext<Opcina>.Set(ref m_OpcinaRodjenja, this, value, nameof(OpcinaRodjenja)); }
         }
-        public Spol FK_Osoba_Spol
+        public Spol Spol
         {
-            get { return EntityContext<Spol>.Get(ref m_FK_Osoba_Spol, this, "FK_Osoba_Spol"); }
-            set { EntityContext<Spol>.Set(ref m_FK_Osoba_Spol, this, value, "FK_Osoba_Spol"); }
+            get { return EntityContext<Spol>.Get(ref m_Spol, this, nameof(Spol)); }
+            set { EntityContext<Spol>.Set(ref m_Spol, this, value, nameof(Spol)); }
         }
         #endregion
 
@@ -128,24 +128,5 @@ namespace Orko.Base
             return await TryGetByPrimaryKeyAsync<Osoba>(OsobaID);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<Osoba> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<Osoba>(queryConditions);
-        }
-        public static IEnumerable<Osoba> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<Osoba>(columnName, queryOp, value);
-        }
-		public static Osoba GetByPrimaryKey(int OsobaID)
-        {
-            return GetByPrimaryKey<Osoba>(OsobaID);
-        }
-		public static Osoba TryGetByPrimaryKey(int OsobaID)
-        {
-            return TryGetByPrimaryKey<Osoba>(OsobaID);
-        }
-        #endregion
     }
 }

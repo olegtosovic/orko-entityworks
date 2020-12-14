@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -18,11 +18,11 @@ namespace Orko.Turist
     public sealed partial class Obveznik : Entity
     {
 		#region Members
-		private Base.Drzava m_FK_Obveznik_Drzava;
-        private Base.Opcina m_FK_Obveznik_Opcina;
-        private Base.Posta m_FK_Obveznik_Posta;
-        private Base.PravnaOsobnost m_FK_Obveznik_PravnaOsobnost;
-        private Base.Zupanija m_FK_Obveznik_Zupanija;
+		private Base.Drzava m_Drzava;
+        private Base.Opcina m_Opcina;
+        private Base.Posta m_Posta;
+        private Base.PravnaOsobnost m_PravnaOsobnost;
+        private Base.Zupanija m_Zupanija;
         #endregion
         
 		#region Constructors
@@ -31,38 +31,38 @@ namespace Orko.Turist
             // Cache field metadata.
             EntityMeta<Obveznik>.LoadColumnMetadata
 			(
-				new ColumnMetadata("ObveznikObveznik", @"ObveznikObveznik", SqlDbType.Int, isIdentity: true, isPrimaryKey: true),
-                new ColumnMetadata("ObveznikOIB", @"ObveznikOIB", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("ObveznikIme", @"ObveznikIme", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("ObveznikPrezime", @"ObveznikPrezime", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("ObveznikNaziv", @"ObveznikNaziv", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("ObveznikPravnaOsobnost", @"ObveznikPravnaOsobnost", SqlDbType.Char, isRequired: true),
-                new ColumnMetadata("ObveznikPrebivalisteDrzava", @"ObveznikPrebivalisteDrzava", SqlDbType.Char, isRequired: true),
-                new ColumnMetadata("ObveznikPrebivalisteOpcina", @"ObveznikPrebivalisteOpcina", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("ObveznikPrebivalisteZupanija", @"ObveznikPrebivalisteZupanija", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("ObveznikPrebivalistePosta", @"ObveznikPrebivalistePosta", SqlDbType.Int, isRequired: false),
-                new ColumnMetadata("ObveznikPrebivalisteUlica", @"ObveznikPrebivalisteUlica", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("ObveznikPrebivalisteKucniBroj", @"ObveznikPrebivalisteKucniBroj", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("ObveznikTelefon1", @"ObveznikTelefon1", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("ObveznikTelefon2", @"ObveznikTelefon2", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("ObveznikMobitel1", @"ObveznikMobitel1", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("ObveznikMobitel2", @"ObveznikMobitel2", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("ObveznikEmail1", @"ObveznikEmail1", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("ObveznikEmail2", @"ObveznikEmail2", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("ObveznikAktivnost", @"ObveznikAktivnost", SqlDbType.Bit, isRequired: true)
+				new ColumnMetadata(nameof(ObveznikObveznik), @"ObveznikObveznik", DbType.Int32, isIdentity: true, isRequired: true),
+                new ColumnMetadata(nameof(ObveznikOIB), @"ObveznikOIB", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(ObveznikIme), @"ObveznikIme", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(ObveznikPrezime), @"ObveznikPrezime", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(ObveznikNaziv), @"ObveznikNaziv", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(ObveznikPravnaOsobnost), @"ObveznikPravnaOsobnost", DbType.AnsiStringFixedLength, isRequired: true),
+                new ColumnMetadata(nameof(ObveznikPrebivalisteDrzava), @"ObveznikPrebivalisteDrzava", DbType.AnsiStringFixedLength, isRequired: true),
+                new ColumnMetadata(nameof(ObveznikPrebivalisteOpcina), @"ObveznikPrebivalisteOpcina", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(ObveznikPrebivalisteZupanija), @"ObveznikPrebivalisteZupanija", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(ObveznikPrebivalistePosta), @"ObveznikPrebivalistePosta", DbType.Int32, isRequired: false),
+                new ColumnMetadata(nameof(ObveznikPrebivalisteUlica), @"ObveznikPrebivalisteUlica", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(ObveznikPrebivalisteKucniBroj), @"ObveznikPrebivalisteKucniBroj", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(ObveznikTelefon1), @"ObveznikTelefon1", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(ObveznikTelefon2), @"ObveznikTelefon2", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(ObveznikMobitel1), @"ObveznikMobitel1", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(ObveznikMobitel2), @"ObveznikMobitel2", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(ObveznikEmail1), @"ObveznikEmail1", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(ObveznikEmail2), @"ObveznikEmail2", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(ObveznikAktivnost), @"ObveznikAktivnost", DbType.Boolean, isRequired: true)
 			);
 
             // Cache entites metadata.
             EntityMeta<Obveznik>.LoadRelationMetadata
 			(
-				new RelationMetadata("FK_Obveznik_Drzava", "ObveznikPrebivalisteDrzava", "DrzavaDrzava"),
-                new RelationMetadata("FK_Obveznik_Opcina", "ObveznikPrebivalisteOpcina", "OpcinaOpcina"),
-                new RelationMetadata("FK_Obveznik_Opcina", "ObveznikPrebivalisteDrzava", "OpcinaDrzava"),
-                new RelationMetadata("FK_Obveznik_Posta", "ObveznikPrebivalistePosta", "PostaPosta"),
-                new RelationMetadata("FK_Obveznik_Posta", "ObveznikPrebivalisteDrzava", "PostaDrzava"),
-                new RelationMetadata("FK_Obveznik_PravnaOsobnost", "ObveznikPravnaOsobnost", "PravnaOsobnostPravnaOsobnost"),
-                new RelationMetadata("FK_Obveznik_Zupanija", "ObveznikPrebivalisteZupanija", "ZupanijaZupanija"),
-                new RelationMetadata("FK_Obveznik_Zupanija", "ObveznikPrebivalisteDrzava", "ZupanijaDrzava")
+				new RelationMetadata(nameof(Drzava), nameof(ObveznikPrebivalisteDrzava), nameof(Orko.Base.Drzava.DrzavaDrzava)),
+                new RelationMetadata(nameof(Opcina), nameof(ObveznikPrebivalisteOpcina), nameof(Orko.Base.Opcina.OpcinaOpcina)),
+                new RelationMetadata(nameof(Opcina), nameof(ObveznikPrebivalisteDrzava), nameof(Orko.Base.Opcina.OpcinaDrzava)),
+                new RelationMetadata(nameof(Posta), nameof(ObveznikPrebivalistePosta), nameof(Orko.Base.Posta.PostaPosta)),
+                new RelationMetadata(nameof(Posta), nameof(ObveznikPrebivalisteDrzava), nameof(Orko.Base.Posta.PostaDrzava)),
+                new RelationMetadata(nameof(PravnaOsobnost), nameof(ObveznikPravnaOsobnost), nameof(Orko.Base.PravnaOsobnost.PravnaOsobnostPravnaOsobnost)),
+                new RelationMetadata(nameof(Zupanija), nameof(ObveznikPrebivalisteZupanija), nameof(Orko.Base.Zupanija.ZupanijaZupanija)),
+                new RelationMetadata(nameof(Zupanija), nameof(ObveznikPrebivalisteDrzava), nameof(Orko.Base.Zupanija.ZupanijaDrzava))
 			);
 
 			// Cache table metadata.
@@ -97,30 +97,30 @@ namespace Orko.Turist
         #endregion
 
         #region Entities
-		public Base.Drzava FK_Obveznik_Drzava
+		public Base.Drzava Drzava
         {
-            get { return EntityContext<Base.Drzava>.Get(ref m_FK_Obveznik_Drzava, this, "FK_Obveznik_Drzava"); }
-            set { EntityContext<Base.Drzava>.Set(ref m_FK_Obveznik_Drzava, this, value, "FK_Obveznik_Drzava"); }
+            get { return EntityContext<Base.Drzava>.Get(ref m_Drzava, this, nameof(Drzava)); }
+            set { EntityContext<Base.Drzava>.Set(ref m_Drzava, this, value, nameof(Drzava)); }
         }
-        public Base.Opcina FK_Obveznik_Opcina
+        public Base.Opcina Opcina
         {
-            get { return EntityContext<Base.Opcina>.Get(ref m_FK_Obveznik_Opcina, this, "FK_Obveznik_Opcina"); }
-            set { EntityContext<Base.Opcina>.Set(ref m_FK_Obveznik_Opcina, this, value, "FK_Obveznik_Opcina"); }
+            get { return EntityContext<Base.Opcina>.Get(ref m_Opcina, this, nameof(Opcina)); }
+            set { EntityContext<Base.Opcina>.Set(ref m_Opcina, this, value, nameof(Opcina)); }
         }
-        public Base.Posta FK_Obveznik_Posta
+        public Base.Posta Posta
         {
-            get { return EntityContext<Base.Posta>.Get(ref m_FK_Obveznik_Posta, this, "FK_Obveznik_Posta"); }
-            set { EntityContext<Base.Posta>.Set(ref m_FK_Obveznik_Posta, this, value, "FK_Obveznik_Posta"); }
+            get { return EntityContext<Base.Posta>.Get(ref m_Posta, this, nameof(Posta)); }
+            set { EntityContext<Base.Posta>.Set(ref m_Posta, this, value, nameof(Posta)); }
         }
-        public Base.PravnaOsobnost FK_Obveznik_PravnaOsobnost
+        public Base.PravnaOsobnost PravnaOsobnost
         {
-            get { return EntityContext<Base.PravnaOsobnost>.Get(ref m_FK_Obveznik_PravnaOsobnost, this, "FK_Obveznik_PravnaOsobnost"); }
-            set { EntityContext<Base.PravnaOsobnost>.Set(ref m_FK_Obveznik_PravnaOsobnost, this, value, "FK_Obveznik_PravnaOsobnost"); }
+            get { return EntityContext<Base.PravnaOsobnost>.Get(ref m_PravnaOsobnost, this, nameof(PravnaOsobnost)); }
+            set { EntityContext<Base.PravnaOsobnost>.Set(ref m_PravnaOsobnost, this, value, nameof(PravnaOsobnost)); }
         }
-        public Base.Zupanija FK_Obveznik_Zupanija
+        public Base.Zupanija Zupanija
         {
-            get { return EntityContext<Base.Zupanija>.Get(ref m_FK_Obveznik_Zupanija, this, "FK_Obveznik_Zupanija"); }
-            set { EntityContext<Base.Zupanija>.Set(ref m_FK_Obveznik_Zupanija, this, value, "FK_Obveznik_Zupanija"); }
+            get { return EntityContext<Base.Zupanija>.Get(ref m_Zupanija, this, nameof(Zupanija)); }
+            set { EntityContext<Base.Zupanija>.Set(ref m_Zupanija, this, value, nameof(Zupanija)); }
         }
         #endregion
 
@@ -142,32 +142,5 @@ namespace Orko.Turist
             return await TryGetByPrimaryKeyAsync<Obveznik>(ObveznikObveznik);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<Obveznik> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<Obveznik>(queryConditions);
-        }
-        public static IEnumerable<Obveznik> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<Obveznik>(columnName, queryOp, value);
-        }
-		public static Obveznik GetByPrimaryKey(int ObveznikObveznik)
-        {
-            return GetByPrimaryKey<Obveznik>(ObveznikObveznik);
-        }
-		public static Obveznik TryGetByPrimaryKey(int ObveznikObveznik)
-        {
-            return TryGetByPrimaryKey<Obveznik>(ObveznikObveznik);
-        }
-        public static Obveznik GetByUnique1(string ObveznikOIB)
-        {
-            return GetByCallingParameters<Obveznik>(ObveznikOIB);
-        }
-		public static Obveznik TryGetByUnique1(string ObveznikOIB)
-        {
-            return TryGetByCallingParameters<Obveznik>(ObveznikOIB);
-        }
-        #endregion
     }
 }

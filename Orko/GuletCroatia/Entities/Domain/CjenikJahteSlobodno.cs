@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -18,8 +18,8 @@ namespace Orko.GuletCroatia
     public sealed partial class CjenikJahteSlobodno : Entity
     {
 		#region Members
-		private Jahta m_FK_CjenikJahtaSlobodno_Jahta;
-        private Base.Valuta m_FK_CjenikJahteSlobodno_Valuta;
+		private Jahta m_Jahta;
+        private Base.Valuta m_Valuta;
         #endregion
         
 		#region Constructors
@@ -28,21 +28,21 @@ namespace Orko.GuletCroatia
             // Cache field metadata.
             EntityMeta<CjenikJahteSlobodno>.LoadColumnMetadata
 			(
-				new ColumnMetadata("CjenikJahteSlobodnoID", @"CjenikJahteSlobodnoID", SqlDbType.Int, isIdentity: true, isPrimaryKey: true),
-                new ColumnMetadata("CjenikJahteSlobodnoJahta", @"CjenikJahteSlobodnoJahta", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("CjenikJahteSlobodnoCijena2", @"CjenikJahteSlobodnoCijena2", SqlDbType.Decimal, isRequired: false),
-                new ColumnMetadata("CjenikJahteSlobodnoValuta2", @"CjenikJahteSlobodnoValuta2", SqlDbType.Char, isRequired: true),
-                new ColumnMetadata("CjenikJahteSlobodnoAktivnost", @"CjenikJahteSlobodnoAktivnost", SqlDbType.Bit, isRequired: true),
-                new ColumnMetadata("CjenikJahteSlobodnoJezik", @"CjenikJahteSlobodnoJezik", SqlDbType.Char, isLanguageCode: true, isPrimaryKey: true),
-                new ColumnMetadata("CjenikJahteSlobodnoLijevo", @"CjenikJahteSlobodnoLijevo", SqlDbType.NVarChar, isRequired: false, isLanguage: true),
-                new ColumnMetadata("CjenikJahteSlobodnoDesno", @"CjenikJahteSlobodnoDesno", SqlDbType.NVarChar, isRequired: false, isLanguage: true)
+				new ColumnMetadata(nameof(CjenikJahteSlobodnoID), @"CjenikJahteSlobodnoID", DbType.Int32, isIdentity: true, isRequired: true),
+                new ColumnMetadata(nameof(CjenikJahteSlobodnoJahta), @"CjenikJahteSlobodnoJahta", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(CjenikJahteSlobodnoCijena2), @"CjenikJahteSlobodnoCijena2", DbType.Decimal, isRequired: false),
+                new ColumnMetadata(nameof(CjenikJahteSlobodnoValuta2), @"CjenikJahteSlobodnoValuta2", DbType.AnsiStringFixedLength, isRequired: true),
+                new ColumnMetadata(nameof(CjenikJahteSlobodnoAktivnost), @"CjenikJahteSlobodnoAktivnost", DbType.Boolean, isRequired: true),
+                new ColumnMetadata(nameof(CjenikJahteSlobodnoJezik), @"CjenikJahteSlobodnoJezik", DbType.AnsiStringFixedLength, isRequired: true, isLanguageCode: true),
+                new ColumnMetadata(nameof(CjenikJahteSlobodnoLijevo), @"CjenikJahteSlobodnoLijevo", DbType.String, isRequired: false, isLanguage: true),
+                new ColumnMetadata(nameof(CjenikJahteSlobodnoDesno), @"CjenikJahteSlobodnoDesno", DbType.String, isRequired: false, isLanguage: true)
 			);
 
             // Cache entites metadata.
             EntityMeta<CjenikJahteSlobodno>.LoadRelationMetadata
 			(
-				new RelationMetadata("FK_CjenikJahtaSlobodno_Jahta", "CjenikJahteSlobodnoJahta", "JahtaJahta"),
-                new RelationMetadata("FK_CjenikJahteSlobodno_Valuta", "CjenikJahteSlobodnoValuta2", "ValutaValuta")
+				new RelationMetadata(nameof(Jahta), nameof(CjenikJahteSlobodnoJahta), nameof(Orko.GuletCroatia.Jahta.JahtaJahta)),
+                new RelationMetadata(nameof(Valuta), nameof(CjenikJahteSlobodnoValuta2), nameof(Orko.Base.Valuta.ValutaValuta))
 			);
 
 			// Cache table metadata.
@@ -66,15 +66,15 @@ namespace Orko.GuletCroatia
         #endregion
 
         #region Entities
-		public Jahta FK_CjenikJahtaSlobodno_Jahta
+		public Jahta Jahta
         {
-            get { return EntityContext<Jahta>.Get(ref m_FK_CjenikJahtaSlobodno_Jahta, this, "FK_CjenikJahtaSlobodno_Jahta"); }
-            set { EntityContext<Jahta>.Set(ref m_FK_CjenikJahtaSlobodno_Jahta, this, value, "FK_CjenikJahtaSlobodno_Jahta"); }
+            get { return EntityContext<Jahta>.Get(ref m_Jahta, this, nameof(Jahta)); }
+            set { EntityContext<Jahta>.Set(ref m_Jahta, this, value, nameof(Jahta)); }
         }
-        public Base.Valuta FK_CjenikJahteSlobodno_Valuta
+        public Base.Valuta Valuta
         {
-            get { return EntityContext<Base.Valuta>.Get(ref m_FK_CjenikJahteSlobodno_Valuta, this, "FK_CjenikJahteSlobodno_Valuta"); }
-            set { EntityContext<Base.Valuta>.Set(ref m_FK_CjenikJahteSlobodno_Valuta, this, value, "FK_CjenikJahteSlobodno_Valuta"); }
+            get { return EntityContext<Base.Valuta>.Get(ref m_Valuta, this, nameof(Valuta)); }
+            set { EntityContext<Base.Valuta>.Set(ref m_Valuta, this, value, nameof(Valuta)); }
         }
         #endregion
 
@@ -96,24 +96,5 @@ namespace Orko.GuletCroatia
             return await TryGetByPrimaryKeyAsync<CjenikJahteSlobodno>(CjenikJahteSlobodnoID);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<CjenikJahteSlobodno> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<CjenikJahteSlobodno>(queryConditions);
-        }
-        public static IEnumerable<CjenikJahteSlobodno> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<CjenikJahteSlobodno>(columnName, queryOp, value);
-        }
-		public static CjenikJahteSlobodno GetByPrimaryKey(int CjenikJahteSlobodnoID)
-        {
-            return GetByPrimaryKey<CjenikJahteSlobodno>(CjenikJahteSlobodnoID);
-        }
-		public static CjenikJahteSlobodno TryGetByPrimaryKey(int CjenikJahteSlobodnoID)
-        {
-            return TryGetByPrimaryKey<CjenikJahteSlobodno>(CjenikJahteSlobodnoID);
-        }
-        #endregion
     }
 }

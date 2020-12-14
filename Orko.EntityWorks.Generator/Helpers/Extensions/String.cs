@@ -12,7 +12,8 @@ namespace Orko.EntityWorks.Generator
     public static class StringExtensions
     {
         #region Static members
-        private static bool[] _lookup;
+        private static bool[] _lookupPropertyName;
+        private static bool[] _lookupNamespaceName;
         #endregion
 
         #region Static constructor
@@ -21,12 +22,22 @@ namespace Orko.EntityWorks.Generator
             // Valid characters lookup.
             // Optimization taken from stack overflow.
             // https://stackoverflow.com/questions/1120198/most-efficient-way-to-remove-special-characters-from-string
-            _lookup = new bool[65536];
-            for (char c = '0'; c <= '9'; c++) _lookup[c] = true;
-            for (char c = 'A'; c <= 'Z'; c++) _lookup[c] = true;
-            for (char c = 'a'; c <= 'z'; c++) _lookup[c] = true;
+            _lookupPropertyName = new bool[65536];
+            for (char c = '0'; c <= '9'; c++) _lookupPropertyName[c] = true;
+            for (char c = 'A'; c <= 'Z'; c++) _lookupPropertyName[c] = true;
+            for (char c = 'a'; c <= 'z'; c++) _lookupPropertyName[c] = true;
             //_lookup['.'] = true;
-            _lookup['_'] = true;
+            _lookupPropertyName['_'] = true;
+
+            // Valid characters lookup.
+            // Optimization taken from stack overflow.
+            // https://stackoverflow.com/questions/1120198/most-efficient-way-to-remove-special-characters-from-string
+            _lookupNamespaceName = new bool[65536];
+            for (char c = '0'; c <= '9'; c++) _lookupNamespaceName[c] = true;
+            for (char c = 'A'; c <= 'Z'; c++) _lookupNamespaceName[c] = true;
+            for (char c = 'a'; c <= 'z'; c++) _lookupNamespaceName[c] = true;
+            _lookupNamespaceName['.'] = true;
+            //_lookupNamespaceName['_'] = true;
         }
 		#endregion
 
@@ -61,20 +72,20 @@ namespace Orko.EntityWorks.Generator
             // To upper camel case.
             if (string.IsNullOrWhiteSpace(stringValue) == false)
             {
-                string[] parts = stringValue.Split(new char[] { '.' });
-                foreach (var part in parts)
+                var parts = stringValue.Split(new char[] { '.' }).ToList();
+                for (int i=0; i<parts.Count; i++)
                 {
-                    returnValue += char.ToUpper(part[0]) + part.Substring(1);
-                    if (parts.Last() != part)
+                    returnValue += char.ToUpper(parts[i][0]) + parts[i].Substring(1);
+                    if (i < parts.Count - 1)
                         returnValue += ".";
                 }
             }
 
             // Return.
-            return returnValue;                 
+            return returnValue;
         }
         /// <summary>
-        /// Makes string valid net property name. Removes spcial characters.
+        /// Makes string valid net property name. Removes special characters except lower dash.
         /// </summary>
         public static string ToValidNetName(this string stringValue)
         {
@@ -82,7 +93,26 @@ namespace Orko.EntityWorks.Generator
             int index = 0;
             foreach (char c in stringValue)
             {
-                if (_lookup[c])
+                if (_lookupPropertyName[c])
+                {
+                    buffer[index] = c;
+                    index++;
+                }
+            }
+            return new string(buffer, 0, index);
+        }
+        /// <summary>
+        /// Makes string valid net namespace name. Removes special characters except dot.
+        /// </summary>
+        /// <param name="stringValue"></param>
+        /// <returns></returns>
+        public static string ToValidNamespaceName(this string stringValue)
+		{
+            char[] buffer = new char[stringValue.Length];
+            int index = 0;
+            foreach (char c in stringValue)
+            {
+                if (_lookupNamespaceName[c])
                 {
                     buffer[index] = c;
                     index++;

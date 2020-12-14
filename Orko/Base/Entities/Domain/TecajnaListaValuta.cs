@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -18,8 +18,8 @@ namespace Orko.Base
     public sealed partial class TecajnaListaValuta : Entity
     {
 		#region Members
-		private TecajnaLista m_FK_TecajnaListaValuta_TecajnaLista;
-        private Valuta m_FK_TecajnaListaValuta_Valuta;
+		private TecajnaLista m_TecajnaLista;
+        private Valuta m_Valuta;
         #endregion
         
 		#region Constructors
@@ -28,22 +28,22 @@ namespace Orko.Base
             // Cache field metadata.
             EntityMeta<TecajnaListaValuta>.LoadColumnMetadata
 			(
-				new ColumnMetadata("TecajnaListaValutaTecajnaListaID", @"TecajnaListaValutaTecajnaListaID", SqlDbType.Int, isPrimaryKey: true),
-                new ColumnMetadata("TecajnaListaValutaValuta", @"TecajnaListaValutaValuta", SqlDbType.Char, isPrimaryKey: true),
-                new ColumnMetadata("TecajnaListaValutaRedosljed", @"TecajnaListaValutaRedosljed", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("TecajnaListaValutaJedinica", @"TecajnaListaValutaJedinica", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("TecajnaListaValutaKupovni", @"TecajnaListaValutaKupovni", SqlDbType.Decimal, isRequired: true),
-                new ColumnMetadata("TecajnaListaValutaSrednji", @"TecajnaListaValutaSrednji", SqlDbType.Decimal, isRequired: true),
-                new ColumnMetadata("TecajnaListaValutaProdajni", @"TecajnaListaValutaProdajni", SqlDbType.Decimal, isRequired: true),
-                new ColumnMetadata("TecajnaListaValutaUradio", @"TecajnaListaValutaUradio", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("TecajnaListaValutaDatumIzmjene", @"TecajnaListaValutaDatumIzmjene", SqlDbType.DateTime2, isRequired: true)
+				new ColumnMetadata(nameof(TecajnaListaValutaTecajnaListaID), @"TecajnaListaValutaTecajnaListaID", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(TecajnaListaValutaValuta), @"TecajnaListaValutaValuta", DbType.AnsiStringFixedLength, isRequired: true),
+                new ColumnMetadata(nameof(TecajnaListaValutaRedosljed), @"TecajnaListaValutaRedosljed", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(TecajnaListaValutaJedinica), @"TecajnaListaValutaJedinica", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(TecajnaListaValutaKupovni), @"TecajnaListaValutaKupovni", DbType.Decimal, isRequired: true),
+                new ColumnMetadata(nameof(TecajnaListaValutaSrednji), @"TecajnaListaValutaSrednji", DbType.Decimal, isRequired: true),
+                new ColumnMetadata(nameof(TecajnaListaValutaProdajni), @"TecajnaListaValutaProdajni", DbType.Decimal, isRequired: true),
+                new ColumnMetadata(nameof(TecajnaListaValutaUradio), @"TecajnaListaValutaUradio", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(TecajnaListaValutaDatumIzmjene), @"TecajnaListaValutaDatumIzmjene", DbType.DateTime2, isRequired: true)
 			);
 
             // Cache entites metadata.
             EntityMeta<TecajnaListaValuta>.LoadRelationMetadata
 			(
-				new RelationMetadata("FK_TecajnaListaValuta_TecajnaLista", "TecajnaListaValutaTecajnaListaID", "TecajnaListaID"),
-                new RelationMetadata("FK_TecajnaListaValuta_Valuta", "TecajnaListaValutaValuta", "ValutaValuta")
+				new RelationMetadata(nameof(TecajnaLista), nameof(TecajnaListaValutaTecajnaListaID), nameof(Orko.Base.TecajnaLista.TecajnaListaID)),
+                new RelationMetadata(nameof(Valuta), nameof(TecajnaListaValutaValuta), nameof(Orko.Base.Valuta.ValutaValuta))
 			);
 
 			// Cache table metadata.
@@ -68,15 +68,15 @@ namespace Orko.Base
         #endregion
 
         #region Entities
-		public TecajnaLista FK_TecajnaListaValuta_TecajnaLista
+		public TecajnaLista TecajnaLista
         {
-            get { return EntityContext<TecajnaLista>.Get(ref m_FK_TecajnaListaValuta_TecajnaLista, this, "FK_TecajnaListaValuta_TecajnaLista"); }
-            set { EntityContext<TecajnaLista>.Set(ref m_FK_TecajnaListaValuta_TecajnaLista, this, value, "FK_TecajnaListaValuta_TecajnaLista"); }
+            get { return EntityContext<TecajnaLista>.Get(ref m_TecajnaLista, this, nameof(TecajnaLista)); }
+            set { EntityContext<TecajnaLista>.Set(ref m_TecajnaLista, this, value, nameof(TecajnaLista)); }
         }
-        public Valuta FK_TecajnaListaValuta_Valuta
+        public Valuta Valuta
         {
-            get { return EntityContext<Valuta>.Get(ref m_FK_TecajnaListaValuta_Valuta, this, "FK_TecajnaListaValuta_Valuta"); }
-            set { EntityContext<Valuta>.Set(ref m_FK_TecajnaListaValuta_Valuta, this, value, "FK_TecajnaListaValuta_Valuta"); }
+            get { return EntityContext<Valuta>.Get(ref m_Valuta, this, nameof(Valuta)); }
+            set { EntityContext<Valuta>.Set(ref m_Valuta, this, value, nameof(Valuta)); }
         }
         #endregion
 
@@ -98,24 +98,5 @@ namespace Orko.Base
             return await TryGetByPrimaryKeyAsync<TecajnaListaValuta>(TecajnaListaValutaTecajnaListaID, TecajnaListaValutaValuta);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<TecajnaListaValuta> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<TecajnaListaValuta>(queryConditions);
-        }
-        public static IEnumerable<TecajnaListaValuta> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<TecajnaListaValuta>(columnName, queryOp, value);
-        }
-		public static TecajnaListaValuta GetByPrimaryKey(int TecajnaListaValutaTecajnaListaID, string TecajnaListaValutaValuta)
-        {
-            return GetByPrimaryKey<TecajnaListaValuta>(TecajnaListaValutaTecajnaListaID, TecajnaListaValutaValuta);
-        }
-		public static TecajnaListaValuta TryGetByPrimaryKey(int TecajnaListaValutaTecajnaListaID, string TecajnaListaValutaValuta)
-        {
-            return TryGetByPrimaryKey<TecajnaListaValuta>(TecajnaListaValutaTecajnaListaID, TecajnaListaValutaValuta);
-        }
-        #endregion
     }
 }

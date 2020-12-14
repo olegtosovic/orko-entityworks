@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -18,8 +18,8 @@ namespace Orko.Base
     public sealed partial class Drzava : Entity
     {
 		#region Members
-		private Kontinent m_FK_Drzava_Kontinent;
-        private Valuta m_FK_Drzava_Valuta;
+		private Kontinent m_Kontinent;
+        private Valuta m_Valuta;
         #endregion
         
 		#region Constructors
@@ -28,20 +28,20 @@ namespace Orko.Base
             // Cache field metadata.
             EntityMeta<Drzava>.LoadColumnMetadata
 			(
-				new ColumnMetadata("DrzavaDrzava", @"DrzavaDrzava", SqlDbType.Char, isPrimaryKey: true),
-                new ColumnMetadata("DrzavaKontinent", @"DrzavaKontinent", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("DrzavaTroslovnaKratica", @"DrzavaTroslovnaKratica", SqlDbType.Char, isRequired: false),
-                new ColumnMetadata("DrzavaKod", @"DrzavaKod", SqlDbType.Char, isRequired: true),
-                new ColumnMetadata("DrzavaValuta", @"DrzavaValuta", SqlDbType.Char, isRequired: false),
-                new ColumnMetadata("DrzavaJezik", @"DrzavaJezik", SqlDbType.Char, isLanguageCode: true, isPrimaryKey: true),
-                new ColumnMetadata("DrzavaNaziv", @"DrzavaNaziv", SqlDbType.NVarChar, isRequired: true, isLanguage: true)
+				new ColumnMetadata(nameof(DrzavaDrzava), @"DrzavaDrzava", DbType.AnsiStringFixedLength, isRequired: true),
+                new ColumnMetadata(nameof(DrzavaKontinent), @"DrzavaKontinent", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(DrzavaTroslovnaKratica), @"DrzavaTroslovnaKratica", DbType.AnsiStringFixedLength, isRequired: false),
+                new ColumnMetadata(nameof(DrzavaKod), @"DrzavaKod", DbType.AnsiStringFixedLength, isRequired: true),
+                new ColumnMetadata(nameof(DrzavaValuta), @"DrzavaValuta", DbType.AnsiStringFixedLength, isRequired: false),
+                new ColumnMetadata(nameof(DrzavaJezik), @"DrzavaJezik", DbType.AnsiStringFixedLength, isRequired: true, isLanguageCode: true),
+                new ColumnMetadata(nameof(DrzavaNaziv), @"DrzavaNaziv", DbType.String, isRequired: true, isLanguage: true)
 			);
 
             // Cache entites metadata.
             EntityMeta<Drzava>.LoadRelationMetadata
 			(
-				new RelationMetadata("FK_Drzava_Kontinent", "DrzavaKontinent", "KontinentKontinent"),
-                new RelationMetadata("FK_Drzava_Valuta", "DrzavaValuta", "ValutaValuta")
+				new RelationMetadata(nameof(Kontinent), nameof(DrzavaKontinent), nameof(Orko.Base.Kontinent.KontinentKontinent)),
+                new RelationMetadata(nameof(Valuta), nameof(DrzavaValuta), nameof(Orko.Base.Valuta.ValutaValuta))
 			);
 
 			// Cache table metadata.
@@ -64,15 +64,15 @@ namespace Orko.Base
         #endregion
 
         #region Entities
-		public Kontinent FK_Drzava_Kontinent
+		public Kontinent Kontinent
         {
-            get { return EntityContext<Kontinent>.Get(ref m_FK_Drzava_Kontinent, this, "FK_Drzava_Kontinent"); }
-            set { EntityContext<Kontinent>.Set(ref m_FK_Drzava_Kontinent, this, value, "FK_Drzava_Kontinent"); }
+            get { return EntityContext<Kontinent>.Get(ref m_Kontinent, this, nameof(Kontinent)); }
+            set { EntityContext<Kontinent>.Set(ref m_Kontinent, this, value, nameof(Kontinent)); }
         }
-        public Valuta FK_Drzava_Valuta
+        public Valuta Valuta
         {
-            get { return EntityContext<Valuta>.Get(ref m_FK_Drzava_Valuta, this, "FK_Drzava_Valuta"); }
-            set { EntityContext<Valuta>.Set(ref m_FK_Drzava_Valuta, this, value, "FK_Drzava_Valuta"); }
+            get { return EntityContext<Valuta>.Get(ref m_Valuta, this, nameof(Valuta)); }
+            set { EntityContext<Valuta>.Set(ref m_Valuta, this, value, nameof(Valuta)); }
         }
         #endregion
 
@@ -94,24 +94,5 @@ namespace Orko.Base
             return await TryGetByPrimaryKeyAsync<Drzava>(DrzavaDrzava);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<Drzava> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<Drzava>(queryConditions);
-        }
-        public static IEnumerable<Drzava> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<Drzava>(columnName, queryOp, value);
-        }
-		public static Drzava GetByPrimaryKey(string DrzavaDrzava)
-        {
-            return GetByPrimaryKey<Drzava>(DrzavaDrzava);
-        }
-		public static Drzava TryGetByPrimaryKey(string DrzavaDrzava)
-        {
-            return TryGetByPrimaryKey<Drzava>(DrzavaDrzava);
-        }
-        #endregion
     }
 }

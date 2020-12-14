@@ -8,11 +8,71 @@ using System.Reflection;
 namespace Orko.EntityWorks
 {
     /// <summary>
-    /// Represents object net property and supports common operations.
+    /// Represents net property and supports common operations.
     /// </summary>
-    public class Property<TObject> where TObject : class, new()
+    public sealed class Property<TObject> where TObject : class, new()
     {
-        #region Konstruktori
+        #region Methods
+        /// <summary>
+        /// Cache get by primary key method.
+        /// </summary>
+        private void CacheDohvatiPrekoPK()
+        {
+            Type[] types = PropertyType.GetTypeInfo().GetGenericArguments();
+            DohvatiPrekoPK = types[0].GetTypeInfo().GetMethod("GetByPrimaryKey");
+        }
+        /// <summary>
+        /// Caches and compiles getter method for fast property operation.
+        /// </summary>
+        private void CacheGet()
+        {
+            MethodInfo getMethodInfo = PropertyInfo.GetGetMethod();
+            ParameterExpression instance = Expression.Parameter(typeof(object), "instance");
+
+            UnaryExpression instanceCast = null;
+            if (DeclaringType.GetTypeInfo().IsValueType)
+            {
+                instanceCast = Expression.Convert(instance, DeclaringType);
+            }
+            else instanceCast = Expression.TypeAs(instance, DeclaringType);
+
+            var methodCast = Expression.TypeAs(Expression.Call(instanceCast, getMethodInfo), typeof(object));
+            GetDelegate = Expression.Lambda<Func<object, object>>(methodCast, instance).Compile();
+        }
+        /// <summary>
+        /// Caches and compiles setter method for fast property operation.
+        /// </summary>
+        private void CacheSet()
+        {
+            MethodInfo setMethodInfo = PropertyInfo.GetSetMethod(true);
+            ParameterExpression instance = Expression.Parameter(typeof(object), "instance");
+            ParameterExpression value = Expression.Parameter(typeof(object), "value");
+
+            UnaryExpression instanceCast = null;
+            if (DeclaringType.GetTypeInfo().IsValueType)
+            {
+                instanceCast = Expression.Convert(instance, DeclaringType);
+            }
+            else instanceCast = Expression.TypeAs(instance, DeclaringType);
+
+            UnaryExpression valueCast = null;
+            if (PropertyType.GetTypeInfo().IsValueType)
+            {
+                valueCast = Expression.Convert(value, PropertyType);
+            }
+            else valueCast = Expression.TypeAs(value, PropertyType);
+
+            SetDelegate = Expression.Lambda<Action<object, object>>(
+                Expression.Call(instanceCast, setMethodInfo, valueCast),
+                new ParameterExpression[] { instance, value })
+                .Compile();
+        }
+        #endregion
+
+        #region Constructors
+        /// <summary>
+        /// Creates instance of property.
+        /// </summary>
         public Property(PropertyInfo propertyInfo)
         {
             // Create instances.
@@ -39,22 +99,35 @@ namespace Orko.EntityWorks
         }
         #endregion
 
-        #region Propertiji
+        #region Properties
+        /// <summary>
+        /// Reflection property info.
+        /// </summary>
         public PropertyInfo PropertyInfo { get; private set; }
+        /// <summary>
+        /// Foreign key relations.
+        /// </summary>
         public Dictionary<string, string> Relations { get; private set; }
         #endregion
 
-        #region Set Get Delegates
+        #region Delegates
+        /// <summary>
+        /// Getter method delegate.
+        /// </summary>
         private Func<object, object> GetDelegate;
+        /// <summary>
+        /// Setter method delegate.
+        /// </summary>
         private Action<object, object> SetDelegate;
         #endregion
 
         #region Properties
         public string PropertyName { get; private set; }
         public string PropertyNameWithMonkey { get; private set; }
+        public string PropertySqlName { get; private set; }
         public Type DeclaringType { get; private set; }
         public Type PropertyType { get; private set; }
-        public SqlDbType SqlDbType { get; private set; }
+        public DbType SqlDbType { get; private set; }
         private MethodInfo DohvatiPrekoPK { get; set; }
         private object[] ParametersValues { get; set; }
         #endregion
@@ -72,58 +145,11 @@ namespace Orko.EntityWorks
         public bool IsEntityChild { get; private set; }
         #endregion
 
-        #region Konstruktor Metode
-        private void CacheDohvatiPrekoPK()
-        {
-            Type[] types = PropertyType.GetTypeInfo().GetGenericArguments();
-            DohvatiPrekoPK = types[0].GetTypeInfo().GetMethod("GetByPrimaryKey");
-        }
-        private void CacheGet()
-        {
-			MethodInfo getMethodInfo = PropertyInfo.GetGetMethod();
-			ParameterExpression instance = Expression.Parameter(typeof(object), "instance");
-
-			UnaryExpression instanceCast = null;
-			if (DeclaringType.GetTypeInfo().IsValueType)
-			{
-				instanceCast = Expression.Convert(instance, DeclaringType);
-			}
-			else instanceCast = Expression.TypeAs(instance, DeclaringType);
-
-			var methodCast = Expression.TypeAs(Expression.Call(instanceCast, getMethodInfo), typeof(object));
-			GetDelegate = Expression.Lambda<Func<object, object>>(methodCast, instance).Compile();
-		}
-        private void CacheSet()
-        {
-            MethodInfo setMethodInfo = PropertyInfo.GetSetMethod(true);
-            ParameterExpression instance = Expression.Parameter(typeof(object), "instance");
-            ParameterExpression value = Expression.Parameter(typeof(object), "value");
-
-            UnaryExpression instanceCast = null;
-            if (DeclaringType.GetTypeInfo().IsValueType)
-            {
-                instanceCast = Expression.Convert(instance, DeclaringType);
-            }
-            else instanceCast = Expression.TypeAs(instance, DeclaringType);
-
-            UnaryExpression valueCast = null;
-            if (PropertyType.GetTypeInfo().IsValueType)
-            {
-                valueCast = Expression.Convert(value, PropertyType);
-            }
-            else valueCast = Expression.TypeAs(value, PropertyType);
-
-            SetDelegate = Expression.Lambda<Action<object, object>>(
-                Expression.Call(instanceCast, setMethodInfo, valueCast), 
-                new ParameterExpression[] { instance, value })
-                .Compile();
-        }
-        #endregion
-
         #region Public Methods
         internal void AssignFieldProperty(ColumnMetadata fieldMetadata)
         {
             // Assign attributes to property.
+            PropertySqlName = fieldMetadata.ColumnSqlName;
             IsPrimaryKey = fieldMetadata.IsPrimaryKey;
             IsIdentity = fieldMetadata.IsIdentity;
 			IsTimestamp = fieldMetadata.IsTimestamp;
@@ -139,7 +165,7 @@ namespace Orko.EntityWorks
             {
                 Relations = new Dictionary<string, string>();
                 foreach (RelationMetadata relationMetadata in relationsMetadata)
-                    Relations.Add(relationMetadata.PrimaryKeyField, relationMetadata.ForeignKeyField);
+                    Relations.Add(relationMetadata.PrimaryKeyProperty, relationMetadata.ForeignKeyProperty);
             }
         }
         internal void SetValueFast(object value, object instance)

@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Intended for modification.
 
@@ -14,19 +14,10 @@ namespace Orko.Watersports
     public partial class Lokacija2
     {
 		#region Methods
-		public void Save()
-        {
-			Validate<Lokacija2>();
-            Save<Lokacija2>();
-        }
 		public async Task SaveAsync()
         {
 			Validate<Lokacija2>();
             await SaveAsync<Lokacija2>();
-        }
-        public void Delete()
-        {
-            Delete<Lokacija2>();
         }
 		public async Task DeleteAsync()
         {

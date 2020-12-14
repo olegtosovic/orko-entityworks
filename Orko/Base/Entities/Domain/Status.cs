@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -18,7 +18,7 @@ namespace Orko.Base
     public sealed partial class Status : Entity
     {
 		#region Members
-		private VrstaDokumenta m_FK_Status_VrstaDokumenta;
+		private VrstaDokumenta m_VrstaDokumenta;
         #endregion
         
 		#region Constructors
@@ -27,20 +27,20 @@ namespace Orko.Base
             // Cache field metadata.
             EntityMeta<Status>.LoadColumnMetadata
 			(
-				new ColumnMetadata("StatusStatus", @"StatusStatus", SqlDbType.Int, isPrimaryKey: true),
-                new ColumnMetadata("StatusVrstaDokumenta", @"StatusVrstaDokumenta", SqlDbType.NVarChar, isPrimaryKey: true),
-                new ColumnMetadata("StatusZakljucni", @"StatusZakljucni", SqlDbType.Bit, isRequired: true),
-                new ColumnMetadata("StatusAktivnost", @"StatusAktivnost", SqlDbType.Bit, isRequired: true),
-                new ColumnMetadata("StatusUradio", @"StatusUradio", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("StatusDatumIzmjene", @"StatusDatumIzmjene", SqlDbType.DateTime2, isRequired: true),
-                new ColumnMetadata("StatusJezik", @"StatusJezik", SqlDbType.Char, isLanguageCode: true, isPrimaryKey: true),
-                new ColumnMetadata("StatusNaziv", @"StatusNaziv", SqlDbType.NVarChar, isRequired: true, isLanguage: true)
+				new ColumnMetadata(nameof(StatusStatus), @"StatusStatus", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(StatusVrstaDokumenta), @"StatusVrstaDokumenta", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(StatusZakljucni), @"StatusZakljucni", DbType.Boolean, isRequired: true),
+                new ColumnMetadata(nameof(StatusAktivnost), @"StatusAktivnost", DbType.Boolean, isRequired: true),
+                new ColumnMetadata(nameof(StatusUradio), @"StatusUradio", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(StatusDatumIzmjene), @"StatusDatumIzmjene", DbType.DateTime2, isRequired: true),
+                new ColumnMetadata(nameof(StatusJezik), @"StatusJezik", DbType.AnsiStringFixedLength, isRequired: true, isLanguageCode: true),
+                new ColumnMetadata(nameof(StatusNaziv), @"StatusNaziv", DbType.String, isRequired: true, isLanguage: true)
 			);
 
             // Cache entites metadata.
             EntityMeta<Status>.LoadRelationMetadata
 			(
-				new RelationMetadata("FK_Status_VrstaDokumenta", "StatusVrstaDokumenta", "VrstaDokumentaVrstaDokumenta")
+				new RelationMetadata(nameof(VrstaDokumenta), nameof(StatusVrstaDokumenta), nameof(Orko.Base.VrstaDokumenta.VrstaDokumentaVrstaDokumenta))
 			);
 
 			// Cache table metadata.
@@ -64,10 +64,10 @@ namespace Orko.Base
         #endregion
 
         #region Entities
-		public VrstaDokumenta FK_Status_VrstaDokumenta
+		public VrstaDokumenta VrstaDokumenta
         {
-            get { return EntityContext<VrstaDokumenta>.Get(ref m_FK_Status_VrstaDokumenta, this, "FK_Status_VrstaDokumenta"); }
-            set { EntityContext<VrstaDokumenta>.Set(ref m_FK_Status_VrstaDokumenta, this, value, "FK_Status_VrstaDokumenta"); }
+            get { return EntityContext<VrstaDokumenta>.Get(ref m_VrstaDokumenta, this, nameof(VrstaDokumenta)); }
+            set { EntityContext<VrstaDokumenta>.Set(ref m_VrstaDokumenta, this, value, nameof(VrstaDokumenta)); }
         }
         #endregion
 
@@ -89,24 +89,5 @@ namespace Orko.Base
             return await TryGetByPrimaryKeyAsync<Status>(StatusStatus, StatusVrstaDokumenta);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<Status> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<Status>(queryConditions);
-        }
-        public static IEnumerable<Status> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<Status>(columnName, queryOp, value);
-        }
-		public static Status GetByPrimaryKey(int StatusStatus, string StatusVrstaDokumenta)
-        {
-            return GetByPrimaryKey<Status>(StatusStatus, StatusVrstaDokumenta);
-        }
-		public static Status TryGetByPrimaryKey(int StatusStatus, string StatusVrstaDokumenta)
-        {
-            return TryGetByPrimaryKey<Status>(StatusStatus, StatusVrstaDokumenta);
-        }
-        #endregion
     }
 }

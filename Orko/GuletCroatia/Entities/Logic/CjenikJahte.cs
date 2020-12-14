@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Intended for modification.
 
@@ -14,19 +14,10 @@ namespace Orko.GuletCroatia
     public partial class CjenikJahte
     {
 		#region Methods
-		public void Save()
-        {
-			Validate<CjenikJahte>();
-            Save<CjenikJahte>();
-        }
 		public async Task SaveAsync()
         {
 			Validate<CjenikJahte>();
             await SaveAsync<CjenikJahte>();
-        }
-        public void Delete()
-        {
-            Delete<CjenikJahte>();
         }
 		public async Task DeleteAsync()
         {

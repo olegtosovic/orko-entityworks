@@ -1,5 +1,4 @@
-﻿using Microsoft.Data.SqlClient;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
@@ -27,10 +26,6 @@ namespace Orko.EntityWorks
         /// Entity context.
         /// </summary>
         public static EntityContext<TEntity> EntityContext { get; private set; }
-        /// <summary>
-        /// Provider factory.
-        /// </summary>
-        public static DbProviderFactory DbProviderFactory { get; set; }
         #endregion
 
         #region CRUD methods
@@ -43,13 +38,16 @@ namespace Orko.EntityWorks
             TEntity entity = null;
 
 			// Get ambient query context.
-			QueryContext ambientContext = QueryContext.GetAmbientQueryContext();
+			var ambientContext = QueryContext.GetAmbientQueryContext();
+
+            // Get provider factory.
+            var providerFactory = ambientContext.DbProviderFactory;
 
 			// Create connection to database from ambient query context.
 			using (DbConnection connection = ambientContext.CreateConnection())
 			{
                 // Setup sql command
-                DbCommand command = DbProviderFactory.CreateCommand();
+                var command = providerFactory.CreateCommand();
                 command.CommandType = CommandType.Text;
                 command.CommandText = EntityContext.SelectString;
 				command.Connection = connection;
@@ -61,7 +59,7 @@ namespace Orko.EntityWorks
 				connection.Open();
 
                 // Execute Sql data reader
-                using (DbDataReader dataReader = command.ExecuteReader())
+                using (var dataReader = command.ExecuteReader())
                 {
                     // Create entity mapper.
                     var entityMapper = new EntityMapper<TEntity>();
@@ -115,7 +113,7 @@ namespace Orko.EntityWorks
             Query query = new Query();
             query.Select<TEntity>();
             query.From<TEntity>();
-            query.From(EntityContext.SqlPathPrefix);
+            query.From(EntityContext.SqlTablePathWithSchema);
             query.Where(queryConditions);
 
             // Return collection.
@@ -141,10 +139,10 @@ namespace Orko.EntityWorks
             IList<TEntity> entityCollection = new List<TEntity>();
 
 			// Get ambient query context.
-			QueryContext ambientContext = QueryContext.GetAmbientQueryContext();
+			var ambientContext = QueryContext.GetAmbientQueryContext();
 
 			// Create connection to database from ambient query context.
-			using (DbConnection connection = ambientContext.CreateConnection())
+			using (var connection = ambientContext.CreateConnection())
             {
                 // Pass connection to command object.
                 command.Connection = connection;
@@ -153,7 +151,7 @@ namespace Orko.EntityWorks
 				connection.Open();
 
                 // Execute Sql data reader
-                using (DbDataReader dataReader = command.ExecuteReader())
+                using (var dataReader = command.ExecuteReader())
                 {
                     // Create entity mapper.
                     var entityMapper = new EntityMapper<TEntity>(ObjectMappingType.ModelFirst, dataReader);
@@ -162,7 +160,7 @@ namespace Orko.EntityWorks
                     while (dataReader.Read())
                     {
                         // Create new TEntity instance
-                        TEntity entity = new TEntity();
+                        var entity = new TEntity();
 
 						// Map raw data to entity object
                         entityMapper.MapToObject(entity, dataReader);
@@ -185,12 +183,15 @@ namespace Orko.EntityWorks
         public static void SaveEntity(Entity entity)
         {
 			// Get ambient query context.
-			QueryContext ambientContext = QueryContext.GetAmbientQueryContext();
+			var ambientContext = QueryContext.GetAmbientQueryContext();
 
-			// Create connection to database from ambient query context.
-			using (DbConnection connection = ambientContext.CreateConnection())
+            // Get provider factory.
+            var providerFactory = ambientContext.DbProviderFactory;
+
+            // Create connection to database from ambient query context.
+            using (var connection = ambientContext.CreateConnection())
             {
-                DbCommand command = DbProviderFactory.CreateCommand();
+                var command = providerFactory.CreateCommand();
                 command.CommandType = CommandType.Text;
                 command.Connection = connection;
 
@@ -218,21 +219,24 @@ namespace Orko.EntityWorks
         public static void DeleteEntity(Entity entity)
         {
 			// Get ambient query context.
-			QueryContext ambientContext = QueryContext.GetAmbientQueryContext();
+			var ambientContext = QueryContext.GetAmbientQueryContext();
 
-			// Create connection to database from ambient query context.
-			using (IDbConnection connection = ambientContext.CreateConnection())
+            // Get provider factory.
+            var providerFactory = ambientContext.DbProviderFactory;
+
+            // Create connection to database from ambient query context.
+            using (var connection = ambientContext.CreateConnection())
 			{
                 // If entity is new, it makes no sense to delete it from database so skip it.
                 if (!entity.IsNew)
                 {
-                    IDbCommand sqlCommand = DbProviderFactory.CreateCommand();
-                    sqlCommand.CommandType = CommandType.Text;
-                    sqlCommand.CommandText = EntityContext.DeleteString;
-                    sqlCommand.Connection = connection;
-                    SetParametersDeleteEntity(sqlCommand, entity);
+                    var dbCommand = providerFactory.CreateCommand();
+                    dbCommand.CommandType = CommandType.Text;
+                    dbCommand.CommandText = EntityContext.DeleteString;
+                    dbCommand.Connection = connection;
+                    SetParametersDeleteEntity(dbCommand, entity);
 					connection.Open();
-                    sqlCommand.ExecuteNonQuery();
+                    dbCommand.ExecuteNonQuery();
                 }
             }
         }
@@ -248,13 +252,16 @@ namespace Orko.EntityWorks
 			TEntity entity = null;
 
 			// Get ambient query context.
-			QueryContext ambientContext = QueryContext.GetAmbientQueryContext();
+			var ambientContext = QueryContext.GetAmbientQueryContext();
+
+            // Get provider factory.
+            var providerFactory = ambientContext.DbProviderFactory;
 
 			// Create connection to database from ambient query context.
-			using (DbConnection connection = ambientContext.CreateConnection())
+			using (var connection = ambientContext.CreateConnection())
 			{
 				// Setup sql command
-				DbCommand command = DbProviderFactory.CreateCommand();
+				var command = providerFactory.CreateCommand();
 				command.CommandType = CommandType.Text;
 				command.CommandText = EntityContext.SelectString;
 				command.Connection = connection;
@@ -266,7 +273,7 @@ namespace Orko.EntityWorks
 				await connection.OpenAsync();
 
 				// Execute Sql data reader
-				using (DbDataReader dataReader = await command.ExecuteReaderAsync())
+				using (var dataReader = await command.ExecuteReaderAsync())
 				{
 					// Create entity mapper.
 					var entityMapper = new EntityMapper<TEntity>();
@@ -305,7 +312,7 @@ namespace Orko.EntityWorks
 			Query query = new Query();
 			query.Select<TEntity>();
 			query.From<TEntity>();
-			query.From(EntityContext.SqlPathPrefix);
+			//query.From(EntityContext.SqlPathPrefix);
 			query.Where(queryConditions);
 
 			// Return collection.
@@ -328,13 +335,13 @@ namespace Orko.EntityWorks
 		public static async Task<IEnumerable<TEntity>> GetByQueryCommandAsync(DbCommand command)
 		{
 			// Create instance of return collection
-			IList<TEntity> entityCollection = new List<TEntity>();
+			var entityCollection = new List<TEntity>();
 
 			// Get ambient query context.
-			QueryContext ambientContext = QueryContext.GetAmbientQueryContext();
+			var ambientContext = QueryContext.GetAmbientQueryContext();
 
 			// Create connection to database from ambient query context.
-			using (DbConnection connection = ambientContext.CreateConnection())
+			using (var connection = ambientContext.CreateConnection())
 			{
 				// Pass connection to command object.
 				command.Connection = connection;
@@ -343,7 +350,7 @@ namespace Orko.EntityWorks
 				await connection.OpenAsync();
 
 				// Execute Sql data reader
-				using (DbDataReader dataReader = await command.ExecuteReaderAsync())
+				using (var dataReader = await command.ExecuteReaderAsync())
 				{
 					// Create entity mapper.
 					var entityMapper = new EntityMapper<TEntity>(ObjectMappingType.ModelFirst, dataReader);
@@ -352,7 +359,7 @@ namespace Orko.EntityWorks
 					while (await dataReader.ReadAsync())
 					{
 						// Create new TEntity instance
-						TEntity entity = new TEntity();
+						var entity = new TEntity();
 
 						// Map raw data to entity object
 						entityMapper.MapToObject(entity, dataReader);
@@ -375,12 +382,15 @@ namespace Orko.EntityWorks
 		public static async Task SaveEntityAsync(Entity entity)
 		{
 			// Get ambient query context.
-			QueryContext ambientContext = QueryContext.GetAmbientQueryContext();
+			var ambientContext = QueryContext.GetAmbientQueryContext();
 
-			// Create connection to database from ambient query context.
-			using (DbConnection connection = ambientContext.CreateConnection())
+            // Get provider factory.
+            var providerFactory = ambientContext.DbProviderFactory;
+
+            // Create connection to database from ambient query context.
+            using (DbConnection connection = ambientContext.CreateConnection())
 			{
-				DbCommand command = DbProviderFactory.CreateCommand();
+				DbCommand command = providerFactory.CreateCommand();
 				command.CommandType = CommandType.Text;
 				command.Connection = connection;
 
@@ -408,21 +418,24 @@ namespace Orko.EntityWorks
 		public static async Task DeleteEntityAsync(Entity entity)
 		{
 			// Get ambient query context.
-			QueryContext ambientContext = QueryContext.GetAmbientQueryContext();
+			var ambientContext = QueryContext.GetAmbientQueryContext();
 
-			// Create connection to database from ambient query context.
-			using (DbConnection connection = ambientContext.CreateConnection())
+            // Get provider factory.
+            var providerFactory = ambientContext.DbProviderFactory;
+
+            // Create connection to database from ambient query context.
+            using (var connection = ambientContext.CreateConnection())
 			{
 				// If entity is new, it makes no sense to delete it from database so skip it.
 				if (!entity.IsNew)
 				{
-					DbCommand sqlCommand = DbProviderFactory.CreateCommand();
-					sqlCommand.CommandType = CommandType.Text;
-					sqlCommand.CommandText = EntityContext.DeleteString;
-					sqlCommand.Connection = connection;
-					SetParametersDeleteEntity(sqlCommand, entity);
+					var dbCommand = providerFactory.CreateCommand();
+                    dbCommand.CommandType = CommandType.Text;
+                    dbCommand.CommandText = EntityContext.DeleteString;
+                    dbCommand.Connection = connection;
+					SetParametersDeleteEntity(dbCommand, entity);
 					await connection.OpenAsync();
-					await sqlCommand.ExecuteNonQueryAsync();
+					await dbCommand.ExecuteNonQueryAsync();
 				}
 			}
 		}
@@ -432,16 +445,22 @@ namespace Orko.EntityWorks
 		/// <summary>
 		/// Sets primary key parameters for IDbCommand query.
 		/// </summary>
-		private static void SetSelectParameters(IDbCommand command, params object[] parameters)
+		private static void SetSelectParameters(DbCommand command, params object[] parameters)
         {
+            // Get ambient query context.
+            var ambientContext = QueryContext.GetAmbientQueryContext();
+
+            // Get provider factory.
+            var providerFactory = ambientContext.DbProviderFactory;
+
             // Set sql command parameters.
             for (int i = 0; i < EntityContext.PrimaryKeyParameters.Count; i++)
             {
                 object value = parameters[i];
                 if (value == null) value = DBNull.Value;
-                SqlParameter sqlParameter = new SqlParameter();
+                var sqlParameter = providerFactory.CreateParameter();
                 sqlParameter.ParameterName = EntityContext.PrimaryKeyParameters[i].ParameterName;
-                sqlParameter.SqlDbType = EntityContext.PrimaryKeyParameters[i].SqlDbType;
+                sqlParameter.DbType = EntityContext.PrimaryKeyParameters[i].SqlDbType;
                 sqlParameter.Value = value;
                 command.Parameters.Add(sqlParameter);
             }
@@ -452,9 +471,9 @@ namespace Orko.EntityWorks
                 //object value = EntityWorks.LanguageCode;
                 object value = QueryContext.GetAmbientQueryContext().LanguageCode;
 				if (value == null) value = DBNull.Value;
-                SqlParameter sqlParameter = new SqlParameter();
+                var sqlParameter = providerFactory.CreateParameter();
                 sqlParameter.ParameterName = EntityContext.LanguageCodeParameter.ParameterName;
-                sqlParameter.SqlDbType = EntityContext.LanguageCodeParameter.SqlDbType;
+                sqlParameter.DbType = EntityContext.LanguageCodeParameter.SqlDbType;
                 sqlParameter.Value = value;
                 command.Parameters.Add(sqlParameter);
             }
@@ -462,16 +481,22 @@ namespace Orko.EntityWorks
         /// <summary>
         /// Sets all parameters for IDbCommand query.
         /// </summary>
-        private static void SetParametersSaveEntity(IDbCommand command, Entity entity)
+        private static void SetParametersSaveEntity(DbCommand command, Entity entity)
         {
+            // Get ambient query context.
+            var ambientContext = QueryContext.GetAmbientQueryContext();
+
+            // Get provider factory.
+            var providerFactory = ambientContext.DbProviderFactory;
+
             // Set sql command parameters
             foreach (var property in EntityContext.Properties.Values.Where(x => !x.IsForeignKey))
 			{
 				if (property.IsTimestamp) { continue; }
 				var parameter = EntityContext.Parameters[property.PropertyName];
-                var sqlParameter = new SqlParameter();
+                var sqlParameter = providerFactory.CreateParameter();
                 sqlParameter.ParameterName = parameter.ParameterNameWithMonkey;
-                sqlParameter.SqlDbType = parameter.SqlDbType;
+                sqlParameter.DbType = parameter.SqlDbType;
 
                 object value = null;
                 if (property.IsLanguageCode)
@@ -493,17 +518,23 @@ namespace Orko.EntityWorks
         /// <summary>
         /// Sets all parameters for IDbCommand query.
         /// </summary>
-        private static void SetParametersUpdateEntity(IDbCommand command, Entity entity)
+        private static void SetParametersUpdateEntity(DbCommand command, Entity entity)
         {
+            // Get ambient query context.
+            var ambientContext = QueryContext.GetAmbientQueryContext();
+
+            // Get provider factory.
+            var providerFactory = ambientContext.DbProviderFactory;
+
             // Set sql command parameters
             foreach (var property in EntityContext.Properties.Values.Where(x => !x.IsForeignKey))
             {
 				if (property.IsTimestamp) { continue; }
 
 				Parameter parameter = EntityContext.Parameters[property.PropertyName];
-                SqlParameter sqlParameter = new SqlParameter();
+                var sqlParameter = providerFactory.CreateParameter();
                 sqlParameter.ParameterName = parameter.ParameterNameWithMonkey;
-                sqlParameter.SqlDbType = parameter.SqlDbType;
+                sqlParameter.DbType = parameter.SqlDbType;
                 sqlParameter.Value = property.GetValueFast(entity);
                 sqlParameter.Direction = ParameterDirection.Input;
 
@@ -513,15 +544,21 @@ namespace Orko.EntityWorks
         /// <summary>
         /// Sets primary key parameters for IDbCommand query.
         /// </summary>
-        private static void SetParametersDeleteEntity(IDbCommand command, Entity entity)
+        private static void SetParametersDeleteEntity(DbCommand command, Entity entity)
         {
+            // Get ambient query context.
+            var ambientContext = QueryContext.GetAmbientQueryContext();
+
+            // Get provider factory.
+            var providerFactory = ambientContext.DbProviderFactory;
+
             // Set sql command parameters
             foreach (var parameter in EntityContext.PrimaryKeyParameters)
             {
                 var property = EntityContext.Properties[parameter.ParameterName];
-                SqlParameter sqlParameter = new SqlParameter();
+                var sqlParameter = providerFactory.CreateParameter();
                 sqlParameter.ParameterName = parameter.ParameterNameWithMonkey;
-                sqlParameter.SqlDbType = parameter.SqlDbType;
+                sqlParameter.DbType = parameter.SqlDbType;
                 sqlParameter.Value = property.GetValueFast(entity);
                 sqlParameter.Direction = ParameterDirection.Input;
                 command.Parameters.Add(sqlParameter);
@@ -531,9 +568,9 @@ namespace Orko.EntityWorks
             if (EntityContext.HasLanguageTable)
             {
                 var property = EntityContext.Properties[EntityContext.LanguageCodeParameter.ParameterName];
-                SqlParameter sqlParameter = new SqlParameter();
+                var sqlParameter = providerFactory.CreateParameter();
                 sqlParameter.ParameterName = EntityContext.LanguageCodeParameter.ParameterName;
-                sqlParameter.SqlDbType = EntityContext.LanguageCodeParameter.SqlDbType;
+                sqlParameter.DbType = EntityContext.LanguageCodeParameter.SqlDbType;
                 sqlParameter.Value = property.GetValueFast(entity);
                 command.Parameters.Add(sqlParameter);
             }
@@ -541,13 +578,13 @@ namespace Orko.EntityWorks
         /// <summary>
         /// Return output parameters to IDbCommand.
         /// </summary>
-        private static void GetOutputParametersSaveEntity(IDbCommand command, Entity entity)
+        private static void GetOutputParametersSaveEntity(DbCommand command, Entity entity)
         {
             // Set sql command parameters
             foreach (var property in EntityContext.Properties.Values.Where(x => x.IsIdentity && !x.IsTimestamp))
             {
                 Parameter parameter = EntityContext.Parameters[property.PropertyName];
-                SqlParameter sqlParameter = (SqlParameter)command.Parameters[parameter.ParameterNameWithMonkey];
+                var sqlParameter = (DbParameter)command.Parameters[parameter.ParameterNameWithMonkey];
                 object propertyValue = sqlParameter.Value;
                 property.SetValueFast(propertyValue, entity);
             }

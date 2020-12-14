@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -27,11 +27,11 @@ namespace Orko.GuletCroatia
             // Cache field metadata.
             EntityMeta<VrstaJahte>.LoadColumnMetadata
 			(
-				new ColumnMetadata("VrstaJahteVrstaJahte", @"VrstaJahteVrstaJahte", SqlDbType.NVarChar, isPrimaryKey: true),
-                new ColumnMetadata("VrstaJahteAktivnost", @"VrstaJahteAktivnost", SqlDbType.Bit, isRequired: true),
-                new ColumnMetadata("VrstaJahteJezik", @"VrstaJahteJezik", SqlDbType.Char, isLanguageCode: true, isPrimaryKey: true),
-                new ColumnMetadata("VrstaJahteNaziv", @"VrstaJahteNaziv", SqlDbType.NVarChar, isRequired: true, isLanguage: true),
-                new ColumnMetadata("VrstaJahteOpis", @"VrstaJahteOpis", SqlDbType.NVarChar, isRequired: false, isLanguage: true)
+				new ColumnMetadata(nameof(VrstaJahteVrstaJahte), @"VrstaJahteVrstaJahte", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(VrstaJahteAktivnost), @"VrstaJahteAktivnost", DbType.Boolean, isRequired: true),
+                new ColumnMetadata(nameof(VrstaJahteJezik), @"VrstaJahteJezik", DbType.AnsiStringFixedLength, isRequired: true, isLanguageCode: true),
+                new ColumnMetadata(nameof(VrstaJahteNaziv), @"VrstaJahteNaziv", DbType.String, isRequired: true, isLanguage: true),
+                new ColumnMetadata(nameof(VrstaJahteOpis), @"VrstaJahteOpis", DbType.String, isRequired: false, isLanguage: true)
 			);
 
             // Cache entites metadata.
@@ -79,24 +79,5 @@ namespace Orko.GuletCroatia
             return await TryGetByPrimaryKeyAsync<VrstaJahte>(VrstaJahteVrstaJahte);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<VrstaJahte> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<VrstaJahte>(queryConditions);
-        }
-        public static IEnumerable<VrstaJahte> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<VrstaJahte>(columnName, queryOp, value);
-        }
-		public static VrstaJahte GetByPrimaryKey(string VrstaJahteVrstaJahte)
-        {
-            return GetByPrimaryKey<VrstaJahte>(VrstaJahteVrstaJahte);
-        }
-		public static VrstaJahte TryGetByPrimaryKey(string VrstaJahteVrstaJahte)
-        {
-            return TryGetByPrimaryKey<VrstaJahte>(VrstaJahteVrstaJahte);
-        }
-        #endregion
     }
 }

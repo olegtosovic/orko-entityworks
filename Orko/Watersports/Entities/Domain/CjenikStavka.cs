@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -18,12 +18,12 @@ namespace Orko.Watersports
     public sealed partial class CjenikStavka : Entity
     {
 		#region Members
-		private Cjenik m_FK_CjenikStavka_Cjenik;
-        private Base.Evidencija m_FK_CjenikStavka_Evidencija;
-        private TipBroda m_FK_CjenikStavka_TipBroda;
-        private VrstaBroda m_FK_CjenikStavka_VrstaBroda;
-        private VrstaIzleta m_FK_CjenikStavka_VrstaIzleta;
-        private VrstaUsluge m_FK_CjenikStavka_VrstaUsluge;
+		private Cjenik m_Cjenik;
+        private Base.Evidencija m_Evidencija;
+        private TipBroda m_TipBroda;
+        private VrstaBroda m_VrstaBroda;
+        private VrstaIzleta m_VrstaIzleta;
+        private VrstaUsluge m_VrstaUsluge;
         #endregion
         
 		#region Constructors
@@ -32,28 +32,28 @@ namespace Orko.Watersports
             // Cache field metadata.
             EntityMeta<CjenikStavka>.LoadColumnMetadata
 			(
-				new ColumnMetadata("CjenikStavkaID", @"CjenikStavkaID", SqlDbType.Int, isIdentity: true, isPrimaryKey: true),
-                new ColumnMetadata("CjenikStavkaProtokolID", @"CjenikStavkaProtokolID", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("CjenikStavkaVrstaUsluge", @"CjenikStavkaVrstaUsluge", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("CjenikStavkaVrstaIzleta", @"CjenikStavkaVrstaIzleta", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("CjenikStavkaVrstaBroda", @"CjenikStavkaVrstaBroda", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("CjenikStavkaTipBroda", @"CjenikStavkaTipBroda", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("CjenikStavkaTrajanje", @"CjenikStavkaTrajanje", SqlDbType.Time, isRequired: false),
-                new ColumnMetadata("CjenikStavkaSkiperUkljucen", @"CjenikStavkaSkiperUkljucen", SqlDbType.Bit, isRequired: true),
-                new ColumnMetadata("CjenikStavkaGorivoUkljuceno", @"CjenikStavkaGorivoUkljuceno", SqlDbType.Bit, isRequired: false),
-                new ColumnMetadata("CjenikStavkaCijena", @"CjenikStavkaCijena", SqlDbType.Decimal, isRequired: true),
-                new ColumnMetadata("CjenikStavkaEvidencijaID", @"CjenikStavkaEvidencijaID", SqlDbType.Int, isRequired: false)
+				new ColumnMetadata(nameof(CjenikStavkaID), @"CjenikStavkaID", DbType.Int32, isIdentity: true, isRequired: true),
+                new ColumnMetadata(nameof(CjenikStavkaProtokolID), @"CjenikStavkaProtokolID", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(CjenikStavkaVrstaUsluge), @"CjenikStavkaVrstaUsluge", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(CjenikStavkaVrstaIzleta), @"CjenikStavkaVrstaIzleta", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(CjenikStavkaVrstaBroda), @"CjenikStavkaVrstaBroda", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(CjenikStavkaTipBroda), @"CjenikStavkaTipBroda", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(CjenikStavkaTrajanje), @"CjenikStavkaTrajanje", DbType.Time, isRequired: false),
+                new ColumnMetadata(nameof(CjenikStavkaSkiperUkljucen), @"CjenikStavkaSkiperUkljucen", DbType.Boolean, isRequired: true),
+                new ColumnMetadata(nameof(CjenikStavkaGorivoUkljuceno), @"CjenikStavkaGorivoUkljuceno", DbType.Boolean, isRequired: false),
+                new ColumnMetadata(nameof(CjenikStavkaCijena), @"CjenikStavkaCijena", DbType.Decimal, isRequired: true),
+                new ColumnMetadata(nameof(CjenikStavkaEvidencijaID), @"CjenikStavkaEvidencijaID", DbType.Int32, isRequired: false)
 			);
 
             // Cache entites metadata.
             EntityMeta<CjenikStavka>.LoadRelationMetadata
 			(
-				new RelationMetadata("FK_CjenikStavka_Cjenik", "CjenikStavkaProtokolID", "CjenikProtokolID"),
-                new RelationMetadata("FK_CjenikStavka_Evidencija", "CjenikStavkaEvidencijaID", "EvidencijaID"),
-                new RelationMetadata("FK_CjenikStavka_TipBroda", "CjenikStavkaTipBroda", "TipBrodaTipBroda"),
-                new RelationMetadata("FK_CjenikStavka_VrstaBroda", "CjenikStavkaVrstaBroda", "VrstaBrodaVrstaBroda"),
-                new RelationMetadata("FK_CjenikStavka_VrstaIzleta", "CjenikStavkaVrstaIzleta", "VrstaIzletaVrstaIzleta"),
-                new RelationMetadata("FK_CjenikStavka_VrstaUsluge", "CjenikStavkaVrstaUsluge", "VrstaUslugeVrstaUsluge")
+				new RelationMetadata(nameof(Cjenik), nameof(CjenikStavkaProtokolID), nameof(Orko.Watersports.Cjenik.CjenikProtokolID)),
+                new RelationMetadata(nameof(Evidencija), nameof(CjenikStavkaEvidencijaID), nameof(Orko.Base.Evidencija.EvidencijaID)),
+                new RelationMetadata(nameof(TipBroda), nameof(CjenikStavkaTipBroda), nameof(Orko.Watersports.TipBroda.TipBrodaTipBroda)),
+                new RelationMetadata(nameof(VrstaBroda), nameof(CjenikStavkaVrstaBroda), nameof(Orko.Watersports.VrstaBroda.VrstaBrodaVrstaBroda)),
+                new RelationMetadata(nameof(VrstaIzleta), nameof(CjenikStavkaVrstaIzleta), nameof(Orko.Watersports.VrstaIzleta.VrstaIzletaVrstaIzleta)),
+                new RelationMetadata(nameof(VrstaUsluge), nameof(CjenikStavkaVrstaUsluge), nameof(Orko.Watersports.VrstaUsluge.VrstaUslugeVrstaUsluge))
 			);
 
 			// Cache table metadata.
@@ -80,35 +80,35 @@ namespace Orko.Watersports
         #endregion
 
         #region Entities
-		public Cjenik FK_CjenikStavka_Cjenik
+		public Cjenik Cjenik
         {
-            get { return EntityContext<Cjenik>.Get(ref m_FK_CjenikStavka_Cjenik, this, "FK_CjenikStavka_Cjenik"); }
-            set { EntityContext<Cjenik>.Set(ref m_FK_CjenikStavka_Cjenik, this, value, "FK_CjenikStavka_Cjenik"); }
+            get { return EntityContext<Cjenik>.Get(ref m_Cjenik, this, nameof(Cjenik)); }
+            set { EntityContext<Cjenik>.Set(ref m_Cjenik, this, value, nameof(Cjenik)); }
         }
-        public Base.Evidencija FK_CjenikStavka_Evidencija
+        public Base.Evidencija Evidencija
         {
-            get { return EntityContext<Base.Evidencija>.Get(ref m_FK_CjenikStavka_Evidencija, this, "FK_CjenikStavka_Evidencija"); }
-            set { EntityContext<Base.Evidencija>.Set(ref m_FK_CjenikStavka_Evidencija, this, value, "FK_CjenikStavka_Evidencija"); }
+            get { return EntityContext<Base.Evidencija>.Get(ref m_Evidencija, this, nameof(Evidencija)); }
+            set { EntityContext<Base.Evidencija>.Set(ref m_Evidencija, this, value, nameof(Evidencija)); }
         }
-        public TipBroda FK_CjenikStavka_TipBroda
+        public TipBroda TipBroda
         {
-            get { return EntityContext<TipBroda>.Get(ref m_FK_CjenikStavka_TipBroda, this, "FK_CjenikStavka_TipBroda"); }
-            set { EntityContext<TipBroda>.Set(ref m_FK_CjenikStavka_TipBroda, this, value, "FK_CjenikStavka_TipBroda"); }
+            get { return EntityContext<TipBroda>.Get(ref m_TipBroda, this, nameof(TipBroda)); }
+            set { EntityContext<TipBroda>.Set(ref m_TipBroda, this, value, nameof(TipBroda)); }
         }
-        public VrstaBroda FK_CjenikStavka_VrstaBroda
+        public VrstaBroda VrstaBroda
         {
-            get { return EntityContext<VrstaBroda>.Get(ref m_FK_CjenikStavka_VrstaBroda, this, "FK_CjenikStavka_VrstaBroda"); }
-            set { EntityContext<VrstaBroda>.Set(ref m_FK_CjenikStavka_VrstaBroda, this, value, "FK_CjenikStavka_VrstaBroda"); }
+            get { return EntityContext<VrstaBroda>.Get(ref m_VrstaBroda, this, nameof(VrstaBroda)); }
+            set { EntityContext<VrstaBroda>.Set(ref m_VrstaBroda, this, value, nameof(VrstaBroda)); }
         }
-        public VrstaIzleta FK_CjenikStavka_VrstaIzleta
+        public VrstaIzleta VrstaIzleta
         {
-            get { return EntityContext<VrstaIzleta>.Get(ref m_FK_CjenikStavka_VrstaIzleta, this, "FK_CjenikStavka_VrstaIzleta"); }
-            set { EntityContext<VrstaIzleta>.Set(ref m_FK_CjenikStavka_VrstaIzleta, this, value, "FK_CjenikStavka_VrstaIzleta"); }
+            get { return EntityContext<VrstaIzleta>.Get(ref m_VrstaIzleta, this, nameof(VrstaIzleta)); }
+            set { EntityContext<VrstaIzleta>.Set(ref m_VrstaIzleta, this, value, nameof(VrstaIzleta)); }
         }
-        public VrstaUsluge FK_CjenikStavka_VrstaUsluge
+        public VrstaUsluge VrstaUsluge
         {
-            get { return EntityContext<VrstaUsluge>.Get(ref m_FK_CjenikStavka_VrstaUsluge, this, "FK_CjenikStavka_VrstaUsluge"); }
-            set { EntityContext<VrstaUsluge>.Set(ref m_FK_CjenikStavka_VrstaUsluge, this, value, "FK_CjenikStavka_VrstaUsluge"); }
+            get { return EntityContext<VrstaUsluge>.Get(ref m_VrstaUsluge, this, nameof(VrstaUsluge)); }
+            set { EntityContext<VrstaUsluge>.Set(ref m_VrstaUsluge, this, value, nameof(VrstaUsluge)); }
         }
         #endregion
 
@@ -130,24 +130,5 @@ namespace Orko.Watersports
             return await TryGetByPrimaryKeyAsync<CjenikStavka>(CjenikStavkaID);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<CjenikStavka> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<CjenikStavka>(queryConditions);
-        }
-        public static IEnumerable<CjenikStavka> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<CjenikStavka>(columnName, queryOp, value);
-        }
-		public static CjenikStavka GetByPrimaryKey(int CjenikStavkaID)
-        {
-            return GetByPrimaryKey<CjenikStavka>(CjenikStavkaID);
-        }
-		public static CjenikStavka TryGetByPrimaryKey(int CjenikStavkaID)
-        {
-            return TryGetByPrimaryKey<CjenikStavka>(CjenikStavkaID);
-        }
-        #endregion
     }
 }

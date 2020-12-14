@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -27,9 +27,9 @@ namespace Orko.Base
             // Cache field metadata.
             EntityMeta<Spol>.LoadColumnMetadata
 			(
-				new ColumnMetadata("SpolSpol", @"SpolSpol", SqlDbType.Char, isPrimaryKey: true),
-                new ColumnMetadata("SpolJezik", @"SpolJezik", SqlDbType.Char, isLanguageCode: true, isPrimaryKey: true),
-                new ColumnMetadata("SpolNaziv", @"SpolNaziv", SqlDbType.NVarChar, isRequired: true, isLanguage: true)
+				new ColumnMetadata(nameof(SpolSpol), @"SpolSpol", DbType.AnsiStringFixedLength, isRequired: true),
+                new ColumnMetadata(nameof(SpolJezik), @"SpolJezik", DbType.AnsiStringFixedLength, isRequired: true, isLanguageCode: true),
+                new ColumnMetadata(nameof(SpolNaziv), @"SpolNaziv", DbType.String, isRequired: true, isLanguage: true)
 			);
 
             // Cache entites metadata.
@@ -75,24 +75,5 @@ namespace Orko.Base
             return await TryGetByPrimaryKeyAsync<Spol>(SpolSpol);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<Spol> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<Spol>(queryConditions);
-        }
-        public static IEnumerable<Spol> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<Spol>(columnName, queryOp, value);
-        }
-		public static Spol GetByPrimaryKey(string SpolSpol)
-        {
-            return GetByPrimaryKey<Spol>(SpolSpol);
-        }
-		public static Spol TryGetByPrimaryKey(string SpolSpol)
-        {
-            return TryGetByPrimaryKey<Spol>(SpolSpol);
-        }
-        #endregion
     }
 }

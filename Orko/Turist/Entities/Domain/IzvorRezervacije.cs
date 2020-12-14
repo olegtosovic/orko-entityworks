@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -27,12 +27,12 @@ namespace Orko.Turist
             // Cache field metadata.
             EntityMeta<IzvorRezervacije>.LoadColumnMetadata
 			(
-				new ColumnMetadata("IzvorRezervacijeIzvorRezervacije", @"IzvorRezervacijeIzvorRezervacije", SqlDbType.NVarChar, isPrimaryKey: true),
-                new ColumnMetadata("IzvorRezervacijeWebLink", @"IzvorRezervacijeWebLink", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("IzvorRezervacijeAktivnost", @"IzvorRezervacijeAktivnost", SqlDbType.Bit, isRequired: true),
-                new ColumnMetadata("IzvorRezervacijeJezik", @"IzvorRezervacijeJezik", SqlDbType.Char, isLanguageCode: true, isPrimaryKey: true),
-                new ColumnMetadata("IzvorRezervacijeNaziv", @"IzvorRezervacijeNaziv", SqlDbType.NVarChar, isRequired: true, isLanguage: true),
-                new ColumnMetadata("IzvorRezervacijeOpis", @"IzvorRezervacijeOpis", SqlDbType.NVarChar, isRequired: false, isLanguage: true)
+				new ColumnMetadata(nameof(IzvorRezervacijeIzvorRezervacije), @"IzvorRezervacijeIzvorRezervacije", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(IzvorRezervacijeWebLink), @"IzvorRezervacijeWebLink", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(IzvorRezervacijeAktivnost), @"IzvorRezervacijeAktivnost", DbType.Boolean, isRequired: true),
+                new ColumnMetadata(nameof(IzvorRezervacijeJezik), @"IzvorRezervacijeJezik", DbType.AnsiStringFixedLength, isRequired: true, isLanguageCode: true),
+                new ColumnMetadata(nameof(IzvorRezervacijeNaziv), @"IzvorRezervacijeNaziv", DbType.String, isRequired: true, isLanguage: true),
+                new ColumnMetadata(nameof(IzvorRezervacijeOpis), @"IzvorRezervacijeOpis", DbType.String, isRequired: false, isLanguage: true)
 			);
 
             // Cache entites metadata.
@@ -81,24 +81,5 @@ namespace Orko.Turist
             return await TryGetByPrimaryKeyAsync<IzvorRezervacije>(IzvorRezervacijeIzvorRezervacije);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<IzvorRezervacije> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<IzvorRezervacije>(queryConditions);
-        }
-        public static IEnumerable<IzvorRezervacije> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<IzvorRezervacije>(columnName, queryOp, value);
-        }
-		public static IzvorRezervacije GetByPrimaryKey(string IzvorRezervacijeIzvorRezervacije)
-        {
-            return GetByPrimaryKey<IzvorRezervacije>(IzvorRezervacijeIzvorRezervacije);
-        }
-		public static IzvorRezervacije TryGetByPrimaryKey(string IzvorRezervacijeIzvorRezervacije)
-        {
-            return TryGetByPrimaryKey<IzvorRezervacije>(IzvorRezervacijeIzvorRezervacije);
-        }
-        #endregion
     }
 }

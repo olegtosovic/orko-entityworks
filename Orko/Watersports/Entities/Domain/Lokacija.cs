@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -18,10 +18,10 @@ namespace Orko.Watersports
     public sealed partial class Lokacija : Entity
     {
 		#region Members
-		private Base.Drzava m_FK_Lokacija_Drzava;
-        private Hotel m_FK_Lokacija_Hotel;
-        private Base.Opcina m_FK_Lokacija_Opcina;
-        private TipLokacije m_FK_Lokacija_TipLokacije;
+		private Base.Drzava m_Drzava;
+        private Hotel m_Hotel;
+        private Base.Opcina m_Opcina;
+        private TipLokacije m_TipLokacije;
         #endregion
         
 		#region Constructors
@@ -30,26 +30,26 @@ namespace Orko.Watersports
             // Cache field metadata.
             EntityMeta<Lokacija>.LoadColumnMetadata
 			(
-				new ColumnMetadata("LokacijaLokacija", @"LokacijaLokacija", SqlDbType.Int, isIdentity: true, isPrimaryKey: true),
-                new ColumnMetadata("LokacijaTipLokacije", @"LokacijaTipLokacije", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("LokacijaDrzava", @"LokacijaDrzava", SqlDbType.Char, isRequired: false),
-                new ColumnMetadata("LokacijaOpcina", @"LokacijaOpcina", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("LokacijaHotel", @"LokacijaHotel", SqlDbType.Int, isRequired: false),
-                new ColumnMetadata("LokacijaAdresa", @"LokacijaAdresa", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("LokacijaAktivnost", @"LokacijaAktivnost", SqlDbType.Bit, isRequired: true),
-                new ColumnMetadata("LokacijaJezik", @"LokacijaJezik", SqlDbType.Char, isLanguageCode: true, isPrimaryKey: true),
-                new ColumnMetadata("LokacijaPozicija", @"LokacijaPozicija", SqlDbType.NVarChar, isRequired: true, isLanguage: true),
-                new ColumnMetadata("LokacijaOpis", @"LokacijaOpis", SqlDbType.NVarChar, isRequired: false, isLanguage: true)
+				new ColumnMetadata(nameof(LokacijaLokacija), @"LokacijaLokacija", DbType.Int32, isIdentity: true, isRequired: true),
+                new ColumnMetadata(nameof(LokacijaTipLokacije), @"LokacijaTipLokacije", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(LokacijaDrzava), @"LokacijaDrzava", DbType.AnsiStringFixedLength, isRequired: false),
+                new ColumnMetadata(nameof(LokacijaOpcina), @"LokacijaOpcina", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(LokacijaHotel), @"LokacijaHotel", DbType.Int32, isRequired: false),
+                new ColumnMetadata(nameof(LokacijaAdresa), @"LokacijaAdresa", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(LokacijaAktivnost), @"LokacijaAktivnost", DbType.Boolean, isRequired: true),
+                new ColumnMetadata(nameof(LokacijaJezik), @"LokacijaJezik", DbType.AnsiStringFixedLength, isRequired: true, isLanguageCode: true),
+                new ColumnMetadata(nameof(LokacijaPozicija), @"LokacijaPozicija", DbType.String, isRequired: true, isLanguage: true),
+                new ColumnMetadata(nameof(LokacijaOpis), @"LokacijaOpis", DbType.String, isRequired: false, isLanguage: true)
 			);
 
             // Cache entites metadata.
             EntityMeta<Lokacija>.LoadRelationMetadata
 			(
-				new RelationMetadata("FK_Lokacija_Drzava", "LokacijaDrzava", "DrzavaDrzava"),
-                new RelationMetadata("FK_Lokacija_Hotel", "LokacijaHotel", "HotelHotel"),
-                new RelationMetadata("FK_Lokacija_Opcina", "LokacijaOpcina", "OpcinaOpcina"),
-                new RelationMetadata("FK_Lokacija_Opcina", "LokacijaDrzava", "OpcinaDrzava"),
-                new RelationMetadata("FK_Lokacija_TipLokacije", "LokacijaTipLokacije", "TipLokacijeTipLokacije")
+				new RelationMetadata(nameof(Drzava), nameof(LokacijaDrzava), nameof(Orko.Base.Drzava.DrzavaDrzava)),
+                new RelationMetadata(nameof(Hotel), nameof(LokacijaHotel), nameof(Orko.Watersports.Hotel.HotelHotel)),
+                new RelationMetadata(nameof(Opcina), nameof(LokacijaOpcina), nameof(Orko.Base.Opcina.OpcinaOpcina)),
+                new RelationMetadata(nameof(Opcina), nameof(LokacijaDrzava), nameof(Orko.Base.Opcina.OpcinaDrzava)),
+                new RelationMetadata(nameof(TipLokacije), nameof(LokacijaTipLokacije), nameof(Orko.Watersports.TipLokacije.TipLokacijeTipLokacije))
 			);
 
 			// Cache table metadata.
@@ -75,25 +75,25 @@ namespace Orko.Watersports
         #endregion
 
         #region Entities
-		public Base.Drzava FK_Lokacija_Drzava
+		public Base.Drzava Drzava
         {
-            get { return EntityContext<Base.Drzava>.Get(ref m_FK_Lokacija_Drzava, this, "FK_Lokacija_Drzava"); }
-            set { EntityContext<Base.Drzava>.Set(ref m_FK_Lokacija_Drzava, this, value, "FK_Lokacija_Drzava"); }
+            get { return EntityContext<Base.Drzava>.Get(ref m_Drzava, this, nameof(Drzava)); }
+            set { EntityContext<Base.Drzava>.Set(ref m_Drzava, this, value, nameof(Drzava)); }
         }
-        public Hotel FK_Lokacija_Hotel
+        public Hotel Hotel
         {
-            get { return EntityContext<Hotel>.Get(ref m_FK_Lokacija_Hotel, this, "FK_Lokacija_Hotel"); }
-            set { EntityContext<Hotel>.Set(ref m_FK_Lokacija_Hotel, this, value, "FK_Lokacija_Hotel"); }
+            get { return EntityContext<Hotel>.Get(ref m_Hotel, this, nameof(Hotel)); }
+            set { EntityContext<Hotel>.Set(ref m_Hotel, this, value, nameof(Hotel)); }
         }
-        public Base.Opcina FK_Lokacija_Opcina
+        public Base.Opcina Opcina
         {
-            get { return EntityContext<Base.Opcina>.Get(ref m_FK_Lokacija_Opcina, this, "FK_Lokacija_Opcina"); }
-            set { EntityContext<Base.Opcina>.Set(ref m_FK_Lokacija_Opcina, this, value, "FK_Lokacija_Opcina"); }
+            get { return EntityContext<Base.Opcina>.Get(ref m_Opcina, this, nameof(Opcina)); }
+            set { EntityContext<Base.Opcina>.Set(ref m_Opcina, this, value, nameof(Opcina)); }
         }
-        public TipLokacije FK_Lokacija_TipLokacije
+        public TipLokacije TipLokacije
         {
-            get { return EntityContext<TipLokacije>.Get(ref m_FK_Lokacija_TipLokacije, this, "FK_Lokacija_TipLokacije"); }
-            set { EntityContext<TipLokacije>.Set(ref m_FK_Lokacija_TipLokacije, this, value, "FK_Lokacija_TipLokacije"); }
+            get { return EntityContext<TipLokacije>.Get(ref m_TipLokacije, this, nameof(TipLokacije)); }
+            set { EntityContext<TipLokacije>.Set(ref m_TipLokacije, this, value, nameof(TipLokacije)); }
         }
         #endregion
 
@@ -115,24 +115,5 @@ namespace Orko.Watersports
             return await TryGetByPrimaryKeyAsync<Lokacija>(LokacijaLokacija);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<Lokacija> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<Lokacija>(queryConditions);
-        }
-        public static IEnumerable<Lokacija> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<Lokacija>(columnName, queryOp, value);
-        }
-		public static Lokacija GetByPrimaryKey(int LokacijaLokacija)
-        {
-            return GetByPrimaryKey<Lokacija>(LokacijaLokacija);
-        }
-		public static Lokacija TryGetByPrimaryKey(int LokacijaLokacija)
-        {
-            return TryGetByPrimaryKey<Lokacija>(LokacijaLokacija);
-        }
-        #endregion
     }
 }

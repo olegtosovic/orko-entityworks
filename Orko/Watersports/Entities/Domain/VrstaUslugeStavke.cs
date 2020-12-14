@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -27,11 +27,11 @@ namespace Orko.Watersports
             // Cache field metadata.
             EntityMeta<VrstaUslugeStavke>.LoadColumnMetadata
 			(
-				new ColumnMetadata("VrstaUslugeStavkeVrstaUslugeStavke", @"VrstaUslugeStavkeVrstaUslugeStavke", SqlDbType.NVarChar, isPrimaryKey: true),
-                new ColumnMetadata("VrstaUslugeStavkeAktivnost", @"VrstaUslugeStavkeAktivnost", SqlDbType.Bit, isRequired: true),
-                new ColumnMetadata("VrstaUslugeStavkeJezik", @"VrstaUslugeStavkeJezik", SqlDbType.Char, isLanguageCode: true, isPrimaryKey: true),
-                new ColumnMetadata("VrstaUslugeStavkeNaziv", @"VrstaUslugeStavkeNaziv", SqlDbType.NVarChar, isRequired: true, isLanguage: true),
-                new ColumnMetadata("VrstaUslugeStavkeOpis", @"VrstaUslugeStavkeOpis", SqlDbType.NVarChar, isRequired: false, isLanguage: true)
+				new ColumnMetadata(nameof(VrstaUslugeStavkeVrstaUslugeStavke), @"VrstaUslugeStavkeVrstaUslugeStavke", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(VrstaUslugeStavkeAktivnost), @"VrstaUslugeStavkeAktivnost", DbType.Boolean, isRequired: true),
+                new ColumnMetadata(nameof(VrstaUslugeStavkeJezik), @"VrstaUslugeStavkeJezik", DbType.AnsiStringFixedLength, isRequired: true, isLanguageCode: true),
+                new ColumnMetadata(nameof(VrstaUslugeStavkeNaziv), @"VrstaUslugeStavkeNaziv", DbType.String, isRequired: true, isLanguage: true),
+                new ColumnMetadata(nameof(VrstaUslugeStavkeOpis), @"VrstaUslugeStavkeOpis", DbType.String, isRequired: false, isLanguage: true)
 			);
 
             // Cache entites metadata.
@@ -79,24 +79,5 @@ namespace Orko.Watersports
             return await TryGetByPrimaryKeyAsync<VrstaUslugeStavke>(VrstaUslugeStavkeVrstaUslugeStavke);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<VrstaUslugeStavke> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<VrstaUslugeStavke>(queryConditions);
-        }
-        public static IEnumerable<VrstaUslugeStavke> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<VrstaUslugeStavke>(columnName, queryOp, value);
-        }
-		public static VrstaUslugeStavke GetByPrimaryKey(string VrstaUslugeStavkeVrstaUslugeStavke)
-        {
-            return GetByPrimaryKey<VrstaUslugeStavke>(VrstaUslugeStavkeVrstaUslugeStavke);
-        }
-		public static VrstaUslugeStavke TryGetByPrimaryKey(string VrstaUslugeStavkeVrstaUslugeStavke)
-        {
-            return TryGetByPrimaryKey<VrstaUslugeStavke>(VrstaUslugeStavkeVrstaUslugeStavke);
-        }
-        #endregion
     }
 }

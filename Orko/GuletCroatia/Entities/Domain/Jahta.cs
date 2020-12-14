@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -18,8 +18,8 @@ namespace Orko.GuletCroatia
     public sealed partial class Jahta : Entity
     {
 		#region Members
-		private Agencija m_FK_Jahta_Agencija;
-        private VrstaJahte m_FK_Jahta_VrstaJahte;
+		private Agencija m_Agencija;
+        private VrstaJahte m_VrstaJahte;
         #endregion
         
 		#region Constructors
@@ -28,39 +28,39 @@ namespace Orko.GuletCroatia
             // Cache field metadata.
             EntityMeta<Jahta>.LoadColumnMetadata
 			(
-				new ColumnMetadata("JahtaJahta", @"JahtaJahta", SqlDbType.NVarChar, isPrimaryKey: true),
-                new ColumnMetadata("JahtaSlug", @"JahtaSlug", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("JahtaAgencija", @"JahtaAgencija", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("JahtaLokacija", @"JahtaLokacija", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("JahtaVrstaJahte", @"JahtaVrstaJahte", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("JahtaBrojGostiju", @"JahtaBrojGostiju", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("JahtaDuljina", @"JahtaDuljina", SqlDbType.Decimal, isRequired: true),
-                new ColumnMetadata("JahtaSirina", @"JahtaSirina", SqlDbType.Decimal, isRequired: true),
-                new ColumnMetadata("JahtaBrzina", @"JahtaBrzina", SqlDbType.Decimal, isRequired: true),
-                new ColumnMetadata("JahtaBrojKabina", @"JahtaBrojKabina", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("JahtaMaksBrzina", @"JahtaMaksBrzina", SqlDbType.Decimal, isRequired: true),
-                new ColumnMetadata("JahtaGodinaGradnjeRefita", @"JahtaGodinaGradnjeRefita", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("JahtaThumbSlika", @"JahtaThumbSlika", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("JahtaAktivnost", @"JahtaAktivnost", SqlDbType.Bit, isRequired: true),
-                new ColumnMetadata("JahtaKategorija", @"JahtaKategorija", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("JahtaVideoLink", @"JahtaVideoLink", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("JahtaJezik", @"JahtaJezik", SqlDbType.Char, isLanguageCode: true, isPrimaryKey: true),
-                new ColumnMetadata("JahtaNaziv", @"JahtaNaziv", SqlDbType.NVarChar, isRequired: true, isLanguage: true),
-                new ColumnMetadata("JahtaOpis", @"JahtaOpis", SqlDbType.NVarChar, isRequired: false, isLanguage: true),
-                new ColumnMetadata("JahtaKabinaOpis", @"JahtaKabinaOpis", SqlDbType.NVarChar, isRequired: false, isLanguage: true),
-                new ColumnMetadata("JahtaHranaOpis", @"JahtaHranaOpis", SqlDbType.NVarChar, isRequired: false, isLanguage: true),
-                new ColumnMetadata("JahtaOpremaOpis", @"JahtaOpremaOpis", SqlDbType.NVarChar, isRequired: false, isLanguage: true),
-                new ColumnMetadata("JahtaMetaTitle", @"JahtaMetaTitle", SqlDbType.NVarChar, isRequired: false, isLanguage: true),
-                new ColumnMetadata("JahtaMetaDescription", @"JahtaMetaDescription", SqlDbType.NVarChar, isRequired: false, isLanguage: true),
-                new ColumnMetadata("JahtaCijenaOpis", @"JahtaCijenaOpis", SqlDbType.NVarChar, isRequired: false, isLanguage: true),
-                new ColumnMetadata("JahtaApaOpis", @"JahtaApaOpis", SqlDbType.NVarChar, isRequired: false, isLanguage: true)
+				new ColumnMetadata(nameof(JahtaJahta), @"JahtaJahta", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(JahtaSlug), @"JahtaSlug", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(JahtaAgencija), @"JahtaAgencija", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(JahtaLokacija), @"JahtaLokacija", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(JahtaVrstaJahte), @"JahtaVrstaJahte", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(JahtaBrojGostiju), @"JahtaBrojGostiju", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(JahtaDuljina), @"JahtaDuljina", DbType.Decimal, isRequired: true),
+                new ColumnMetadata(nameof(JahtaSirina), @"JahtaSirina", DbType.Decimal, isRequired: true),
+                new ColumnMetadata(nameof(JahtaBrzina), @"JahtaBrzina", DbType.Decimal, isRequired: true),
+                new ColumnMetadata(nameof(JahtaBrojKabina), @"JahtaBrojKabina", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(JahtaMaksBrzina), @"JahtaMaksBrzina", DbType.Decimal, isRequired: true),
+                new ColumnMetadata(nameof(JahtaGodinaGradnjeRefita), @"JahtaGodinaGradnjeRefita", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(JahtaThumbSlika), @"JahtaThumbSlika", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(JahtaAktivnost), @"JahtaAktivnost", DbType.Boolean, isRequired: true),
+                new ColumnMetadata(nameof(JahtaKategorija), @"JahtaKategorija", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(JahtaVideoLink), @"JahtaVideoLink", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(JahtaJezik), @"JahtaJezik", DbType.AnsiStringFixedLength, isRequired: true, isLanguageCode: true),
+                new ColumnMetadata(nameof(JahtaNaziv), @"JahtaNaziv", DbType.String, isRequired: true, isLanguage: true),
+                new ColumnMetadata(nameof(JahtaOpis), @"JahtaOpis", DbType.String, isRequired: false, isLanguage: true),
+                new ColumnMetadata(nameof(JahtaKabinaOpis), @"JahtaKabinaOpis", DbType.String, isRequired: false, isLanguage: true),
+                new ColumnMetadata(nameof(JahtaHranaOpis), @"JahtaHranaOpis", DbType.String, isRequired: false, isLanguage: true),
+                new ColumnMetadata(nameof(JahtaOpremaOpis), @"JahtaOpremaOpis", DbType.String, isRequired: false, isLanguage: true),
+                new ColumnMetadata(nameof(JahtaMetaTitle), @"JahtaMetaTitle", DbType.String, isRequired: false, isLanguage: true),
+                new ColumnMetadata(nameof(JahtaMetaDescription), @"JahtaMetaDescription", DbType.String, isRequired: false, isLanguage: true),
+                new ColumnMetadata(nameof(JahtaCijenaOpis), @"JahtaCijenaOpis", DbType.String, isRequired: false, isLanguage: true),
+                new ColumnMetadata(nameof(JahtaApaOpis), @"JahtaApaOpis", DbType.String, isRequired: false, isLanguage: true)
 			);
 
             // Cache entites metadata.
             EntityMeta<Jahta>.LoadRelationMetadata
 			(
-				new RelationMetadata("FK_Jahta_Agencija", "JahtaAgencija", "AgencijaAgencija"),
-                new RelationMetadata("FK_Jahta_VrstaJahte", "JahtaVrstaJahte", "VrstaJahteVrstaJahte")
+				new RelationMetadata(nameof(Agencija), nameof(JahtaAgencija), nameof(Orko.GuletCroatia.Agencija.AgencijaAgencija)),
+                new RelationMetadata(nameof(VrstaJahte), nameof(JahtaVrstaJahte), nameof(Orko.GuletCroatia.VrstaJahte.VrstaJahteVrstaJahte))
 			);
 
 			// Cache table metadata.
@@ -102,15 +102,15 @@ namespace Orko.GuletCroatia
         #endregion
 
         #region Entities
-		public Agencija FK_Jahta_Agencija
+		public Agencija Agencija
         {
-            get { return EntityContext<Agencija>.Get(ref m_FK_Jahta_Agencija, this, "FK_Jahta_Agencija"); }
-            set { EntityContext<Agencija>.Set(ref m_FK_Jahta_Agencija, this, value, "FK_Jahta_Agencija"); }
+            get { return EntityContext<Agencija>.Get(ref m_Agencija, this, nameof(Agencija)); }
+            set { EntityContext<Agencija>.Set(ref m_Agencija, this, value, nameof(Agencija)); }
         }
-        public VrstaJahte FK_Jahta_VrstaJahte
+        public VrstaJahte VrstaJahte
         {
-            get { return EntityContext<VrstaJahte>.Get(ref m_FK_Jahta_VrstaJahte, this, "FK_Jahta_VrstaJahte"); }
-            set { EntityContext<VrstaJahte>.Set(ref m_FK_Jahta_VrstaJahte, this, value, "FK_Jahta_VrstaJahte"); }
+            get { return EntityContext<VrstaJahte>.Get(ref m_VrstaJahte, this, nameof(VrstaJahte)); }
+            set { EntityContext<VrstaJahte>.Set(ref m_VrstaJahte, this, value, nameof(VrstaJahte)); }
         }
         #endregion
 
@@ -132,32 +132,5 @@ namespace Orko.GuletCroatia
             return await TryGetByPrimaryKeyAsync<Jahta>(JahtaJahta);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<Jahta> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<Jahta>(queryConditions);
-        }
-        public static IEnumerable<Jahta> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<Jahta>(columnName, queryOp, value);
-        }
-		public static Jahta GetByPrimaryKey(string JahtaJahta)
-        {
-            return GetByPrimaryKey<Jahta>(JahtaJahta);
-        }
-		public static Jahta TryGetByPrimaryKey(string JahtaJahta)
-        {
-            return TryGetByPrimaryKey<Jahta>(JahtaJahta);
-        }
-        public static Jahta GetByUnique1(string JahtaSlug)
-        {
-            return GetByCallingParameters<Jahta>(JahtaSlug);
-        }
-		public static Jahta TryGetByUnique1(string JahtaSlug)
-        {
-            return TryGetByCallingParameters<Jahta>(JahtaSlug);
-        }
-        #endregion
     }
 }

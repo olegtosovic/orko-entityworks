@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -18,11 +18,11 @@ namespace Orko.Turist
     public sealed partial class SmjestajnaJedinica : Entity
     {
 		#region Members
-		private KrevetnaDeklaracija m_FK_SmjestajnaJedinica_KrevetnaDeklaracija;
-        private PogledSmjestajneJedinice m_FK_SmjestajnaJedinica_PogledSmjestajneJedinice;
-        private SmjestajniObjekt m_FK_SmjestajnaJedinica_SmjestajniObjekt;
-        private TipSmjestajneJedinice m_FK_SmjestajnaJedinica_TipSmjestajneJedinice;
-        private VrstaSmjestajneJedinice m_FK_SmjestajnaJedinica_VrstaSmjestajneJedinice;
+		private KrevetnaDeklaracija m_KrevetnaDeklaracija;
+        private PogledSmjestajneJedinice m_PogledSmjestajneJedinice;
+        private SmjestajniObjekt m_SmjestajniObjekt;
+        private TipSmjestajneJedinice m_TipSmjestajneJedinice;
+        private VrstaSmjestajneJedinice m_VrstaSmjestajneJedinice;
         #endregion
         
 		#region Constructors
@@ -31,40 +31,40 @@ namespace Orko.Turist
             // Cache field metadata.
             EntityMeta<SmjestajnaJedinica>.LoadColumnMetadata
 			(
-				new ColumnMetadata("SmjestajnaJedinicaSmjestajnaJedinica", @"SmjestajnaJedinicaSmjestajnaJedinica", SqlDbType.Int, isIdentity: true, isPrimaryKey: true),
-                new ColumnMetadata("SmjestajnaJedinicaSmjestajniObjekt", @"SmjestajnaJedinicaSmjestajniObjekt", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("SmjestajnaJedinicaVrstaSmjestajneJedinice", @"SmjestajnaJedinicaVrstaSmjestajneJedinice", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("SmjestajnaJedinicaVrstaSmjestajnogObjekta", @"SmjestajnaJedinicaVrstaSmjestajnogObjekta", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("SmjestajnaJedinicaSkupinaSmjestajnogObjekta", @"SmjestajnaJedinicaSkupinaSmjestajnogObjekta", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("SmjestajnaJedinicaTipSmjestajneJedinice", @"SmjestajnaJedinicaTipSmjestajneJedinice", SqlDbType.Int, isRequired: false),
-                new ColumnMetadata("SmjestajnaJedinicaNaziv", @"SmjestajnaJedinicaNaziv", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("SmjestajnaJedinicaSkraceniNaziv", @"SmjestajnaJedinicaSkraceniNaziv", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("SmjestajnaJedinicaBrojJedinice", @"SmjestajnaJedinicaBrojJedinice", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("SmjestajnaJedinicaKategorija", @"SmjestajnaJedinicaKategorija", SqlDbType.Int, isRequired: false),
-                new ColumnMetadata("SmjestajnaJedinicaModul", @"SmjestajnaJedinicaModul", SqlDbType.Int, isRequired: false),
-                new ColumnMetadata("SmjestajnaJedinicaKrevetnaDeklaracija", @"SmjestajnaJedinicaKrevetnaDeklaracija", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("SmjestajnaJedinicaPogledSmjestajneJedinice", @"SmjestajnaJedinicaPogledSmjestajneJedinice", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("SmjestajnaJedinicaKapacitet", @"SmjestajnaJedinicaKapacitet", SqlDbType.Int, isRequired: false),
-                new ColumnMetadata("SmjestajnaJedinicaUlica", @"SmjestajnaJedinicaUlica", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("SmjestajnaJedinicaKucniBroj", @"SmjestajnaJedinicaKucniBroj", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("SmjestajnaJedinicaTelefon1", @"SmjestajnaJedinicaTelefon1", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("SmjestajnaJedinicaTelefon2", @"SmjestajnaJedinicaTelefon2", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("SmjestajnaJedinicaAktivnost", @"SmjestajnaJedinicaAktivnost", SqlDbType.Bit, isRequired: true),
-                new ColumnMetadata("SmjestajnaJedinicaUradio", @"SmjestajnaJedinicaUradio", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("SmjestajnaJedinicaDatumIzmjene", @"SmjestajnaJedinicaDatumIzmjene", SqlDbType.DateTime2, isRequired: true)
+				new ColumnMetadata(nameof(SmjestajnaJedinicaSmjestajnaJedinica), @"SmjestajnaJedinicaSmjestajnaJedinica", DbType.Int32, isIdentity: true, isRequired: true),
+                new ColumnMetadata(nameof(SmjestajnaJedinicaSmjestajniObjekt), @"SmjestajnaJedinicaSmjestajniObjekt", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(SmjestajnaJedinicaVrstaSmjestajneJedinice), @"SmjestajnaJedinicaVrstaSmjestajneJedinice", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(SmjestajnaJedinicaVrstaSmjestajnogObjekta), @"SmjestajnaJedinicaVrstaSmjestajnogObjekta", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(SmjestajnaJedinicaSkupinaSmjestajnogObjekta), @"SmjestajnaJedinicaSkupinaSmjestajnogObjekta", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(SmjestajnaJedinicaTipSmjestajneJedinice), @"SmjestajnaJedinicaTipSmjestajneJedinice", DbType.Int32, isRequired: false),
+                new ColumnMetadata(nameof(SmjestajnaJedinicaNaziv), @"SmjestajnaJedinicaNaziv", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(SmjestajnaJedinicaSkraceniNaziv), @"SmjestajnaJedinicaSkraceniNaziv", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(SmjestajnaJedinicaBrojJedinice), @"SmjestajnaJedinicaBrojJedinice", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(SmjestajnaJedinicaKategorija), @"SmjestajnaJedinicaKategorija", DbType.Int32, isRequired: false),
+                new ColumnMetadata(nameof(SmjestajnaJedinicaModul), @"SmjestajnaJedinicaModul", DbType.Int32, isRequired: false),
+                new ColumnMetadata(nameof(SmjestajnaJedinicaKrevetnaDeklaracija), @"SmjestajnaJedinicaKrevetnaDeklaracija", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(SmjestajnaJedinicaPogledSmjestajneJedinice), @"SmjestajnaJedinicaPogledSmjestajneJedinice", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(SmjestajnaJedinicaKapacitet), @"SmjestajnaJedinicaKapacitet", DbType.Int32, isRequired: false),
+                new ColumnMetadata(nameof(SmjestajnaJedinicaUlica), @"SmjestajnaJedinicaUlica", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(SmjestajnaJedinicaKucniBroj), @"SmjestajnaJedinicaKucniBroj", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(SmjestajnaJedinicaTelefon1), @"SmjestajnaJedinicaTelefon1", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(SmjestajnaJedinicaTelefon2), @"SmjestajnaJedinicaTelefon2", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(SmjestajnaJedinicaAktivnost), @"SmjestajnaJedinicaAktivnost", DbType.Boolean, isRequired: true),
+                new ColumnMetadata(nameof(SmjestajnaJedinicaUradio), @"SmjestajnaJedinicaUradio", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(SmjestajnaJedinicaDatumIzmjene), @"SmjestajnaJedinicaDatumIzmjene", DbType.DateTime2, isRequired: true)
 			);
 
             // Cache entites metadata.
             EntityMeta<SmjestajnaJedinica>.LoadRelationMetadata
 			(
-				new RelationMetadata("FK_SmjestajnaJedinica_KrevetnaDeklaracija", "SmjestajnaJedinicaKrevetnaDeklaracija", "KrevetnaDeklaracijaKrevetnaDeklaracija"),
-                new RelationMetadata("FK_SmjestajnaJedinica_PogledSmjestajneJedinice", "SmjestajnaJedinicaPogledSmjestajneJedinice", "PogledSmjestajneJedinicePogledSmjestajneJedinice"),
-                new RelationMetadata("FK_SmjestajnaJedinica_SmjestajniObjekt", "SmjestajnaJedinicaSmjestajniObjekt", "SmjestajniObjektSmjestajniObjekt"),
-                new RelationMetadata("FK_SmjestajnaJedinica_TipSmjestajneJedinice", "SmjestajnaJedinicaTipSmjestajneJedinice", "TipSmjestajneJediniceTipSmjestajneJedinice"),
-                new RelationMetadata("FK_SmjestajnaJedinica_TipSmjestajneJedinice", "SmjestajnaJedinicaSmjestajniObjekt", "TipSmjestajneJediniceSmjestajniObjekt"),
-                new RelationMetadata("FK_SmjestajnaJedinica_VrstaSmjestajneJedinice", "SmjestajnaJedinicaVrstaSmjestajneJedinice", "VrstaSmjestajneJediniceVrstaSmjestajneJedinice"),
-                new RelationMetadata("FK_SmjestajnaJedinica_VrstaSmjestajneJedinice", "SmjestajnaJedinicaVrstaSmjestajnogObjekta", "VrstaSmjestajneJediniceVrstaSmjestajnogObjekta"),
-                new RelationMetadata("FK_SmjestajnaJedinica_VrstaSmjestajneJedinice", "SmjestajnaJedinicaSkupinaSmjestajnogObjekta", "VrstaSmjestajneJediniceSkupinaSmjestajnogObjekta")
+				new RelationMetadata(nameof(KrevetnaDeklaracija), nameof(SmjestajnaJedinicaKrevetnaDeklaracija), nameof(Orko.Turist.KrevetnaDeklaracija.KrevetnaDeklaracijaKrevetnaDeklaracija)),
+                new RelationMetadata(nameof(PogledSmjestajneJedinice), nameof(SmjestajnaJedinicaPogledSmjestajneJedinice), nameof(Orko.Turist.PogledSmjestajneJedinice.PogledSmjestajneJedinicePogledSmjestajneJedinice)),
+                new RelationMetadata(nameof(SmjestajniObjekt), nameof(SmjestajnaJedinicaSmjestajniObjekt), nameof(Orko.Turist.SmjestajniObjekt.SmjestajniObjektSmjestajniObjekt)),
+                new RelationMetadata(nameof(TipSmjestajneJedinice), nameof(SmjestajnaJedinicaTipSmjestajneJedinice), nameof(Orko.Turist.TipSmjestajneJedinice.TipSmjestajneJediniceTipSmjestajneJedinice)),
+                new RelationMetadata(nameof(TipSmjestajneJedinice), nameof(SmjestajnaJedinicaSmjestajniObjekt), nameof(Orko.Turist.TipSmjestajneJedinice.TipSmjestajneJediniceSmjestajniObjekt)),
+                new RelationMetadata(nameof(VrstaSmjestajneJedinice), nameof(SmjestajnaJedinicaVrstaSmjestajneJedinice), nameof(Orko.Turist.VrstaSmjestajneJedinice.VrstaSmjestajneJediniceVrstaSmjestajneJedinice)),
+                new RelationMetadata(nameof(VrstaSmjestajneJedinice), nameof(SmjestajnaJedinicaVrstaSmjestajnogObjekta), nameof(Orko.Turist.VrstaSmjestajneJedinice.VrstaSmjestajneJediniceVrstaSmjestajnogObjekta)),
+                new RelationMetadata(nameof(VrstaSmjestajneJedinice), nameof(SmjestajnaJedinicaSkupinaSmjestajnogObjekta), nameof(Orko.Turist.VrstaSmjestajneJedinice.VrstaSmjestajneJediniceSkupinaSmjestajnogObjekta))
 			);
 
 			// Cache table metadata.
@@ -101,30 +101,30 @@ namespace Orko.Turist
         #endregion
 
         #region Entities
-		public KrevetnaDeklaracija FK_SmjestajnaJedinica_KrevetnaDeklaracija
+		public KrevetnaDeklaracija KrevetnaDeklaracija
         {
-            get { return EntityContext<KrevetnaDeklaracija>.Get(ref m_FK_SmjestajnaJedinica_KrevetnaDeklaracija, this, "FK_SmjestajnaJedinica_KrevetnaDeklaracija"); }
-            set { EntityContext<KrevetnaDeklaracija>.Set(ref m_FK_SmjestajnaJedinica_KrevetnaDeklaracija, this, value, "FK_SmjestajnaJedinica_KrevetnaDeklaracija"); }
+            get { return EntityContext<KrevetnaDeklaracija>.Get(ref m_KrevetnaDeklaracija, this, nameof(KrevetnaDeklaracija)); }
+            set { EntityContext<KrevetnaDeklaracija>.Set(ref m_KrevetnaDeklaracija, this, value, nameof(KrevetnaDeklaracija)); }
         }
-        public PogledSmjestajneJedinice FK_SmjestajnaJedinica_PogledSmjestajneJedinice
+        public PogledSmjestajneJedinice PogledSmjestajneJedinice
         {
-            get { return EntityContext<PogledSmjestajneJedinice>.Get(ref m_FK_SmjestajnaJedinica_PogledSmjestajneJedinice, this, "FK_SmjestajnaJedinica_PogledSmjestajneJedinice"); }
-            set { EntityContext<PogledSmjestajneJedinice>.Set(ref m_FK_SmjestajnaJedinica_PogledSmjestajneJedinice, this, value, "FK_SmjestajnaJedinica_PogledSmjestajneJedinice"); }
+            get { return EntityContext<PogledSmjestajneJedinice>.Get(ref m_PogledSmjestajneJedinice, this, nameof(PogledSmjestajneJedinice)); }
+            set { EntityContext<PogledSmjestajneJedinice>.Set(ref m_PogledSmjestajneJedinice, this, value, nameof(PogledSmjestajneJedinice)); }
         }
-        public SmjestajniObjekt FK_SmjestajnaJedinica_SmjestajniObjekt
+        public SmjestajniObjekt SmjestajniObjekt
         {
-            get { return EntityContext<SmjestajniObjekt>.Get(ref m_FK_SmjestajnaJedinica_SmjestajniObjekt, this, "FK_SmjestajnaJedinica_SmjestajniObjekt"); }
-            set { EntityContext<SmjestajniObjekt>.Set(ref m_FK_SmjestajnaJedinica_SmjestajniObjekt, this, value, "FK_SmjestajnaJedinica_SmjestajniObjekt"); }
+            get { return EntityContext<SmjestajniObjekt>.Get(ref m_SmjestajniObjekt, this, nameof(SmjestajniObjekt)); }
+            set { EntityContext<SmjestajniObjekt>.Set(ref m_SmjestajniObjekt, this, value, nameof(SmjestajniObjekt)); }
         }
-        public TipSmjestajneJedinice FK_SmjestajnaJedinica_TipSmjestajneJedinice
+        public TipSmjestajneJedinice TipSmjestajneJedinice
         {
-            get { return EntityContext<TipSmjestajneJedinice>.Get(ref m_FK_SmjestajnaJedinica_TipSmjestajneJedinice, this, "FK_SmjestajnaJedinica_TipSmjestajneJedinice"); }
-            set { EntityContext<TipSmjestajneJedinice>.Set(ref m_FK_SmjestajnaJedinica_TipSmjestajneJedinice, this, value, "FK_SmjestajnaJedinica_TipSmjestajneJedinice"); }
+            get { return EntityContext<TipSmjestajneJedinice>.Get(ref m_TipSmjestajneJedinice, this, nameof(TipSmjestajneJedinice)); }
+            set { EntityContext<TipSmjestajneJedinice>.Set(ref m_TipSmjestajneJedinice, this, value, nameof(TipSmjestajneJedinice)); }
         }
-        public VrstaSmjestajneJedinice FK_SmjestajnaJedinica_VrstaSmjestajneJedinice
+        public VrstaSmjestajneJedinice VrstaSmjestajneJedinice
         {
-            get { return EntityContext<VrstaSmjestajneJedinice>.Get(ref m_FK_SmjestajnaJedinica_VrstaSmjestajneJedinice, this, "FK_SmjestajnaJedinica_VrstaSmjestajneJedinice"); }
-            set { EntityContext<VrstaSmjestajneJedinice>.Set(ref m_FK_SmjestajnaJedinica_VrstaSmjestajneJedinice, this, value, "FK_SmjestajnaJedinica_VrstaSmjestajneJedinice"); }
+            get { return EntityContext<VrstaSmjestajneJedinice>.Get(ref m_VrstaSmjestajneJedinice, this, nameof(VrstaSmjestajneJedinice)); }
+            set { EntityContext<VrstaSmjestajneJedinice>.Set(ref m_VrstaSmjestajneJedinice, this, value, nameof(VrstaSmjestajneJedinice)); }
         }
         #endregion
 
@@ -146,24 +146,5 @@ namespace Orko.Turist
             return await TryGetByPrimaryKeyAsync<SmjestajnaJedinica>(SmjestajnaJedinicaSmjestajnaJedinica);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<SmjestajnaJedinica> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<SmjestajnaJedinica>(queryConditions);
-        }
-        public static IEnumerable<SmjestajnaJedinica> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<SmjestajnaJedinica>(columnName, queryOp, value);
-        }
-		public static SmjestajnaJedinica GetByPrimaryKey(int SmjestajnaJedinicaSmjestajnaJedinica)
-        {
-            return GetByPrimaryKey<SmjestajnaJedinica>(SmjestajnaJedinicaSmjestajnaJedinica);
-        }
-		public static SmjestajnaJedinica TryGetByPrimaryKey(int SmjestajnaJedinicaSmjestajnaJedinica)
-        {
-            return TryGetByPrimaryKey<SmjestajnaJedinica>(SmjestajnaJedinicaSmjestajnaJedinica);
-        }
-        #endregion
     }
 }

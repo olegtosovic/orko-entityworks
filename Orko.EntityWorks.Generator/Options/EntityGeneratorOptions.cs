@@ -17,6 +17,9 @@ namespace Orko.EntityWorks.Generator
         {
             // Must be set by the user.
             OutputDirectory = null;
+
+            // Generate only async methods by default.
+            GenerateOnlyAsyncTemplates = true;
         }
         #endregion
 
@@ -31,6 +34,10 @@ namespace Orko.EntityWorks.Generator
         #endregion
 
         #region Directives
+        /// <summary>
+        /// If true, generator will only generate async version of methods that may exist in class templates.
+        /// </summary>
+        public bool GenerateOnlyAsyncTemplates { get; set; }
         #endregion
 
         #region Options

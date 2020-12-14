@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -27,10 +27,10 @@ namespace Orko.Sistem
             // Cache field metadata.
             EntityMeta<WebObjekt>.LoadColumnMetadata
 			(
-				new ColumnMetadata("WebObjektID", @"WebObjektID", SqlDbType.Int, isIdentity: true, isPrimaryKey: true),
-                new ColumnMetadata("WebObjektArea", @"WebObjektArea", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("WebObjektController", @"WebObjektController", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("WebObjektAkcija", @"WebObjektAkcija", SqlDbType.NVarChar, isRequired: true)
+				new ColumnMetadata(nameof(WebObjektID), @"WebObjektID", DbType.Int32, isIdentity: true, isRequired: true),
+                new ColumnMetadata(nameof(WebObjektArea), @"WebObjektArea", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(WebObjektController), @"WebObjektController", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(WebObjektAkcija), @"WebObjektAkcija", DbType.String, isRequired: true)
 			);
 
             // Cache entites metadata.
@@ -77,24 +77,5 @@ namespace Orko.Sistem
             return await TryGetByPrimaryKeyAsync<WebObjekt>(WebObjektID);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<WebObjekt> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<WebObjekt>(queryConditions);
-        }
-        public static IEnumerable<WebObjekt> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<WebObjekt>(columnName, queryOp, value);
-        }
-		public static WebObjekt GetByPrimaryKey(int WebObjektID)
-        {
-            return GetByPrimaryKey<WebObjekt>(WebObjektID);
-        }
-		public static WebObjekt TryGetByPrimaryKey(int WebObjektID)
-        {
-            return TryGetByPrimaryKey<WebObjekt>(WebObjektID);
-        }
-        #endregion
     }
 }

@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -18,13 +18,13 @@ namespace Orko.Turist
     public sealed partial class RezervacijaUsluga : Entity
     {
 		#region Members
-		private Cjenik m_FK_RezervacijaUsluga_Cjenik;
-        private Gost m_FK_RezervacijaUsluga_Gost;
-        private RazinaUsluge m_FK_RezervacijaUsluga_RazinaUsluge;
-        private Rezervacija m_FK_RezervacijaUsluga_Rezervacija;
-        private SmjestajnaJedinica m_FK_RezervacijaUsluga_SmjestajnaJedinica;
-        private SmjestajniObjekt m_FK_RezervacijaUsluga_SmjestajniObjekt;
-        private VrstaUsluge m_FK_RezervacijaUsluga_VrstaUsluge;
+		private Cjenik m_Cjenik;
+        private Gost m_Gost;
+        private RazinaUsluge m_RazinaUsluge;
+        private Rezervacija m_Rezervacija;
+        private SmjestajnaJedinica m_SmjestajnaJedinica;
+        private SmjestajniObjekt m_SmjestajniObjekt;
+        private VrstaUsluge m_VrstaUsluge;
         #endregion
         
 		#region Constructors
@@ -33,31 +33,31 @@ namespace Orko.Turist
             // Cache field metadata.
             EntityMeta<RezervacijaUsluga>.LoadColumnMetadata
 			(
-				new ColumnMetadata("RezervacijaUslugaID", @"RezervacijaUslugaID", SqlDbType.Int, isIdentity: true, isPrimaryKey: true),
-                new ColumnMetadata("RezervacijaUslugaProtokolID", @"RezervacijaUslugaProtokolID", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("RezervacijaUslugaCjenikProtokolID", @"RezervacijaUslugaCjenikProtokolID", SqlDbType.Int, isRequired: false),
-                new ColumnMetadata("RezervacijaUslugaRedniBroj", @"RezervacijaUslugaRedniBroj", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("RezervacijaUslugaVrstaUsluge", @"RezervacijaUslugaVrstaUsluge", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("RezervacijaUslugaRazinaUsluge", @"RezervacijaUslugaRazinaUsluge", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("RezervacijaUslugaSmjestajniObjekt", @"RezervacijaUslugaSmjestajniObjekt", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("RezervacijaUslugaSmjestajnaJedinica", @"RezervacijaUslugaSmjestajnaJedinica", SqlDbType.Int, isRequired: false),
-                new ColumnMetadata("RezervacijaUslugaGost", @"RezervacijaUslugaGost", SqlDbType.Int, isRequired: false),
-                new ColumnMetadata("RezervacijaUslugaKolicina", @"RezervacijaUslugaKolicina", SqlDbType.Decimal, isRequired: true),
-                new ColumnMetadata("RezervacijaUslugaUkupnoIznos", @"RezervacijaUslugaUkupnoIznos", SqlDbType.Decimal, isRequired: true),
-                new ColumnMetadata("RezervacijaUslugaUradio", @"RezervacijaUslugaUradio", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("RezervacijaUslugaDatumIzmjene", @"RezervacijaUslugaDatumIzmjene", SqlDbType.DateTime2, isRequired: true)
+				new ColumnMetadata(nameof(RezervacijaUslugaID), @"RezervacijaUslugaID", DbType.Int32, isIdentity: true, isRequired: true),
+                new ColumnMetadata(nameof(RezervacijaUslugaProtokolID), @"RezervacijaUslugaProtokolID", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(RezervacijaUslugaCjenikProtokolID), @"RezervacijaUslugaCjenikProtokolID", DbType.Int32, isRequired: false),
+                new ColumnMetadata(nameof(RezervacijaUslugaRedniBroj), @"RezervacijaUslugaRedniBroj", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(RezervacijaUslugaVrstaUsluge), @"RezervacijaUslugaVrstaUsluge", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(RezervacijaUslugaRazinaUsluge), @"RezervacijaUslugaRazinaUsluge", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(RezervacijaUslugaSmjestajniObjekt), @"RezervacijaUslugaSmjestajniObjekt", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(RezervacijaUslugaSmjestajnaJedinica), @"RezervacijaUslugaSmjestajnaJedinica", DbType.Int32, isRequired: false),
+                new ColumnMetadata(nameof(RezervacijaUslugaGost), @"RezervacijaUslugaGost", DbType.Int32, isRequired: false),
+                new ColumnMetadata(nameof(RezervacijaUslugaKolicina), @"RezervacijaUslugaKolicina", DbType.Decimal, isRequired: true),
+                new ColumnMetadata(nameof(RezervacijaUslugaUkupnoIznos), @"RezervacijaUslugaUkupnoIznos", DbType.Decimal, isRequired: true),
+                new ColumnMetadata(nameof(RezervacijaUslugaUradio), @"RezervacijaUslugaUradio", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(RezervacijaUslugaDatumIzmjene), @"RezervacijaUslugaDatumIzmjene", DbType.DateTime2, isRequired: true)
 			);
 
             // Cache entites metadata.
             EntityMeta<RezervacijaUsluga>.LoadRelationMetadata
 			(
-				new RelationMetadata("FK_RezervacijaUsluga_Cjenik", "RezervacijaUslugaCjenikProtokolID", "CjenikProtokolID"),
-                new RelationMetadata("FK_RezervacijaUsluga_Gost", "RezervacijaUslugaGost", "GostGost"),
-                new RelationMetadata("FK_RezervacijaUsluga_RazinaUsluge", "RezervacijaUslugaRazinaUsluge", "RazinaUslugeRazinaUsluge"),
-                new RelationMetadata("FK_RezervacijaUsluga_Rezervacija", "RezervacijaUslugaProtokolID", "RezervacijaProtokolID"),
-                new RelationMetadata("FK_RezervacijaUsluga_SmjestajnaJedinica", "RezervacijaUslugaSmjestajnaJedinica", "SmjestajnaJedinicaSmjestajnaJedinica"),
-                new RelationMetadata("FK_RezervacijaUsluga_SmjestajniObjekt", "RezervacijaUslugaSmjestajniObjekt", "SmjestajniObjektSmjestajniObjekt"),
-                new RelationMetadata("FK_RezervacijaUsluga_VrstaUsluge", "RezervacijaUslugaVrstaUsluge", "VrstaUslugeVrstaUsluge")
+				new RelationMetadata(nameof(Cjenik), nameof(RezervacijaUslugaCjenikProtokolID), nameof(Orko.Turist.Cjenik.CjenikProtokolID)),
+                new RelationMetadata(nameof(Gost), nameof(RezervacijaUslugaGost), nameof(Orko.Turist.Gost.GostGost)),
+                new RelationMetadata(nameof(RazinaUsluge), nameof(RezervacijaUslugaRazinaUsluge), nameof(Orko.Turist.RazinaUsluge.RazinaUslugeRazinaUsluge)),
+                new RelationMetadata(nameof(Rezervacija), nameof(RezervacijaUslugaProtokolID), nameof(Orko.Turist.Rezervacija.RezervacijaProtokolID)),
+                new RelationMetadata(nameof(SmjestajnaJedinica), nameof(RezervacijaUslugaSmjestajnaJedinica), nameof(Orko.Turist.SmjestajnaJedinica.SmjestajnaJedinicaSmjestajnaJedinica)),
+                new RelationMetadata(nameof(SmjestajniObjekt), nameof(RezervacijaUslugaSmjestajniObjekt), nameof(Orko.Turist.SmjestajniObjekt.SmjestajniObjektSmjestajniObjekt)),
+                new RelationMetadata(nameof(VrstaUsluge), nameof(RezervacijaUslugaVrstaUsluge), nameof(Orko.Turist.VrstaUsluge.VrstaUslugeVrstaUsluge))
 			);
 
 			// Cache table metadata.
@@ -86,40 +86,40 @@ namespace Orko.Turist
         #endregion
 
         #region Entities
-		public Cjenik FK_RezervacijaUsluga_Cjenik
+		public Cjenik Cjenik
         {
-            get { return EntityContext<Cjenik>.Get(ref m_FK_RezervacijaUsluga_Cjenik, this, "FK_RezervacijaUsluga_Cjenik"); }
-            set { EntityContext<Cjenik>.Set(ref m_FK_RezervacijaUsluga_Cjenik, this, value, "FK_RezervacijaUsluga_Cjenik"); }
+            get { return EntityContext<Cjenik>.Get(ref m_Cjenik, this, nameof(Cjenik)); }
+            set { EntityContext<Cjenik>.Set(ref m_Cjenik, this, value, nameof(Cjenik)); }
         }
-        public Gost FK_RezervacijaUsluga_Gost
+        public Gost Gost
         {
-            get { return EntityContext<Gost>.Get(ref m_FK_RezervacijaUsluga_Gost, this, "FK_RezervacijaUsluga_Gost"); }
-            set { EntityContext<Gost>.Set(ref m_FK_RezervacijaUsluga_Gost, this, value, "FK_RezervacijaUsluga_Gost"); }
+            get { return EntityContext<Gost>.Get(ref m_Gost, this, nameof(Gost)); }
+            set { EntityContext<Gost>.Set(ref m_Gost, this, value, nameof(Gost)); }
         }
-        public RazinaUsluge FK_RezervacijaUsluga_RazinaUsluge
+        public RazinaUsluge RazinaUsluge
         {
-            get { return EntityContext<RazinaUsluge>.Get(ref m_FK_RezervacijaUsluga_RazinaUsluge, this, "FK_RezervacijaUsluga_RazinaUsluge"); }
-            set { EntityContext<RazinaUsluge>.Set(ref m_FK_RezervacijaUsluga_RazinaUsluge, this, value, "FK_RezervacijaUsluga_RazinaUsluge"); }
+            get { return EntityContext<RazinaUsluge>.Get(ref m_RazinaUsluge, this, nameof(RazinaUsluge)); }
+            set { EntityContext<RazinaUsluge>.Set(ref m_RazinaUsluge, this, value, nameof(RazinaUsluge)); }
         }
-        public Rezervacija FK_RezervacijaUsluga_Rezervacija
+        public Rezervacija Rezervacija
         {
-            get { return EntityContext<Rezervacija>.Get(ref m_FK_RezervacijaUsluga_Rezervacija, this, "FK_RezervacijaUsluga_Rezervacija"); }
-            set { EntityContext<Rezervacija>.Set(ref m_FK_RezervacijaUsluga_Rezervacija, this, value, "FK_RezervacijaUsluga_Rezervacija"); }
+            get { return EntityContext<Rezervacija>.Get(ref m_Rezervacija, this, nameof(Rezervacija)); }
+            set { EntityContext<Rezervacija>.Set(ref m_Rezervacija, this, value, nameof(Rezervacija)); }
         }
-        public SmjestajnaJedinica FK_RezervacijaUsluga_SmjestajnaJedinica
+        public SmjestajnaJedinica SmjestajnaJedinica
         {
-            get { return EntityContext<SmjestajnaJedinica>.Get(ref m_FK_RezervacijaUsluga_SmjestajnaJedinica, this, "FK_RezervacijaUsluga_SmjestajnaJedinica"); }
-            set { EntityContext<SmjestajnaJedinica>.Set(ref m_FK_RezervacijaUsluga_SmjestajnaJedinica, this, value, "FK_RezervacijaUsluga_SmjestajnaJedinica"); }
+            get { return EntityContext<SmjestajnaJedinica>.Get(ref m_SmjestajnaJedinica, this, nameof(SmjestajnaJedinica)); }
+            set { EntityContext<SmjestajnaJedinica>.Set(ref m_SmjestajnaJedinica, this, value, nameof(SmjestajnaJedinica)); }
         }
-        public SmjestajniObjekt FK_RezervacijaUsluga_SmjestajniObjekt
+        public SmjestajniObjekt SmjestajniObjekt
         {
-            get { return EntityContext<SmjestajniObjekt>.Get(ref m_FK_RezervacijaUsluga_SmjestajniObjekt, this, "FK_RezervacijaUsluga_SmjestajniObjekt"); }
-            set { EntityContext<SmjestajniObjekt>.Set(ref m_FK_RezervacijaUsluga_SmjestajniObjekt, this, value, "FK_RezervacijaUsluga_SmjestajniObjekt"); }
+            get { return EntityContext<SmjestajniObjekt>.Get(ref m_SmjestajniObjekt, this, nameof(SmjestajniObjekt)); }
+            set { EntityContext<SmjestajniObjekt>.Set(ref m_SmjestajniObjekt, this, value, nameof(SmjestajniObjekt)); }
         }
-        public VrstaUsluge FK_RezervacijaUsluga_VrstaUsluge
+        public VrstaUsluge VrstaUsluge
         {
-            get { return EntityContext<VrstaUsluge>.Get(ref m_FK_RezervacijaUsluga_VrstaUsluge, this, "FK_RezervacijaUsluga_VrstaUsluge"); }
-            set { EntityContext<VrstaUsluge>.Set(ref m_FK_RezervacijaUsluga_VrstaUsluge, this, value, "FK_RezervacijaUsluga_VrstaUsluge"); }
+            get { return EntityContext<VrstaUsluge>.Get(ref m_VrstaUsluge, this, nameof(VrstaUsluge)); }
+            set { EntityContext<VrstaUsluge>.Set(ref m_VrstaUsluge, this, value, nameof(VrstaUsluge)); }
         }
         #endregion
 
@@ -141,24 +141,5 @@ namespace Orko.Turist
             return await TryGetByPrimaryKeyAsync<RezervacijaUsluga>(RezervacijaUslugaID);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<RezervacijaUsluga> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<RezervacijaUsluga>(queryConditions);
-        }
-        public static IEnumerable<RezervacijaUsluga> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<RezervacijaUsluga>(columnName, queryOp, value);
-        }
-		public static RezervacijaUsluga GetByPrimaryKey(int RezervacijaUslugaID)
-        {
-            return GetByPrimaryKey<RezervacijaUsluga>(RezervacijaUslugaID);
-        }
-		public static RezervacijaUsluga TryGetByPrimaryKey(int RezervacijaUslugaID)
-        {
-            return TryGetByPrimaryKey<RezervacijaUsluga>(RezervacijaUslugaID);
-        }
-        #endregion
     }
 }

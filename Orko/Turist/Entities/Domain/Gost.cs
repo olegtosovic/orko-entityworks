@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -18,10 +18,10 @@ namespace Orko.Turist
     public sealed partial class Gost : Entity
     {
 		#region Members
-		private Base.Drzava m_FK_Gost_DrzavaRodjenja;
-        private Base.Drzava m_FK_Gost_Drzavljanstvo;
-        private Base.Spol m_FK_Gost_Spol;
-        private VrstaPutneIsprave m_FK_Gost_VrstaPutneIsprave;
+		private Base.Drzava m_DrzavaRodjenja;
+        private Base.Drzava m_Drzavljanstvo;
+        private Base.Spol m_Spol;
+        private VrstaPutneIsprave m_VrstaPutneIsprave;
         #endregion
         
 		#region Constructors
@@ -30,31 +30,31 @@ namespace Orko.Turist
             // Cache field metadata.
             EntityMeta<Gost>.LoadColumnMetadata
 			(
-				new ColumnMetadata("GostGost", @"GostGost", SqlDbType.Int, isIdentity: true, isPrimaryKey: true),
-                new ColumnMetadata("GostIme", @"GostIme", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("GostPrezime", @"GostPrezime", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("GostSrednjeIme", @"GostSrednjeIme", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("GostSpol", @"GostSpol", SqlDbType.Char, isRequired: true),
-                new ColumnMetadata("GostDrzavaRodjenja", @"GostDrzavaRodjenja", SqlDbType.Char, isRequired: false),
-                new ColumnMetadata("GostMjestoRodjenja", @"GostMjestoRodjenja", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("GostDatumRodjenja", @"GostDatumRodjenja", SqlDbType.DateTime2, isRequired: false),
-                new ColumnMetadata("GostDrzavljanstvo", @"GostDrzavljanstvo", SqlDbType.Char, isRequired: false),
-                new ColumnMetadata("GostVrstaPutneIsprave", @"GostVrstaPutneIsprave", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("GostBrojPutneIsprave", @"GostBrojPutneIsprave", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("GostMobitel1", @"GostMobitel1", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("GostMobitel2", @"GostMobitel2", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("GostEmail", @"GostEmail", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("GostUradio", @"GostUradio", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("GostDatumIzmjene", @"GostDatumIzmjene", SqlDbType.DateTime2, isRequired: true)
+				new ColumnMetadata(nameof(GostGost), @"GostGost", DbType.Int32, isIdentity: true, isRequired: true),
+                new ColumnMetadata(nameof(GostIme), @"GostIme", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(GostPrezime), @"GostPrezime", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(GostSrednjeIme), @"GostSrednjeIme", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(GostSpol), @"GostSpol", DbType.AnsiStringFixedLength, isRequired: true),
+                new ColumnMetadata(nameof(GostDrzavaRodjenja), @"GostDrzavaRodjenja", DbType.AnsiStringFixedLength, isRequired: false),
+                new ColumnMetadata(nameof(GostMjestoRodjenja), @"GostMjestoRodjenja", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(GostDatumRodjenja), @"GostDatumRodjenja", DbType.DateTime2, isRequired: false),
+                new ColumnMetadata(nameof(GostDrzavljanstvo), @"GostDrzavljanstvo", DbType.AnsiStringFixedLength, isRequired: false),
+                new ColumnMetadata(nameof(GostVrstaPutneIsprave), @"GostVrstaPutneIsprave", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(GostBrojPutneIsprave), @"GostBrojPutneIsprave", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(GostMobitel1), @"GostMobitel1", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(GostMobitel2), @"GostMobitel2", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(GostEmail), @"GostEmail", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(GostUradio), @"GostUradio", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(GostDatumIzmjene), @"GostDatumIzmjene", DbType.DateTime2, isRequired: true)
 			);
 
             // Cache entites metadata.
             EntityMeta<Gost>.LoadRelationMetadata
 			(
-				new RelationMetadata("FK_Gost_DrzavaRodjenja", "GostDrzavaRodjenja", "DrzavaDrzava"),
-                new RelationMetadata("FK_Gost_Drzavljanstvo", "GostDrzavljanstvo", "DrzavaDrzava"),
-                new RelationMetadata("FK_Gost_Spol", "GostSpol", "SpolSpol"),
-                new RelationMetadata("FK_Gost_VrstaPutneIsprave", "GostVrstaPutneIsprave", "VrstaPutneIspraveVrstaPutneIsprave")
+				new RelationMetadata(nameof(DrzavaRodjenja), nameof(GostDrzavaRodjenja), nameof(Orko.Base.Drzava.DrzavaDrzava)),
+                new RelationMetadata(nameof(Drzavljanstvo), nameof(GostDrzavljanstvo), nameof(Orko.Base.Drzava.DrzavaDrzava)),
+                new RelationMetadata(nameof(Spol), nameof(GostSpol), nameof(Orko.Base.Spol.SpolSpol)),
+                new RelationMetadata(nameof(VrstaPutneIsprave), nameof(GostVrstaPutneIsprave), nameof(Orko.Turist.VrstaPutneIsprave.VrstaPutneIspraveVrstaPutneIsprave))
 			);
 
 			// Cache table metadata.
@@ -86,25 +86,25 @@ namespace Orko.Turist
         #endregion
 
         #region Entities
-		public Base.Drzava FK_Gost_DrzavaRodjenja
+		public Base.Drzava DrzavaRodjenja
         {
-            get { return EntityContext<Base.Drzava>.Get(ref m_FK_Gost_DrzavaRodjenja, this, "FK_Gost_DrzavaRodjenja"); }
-            set { EntityContext<Base.Drzava>.Set(ref m_FK_Gost_DrzavaRodjenja, this, value, "FK_Gost_DrzavaRodjenja"); }
+            get { return EntityContext<Base.Drzava>.Get(ref m_DrzavaRodjenja, this, nameof(DrzavaRodjenja)); }
+            set { EntityContext<Base.Drzava>.Set(ref m_DrzavaRodjenja, this, value, nameof(DrzavaRodjenja)); }
         }
-        public Base.Drzava FK_Gost_Drzavljanstvo
+        public Base.Drzava Drzavljanstvo
         {
-            get { return EntityContext<Base.Drzava>.Get(ref m_FK_Gost_Drzavljanstvo, this, "FK_Gost_Drzavljanstvo"); }
-            set { EntityContext<Base.Drzava>.Set(ref m_FK_Gost_Drzavljanstvo, this, value, "FK_Gost_Drzavljanstvo"); }
+            get { return EntityContext<Base.Drzava>.Get(ref m_Drzavljanstvo, this, nameof(Drzavljanstvo)); }
+            set { EntityContext<Base.Drzava>.Set(ref m_Drzavljanstvo, this, value, nameof(Drzavljanstvo)); }
         }
-        public Base.Spol FK_Gost_Spol
+        public Base.Spol Spol
         {
-            get { return EntityContext<Base.Spol>.Get(ref m_FK_Gost_Spol, this, "FK_Gost_Spol"); }
-            set { EntityContext<Base.Spol>.Set(ref m_FK_Gost_Spol, this, value, "FK_Gost_Spol"); }
+            get { return EntityContext<Base.Spol>.Get(ref m_Spol, this, nameof(Spol)); }
+            set { EntityContext<Base.Spol>.Set(ref m_Spol, this, value, nameof(Spol)); }
         }
-        public VrstaPutneIsprave FK_Gost_VrstaPutneIsprave
+        public VrstaPutneIsprave VrstaPutneIsprave
         {
-            get { return EntityContext<VrstaPutneIsprave>.Get(ref m_FK_Gost_VrstaPutneIsprave, this, "FK_Gost_VrstaPutneIsprave"); }
-            set { EntityContext<VrstaPutneIsprave>.Set(ref m_FK_Gost_VrstaPutneIsprave, this, value, "FK_Gost_VrstaPutneIsprave"); }
+            get { return EntityContext<VrstaPutneIsprave>.Get(ref m_VrstaPutneIsprave, this, nameof(VrstaPutneIsprave)); }
+            set { EntityContext<VrstaPutneIsprave>.Set(ref m_VrstaPutneIsprave, this, value, nameof(VrstaPutneIsprave)); }
         }
         #endregion
 
@@ -126,24 +126,5 @@ namespace Orko.Turist
             return await TryGetByPrimaryKeyAsync<Gost>(GostGost);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<Gost> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<Gost>(queryConditions);
-        }
-        public static IEnumerable<Gost> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<Gost>(columnName, queryOp, value);
-        }
-		public static Gost GetByPrimaryKey(int GostGost)
-        {
-            return GetByPrimaryKey<Gost>(GostGost);
-        }
-		public static Gost TryGetByPrimaryKey(int GostGost)
-        {
-            return TryGetByPrimaryKey<Gost>(GostGost);
-        }
-        #endregion
     }
 }

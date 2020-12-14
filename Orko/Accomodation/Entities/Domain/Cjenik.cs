@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -18,7 +18,7 @@ namespace Orko.Accomodation
     public sealed partial class Cjenik : Entity
     {
 		#region Members
-		private SmjestajnaJedinica m_FK_Cjenik_SmjestajnaJedinica;
+		private SmjestajnaJedinica m_SmjestajnaJedinica;
         #endregion
         
 		#region Constructors
@@ -27,20 +27,20 @@ namespace Orko.Accomodation
             // Cache field metadata.
             EntityMeta<Cjenik>.LoadColumnMetadata
 			(
-				new ColumnMetadata("CjenikID", @"CjenikID", SqlDbType.Int, isIdentity: true, isPrimaryKey: true),
-                new ColumnMetadata("CjenikSmjestajnaJedinicaID", @"CjenikSmjestajnaJedinicaID", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("CjenikPeriodOd", @"CjenikPeriodOd", SqlDbType.DateTime2, isRequired: true),
-                new ColumnMetadata("CjenikPeriodDo", @"CjenikPeriodDo", SqlDbType.DateTime2, isRequired: true),
-                new ColumnMetadata("CjenikIznosHRK", @"CjenikIznosHRK", SqlDbType.Decimal, isRequired: false),
-                new ColumnMetadata("CjenikIznosEUR", @"CjenikIznosEUR", SqlDbType.Decimal, isRequired: false),
-                new ColumnMetadata("CjenikIznosGBP", @"CjenikIznosGBP", SqlDbType.Decimal, isRequired: false),
-                new ColumnMetadata("CjenikIznosUSD", @"CjenikIznosUSD", SqlDbType.Decimal, isRequired: false)
+				new ColumnMetadata(nameof(CjenikID), @"CjenikID", DbType.Int32, isIdentity: true, isRequired: true),
+                new ColumnMetadata(nameof(CjenikSmjestajnaJedinicaID), @"CjenikSmjestajnaJedinicaID", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(CjenikPeriodOd), @"CjenikPeriodOd", DbType.DateTime2, isRequired: true),
+                new ColumnMetadata(nameof(CjenikPeriodDo), @"CjenikPeriodDo", DbType.DateTime2, isRequired: true),
+                new ColumnMetadata(nameof(CjenikIznosHRK), @"CjenikIznosHRK", DbType.Decimal, isRequired: false),
+                new ColumnMetadata(nameof(CjenikIznosEUR), @"CjenikIznosEUR", DbType.Decimal, isRequired: false),
+                new ColumnMetadata(nameof(CjenikIznosGBP), @"CjenikIznosGBP", DbType.Decimal, isRequired: false),
+                new ColumnMetadata(nameof(CjenikIznosUSD), @"CjenikIznosUSD", DbType.Decimal, isRequired: false)
 			);
 
             // Cache entites metadata.
             EntityMeta<Cjenik>.LoadRelationMetadata
 			(
-				new RelationMetadata("FK_Cjenik_SmjestajnaJedinica", "CjenikSmjestajnaJedinicaID", "SmjestajnaJedinicaID")
+				new RelationMetadata(nameof(SmjestajnaJedinica), nameof(CjenikSmjestajnaJedinicaID), nameof(Orko.Accomodation.SmjestajnaJedinica.SmjestajnaJedinicaID))
 			);
 
 			// Cache table metadata.
@@ -64,10 +64,10 @@ namespace Orko.Accomodation
         #endregion
 
         #region Entities
-		public SmjestajnaJedinica FK_Cjenik_SmjestajnaJedinica
+		public SmjestajnaJedinica SmjestajnaJedinica
         {
-            get { return EntityContext<SmjestajnaJedinica>.Get(ref m_FK_Cjenik_SmjestajnaJedinica, this, "FK_Cjenik_SmjestajnaJedinica"); }
-            set { EntityContext<SmjestajnaJedinica>.Set(ref m_FK_Cjenik_SmjestajnaJedinica, this, value, "FK_Cjenik_SmjestajnaJedinica"); }
+            get { return EntityContext<SmjestajnaJedinica>.Get(ref m_SmjestajnaJedinica, this, nameof(SmjestajnaJedinica)); }
+            set { EntityContext<SmjestajnaJedinica>.Set(ref m_SmjestajnaJedinica, this, value, nameof(SmjestajnaJedinica)); }
         }
         #endregion
 
@@ -89,32 +89,5 @@ namespace Orko.Accomodation
             return await TryGetByPrimaryKeyAsync<Cjenik>(CjenikID);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<Cjenik> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<Cjenik>(queryConditions);
-        }
-        public static IEnumerable<Cjenik> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<Cjenik>(columnName, queryOp, value);
-        }
-		public static Cjenik GetByPrimaryKey(int CjenikID)
-        {
-            return GetByPrimaryKey<Cjenik>(CjenikID);
-        }
-		public static Cjenik TryGetByPrimaryKey(int CjenikID)
-        {
-            return TryGetByPrimaryKey<Cjenik>(CjenikID);
-        }
-        public static Cjenik GetByUnique1(int CjenikSmjestajnaJedinicaID, DateTime CjenikPeriodOd, DateTime CjenikPeriodDo)
-        {
-            return GetByCallingParameters<Cjenik>(CjenikSmjestajnaJedinicaID, CjenikPeriodOd, CjenikPeriodDo);
-        }
-		public static Cjenik TryGetByUnique1(int CjenikSmjestajnaJedinicaID, DateTime CjenikPeriodOd, DateTime CjenikPeriodDo)
-        {
-            return TryGetByCallingParameters<Cjenik>(CjenikSmjestajnaJedinicaID, CjenikPeriodOd, CjenikPeriodDo);
-        }
-        #endregion
     }
 }

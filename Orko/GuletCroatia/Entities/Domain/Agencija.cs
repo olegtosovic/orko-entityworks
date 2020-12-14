@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -27,12 +27,12 @@ namespace Orko.GuletCroatia
             // Cache field metadata.
             EntityMeta<Agencija>.LoadColumnMetadata
 			(
-				new ColumnMetadata("AgencijaAgencija", @"AgencijaAgencija", SqlDbType.NVarChar, isPrimaryKey: true),
-                new ColumnMetadata("AgencijaNaziv", @"AgencijaNaziv", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("AgencijaOIB", @"AgencijaOIB", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("AgencijaEmail1", @"AgencijaEmail1", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("AgencijaEmail2", @"AgencijaEmail2", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("AgencijaTelefon", @"AgencijaTelefon", SqlDbType.NVarChar, isRequired: false)
+				new ColumnMetadata(nameof(AgencijaAgencija), @"AgencijaAgencija", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(AgencijaNaziv), @"AgencijaNaziv", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(AgencijaOIB), @"AgencijaOIB", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(AgencijaEmail1), @"AgencijaEmail1", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(AgencijaEmail2), @"AgencijaEmail2", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(AgencijaTelefon), @"AgencijaTelefon", DbType.String, isRequired: false)
 			);
 
             // Cache entites metadata.
@@ -81,24 +81,5 @@ namespace Orko.GuletCroatia
             return await TryGetByPrimaryKeyAsync<Agencija>(AgencijaAgencija);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<Agencija> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<Agencija>(queryConditions);
-        }
-        public static IEnumerable<Agencija> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<Agencija>(columnName, queryOp, value);
-        }
-		public static Agencija GetByPrimaryKey(string AgencijaAgencija)
-        {
-            return GetByPrimaryKey<Agencija>(AgencijaAgencija);
-        }
-		public static Agencija TryGetByPrimaryKey(string AgencijaAgencija)
-        {
-            return TryGetByPrimaryKey<Agencija>(AgencijaAgencija);
-        }
-        #endregion
     }
 }

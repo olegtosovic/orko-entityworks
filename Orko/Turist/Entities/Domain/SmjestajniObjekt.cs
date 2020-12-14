@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -18,13 +18,13 @@ namespace Orko.Turist
     public sealed partial class SmjestajniObjekt : Entity
     {
 		#region Members
-		private Base.Drzava m_FK_SmjestajniObjekt_Drzava;
-        private Obveznik m_FK_SmjestajniObjekt_Obveznik;
-        private Base.Opcina m_FK_SmjestajniObjekt_Opcina;
-        private SkupinaSmjestajnogObjekta m_FK_SmjestajniObjekt_SkupinaSmjestajnogObjekta;
-        private VrstaCjenika m_FK_SmjestajniObjekt_VrstaCjenika;
-        private VrstaSmjestajnogObjekta m_FK_SmjestajniObjekt_VrstaSmjestajnogObjekta;
-        private Base.Zupanija m_FK_SmjestajniObjekt_Zupanija;
+		private Base.Drzava m_Drzava;
+        private Obveznik m_Obveznik;
+        private Base.Opcina m_Opcina;
+        private SkupinaSmjestajnogObjekta m_SkupinaSmjestajnogObjekta;
+        private VrstaCjenika m_VrstaCjenika;
+        private VrstaSmjestajnogObjekta m_VrstaSmjestajnogObjekta;
+        private Base.Zupanija m_Zupanija;
         #endregion
         
 		#region Constructors
@@ -33,42 +33,42 @@ namespace Orko.Turist
             // Cache field metadata.
             EntityMeta<SmjestajniObjekt>.LoadColumnMetadata
 			(
-				new ColumnMetadata("SmjestajniObjektSmjestajniObjekt", @"SmjestajniObjektSmjestajniObjekt", SqlDbType.Int, isIdentity: true, isPrimaryKey: true),
-                new ColumnMetadata("SmjestajniObjektObveznik", @"SmjestajniObjektObveznik", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("SmjestajniObjektSkupinaSmjestajnogObjekta", @"SmjestajniObjektSkupinaSmjestajnogObjekta", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("SmjestajniObjektVrstaSmjestajnogObjekta", @"SmjestajniObjektVrstaSmjestajnogObjekta", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("SmjestajniObjektNaziv", @"SmjestajniObjektNaziv", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("SmjestajniObjektDrzava", @"SmjestajniObjektDrzava", SqlDbType.Char, isRequired: true),
-                new ColumnMetadata("SmjestajniObjektOpcina", @"SmjestajniObjektOpcina", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("SmjestajniObjektZupanija", @"SmjestajniObjektZupanija", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("SmjestajniObjektUlica", @"SmjestajniObjektUlica", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("SmjestajniObjektKucniBroj", @"SmjestajniObjektKucniBroj", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("SmjestajniObjektMjesto", @"SmjestajniObjektMjesto", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("SmjestajniObjektAktivnost", @"SmjestajniObjektAktivnost", SqlDbType.Bit, isRequired: true),
-                new ColumnMetadata("SmjestajniObjektTelefon1", @"SmjestajniObjektTelefon1", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("SmjestajniObjektTelefon2", @"SmjestajniObjektTelefon2", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("SmjestajniObjektMobitel1", @"SmjestajniObjektMobitel1", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("SmjestajniObjektMobitel2", @"SmjestajniObjektMobitel2", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("SmjestajniObjektEmail1", @"SmjestajniObjektEmail1", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("SmjestajniObjektEmail2", @"SmjestajniObjektEmail2", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("SmjestajniObjektUradio", @"SmjestajniObjektUradio", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("SmjestajniObjektDatumIzmjene", @"SmjestajniObjektDatumIzmjene", SqlDbType.DateTime2, isRequired: true),
-                new ColumnMetadata("SmjestajniObjektVrstaCjenika", @"SmjestajniObjektVrstaCjenika", SqlDbType.NVarChar, isRequired: true)
+				new ColumnMetadata(nameof(SmjestajniObjektSmjestajniObjekt), @"SmjestajniObjektSmjestajniObjekt", DbType.Int32, isIdentity: true, isRequired: true),
+                new ColumnMetadata(nameof(SmjestajniObjektObveznik), @"SmjestajniObjektObveznik", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(SmjestajniObjektSkupinaSmjestajnogObjekta), @"SmjestajniObjektSkupinaSmjestajnogObjekta", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(SmjestajniObjektVrstaSmjestajnogObjekta), @"SmjestajniObjektVrstaSmjestajnogObjekta", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(SmjestajniObjektNaziv), @"SmjestajniObjektNaziv", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(SmjestajniObjektDrzava), @"SmjestajniObjektDrzava", DbType.AnsiStringFixedLength, isRequired: true),
+                new ColumnMetadata(nameof(SmjestajniObjektOpcina), @"SmjestajniObjektOpcina", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(SmjestajniObjektZupanija), @"SmjestajniObjektZupanija", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(SmjestajniObjektUlica), @"SmjestajniObjektUlica", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(SmjestajniObjektKucniBroj), @"SmjestajniObjektKucniBroj", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(SmjestajniObjektMjesto), @"SmjestajniObjektMjesto", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(SmjestajniObjektAktivnost), @"SmjestajniObjektAktivnost", DbType.Boolean, isRequired: true),
+                new ColumnMetadata(nameof(SmjestajniObjektTelefon1), @"SmjestajniObjektTelefon1", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(SmjestajniObjektTelefon2), @"SmjestajniObjektTelefon2", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(SmjestajniObjektMobitel1), @"SmjestajniObjektMobitel1", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(SmjestajniObjektMobitel2), @"SmjestajniObjektMobitel2", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(SmjestajniObjektEmail1), @"SmjestajniObjektEmail1", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(SmjestajniObjektEmail2), @"SmjestajniObjektEmail2", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(SmjestajniObjektUradio), @"SmjestajniObjektUradio", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(SmjestajniObjektDatumIzmjene), @"SmjestajniObjektDatumIzmjene", DbType.DateTime2, isRequired: true),
+                new ColumnMetadata(nameof(SmjestajniObjektVrstaCjenika), @"SmjestajniObjektVrstaCjenika", DbType.String, isRequired: true)
 			);
 
             // Cache entites metadata.
             EntityMeta<SmjestajniObjekt>.LoadRelationMetadata
 			(
-				new RelationMetadata("FK_SmjestajniObjekt_Drzava", "SmjestajniObjektDrzava", "DrzavaDrzava"),
-                new RelationMetadata("FK_SmjestajniObjekt_Obveznik", "SmjestajniObjektObveznik", "ObveznikObveznik"),
-                new RelationMetadata("FK_SmjestajniObjekt_Opcina", "SmjestajniObjektOpcina", "OpcinaOpcina"),
-                new RelationMetadata("FK_SmjestajniObjekt_Opcina", "SmjestajniObjektDrzava", "OpcinaDrzava"),
-                new RelationMetadata("FK_SmjestajniObjekt_SkupinaSmjestajnogObjekta", "SmjestajniObjektSkupinaSmjestajnogObjekta", "SkupinaSmjestajnogObjektaSkupinaSmjestajnogObjekta"),
-                new RelationMetadata("FK_SmjestajniObjekt_VrstaCjenika", "SmjestajniObjektVrstaCjenika", "VrstaCjenikaVrstaCjenika"),
-                new RelationMetadata("FK_SmjestajniObjekt_VrstaSmjestajnogObjekta", "SmjestajniObjektVrstaSmjestajnogObjekta", "VrstaSmjestajnogObjektaVrstaSmjestajnogObjekta"),
-                new RelationMetadata("FK_SmjestajniObjekt_VrstaSmjestajnogObjekta", "SmjestajniObjektSkupinaSmjestajnogObjekta", "VrstaSmjestajnogObjektaSkupinaSmjestajnogObjekta"),
-                new RelationMetadata("FK_SmjestajniObjekt_Zupanija", "SmjestajniObjektZupanija", "ZupanijaZupanija"),
-                new RelationMetadata("FK_SmjestajniObjekt_Zupanija", "SmjestajniObjektDrzava", "ZupanijaDrzava")
+				new RelationMetadata(nameof(Drzava), nameof(SmjestajniObjektDrzava), nameof(Orko.Base.Drzava.DrzavaDrzava)),
+                new RelationMetadata(nameof(Obveznik), nameof(SmjestajniObjektObveznik), nameof(Orko.Turist.Obveznik.ObveznikObveznik)),
+                new RelationMetadata(nameof(Opcina), nameof(SmjestajniObjektOpcina), nameof(Orko.Base.Opcina.OpcinaOpcina)),
+                new RelationMetadata(nameof(Opcina), nameof(SmjestajniObjektDrzava), nameof(Orko.Base.Opcina.OpcinaDrzava)),
+                new RelationMetadata(nameof(SkupinaSmjestajnogObjekta), nameof(SmjestajniObjektSkupinaSmjestajnogObjekta), nameof(Orko.Turist.SkupinaSmjestajnogObjekta.SkupinaSmjestajnogObjektaSkupinaSmjestajnogObjekta)),
+                new RelationMetadata(nameof(VrstaCjenika), nameof(SmjestajniObjektVrstaCjenika), nameof(Orko.Turist.VrstaCjenika.VrstaCjenikaVrstaCjenika)),
+                new RelationMetadata(nameof(VrstaSmjestajnogObjekta), nameof(SmjestajniObjektVrstaSmjestajnogObjekta), nameof(Orko.Turist.VrstaSmjestajnogObjekta.VrstaSmjestajnogObjektaVrstaSmjestajnogObjekta)),
+                new RelationMetadata(nameof(VrstaSmjestajnogObjekta), nameof(SmjestajniObjektSkupinaSmjestajnogObjekta), nameof(Orko.Turist.VrstaSmjestajnogObjekta.VrstaSmjestajnogObjektaSkupinaSmjestajnogObjekta)),
+                new RelationMetadata(nameof(Zupanija), nameof(SmjestajniObjektZupanija), nameof(Orko.Base.Zupanija.ZupanijaZupanija)),
+                new RelationMetadata(nameof(Zupanija), nameof(SmjestajniObjektDrzava), nameof(Orko.Base.Zupanija.ZupanijaDrzava))
 			);
 
 			// Cache table metadata.
@@ -105,40 +105,40 @@ namespace Orko.Turist
         #endregion
 
         #region Entities
-		public Base.Drzava FK_SmjestajniObjekt_Drzava
+		public Base.Drzava Drzava
         {
-            get { return EntityContext<Base.Drzava>.Get(ref m_FK_SmjestajniObjekt_Drzava, this, "FK_SmjestajniObjekt_Drzava"); }
-            set { EntityContext<Base.Drzava>.Set(ref m_FK_SmjestajniObjekt_Drzava, this, value, "FK_SmjestajniObjekt_Drzava"); }
+            get { return EntityContext<Base.Drzava>.Get(ref m_Drzava, this, nameof(Drzava)); }
+            set { EntityContext<Base.Drzava>.Set(ref m_Drzava, this, value, nameof(Drzava)); }
         }
-        public Obveznik FK_SmjestajniObjekt_Obveznik
+        public Obveznik Obveznik
         {
-            get { return EntityContext<Obveznik>.Get(ref m_FK_SmjestajniObjekt_Obveznik, this, "FK_SmjestajniObjekt_Obveznik"); }
-            set { EntityContext<Obveznik>.Set(ref m_FK_SmjestajniObjekt_Obveznik, this, value, "FK_SmjestajniObjekt_Obveznik"); }
+            get { return EntityContext<Obveznik>.Get(ref m_Obveznik, this, nameof(Obveznik)); }
+            set { EntityContext<Obveznik>.Set(ref m_Obveznik, this, value, nameof(Obveznik)); }
         }
-        public Base.Opcina FK_SmjestajniObjekt_Opcina
+        public Base.Opcina Opcina
         {
-            get { return EntityContext<Base.Opcina>.Get(ref m_FK_SmjestajniObjekt_Opcina, this, "FK_SmjestajniObjekt_Opcina"); }
-            set { EntityContext<Base.Opcina>.Set(ref m_FK_SmjestajniObjekt_Opcina, this, value, "FK_SmjestajniObjekt_Opcina"); }
+            get { return EntityContext<Base.Opcina>.Get(ref m_Opcina, this, nameof(Opcina)); }
+            set { EntityContext<Base.Opcina>.Set(ref m_Opcina, this, value, nameof(Opcina)); }
         }
-        public SkupinaSmjestajnogObjekta FK_SmjestajniObjekt_SkupinaSmjestajnogObjekta
+        public SkupinaSmjestajnogObjekta SkupinaSmjestajnogObjekta
         {
-            get { return EntityContext<SkupinaSmjestajnogObjekta>.Get(ref m_FK_SmjestajniObjekt_SkupinaSmjestajnogObjekta, this, "FK_SmjestajniObjekt_SkupinaSmjestajnogObjekta"); }
-            set { EntityContext<SkupinaSmjestajnogObjekta>.Set(ref m_FK_SmjestajniObjekt_SkupinaSmjestajnogObjekta, this, value, "FK_SmjestajniObjekt_SkupinaSmjestajnogObjekta"); }
+            get { return EntityContext<SkupinaSmjestajnogObjekta>.Get(ref m_SkupinaSmjestajnogObjekta, this, nameof(SkupinaSmjestajnogObjekta)); }
+            set { EntityContext<SkupinaSmjestajnogObjekta>.Set(ref m_SkupinaSmjestajnogObjekta, this, value, nameof(SkupinaSmjestajnogObjekta)); }
         }
-        public VrstaCjenika FK_SmjestajniObjekt_VrstaCjenika
+        public VrstaCjenika VrstaCjenika
         {
-            get { return EntityContext<VrstaCjenika>.Get(ref m_FK_SmjestajniObjekt_VrstaCjenika, this, "FK_SmjestajniObjekt_VrstaCjenika"); }
-            set { EntityContext<VrstaCjenika>.Set(ref m_FK_SmjestajniObjekt_VrstaCjenika, this, value, "FK_SmjestajniObjekt_VrstaCjenika"); }
+            get { return EntityContext<VrstaCjenika>.Get(ref m_VrstaCjenika, this, nameof(VrstaCjenika)); }
+            set { EntityContext<VrstaCjenika>.Set(ref m_VrstaCjenika, this, value, nameof(VrstaCjenika)); }
         }
-        public VrstaSmjestajnogObjekta FK_SmjestajniObjekt_VrstaSmjestajnogObjekta
+        public VrstaSmjestajnogObjekta VrstaSmjestajnogObjekta
         {
-            get { return EntityContext<VrstaSmjestajnogObjekta>.Get(ref m_FK_SmjestajniObjekt_VrstaSmjestajnogObjekta, this, "FK_SmjestajniObjekt_VrstaSmjestajnogObjekta"); }
-            set { EntityContext<VrstaSmjestajnogObjekta>.Set(ref m_FK_SmjestajniObjekt_VrstaSmjestajnogObjekta, this, value, "FK_SmjestajniObjekt_VrstaSmjestajnogObjekta"); }
+            get { return EntityContext<VrstaSmjestajnogObjekta>.Get(ref m_VrstaSmjestajnogObjekta, this, nameof(VrstaSmjestajnogObjekta)); }
+            set { EntityContext<VrstaSmjestajnogObjekta>.Set(ref m_VrstaSmjestajnogObjekta, this, value, nameof(VrstaSmjestajnogObjekta)); }
         }
-        public Base.Zupanija FK_SmjestajniObjekt_Zupanija
+        public Base.Zupanija Zupanija
         {
-            get { return EntityContext<Base.Zupanija>.Get(ref m_FK_SmjestajniObjekt_Zupanija, this, "FK_SmjestajniObjekt_Zupanija"); }
-            set { EntityContext<Base.Zupanija>.Set(ref m_FK_SmjestajniObjekt_Zupanija, this, value, "FK_SmjestajniObjekt_Zupanija"); }
+            get { return EntityContext<Base.Zupanija>.Get(ref m_Zupanija, this, nameof(Zupanija)); }
+            set { EntityContext<Base.Zupanija>.Set(ref m_Zupanija, this, value, nameof(Zupanija)); }
         }
         #endregion
 
@@ -160,24 +160,5 @@ namespace Orko.Turist
             return await TryGetByPrimaryKeyAsync<SmjestajniObjekt>(SmjestajniObjektSmjestajniObjekt);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<SmjestajniObjekt> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<SmjestajniObjekt>(queryConditions);
-        }
-        public static IEnumerable<SmjestajniObjekt> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<SmjestajniObjekt>(columnName, queryOp, value);
-        }
-		public static SmjestajniObjekt GetByPrimaryKey(int SmjestajniObjektSmjestajniObjekt)
-        {
-            return GetByPrimaryKey<SmjestajniObjekt>(SmjestajniObjektSmjestajniObjekt);
-        }
-		public static SmjestajniObjekt TryGetByPrimaryKey(int SmjestajniObjektSmjestajniObjekt)
-        {
-            return TryGetByPrimaryKey<SmjestajniObjekt>(SmjestajniObjektSmjestajniObjekt);
-        }
-        #endregion
     }
 }

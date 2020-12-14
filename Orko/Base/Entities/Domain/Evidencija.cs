@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -27,12 +27,12 @@ namespace Orko.Base
             // Cache field metadata.
             EntityMeta<Evidencija>.LoadColumnMetadata
 			(
-				new ColumnMetadata("EvidencijaID", @"EvidencijaID", SqlDbType.Int, isIdentity: true, isPrimaryKey: true),
-                new ColumnMetadata("EvidencijaDatumIzrade", @"EvidencijaDatumIzrade", SqlDbType.DateTime2, isRequired: true),
-                new ColumnMetadata("EvidencijaDatumIzmjene", @"EvidencijaDatumIzmjene", SqlDbType.DateTime2, isRequired: true),
-                new ColumnMetadata("EvidencijaKorisnikIzradioID", @"EvidencijaKorisnikIzradioID", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("EvidencijaKorisnikIzmjenioID", @"EvidencijaKorisnikIzmjenioID", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("EvidencijaTimeStamp", @"EvidencijaTimeStamp", SqlDbType.Timestamp, isRequired: true)
+				new ColumnMetadata(nameof(EvidencijaID), @"EvidencijaID", DbType.Int32, isIdentity: true, isRequired: true),
+                new ColumnMetadata(nameof(EvidencijaDatumIzrade), @"EvidencijaDatumIzrade", DbType.DateTime2, isRequired: true),
+                new ColumnMetadata(nameof(EvidencijaDatumIzmjene), @"EvidencijaDatumIzmjene", DbType.DateTime2, isRequired: true),
+                new ColumnMetadata(nameof(EvidencijaKorisnikIzradioID), @"EvidencijaKorisnikIzradioID", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(EvidencijaKorisnikIzmjenioID), @"EvidencijaKorisnikIzmjenioID", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(EvidencijaTimeStamp), @"EvidencijaTimeStamp", DbType.Binary, isRequired: true)
 			);
 
             // Cache entites metadata.
@@ -81,24 +81,5 @@ namespace Orko.Base
             return await TryGetByPrimaryKeyAsync<Evidencija>(EvidencijaID);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<Evidencija> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<Evidencija>(queryConditions);
-        }
-        public static IEnumerable<Evidencija> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<Evidencija>(columnName, queryOp, value);
-        }
-		public static Evidencija GetByPrimaryKey(int EvidencijaID)
-        {
-            return GetByPrimaryKey<Evidencija>(EvidencijaID);
-        }
-		public static Evidencija TryGetByPrimaryKey(int EvidencijaID)
-        {
-            return TryGetByPrimaryKey<Evidencija>(EvidencijaID);
-        }
-        #endregion
     }
 }

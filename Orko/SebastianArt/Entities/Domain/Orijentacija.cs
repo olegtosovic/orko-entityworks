@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -27,10 +27,10 @@ namespace Orko.SebastianArt
             // Cache field metadata.
             EntityMeta<Orijentacija>.LoadColumnMetadata
 			(
-				new ColumnMetadata("OrijentacijaOrijentacija", @"OrijentacijaOrijentacija", SqlDbType.Char, isPrimaryKey: true),
-                new ColumnMetadata("OrijentacijaAktivnost", @"OrijentacijaAktivnost", SqlDbType.Bit, isRequired: true),
-                new ColumnMetadata("OrijentacijaJezik", @"OrijentacijaJezik", SqlDbType.Char, isLanguageCode: true, isPrimaryKey: true),
-                new ColumnMetadata("OrijentacijaNaziv", @"OrijentacijaNaziv", SqlDbType.NVarChar, isRequired: true, isLanguage: true)
+				new ColumnMetadata(nameof(OrijentacijaOrijentacija), @"OrijentacijaOrijentacija", DbType.AnsiStringFixedLength, isRequired: true),
+                new ColumnMetadata(nameof(OrijentacijaAktivnost), @"OrijentacijaAktivnost", DbType.Boolean, isRequired: true),
+                new ColumnMetadata(nameof(OrijentacijaJezik), @"OrijentacijaJezik", DbType.AnsiStringFixedLength, isRequired: true, isLanguageCode: true),
+                new ColumnMetadata(nameof(OrijentacijaNaziv), @"OrijentacijaNaziv", DbType.String, isRequired: true, isLanguage: true)
 			);
 
             // Cache entites metadata.
@@ -77,24 +77,5 @@ namespace Orko.SebastianArt
             return await TryGetByPrimaryKeyAsync<Orijentacija>(OrijentacijaOrijentacija);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<Orijentacija> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<Orijentacija>(queryConditions);
-        }
-        public static IEnumerable<Orijentacija> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<Orijentacija>(columnName, queryOp, value);
-        }
-		public static Orijentacija GetByPrimaryKey(string OrijentacijaOrijentacija)
-        {
-            return GetByPrimaryKey<Orijentacija>(OrijentacijaOrijentacija);
-        }
-		public static Orijentacija TryGetByPrimaryKey(string OrijentacijaOrijentacija)
-        {
-            return TryGetByPrimaryKey<Orijentacija>(OrijentacijaOrijentacija);
-        }
-        #endregion
     }
 }

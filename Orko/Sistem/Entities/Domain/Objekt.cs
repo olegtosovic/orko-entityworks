@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -18,8 +18,8 @@ namespace Orko.Sistem
     public sealed partial class Objekt : Entity
     {
 		#region Members
-		private Sustav m_FK_Objekt_Sustav;
-        private TipObjekta m_FK_Objekt_TipObjekta;
+		private Sustav m_Sustav;
+        private TipObjekta m_TipObjekta;
         #endregion
         
 		#region Constructors
@@ -28,20 +28,20 @@ namespace Orko.Sistem
             // Cache field metadata.
             EntityMeta<Objekt>.LoadColumnMetadata
 			(
-				new ColumnMetadata("ObjektObjekt", @"ObjektObjekt", SqlDbType.NVarChar, isPrimaryKey: true),
-                new ColumnMetadata("ObjektTipObjekta", @"ObjektTipObjekta", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("ObjektSustav", @"ObjektSustav", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("ObjektIkona", @"ObjektIkona", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("ObjektJezik", @"ObjektJezik", SqlDbType.Char, isLanguageCode: true, isPrimaryKey: true),
-                new ColumnMetadata("ObjektNaziv", @"ObjektNaziv", SqlDbType.NVarChar, isRequired: true, isLanguage: true),
-                new ColumnMetadata("ObjektOpis", @"ObjektOpis", SqlDbType.NVarChar, isRequired: false, isLanguage: true)
+				new ColumnMetadata(nameof(ObjektObjekt), @"ObjektObjekt", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(ObjektTipObjekta), @"ObjektTipObjekta", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(ObjektSustav), @"ObjektSustav", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(ObjektIkona), @"ObjektIkona", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(ObjektJezik), @"ObjektJezik", DbType.AnsiStringFixedLength, isRequired: true, isLanguageCode: true),
+                new ColumnMetadata(nameof(ObjektNaziv), @"ObjektNaziv", DbType.String, isRequired: true, isLanguage: true),
+                new ColumnMetadata(nameof(ObjektOpis), @"ObjektOpis", DbType.String, isRequired: false, isLanguage: true)
 			);
 
             // Cache entites metadata.
             EntityMeta<Objekt>.LoadRelationMetadata
 			(
-				new RelationMetadata("FK_Objekt_Sustav", "ObjektSustav", "SustavSustav"),
-                new RelationMetadata("FK_Objekt_TipObjekta", "ObjektTipObjekta", "TipObjektaTipObjekta")
+				new RelationMetadata(nameof(Sustav), nameof(ObjektSustav), nameof(Orko.Sistem.Sustav.SustavSustav)),
+                new RelationMetadata(nameof(TipObjekta), nameof(ObjektTipObjekta), nameof(Orko.Sistem.TipObjekta.TipObjektaTipObjekta))
 			);
 
 			// Cache table metadata.
@@ -64,15 +64,15 @@ namespace Orko.Sistem
         #endregion
 
         #region Entities
-		public Sustav FK_Objekt_Sustav
+		public Sustav Sustav
         {
-            get { return EntityContext<Sustav>.Get(ref m_FK_Objekt_Sustav, this, "FK_Objekt_Sustav"); }
-            set { EntityContext<Sustav>.Set(ref m_FK_Objekt_Sustav, this, value, "FK_Objekt_Sustav"); }
+            get { return EntityContext<Sustav>.Get(ref m_Sustav, this, nameof(Sustav)); }
+            set { EntityContext<Sustav>.Set(ref m_Sustav, this, value, nameof(Sustav)); }
         }
-        public TipObjekta FK_Objekt_TipObjekta
+        public TipObjekta TipObjekta
         {
-            get { return EntityContext<TipObjekta>.Get(ref m_FK_Objekt_TipObjekta, this, "FK_Objekt_TipObjekta"); }
-            set { EntityContext<TipObjekta>.Set(ref m_FK_Objekt_TipObjekta, this, value, "FK_Objekt_TipObjekta"); }
+            get { return EntityContext<TipObjekta>.Get(ref m_TipObjekta, this, nameof(TipObjekta)); }
+            set { EntityContext<TipObjekta>.Set(ref m_TipObjekta, this, value, nameof(TipObjekta)); }
         }
         #endregion
 
@@ -94,24 +94,5 @@ namespace Orko.Sistem
             return await TryGetByPrimaryKeyAsync<Objekt>(ObjektObjekt);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<Objekt> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<Objekt>(queryConditions);
-        }
-        public static IEnumerable<Objekt> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<Objekt>(columnName, queryOp, value);
-        }
-		public static Objekt GetByPrimaryKey(string ObjektObjekt)
-        {
-            return GetByPrimaryKey<Objekt>(ObjektObjekt);
-        }
-		public static Objekt TryGetByPrimaryKey(string ObjektObjekt)
-        {
-            return TryGetByPrimaryKey<Objekt>(ObjektObjekt);
-        }
-        #endregion
     }
 }

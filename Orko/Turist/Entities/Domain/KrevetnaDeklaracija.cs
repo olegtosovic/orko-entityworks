@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -27,14 +27,14 @@ namespace Orko.Turist
             // Cache field metadata.
             EntityMeta<KrevetnaDeklaracija>.LoadColumnMetadata
 			(
-				new ColumnMetadata("KrevetnaDeklaracijaKrevetnaDeklaracija", @"KrevetnaDeklaracijaKrevetnaDeklaracija", SqlDbType.NVarChar, isPrimaryKey: true),
-                new ColumnMetadata("KrevetnaDeklaracijaBrojLezaja", @"KrevetnaDeklaracijaBrojLezaja", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("KrevetnaDeklaracijaBrojPomocnihLezaja", @"KrevetnaDeklaracijaBrojPomocnihLezaja", SqlDbType.Int, isRequired: false),
-                new ColumnMetadata("KrevetnaDeklaracijaMaksimalniKapacitet", @"KrevetnaDeklaracijaMaksimalniKapacitet", SqlDbType.Int, isRequired: false),
-                new ColumnMetadata("KrevetnaDeklaracijaAktivnost", @"KrevetnaDeklaracijaAktivnost", SqlDbType.Bit, isRequired: true),
-                new ColumnMetadata("KrevetnaDeklaracijaJezik", @"KrevetnaDeklaracijaJezik", SqlDbType.Char, isLanguageCode: true, isPrimaryKey: true),
-                new ColumnMetadata("KrevetnaDeklaracijaNaziv", @"KrevetnaDeklaracijaNaziv", SqlDbType.NVarChar, isRequired: true, isLanguage: true),
-                new ColumnMetadata("KrevetnaDeklaracijaOpis", @"KrevetnaDeklaracijaOpis", SqlDbType.NVarChar, isRequired: false, isLanguage: true)
+				new ColumnMetadata(nameof(KrevetnaDeklaracijaKrevetnaDeklaracija), @"KrevetnaDeklaracijaKrevetnaDeklaracija", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(KrevetnaDeklaracijaBrojLezaja), @"KrevetnaDeklaracijaBrojLezaja", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(KrevetnaDeklaracijaBrojPomocnihLezaja), @"KrevetnaDeklaracijaBrojPomocnihLezaja", DbType.Int32, isRequired: false),
+                new ColumnMetadata(nameof(KrevetnaDeklaracijaMaksimalniKapacitet), @"KrevetnaDeklaracijaMaksimalniKapacitet", DbType.Int32, isRequired: false),
+                new ColumnMetadata(nameof(KrevetnaDeklaracijaAktivnost), @"KrevetnaDeklaracijaAktivnost", DbType.Boolean, isRequired: true),
+                new ColumnMetadata(nameof(KrevetnaDeklaracijaJezik), @"KrevetnaDeklaracijaJezik", DbType.AnsiStringFixedLength, isRequired: true, isLanguageCode: true),
+                new ColumnMetadata(nameof(KrevetnaDeklaracijaNaziv), @"KrevetnaDeklaracijaNaziv", DbType.String, isRequired: true, isLanguage: true),
+                new ColumnMetadata(nameof(KrevetnaDeklaracijaOpis), @"KrevetnaDeklaracijaOpis", DbType.String, isRequired: false, isLanguage: true)
 			);
 
             // Cache entites metadata.
@@ -85,24 +85,5 @@ namespace Orko.Turist
             return await TryGetByPrimaryKeyAsync<KrevetnaDeklaracija>(KrevetnaDeklaracijaKrevetnaDeklaracija);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<KrevetnaDeklaracija> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<KrevetnaDeklaracija>(queryConditions);
-        }
-        public static IEnumerable<KrevetnaDeklaracija> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<KrevetnaDeklaracija>(columnName, queryOp, value);
-        }
-		public static KrevetnaDeklaracija GetByPrimaryKey(string KrevetnaDeklaracijaKrevetnaDeklaracija)
-        {
-            return GetByPrimaryKey<KrevetnaDeklaracija>(KrevetnaDeklaracijaKrevetnaDeklaracija);
-        }
-		public static KrevetnaDeklaracija TryGetByPrimaryKey(string KrevetnaDeklaracijaKrevetnaDeklaracija)
-        {
-            return TryGetByPrimaryKey<KrevetnaDeklaracija>(KrevetnaDeklaracijaKrevetnaDeklaracija);
-        }
-        #endregion
     }
 }

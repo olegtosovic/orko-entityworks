@@ -49,25 +49,6 @@ namespace [NAMESPACE]
 		[ENTITY_LIST]
         #endregion
 
-		#region Public methods async
-		public static async Task<IEnumerable<[CLASS_NAME]>> GetByAnyAsync(params QueryCondition[] queryConditions)
-        {
-            return await GetByAnyAsync<[CLASS_NAME]>(queryConditions);
-        }
-        public static async Task<IEnumerable<[CLASS_NAME]>> GetByAnyAsync(string columnName, QueryOp queryOp, object value)
-        {
-            return await GetByAnyAsync<[CLASS_NAME]>(columnName, queryOp, value);
-        }
-		public static async Task<[CLASS_NAME]> GetByPrimaryKeyAsync([TYPE_PK_N])
-        {
-            return await GetByPrimaryKeyAsync<[CLASS_NAME]>([VAR_PK_N]);
-        }
-		public static async Task<[CLASS_NAME]> TryGetByPrimaryKeyAsync([TYPE_PK_N])
-        {
-            return await TryGetByPrimaryKeyAsync<[CLASS_NAME]>([VAR_PK_N]);
-        }
-		#endregion
-
         #region Public methods
 		public static IEnumerable<[CLASS_NAME]> GetByAny(params QueryCondition[] queryConditions)
         {

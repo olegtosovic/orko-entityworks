@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Intended for modification.
 
@@ -14,19 +14,10 @@ namespace Orko.Base
     public partial class Jezik
     {
 		#region Methods
-		public void Save()
-        {
-			Validate<Jezik>();
-            Save<Jezik>();
-        }
 		public async Task SaveAsync()
         {
 			Validate<Jezik>();
             await SaveAsync<Jezik>();
-        }
-        public void Delete()
-        {
-            Delete<Jezik>();
         }
 		public async Task DeleteAsync()
         {

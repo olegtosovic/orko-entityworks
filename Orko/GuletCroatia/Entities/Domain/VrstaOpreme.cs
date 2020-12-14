@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -27,12 +27,12 @@ namespace Orko.GuletCroatia
             // Cache field metadata.
             EntityMeta<VrstaOpreme>.LoadColumnMetadata
 			(
-				new ColumnMetadata("VrstaOpremeVrstaOpreme", @"VrstaOpremeVrstaOpreme", SqlDbType.NVarChar, isPrimaryKey: true),
-                new ColumnMetadata("VrstaOpremeNazivSlike", @"VrstaOpremeNazivSlike", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("VrstaOpremeBrojivo", @"VrstaOpremeBrojivo", SqlDbType.Bit, isRequired: true),
-                new ColumnMetadata("VrstaOpremeAktivnost", @"VrstaOpremeAktivnost", SqlDbType.Bit, isRequired: true),
-                new ColumnMetadata("VrstaOpremeJezik", @"VrstaOpremeJezik", SqlDbType.Char, isLanguageCode: true, isPrimaryKey: true),
-                new ColumnMetadata("VrstaOpremeNaziv", @"VrstaOpremeNaziv", SqlDbType.NVarChar, isRequired: true, isLanguage: true)
+				new ColumnMetadata(nameof(VrstaOpremeVrstaOpreme), @"VrstaOpremeVrstaOpreme", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(VrstaOpremeNazivSlike), @"VrstaOpremeNazivSlike", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(VrstaOpremeBrojivo), @"VrstaOpremeBrojivo", DbType.Boolean, isRequired: true),
+                new ColumnMetadata(nameof(VrstaOpremeAktivnost), @"VrstaOpremeAktivnost", DbType.Boolean, isRequired: true),
+                new ColumnMetadata(nameof(VrstaOpremeJezik), @"VrstaOpremeJezik", DbType.AnsiStringFixedLength, isRequired: true, isLanguageCode: true),
+                new ColumnMetadata(nameof(VrstaOpremeNaziv), @"VrstaOpremeNaziv", DbType.String, isRequired: true, isLanguage: true)
 			);
 
             // Cache entites metadata.
@@ -81,24 +81,5 @@ namespace Orko.GuletCroatia
             return await TryGetByPrimaryKeyAsync<VrstaOpreme>(VrstaOpremeVrstaOpreme);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<VrstaOpreme> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<VrstaOpreme>(queryConditions);
-        }
-        public static IEnumerable<VrstaOpreme> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<VrstaOpreme>(columnName, queryOp, value);
-        }
-		public static VrstaOpreme GetByPrimaryKey(string VrstaOpremeVrstaOpreme)
-        {
-            return GetByPrimaryKey<VrstaOpreme>(VrstaOpremeVrstaOpreme);
-        }
-		public static VrstaOpreme TryGetByPrimaryKey(string VrstaOpremeVrstaOpreme)
-        {
-            return TryGetByPrimaryKey<VrstaOpreme>(VrstaOpremeVrstaOpreme);
-        }
-        #endregion
     }
 }

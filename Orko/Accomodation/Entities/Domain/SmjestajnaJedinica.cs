@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -27,30 +27,30 @@ namespace Orko.Accomodation
             // Cache field metadata.
             EntityMeta<SmjestajnaJedinica>.LoadColumnMetadata
 			(
-				new ColumnMetadata("SmjestajnaJedinicaID", @"SmjestajnaJedinicaID", SqlDbType.Int, isPrimaryKey: true),
-                new ColumnMetadata("SmjestajnaJedinicaSifra", @"SmjestajnaJedinicaSifra", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("SmjestajnaJedinicaBrojOsoba", @"SmjestajnaJedinicaBrojOsoba", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("SmjestajnaJedinicaKategorija", @"SmjestajnaJedinicaKategorija", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("SmjestajnaJedinicaModul", @"SmjestajnaJedinicaModul", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("SmjestajnaJedinicaDrzava", @"SmjestajnaJedinicaDrzava", SqlDbType.Char, isRequired: false),
-                new ColumnMetadata("SmjestajnaJedinicaOpcina", @"SmjestajnaJedinicaOpcina", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("SmjestajnaJedinicaUlica", @"SmjestajnaJedinicaUlica", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("SmjestajnaJedinicaKucniBroj", @"SmjestajnaJedinicaKucniBroj", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("SmjestajnaJedinicaGoogleMapsLink", @"SmjestajnaJedinicaGoogleMapsLink", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("SmjestajnaJedinicaKrevetnaDeklaracija", @"SmjestajnaJedinicaKrevetnaDeklaracija", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("SmjestajnaJedinicaBrojDoubleBed", @"SmjestajnaJedinicaBrojDoubleBed", SqlDbType.Int, isRequired: false),
-                new ColumnMetadata("SmjestajnaJedinicaBrojSingleBed", @"SmjestajnaJedinicaBrojSingleBed", SqlDbType.Int, isRequired: false),
-                new ColumnMetadata("SmjestajnaJedinicaBrojSofaBed", @"SmjestajnaJedinicaBrojSofaBed", SqlDbType.Int, isRequired: false),
-                new ColumnMetadata("SmjestajnaJedinicaBrojExtraBed", @"SmjestajnaJedinicaBrojExtraBed", SqlDbType.Int, isRequired: false),
-                new ColumnMetadata("SmjestajnaJedinicaAktivnost", @"SmjestajnaJedinicaAktivnost", SqlDbType.Bit, isRequired: true),
-                new ColumnMetadata("SmjestajnaJedinicaJezik", @"SmjestajnaJedinicaJezik", SqlDbType.Char, isLanguageCode: true, isPrimaryKey: true),
-                new ColumnMetadata("SmjestajnaJedinicaSlug", @"SmjestajnaJedinicaSlug", SqlDbType.NVarChar, isRequired: true, isLanguage: true),
-                new ColumnMetadata("SmjestajnaJedinicaNaziv", @"SmjestajnaJedinicaNaziv", SqlDbType.NVarChar, isRequired: true, isLanguage: true),
-                new ColumnMetadata("SmjestajnaJedinicaPodnaziv", @"SmjestajnaJedinicaPodnaziv", SqlDbType.NVarChar, isRequired: true, isLanguage: true),
-                new ColumnMetadata("SmjestajnaJedinicaOpis", @"SmjestajnaJedinicaOpis", SqlDbType.NVarChar, isRequired: true, isLanguage: true),
-                new ColumnMetadata("SmjestajnaJedinicaAdresa", @"SmjestajnaJedinicaAdresa", SqlDbType.NVarChar, isRequired: true, isLanguage: true),
-                new ColumnMetadata("SmjestajnaJedinicaMetaTitle", @"SmjestajnaJedinicaMetaTitle", SqlDbType.NVarChar, isRequired: true, isLanguage: true),
-                new ColumnMetadata("SmjestajnaJedinicaMetaDescription", @"SmjestajnaJedinicaMetaDescription", SqlDbType.NVarChar, isRequired: true, isLanguage: true)
+				new ColumnMetadata(nameof(SmjestajnaJedinicaID), @"SmjestajnaJedinicaID", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(SmjestajnaJedinicaSifra), @"SmjestajnaJedinicaSifra", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(SmjestajnaJedinicaBrojOsoba), @"SmjestajnaJedinicaBrojOsoba", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(SmjestajnaJedinicaKategorija), @"SmjestajnaJedinicaKategorija", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(SmjestajnaJedinicaModul), @"SmjestajnaJedinicaModul", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(SmjestajnaJedinicaDrzava), @"SmjestajnaJedinicaDrzava", DbType.AnsiStringFixedLength, isRequired: false),
+                new ColumnMetadata(nameof(SmjestajnaJedinicaOpcina), @"SmjestajnaJedinicaOpcina", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(SmjestajnaJedinicaUlica), @"SmjestajnaJedinicaUlica", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(SmjestajnaJedinicaKucniBroj), @"SmjestajnaJedinicaKucniBroj", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(SmjestajnaJedinicaGoogleMapsLink), @"SmjestajnaJedinicaGoogleMapsLink", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(SmjestajnaJedinicaKrevetnaDeklaracija), @"SmjestajnaJedinicaKrevetnaDeklaracija", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(SmjestajnaJedinicaBrojDoubleBed), @"SmjestajnaJedinicaBrojDoubleBed", DbType.Int32, isRequired: false),
+                new ColumnMetadata(nameof(SmjestajnaJedinicaBrojSingleBed), @"SmjestajnaJedinicaBrojSingleBed", DbType.Int32, isRequired: false),
+                new ColumnMetadata(nameof(SmjestajnaJedinicaBrojSofaBed), @"SmjestajnaJedinicaBrojSofaBed", DbType.Int32, isRequired: false),
+                new ColumnMetadata(nameof(SmjestajnaJedinicaBrojExtraBed), @"SmjestajnaJedinicaBrojExtraBed", DbType.Int32, isRequired: false),
+                new ColumnMetadata(nameof(SmjestajnaJedinicaAktivnost), @"SmjestajnaJedinicaAktivnost", DbType.Boolean, isRequired: true),
+                new ColumnMetadata(nameof(SmjestajnaJedinicaJezik), @"SmjestajnaJedinicaJezik", DbType.AnsiStringFixedLength, isRequired: true, isLanguageCode: true),
+                new ColumnMetadata(nameof(SmjestajnaJedinicaSlug), @"SmjestajnaJedinicaSlug", DbType.String, isRequired: true, isLanguage: true),
+                new ColumnMetadata(nameof(SmjestajnaJedinicaNaziv), @"SmjestajnaJedinicaNaziv", DbType.String, isRequired: true, isLanguage: true),
+                new ColumnMetadata(nameof(SmjestajnaJedinicaPodnaziv), @"SmjestajnaJedinicaPodnaziv", DbType.String, isRequired: true, isLanguage: true),
+                new ColumnMetadata(nameof(SmjestajnaJedinicaOpis), @"SmjestajnaJedinicaOpis", DbType.String, isRequired: true, isLanguage: true),
+                new ColumnMetadata(nameof(SmjestajnaJedinicaAdresa), @"SmjestajnaJedinicaAdresa", DbType.String, isRequired: true, isLanguage: true),
+                new ColumnMetadata(nameof(SmjestajnaJedinicaMetaTitle), @"SmjestajnaJedinicaMetaTitle", DbType.String, isRequired: true, isLanguage: true),
+                new ColumnMetadata(nameof(SmjestajnaJedinicaMetaDescription), @"SmjestajnaJedinicaMetaDescription", DbType.String, isRequired: true, isLanguage: true)
 			);
 
             // Cache entites metadata.
@@ -117,32 +117,5 @@ namespace Orko.Accomodation
             return await TryGetByPrimaryKeyAsync<SmjestajnaJedinica>(SmjestajnaJedinicaID);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<SmjestajnaJedinica> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<SmjestajnaJedinica>(queryConditions);
-        }
-        public static IEnumerable<SmjestajnaJedinica> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<SmjestajnaJedinica>(columnName, queryOp, value);
-        }
-		public static SmjestajnaJedinica GetByPrimaryKey(int SmjestajnaJedinicaID)
-        {
-            return GetByPrimaryKey<SmjestajnaJedinica>(SmjestajnaJedinicaID);
-        }
-		public static SmjestajnaJedinica TryGetByPrimaryKey(int SmjestajnaJedinicaID)
-        {
-            return TryGetByPrimaryKey<SmjestajnaJedinica>(SmjestajnaJedinicaID);
-        }
-        public static SmjestajnaJedinica GetByUnique1(string SmjestajnaJedinicaSifra)
-        {
-            return GetByCallingParameters<SmjestajnaJedinica>(SmjestajnaJedinicaSifra);
-        }
-		public static SmjestajnaJedinica TryGetByUnique1(string SmjestajnaJedinicaSifra)
-        {
-            return TryGetByCallingParameters<SmjestajnaJedinica>(SmjestajnaJedinicaSifra);
-        }
-        #endregion
     }
 }

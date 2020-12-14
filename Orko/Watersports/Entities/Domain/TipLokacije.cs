@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -27,11 +27,11 @@ namespace Orko.Watersports
             // Cache field metadata.
             EntityMeta<TipLokacije>.LoadColumnMetadata
 			(
-				new ColumnMetadata("TipLokacijeTipLokacije", @"TipLokacijeTipLokacije", SqlDbType.NVarChar, isPrimaryKey: true),
-                new ColumnMetadata("TipLokacijeAktivnost", @"TipLokacijeAktivnost", SqlDbType.Bit, isRequired: true),
-                new ColumnMetadata("TipLokacijeJezik", @"TipLokacijeJezik", SqlDbType.Char, isLanguageCode: true, isPrimaryKey: true),
-                new ColumnMetadata("TipLokacijeNaziv", @"TipLokacijeNaziv", SqlDbType.NVarChar, isRequired: true, isLanguage: true),
-                new ColumnMetadata("TipLokacijeOpis", @"TipLokacijeOpis", SqlDbType.NVarChar, isRequired: false, isLanguage: true)
+				new ColumnMetadata(nameof(TipLokacijeTipLokacije), @"TipLokacijeTipLokacije", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(TipLokacijeAktivnost), @"TipLokacijeAktivnost", DbType.Boolean, isRequired: true),
+                new ColumnMetadata(nameof(TipLokacijeJezik), @"TipLokacijeJezik", DbType.AnsiStringFixedLength, isRequired: true, isLanguageCode: true),
+                new ColumnMetadata(nameof(TipLokacijeNaziv), @"TipLokacijeNaziv", DbType.String, isRequired: true, isLanguage: true),
+                new ColumnMetadata(nameof(TipLokacijeOpis), @"TipLokacijeOpis", DbType.String, isRequired: false, isLanguage: true)
 			);
 
             // Cache entites metadata.
@@ -79,24 +79,5 @@ namespace Orko.Watersports
             return await TryGetByPrimaryKeyAsync<TipLokacije>(TipLokacijeTipLokacije);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<TipLokacije> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<TipLokacije>(queryConditions);
-        }
-        public static IEnumerable<TipLokacije> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<TipLokacije>(columnName, queryOp, value);
-        }
-		public static TipLokacije GetByPrimaryKey(string TipLokacijeTipLokacije)
-        {
-            return GetByPrimaryKey<TipLokacije>(TipLokacijeTipLokacije);
-        }
-		public static TipLokacije TryGetByPrimaryKey(string TipLokacijeTipLokacije)
-        {
-            return TryGetByPrimaryKey<TipLokacije>(TipLokacijeTipLokacije);
-        }
-        #endregion
     }
 }

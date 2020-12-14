@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -18,8 +18,8 @@ namespace Orko.Sistem
     public sealed partial class Meni : Entity
     {
 		#region Members
-		private Objekt m_FK_Meni_NadredjeniObjekt;
-        private Objekt m_FK_Meni_Objekt;
+		private Objekt m_NadredjeniObjekt;
+        private Objekt m_Objekt;
         #endregion
         
 		#region Constructors
@@ -28,17 +28,17 @@ namespace Orko.Sistem
             // Cache field metadata.
             EntityMeta<Meni>.LoadColumnMetadata
 			(
-				new ColumnMetadata("MeniID", @"MeniID", SqlDbType.Int, isPrimaryKey: true),
-                new ColumnMetadata("MeniObjektNadredjeni", @"MeniObjektNadredjeni", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("MeniObjekt", @"MeniObjekt", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("MeniRedniBroj", @"MeniRedniBroj", SqlDbType.Int, isRequired: true)
+				new ColumnMetadata(nameof(MeniID), @"MeniID", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(MeniObjektNadredjeni), @"MeniObjektNadredjeni", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(MeniObjekt), @"MeniObjekt", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(MeniRedniBroj), @"MeniRedniBroj", DbType.Int32, isRequired: true)
 			);
 
             // Cache entites metadata.
             EntityMeta<Meni>.LoadRelationMetadata
 			(
-				new RelationMetadata("FK_Meni_NadredjeniObjekt", "MeniObjektNadredjeni", "ObjektObjekt"),
-                new RelationMetadata("FK_Meni_Objekt", "MeniObjekt", "ObjektObjekt")
+				new RelationMetadata(nameof(NadredjeniObjekt), nameof(MeniObjektNadredjeni), nameof(Orko.Sistem.Objekt.ObjektObjekt)),
+                new RelationMetadata(nameof(Objekt), nameof(MeniObjekt), nameof(Orko.Sistem.Objekt.ObjektObjekt))
 			);
 
 			// Cache table metadata.
@@ -58,15 +58,15 @@ namespace Orko.Sistem
         #endregion
 
         #region Entities
-		public Objekt FK_Meni_NadredjeniObjekt
+		public Objekt NadredjeniObjekt
         {
-            get { return EntityContext<Objekt>.Get(ref m_FK_Meni_NadredjeniObjekt, this, "FK_Meni_NadredjeniObjekt"); }
-            set { EntityContext<Objekt>.Set(ref m_FK_Meni_NadredjeniObjekt, this, value, "FK_Meni_NadredjeniObjekt"); }
+            get { return EntityContext<Objekt>.Get(ref m_NadredjeniObjekt, this, nameof(NadredjeniObjekt)); }
+            set { EntityContext<Objekt>.Set(ref m_NadredjeniObjekt, this, value, nameof(NadredjeniObjekt)); }
         }
-        public Objekt FK_Meni_Objekt
+        public Objekt Objekt
         {
-            get { return EntityContext<Objekt>.Get(ref m_FK_Meni_Objekt, this, "FK_Meni_Objekt"); }
-            set { EntityContext<Objekt>.Set(ref m_FK_Meni_Objekt, this, value, "FK_Meni_Objekt"); }
+            get { return EntityContext<Objekt>.Get(ref m_Objekt, this, nameof(Objekt)); }
+            set { EntityContext<Objekt>.Set(ref m_Objekt, this, value, nameof(Objekt)); }
         }
         #endregion
 
@@ -88,24 +88,5 @@ namespace Orko.Sistem
             return await TryGetByPrimaryKeyAsync<Meni>(MeniID);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<Meni> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<Meni>(queryConditions);
-        }
-        public static IEnumerable<Meni> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<Meni>(columnName, queryOp, value);
-        }
-		public static Meni GetByPrimaryKey(int MeniID)
-        {
-            return GetByPrimaryKey<Meni>(MeniID);
-        }
-		public static Meni TryGetByPrimaryKey(int MeniID)
-        {
-            return TryGetByPrimaryKey<Meni>(MeniID);
-        }
-        #endregion
     }
 }

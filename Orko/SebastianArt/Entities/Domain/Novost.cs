@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -18,7 +18,7 @@ namespace Orko.SebastianArt
     public sealed partial class Novost : Entity
     {
 		#region Members
-		private Autor m_FK_Novost_Autor;
+		private Autor m_Autor;
         #endregion
         
 		#region Constructors
@@ -27,29 +27,29 @@ namespace Orko.SebastianArt
             // Cache field metadata.
             EntityMeta<Novost>.LoadColumnMetadata
 			(
-				new ColumnMetadata("NovostID", @"NovostID", SqlDbType.Int, isIdentity: true, isPrimaryKey: true),
-                new ColumnMetadata("NovostSlug", @"NovostSlug", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("NovostAutorID", @"NovostAutorID", SqlDbType.Int, isRequired: false),
-                new ColumnMetadata("NovostDatumUnosa", @"NovostDatumUnosa", SqlDbType.DateTime2, isRequired: true),
-                new ColumnMetadata("NovostDatumObjave", @"NovostDatumObjave", SqlDbType.DateTime2, isRequired: true),
-                new ColumnMetadata("NovostKategorija", @"NovostKategorija", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("NovostEventOd", @"NovostEventOd", SqlDbType.DateTime2, isRequired: false),
-                new ColumnMetadata("NovostEventDo", @"NovostEventDo", SqlDbType.DateTime2, isRequired: false),
-                new ColumnMetadata("NovostOtvorenje", @"NovostOtvorenje", SqlDbType.DateTime2, isRequired: false),
-                new ColumnMetadata("NovostAktivnost", @"NovostAktivnost", SqlDbType.Bit, isRequired: true),
-                new ColumnMetadata("NovostJezik", @"NovostJezik", SqlDbType.Char, isLanguageCode: true, isPrimaryKey: true),
-                new ColumnMetadata("NovostNaslov", @"NovostNaslov", SqlDbType.NVarChar, isRequired: true, isLanguage: true),
-                new ColumnMetadata("NovostPodnaslov", @"NovostPodnaslov", SqlDbType.NVarChar, isRequired: false, isLanguage: true),
-                new ColumnMetadata("NovostTehnika", @"NovostTehnika", SqlDbType.NVarChar, isRequired: false, isLanguage: true),
-                new ColumnMetadata("NovostLokalitet", @"NovostLokalitet", SqlDbType.NVarChar, isRequired: false, isLanguage: true),
-                new ColumnMetadata("NovostOAutoru", @"NovostOAutoru", SqlDbType.NVarChar, isRequired: false, isLanguage: true),
-                new ColumnMetadata("NovostOpis", @"NovostOpis", SqlDbType.NVarChar, isRequired: false, isLanguage: true)
+				new ColumnMetadata(nameof(NovostID), @"NovostID", DbType.Int32, isIdentity: true, isRequired: true),
+                new ColumnMetadata(nameof(NovostSlug), @"NovostSlug", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(NovostAutorID), @"NovostAutorID", DbType.Int32, isRequired: false),
+                new ColumnMetadata(nameof(NovostDatumUnosa), @"NovostDatumUnosa", DbType.DateTime2, isRequired: true),
+                new ColumnMetadata(nameof(NovostDatumObjave), @"NovostDatumObjave", DbType.DateTime2, isRequired: true),
+                new ColumnMetadata(nameof(NovostKategorija), @"NovostKategorija", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(NovostEventOd), @"NovostEventOd", DbType.DateTime2, isRequired: false),
+                new ColumnMetadata(nameof(NovostEventDo), @"NovostEventDo", DbType.DateTime2, isRequired: false),
+                new ColumnMetadata(nameof(NovostOtvorenje), @"NovostOtvorenje", DbType.DateTime2, isRequired: false),
+                new ColumnMetadata(nameof(NovostAktivnost), @"NovostAktivnost", DbType.Boolean, isRequired: true),
+                new ColumnMetadata(nameof(NovostJezik), @"NovostJezik", DbType.AnsiStringFixedLength, isRequired: true, isLanguageCode: true),
+                new ColumnMetadata(nameof(NovostNaslov), @"NovostNaslov", DbType.String, isRequired: true, isLanguage: true),
+                new ColumnMetadata(nameof(NovostPodnaslov), @"NovostPodnaslov", DbType.String, isRequired: false, isLanguage: true),
+                new ColumnMetadata(nameof(NovostTehnika), @"NovostTehnika", DbType.String, isRequired: false, isLanguage: true),
+                new ColumnMetadata(nameof(NovostLokalitet), @"NovostLokalitet", DbType.String, isRequired: false, isLanguage: true),
+                new ColumnMetadata(nameof(NovostOAutoru), @"NovostOAutoru", DbType.String, isRequired: false, isLanguage: true),
+                new ColumnMetadata(nameof(NovostOpis), @"NovostOpis", DbType.String, isRequired: false, isLanguage: true)
 			);
 
             // Cache entites metadata.
             EntityMeta<Novost>.LoadRelationMetadata
 			(
-				new RelationMetadata("FK_Novost_Autor", "NovostAutorID", "AutorID")
+				new RelationMetadata(nameof(Autor), nameof(NovostAutorID), nameof(Orko.SebastianArt.Autor.AutorID))
 			);
 
 			// Cache table metadata.
@@ -82,10 +82,10 @@ namespace Orko.SebastianArt
         #endregion
 
         #region Entities
-		public Autor FK_Novost_Autor
+		public Autor Autor
         {
-            get { return EntityContext<Autor>.Get(ref m_FK_Novost_Autor, this, "FK_Novost_Autor"); }
-            set { EntityContext<Autor>.Set(ref m_FK_Novost_Autor, this, value, "FK_Novost_Autor"); }
+            get { return EntityContext<Autor>.Get(ref m_Autor, this, nameof(Autor)); }
+            set { EntityContext<Autor>.Set(ref m_Autor, this, value, nameof(Autor)); }
         }
         #endregion
 
@@ -107,32 +107,5 @@ namespace Orko.SebastianArt
             return await TryGetByPrimaryKeyAsync<Novost>(NovostID);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<Novost> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<Novost>(queryConditions);
-        }
-        public static IEnumerable<Novost> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<Novost>(columnName, queryOp, value);
-        }
-		public static Novost GetByPrimaryKey(int NovostID)
-        {
-            return GetByPrimaryKey<Novost>(NovostID);
-        }
-		public static Novost TryGetByPrimaryKey(int NovostID)
-        {
-            return TryGetByPrimaryKey<Novost>(NovostID);
-        }
-        public static Novost GetByUnique1(string NovostSlug)
-        {
-            return GetByCallingParameters<Novost>(NovostSlug);
-        }
-		public static Novost TryGetByUnique1(string NovostSlug)
-        {
-            return TryGetByCallingParameters<Novost>(NovostSlug);
-        }
-        #endregion
     }
 }

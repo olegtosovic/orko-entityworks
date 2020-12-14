@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -18,12 +18,12 @@ namespace Orko.Turist
     public sealed partial class CjenikStavka : Entity
     {
 		#region Members
-		private Cjenik m_FK_CjenikStavka_Cjenik;
-        private PogledSmjestajneJedinice m_FK_CjenikStavka_PogledSmjestajneJedinice;
-        private SmjestajnaJedinica m_FK_CjenikStavka_SmjestajnaJedinica;
-        private SmjestajniObjekt m_FK_CjenikStavka_SmjestajniObjekt;
-        private TipSmjestajneJedinice m_FK_CjenikStavka_TipSmjestajneJedinice;
-        private VrstaSmjestajneJedinice m_FK_CjenikStavka_VrstaSmjestajneJedinice;
+		private Cjenik m_Cjenik;
+        private PogledSmjestajneJedinice m_PogledSmjestajneJedinice;
+        private SmjestajnaJedinica m_SmjestajnaJedinica;
+        private SmjestajniObjekt m_SmjestajniObjekt;
+        private TipSmjestajneJedinice m_TipSmjestajneJedinice;
+        private VrstaSmjestajneJedinice m_VrstaSmjestajneJedinice;
         #endregion
         
 		#region Constructors
@@ -32,39 +32,39 @@ namespace Orko.Turist
             // Cache field metadata.
             EntityMeta<CjenikStavka>.LoadColumnMetadata
 			(
-				new ColumnMetadata("CjenikStavkaID", @"CjenikStavkaID", SqlDbType.Int, isIdentity: true, isPrimaryKey: true),
-                new ColumnMetadata("CjenikStavkaProtokolID", @"CjenikStavkaProtokolID", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("CjenikStavkaSmjestajniObjekt", @"CjenikStavkaSmjestajniObjekt", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("CjenikStavkaSmjestajnaJedinica", @"CjenikStavkaSmjestajnaJedinica", SqlDbType.Int, isRequired: false),
-                new ColumnMetadata("CjenikStavkaTipSmjestajneJedinice", @"CjenikStavkaTipSmjestajneJedinice", SqlDbType.Int, isRequired: false),
-                new ColumnMetadata("CjenikStavkaPogledSmjestajneJedinice", @"CjenikStavkaPogledSmjestajneJedinice", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("CjenikStavkaVrstaSmjestajneJedinice", @"CjenikStavkaVrstaSmjestajneJedinice", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("CjenikStavkaVrstaSmjestajnogObjekta", @"CjenikStavkaVrstaSmjestajnogObjekta", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("CjenikStavkaSkupinaSmjestajnogObjekta", @"CjenikStavkaSkupinaSmjestajnogObjekta", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("CjenikStavkaBrojOsoba", @"CjenikStavkaBrojOsoba", SqlDbType.Int, isRequired: false),
-                new ColumnMetadata("CjenikStavkaPeriodOd", @"CjenikStavkaPeriodOd", SqlDbType.DateTime2, isRequired: false),
-                new ColumnMetadata("CjenikStavkaPeriodDo", @"CjenikStavkaPeriodDo", SqlDbType.DateTime2, isRequired: false),
-                new ColumnMetadata("CjenikStavkaIznos", @"CjenikStavkaIznos", SqlDbType.Decimal, isRequired: false),
-                new ColumnMetadata("CjenikStavkaAlotmanskiIznos", @"CjenikStavkaAlotmanskiIznos", SqlDbType.Decimal, isRequired: false),
-                new ColumnMetadata("CjenikStavkaDodatnaOsobaIznos", @"CjenikStavkaDodatnaOsobaIznos", SqlDbType.Decimal, isRequired: false),
-                new ColumnMetadata("CjenikStavkaVrijediOd", @"CjenikStavkaVrijediOd", SqlDbType.DateTime2, isRequired: true),
-                new ColumnMetadata("CjenikStavkaVrijediDo", @"CjenikStavkaVrijediDo", SqlDbType.DateTime2, isRequired: false),
-                new ColumnMetadata("CjenikStavkaUradio", @"CjenikStavkaUradio", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("CjenikStavkaDatumIzmjene", @"CjenikStavkaDatumIzmjene", SqlDbType.DateTime2, isRequired: true)
+				new ColumnMetadata(nameof(CjenikStavkaID), @"CjenikStavkaID", DbType.Int32, isIdentity: true, isRequired: true),
+                new ColumnMetadata(nameof(CjenikStavkaProtokolID), @"CjenikStavkaProtokolID", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(CjenikStavkaSmjestajniObjekt), @"CjenikStavkaSmjestajniObjekt", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(CjenikStavkaSmjestajnaJedinica), @"CjenikStavkaSmjestajnaJedinica", DbType.Int32, isRequired: false),
+                new ColumnMetadata(nameof(CjenikStavkaTipSmjestajneJedinice), @"CjenikStavkaTipSmjestajneJedinice", DbType.Int32, isRequired: false),
+                new ColumnMetadata(nameof(CjenikStavkaPogledSmjestajneJedinice), @"CjenikStavkaPogledSmjestajneJedinice", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(CjenikStavkaVrstaSmjestajneJedinice), @"CjenikStavkaVrstaSmjestajneJedinice", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(CjenikStavkaVrstaSmjestajnogObjekta), @"CjenikStavkaVrstaSmjestajnogObjekta", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(CjenikStavkaSkupinaSmjestajnogObjekta), @"CjenikStavkaSkupinaSmjestajnogObjekta", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(CjenikStavkaBrojOsoba), @"CjenikStavkaBrojOsoba", DbType.Int32, isRequired: false),
+                new ColumnMetadata(nameof(CjenikStavkaPeriodOd), @"CjenikStavkaPeriodOd", DbType.DateTime2, isRequired: false),
+                new ColumnMetadata(nameof(CjenikStavkaPeriodDo), @"CjenikStavkaPeriodDo", DbType.DateTime2, isRequired: false),
+                new ColumnMetadata(nameof(CjenikStavkaIznos), @"CjenikStavkaIznos", DbType.Decimal, isRequired: false),
+                new ColumnMetadata(nameof(CjenikStavkaAlotmanskiIznos), @"CjenikStavkaAlotmanskiIznos", DbType.Decimal, isRequired: false),
+                new ColumnMetadata(nameof(CjenikStavkaDodatnaOsobaIznos), @"CjenikStavkaDodatnaOsobaIznos", DbType.Decimal, isRequired: false),
+                new ColumnMetadata(nameof(CjenikStavkaVrijediOd), @"CjenikStavkaVrijediOd", DbType.DateTime2, isRequired: true),
+                new ColumnMetadata(nameof(CjenikStavkaVrijediDo), @"CjenikStavkaVrijediDo", DbType.DateTime2, isRequired: false),
+                new ColumnMetadata(nameof(CjenikStavkaUradio), @"CjenikStavkaUradio", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(CjenikStavkaDatumIzmjene), @"CjenikStavkaDatumIzmjene", DbType.DateTime2, isRequired: true)
 			);
 
             // Cache entites metadata.
             EntityMeta<CjenikStavka>.LoadRelationMetadata
 			(
-				new RelationMetadata("FK_CjenikStavka_Cjenik", "CjenikStavkaProtokolID", "CjenikProtokolID"),
-                new RelationMetadata("FK_CjenikStavka_PogledSmjestajneJedinice", "CjenikStavkaPogledSmjestajneJedinice", "PogledSmjestajneJedinicePogledSmjestajneJedinice"),
-                new RelationMetadata("FK_CjenikStavka_SmjestajnaJedinica", "CjenikStavkaSmjestajnaJedinica", "SmjestajnaJedinicaSmjestajnaJedinica"),
-                new RelationMetadata("FK_CjenikStavka_SmjestajniObjekt", "CjenikStavkaSmjestajniObjekt", "SmjestajniObjektSmjestajniObjekt"),
-                new RelationMetadata("FK_CjenikStavka_TipSmjestajneJedinice", "CjenikStavkaTipSmjestajneJedinice", "TipSmjestajneJediniceTipSmjestajneJedinice"),
-                new RelationMetadata("FK_CjenikStavka_TipSmjestajneJedinice", "CjenikStavkaSmjestajniObjekt", "TipSmjestajneJediniceSmjestajniObjekt"),
-                new RelationMetadata("FK_CjenikStavka_VrstaSmjestajneJedinice", "CjenikStavkaVrstaSmjestajneJedinice", "VrstaSmjestajneJediniceVrstaSmjestajneJedinice"),
-                new RelationMetadata("FK_CjenikStavka_VrstaSmjestajneJedinice", "CjenikStavkaVrstaSmjestajnogObjekta", "VrstaSmjestajneJediniceVrstaSmjestajnogObjekta"),
-                new RelationMetadata("FK_CjenikStavka_VrstaSmjestajneJedinice", "CjenikStavkaSkupinaSmjestajnogObjekta", "VrstaSmjestajneJediniceSkupinaSmjestajnogObjekta")
+				new RelationMetadata(nameof(Cjenik), nameof(CjenikStavkaProtokolID), nameof(Orko.Turist.Cjenik.CjenikProtokolID)),
+                new RelationMetadata(nameof(PogledSmjestajneJedinice), nameof(CjenikStavkaPogledSmjestajneJedinice), nameof(Orko.Turist.PogledSmjestajneJedinice.PogledSmjestajneJedinicePogledSmjestajneJedinice)),
+                new RelationMetadata(nameof(SmjestajnaJedinica), nameof(CjenikStavkaSmjestajnaJedinica), nameof(Orko.Turist.SmjestajnaJedinica.SmjestajnaJedinicaSmjestajnaJedinica)),
+                new RelationMetadata(nameof(SmjestajniObjekt), nameof(CjenikStavkaSmjestajniObjekt), nameof(Orko.Turist.SmjestajniObjekt.SmjestajniObjektSmjestajniObjekt)),
+                new RelationMetadata(nameof(TipSmjestajneJedinice), nameof(CjenikStavkaTipSmjestajneJedinice), nameof(Orko.Turist.TipSmjestajneJedinice.TipSmjestajneJediniceTipSmjestajneJedinice)),
+                new RelationMetadata(nameof(TipSmjestajneJedinice), nameof(CjenikStavkaSmjestajniObjekt), nameof(Orko.Turist.TipSmjestajneJedinice.TipSmjestajneJediniceSmjestajniObjekt)),
+                new RelationMetadata(nameof(VrstaSmjestajneJedinice), nameof(CjenikStavkaVrstaSmjestajneJedinice), nameof(Orko.Turist.VrstaSmjestajneJedinice.VrstaSmjestajneJediniceVrstaSmjestajneJedinice)),
+                new RelationMetadata(nameof(VrstaSmjestajneJedinice), nameof(CjenikStavkaVrstaSmjestajnogObjekta), nameof(Orko.Turist.VrstaSmjestajneJedinice.VrstaSmjestajneJediniceVrstaSmjestajnogObjekta)),
+                new RelationMetadata(nameof(VrstaSmjestajneJedinice), nameof(CjenikStavkaSkupinaSmjestajnogObjekta), nameof(Orko.Turist.VrstaSmjestajneJedinice.VrstaSmjestajneJediniceSkupinaSmjestajnogObjekta))
 			);
 
 			// Cache table metadata.
@@ -99,35 +99,35 @@ namespace Orko.Turist
         #endregion
 
         #region Entities
-		public Cjenik FK_CjenikStavka_Cjenik
+		public Cjenik Cjenik
         {
-            get { return EntityContext<Cjenik>.Get(ref m_FK_CjenikStavka_Cjenik, this, "FK_CjenikStavka_Cjenik"); }
-            set { EntityContext<Cjenik>.Set(ref m_FK_CjenikStavka_Cjenik, this, value, "FK_CjenikStavka_Cjenik"); }
+            get { return EntityContext<Cjenik>.Get(ref m_Cjenik, this, nameof(Cjenik)); }
+            set { EntityContext<Cjenik>.Set(ref m_Cjenik, this, value, nameof(Cjenik)); }
         }
-        public PogledSmjestajneJedinice FK_CjenikStavka_PogledSmjestajneJedinice
+        public PogledSmjestajneJedinice PogledSmjestajneJedinice
         {
-            get { return EntityContext<PogledSmjestajneJedinice>.Get(ref m_FK_CjenikStavka_PogledSmjestajneJedinice, this, "FK_CjenikStavka_PogledSmjestajneJedinice"); }
-            set { EntityContext<PogledSmjestajneJedinice>.Set(ref m_FK_CjenikStavka_PogledSmjestajneJedinice, this, value, "FK_CjenikStavka_PogledSmjestajneJedinice"); }
+            get { return EntityContext<PogledSmjestajneJedinice>.Get(ref m_PogledSmjestajneJedinice, this, nameof(PogledSmjestajneJedinice)); }
+            set { EntityContext<PogledSmjestajneJedinice>.Set(ref m_PogledSmjestajneJedinice, this, value, nameof(PogledSmjestajneJedinice)); }
         }
-        public SmjestajnaJedinica FK_CjenikStavka_SmjestajnaJedinica
+        public SmjestajnaJedinica SmjestajnaJedinica
         {
-            get { return EntityContext<SmjestajnaJedinica>.Get(ref m_FK_CjenikStavka_SmjestajnaJedinica, this, "FK_CjenikStavka_SmjestajnaJedinica"); }
-            set { EntityContext<SmjestajnaJedinica>.Set(ref m_FK_CjenikStavka_SmjestajnaJedinica, this, value, "FK_CjenikStavka_SmjestajnaJedinica"); }
+            get { return EntityContext<SmjestajnaJedinica>.Get(ref m_SmjestajnaJedinica, this, nameof(SmjestajnaJedinica)); }
+            set { EntityContext<SmjestajnaJedinica>.Set(ref m_SmjestajnaJedinica, this, value, nameof(SmjestajnaJedinica)); }
         }
-        public SmjestajniObjekt FK_CjenikStavka_SmjestajniObjekt
+        public SmjestajniObjekt SmjestajniObjekt
         {
-            get { return EntityContext<SmjestajniObjekt>.Get(ref m_FK_CjenikStavka_SmjestajniObjekt, this, "FK_CjenikStavka_SmjestajniObjekt"); }
-            set { EntityContext<SmjestajniObjekt>.Set(ref m_FK_CjenikStavka_SmjestajniObjekt, this, value, "FK_CjenikStavka_SmjestajniObjekt"); }
+            get { return EntityContext<SmjestajniObjekt>.Get(ref m_SmjestajniObjekt, this, nameof(SmjestajniObjekt)); }
+            set { EntityContext<SmjestajniObjekt>.Set(ref m_SmjestajniObjekt, this, value, nameof(SmjestajniObjekt)); }
         }
-        public TipSmjestajneJedinice FK_CjenikStavka_TipSmjestajneJedinice
+        public TipSmjestajneJedinice TipSmjestajneJedinice
         {
-            get { return EntityContext<TipSmjestajneJedinice>.Get(ref m_FK_CjenikStavka_TipSmjestajneJedinice, this, "FK_CjenikStavka_TipSmjestajneJedinice"); }
-            set { EntityContext<TipSmjestajneJedinice>.Set(ref m_FK_CjenikStavka_TipSmjestajneJedinice, this, value, "FK_CjenikStavka_TipSmjestajneJedinice"); }
+            get { return EntityContext<TipSmjestajneJedinice>.Get(ref m_TipSmjestajneJedinice, this, nameof(TipSmjestajneJedinice)); }
+            set { EntityContext<TipSmjestajneJedinice>.Set(ref m_TipSmjestajneJedinice, this, value, nameof(TipSmjestajneJedinice)); }
         }
-        public VrstaSmjestajneJedinice FK_CjenikStavka_VrstaSmjestajneJedinice
+        public VrstaSmjestajneJedinice VrstaSmjestajneJedinice
         {
-            get { return EntityContext<VrstaSmjestajneJedinice>.Get(ref m_FK_CjenikStavka_VrstaSmjestajneJedinice, this, "FK_CjenikStavka_VrstaSmjestajneJedinice"); }
-            set { EntityContext<VrstaSmjestajneJedinice>.Set(ref m_FK_CjenikStavka_VrstaSmjestajneJedinice, this, value, "FK_CjenikStavka_VrstaSmjestajneJedinice"); }
+            get { return EntityContext<VrstaSmjestajneJedinice>.Get(ref m_VrstaSmjestajneJedinice, this, nameof(VrstaSmjestajneJedinice)); }
+            set { EntityContext<VrstaSmjestajneJedinice>.Set(ref m_VrstaSmjestajneJedinice, this, value, nameof(VrstaSmjestajneJedinice)); }
         }
         #endregion
 
@@ -149,24 +149,5 @@ namespace Orko.Turist
             return await TryGetByPrimaryKeyAsync<CjenikStavka>(CjenikStavkaID);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<CjenikStavka> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<CjenikStavka>(queryConditions);
-        }
-        public static IEnumerable<CjenikStavka> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<CjenikStavka>(columnName, queryOp, value);
-        }
-		public static CjenikStavka GetByPrimaryKey(int CjenikStavkaID)
-        {
-            return GetByPrimaryKey<CjenikStavka>(CjenikStavkaID);
-        }
-		public static CjenikStavka TryGetByPrimaryKey(int CjenikStavkaID)
-        {
-            return TryGetByPrimaryKey<CjenikStavka>(CjenikStavkaID);
-        }
-        #endregion
     }
 }

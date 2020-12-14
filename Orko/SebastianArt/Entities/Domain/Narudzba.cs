@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -27,16 +27,16 @@ namespace Orko.SebastianArt
             // Cache field metadata.
             EntityMeta<Narudzba>.LoadColumnMetadata
 			(
-				new ColumnMetadata("NarudzbaID", @"NarudzbaID", SqlDbType.Int, isIdentity: true, isPrimaryKey: true),
-                new ColumnMetadata("NarudzbaNarudzba", @"NarudzbaNarudzba", SqlDbType.NVarChar, isRequired: false),
-                new ColumnMetadata("NarudzbaBroj", @"NarudzbaBroj", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("NarudzbaMjesec", @"NarudzbaMjesec", SqlDbType.Int, isRequired: false),
-                new ColumnMetadata("NarudzbaGodina", @"NarudzbaGodina", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("NarudzbaDatumNarudjbe", @"NarudzbaDatumNarudjbe", SqlDbType.DateTime2, isRequired: false),
-                new ColumnMetadata("NarudzbaIznos", @"NarudzbaIznos", SqlDbType.Decimal, isRequired: false),
-                new ColumnMetadata("NarudzbaNaziv", @"NarudzbaNaziv", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("NarudzbaEmail", @"NarudzbaEmail", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("NarudzbaAdresa", @"NarudzbaAdresa", SqlDbType.NVarChar, isRequired: true)
+				new ColumnMetadata(nameof(NarudzbaID), @"NarudzbaID", DbType.Int32, isIdentity: true, isRequired: true),
+                new ColumnMetadata(nameof(NarudzbaNarudzba), @"NarudzbaNarudzba", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(NarudzbaBroj), @"NarudzbaBroj", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(NarudzbaMjesec), @"NarudzbaMjesec", DbType.Int32, isRequired: false),
+                new ColumnMetadata(nameof(NarudzbaGodina), @"NarudzbaGodina", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(NarudzbaDatumNarudjbe), @"NarudzbaDatumNarudjbe", DbType.DateTime2, isRequired: false),
+                new ColumnMetadata(nameof(NarudzbaIznos), @"NarudzbaIznos", DbType.Decimal, isRequired: false),
+                new ColumnMetadata(nameof(NarudzbaNaziv), @"NarudzbaNaziv", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(NarudzbaEmail), @"NarudzbaEmail", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(NarudzbaAdresa), @"NarudzbaAdresa", DbType.String, isRequired: true)
 			);
 
             // Cache entites metadata.
@@ -89,32 +89,5 @@ namespace Orko.SebastianArt
             return await TryGetByPrimaryKeyAsync<Narudzba>(NarudzbaID);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<Narudzba> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<Narudzba>(queryConditions);
-        }
-        public static IEnumerable<Narudzba> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<Narudzba>(columnName, queryOp, value);
-        }
-		public static Narudzba GetByPrimaryKey(int NarudzbaID)
-        {
-            return GetByPrimaryKey<Narudzba>(NarudzbaID);
-        }
-		public static Narudzba TryGetByPrimaryKey(int NarudzbaID)
-        {
-            return TryGetByPrimaryKey<Narudzba>(NarudzbaID);
-        }
-        public static Narudzba GetByUnique1(int NarudzbaBroj)
-        {
-            return GetByCallingParameters<Narudzba>(NarudzbaBroj);
-        }
-		public static Narudzba TryGetByUnique1(int NarudzbaBroj)
-        {
-            return TryGetByCallingParameters<Narudzba>(NarudzbaBroj);
-        }
-        #endregion
     }
 }

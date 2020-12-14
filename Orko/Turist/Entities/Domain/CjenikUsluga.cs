@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -18,8 +18,8 @@ namespace Orko.Turist
     public sealed partial class CjenikUsluga : Entity
     {
 		#region Members
-		private Cjenik m_FK_CjenikUsluga_Cjenik;
-        private VrstaUsluge m_FK_CjenikUsluga_VrstaUsluge;
+		private Cjenik m_Cjenik;
+        private VrstaUsluge m_VrstaUsluge;
         #endregion
         
 		#region Constructors
@@ -28,22 +28,22 @@ namespace Orko.Turist
             // Cache field metadata.
             EntityMeta<CjenikUsluga>.LoadColumnMetadata
 			(
-				new ColumnMetadata("CjenikUslugaID", @"CjenikUslugaID", SqlDbType.Int, isIdentity: true, isPrimaryKey: true),
-                new ColumnMetadata("CjenikUslugaProtokolID", @"CjenikUslugaProtokolID", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("CjenikUslugaVrstaUsluge", @"CjenikUslugaVrstaUsluge", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("CjenikUslugaPredmetPopusta", @"CjenikUslugaPredmetPopusta", SqlDbType.Bit, isRequired: true),
-                new ColumnMetadata("CjenikUslugaIznos", @"CjenikUslugaIznos", SqlDbType.Decimal, isRequired: true),
-                new ColumnMetadata("CjenikUslugaAlotmanskiIznos", @"CjenikUslugaAlotmanskiIznos", SqlDbType.Decimal, isRequired: false),
-                new ColumnMetadata("CjenikUslugaVrijediOd", @"CjenikUslugaVrijediOd", SqlDbType.DateTime2, isRequired: true),
-                new ColumnMetadata("CjenikUslugaUradio", @"CjenikUslugaUradio", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("CjenikUslugaDatumIzmjene", @"CjenikUslugaDatumIzmjene", SqlDbType.DateTime2, isRequired: true)
+				new ColumnMetadata(nameof(CjenikUslugaID), @"CjenikUslugaID", DbType.Int32, isIdentity: true, isRequired: true),
+                new ColumnMetadata(nameof(CjenikUslugaProtokolID), @"CjenikUslugaProtokolID", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(CjenikUslugaVrstaUsluge), @"CjenikUslugaVrstaUsluge", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(CjenikUslugaPredmetPopusta), @"CjenikUslugaPredmetPopusta", DbType.Boolean, isRequired: true),
+                new ColumnMetadata(nameof(CjenikUslugaIznos), @"CjenikUslugaIznos", DbType.Decimal, isRequired: true),
+                new ColumnMetadata(nameof(CjenikUslugaAlotmanskiIznos), @"CjenikUslugaAlotmanskiIznos", DbType.Decimal, isRequired: false),
+                new ColumnMetadata(nameof(CjenikUslugaVrijediOd), @"CjenikUslugaVrijediOd", DbType.DateTime2, isRequired: true),
+                new ColumnMetadata(nameof(CjenikUslugaUradio), @"CjenikUslugaUradio", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(CjenikUslugaDatumIzmjene), @"CjenikUslugaDatumIzmjene", DbType.DateTime2, isRequired: true)
 			);
 
             // Cache entites metadata.
             EntityMeta<CjenikUsluga>.LoadRelationMetadata
 			(
-				new RelationMetadata("FK_CjenikUsluga_Cjenik", "CjenikUslugaProtokolID", "CjenikProtokolID"),
-                new RelationMetadata("FK_CjenikUsluga_VrstaUsluge", "CjenikUslugaVrstaUsluge", "VrstaUslugeVrstaUsluge")
+				new RelationMetadata(nameof(Cjenik), nameof(CjenikUslugaProtokolID), nameof(Orko.Turist.Cjenik.CjenikProtokolID)),
+                new RelationMetadata(nameof(VrstaUsluge), nameof(CjenikUslugaVrstaUsluge), nameof(Orko.Turist.VrstaUsluge.VrstaUslugeVrstaUsluge))
 			);
 
 			// Cache table metadata.
@@ -68,15 +68,15 @@ namespace Orko.Turist
         #endregion
 
         #region Entities
-		public Cjenik FK_CjenikUsluga_Cjenik
+		public Cjenik Cjenik
         {
-            get { return EntityContext<Cjenik>.Get(ref m_FK_CjenikUsluga_Cjenik, this, "FK_CjenikUsluga_Cjenik"); }
-            set { EntityContext<Cjenik>.Set(ref m_FK_CjenikUsluga_Cjenik, this, value, "FK_CjenikUsluga_Cjenik"); }
+            get { return EntityContext<Cjenik>.Get(ref m_Cjenik, this, nameof(Cjenik)); }
+            set { EntityContext<Cjenik>.Set(ref m_Cjenik, this, value, nameof(Cjenik)); }
         }
-        public VrstaUsluge FK_CjenikUsluga_VrstaUsluge
+        public VrstaUsluge VrstaUsluge
         {
-            get { return EntityContext<VrstaUsluge>.Get(ref m_FK_CjenikUsluga_VrstaUsluge, this, "FK_CjenikUsluga_VrstaUsluge"); }
-            set { EntityContext<VrstaUsluge>.Set(ref m_FK_CjenikUsluga_VrstaUsluge, this, value, "FK_CjenikUsluga_VrstaUsluge"); }
+            get { return EntityContext<VrstaUsluge>.Get(ref m_VrstaUsluge, this, nameof(VrstaUsluge)); }
+            set { EntityContext<VrstaUsluge>.Set(ref m_VrstaUsluge, this, value, nameof(VrstaUsluge)); }
         }
         #endregion
 
@@ -98,32 +98,5 @@ namespace Orko.Turist
             return await TryGetByPrimaryKeyAsync<CjenikUsluga>(CjenikUslugaID);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<CjenikUsluga> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<CjenikUsluga>(queryConditions);
-        }
-        public static IEnumerable<CjenikUsluga> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<CjenikUsluga>(columnName, queryOp, value);
-        }
-		public static CjenikUsluga GetByPrimaryKey(int CjenikUslugaID)
-        {
-            return GetByPrimaryKey<CjenikUsluga>(CjenikUslugaID);
-        }
-		public static CjenikUsluga TryGetByPrimaryKey(int CjenikUslugaID)
-        {
-            return TryGetByPrimaryKey<CjenikUsluga>(CjenikUslugaID);
-        }
-        public static CjenikUsluga GetByUnique1(int CjenikUslugaProtokolID, int CjenikUslugaVrstaUsluge)
-        {
-            return GetByCallingParameters<CjenikUsluga>(CjenikUslugaProtokolID, CjenikUslugaVrstaUsluge);
-        }
-		public static CjenikUsluga TryGetByUnique1(int CjenikUslugaProtokolID, int CjenikUslugaVrstaUsluge)
-        {
-            return TryGetByCallingParameters<CjenikUsluga>(CjenikUslugaProtokolID, CjenikUslugaVrstaUsluge);
-        }
-        #endregion
     }
 }

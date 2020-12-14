@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -18,10 +18,10 @@ namespace Orko.Watersports
     public sealed partial class UputaUsluga : Entity
     {
 		#region Members
-		private Termin m_FK_UputaUsluga_Termin;
-        private TipBroda m_FK_UputaUsluga_TipBroda;
-        private VrstaIzleta m_FK_UputaUsluga_VrstaIzleta;
-        private VrstaUsluge m_FK_UputaUsluga_VrstaUsluge;
+		private Termin m_Termin;
+        private TipBroda m_TipBroda;
+        private VrstaIzleta m_VrstaIzleta;
+        private VrstaUsluge m_VrstaUsluge;
         #endregion
         
 		#region Constructors
@@ -30,23 +30,23 @@ namespace Orko.Watersports
             // Cache field metadata.
             EntityMeta<UputaUsluga>.LoadColumnMetadata
 			(
-				new ColumnMetadata("UputaUslugaID", @"UputaUslugaID", SqlDbType.Int, isIdentity: true, isPrimaryKey: true),
-                new ColumnMetadata("UputaUslugaVrstaUsluge", @"UputaUslugaVrstaUsluge", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("UputaUslugaVrstaIzleta", @"UputaUslugaVrstaIzleta", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("UputaUslugaTipBroda", @"UputaUslugaTipBroda", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("UputaUslugaTerminID", @"UputaUslugaTerminID", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("UputaUslugaSkiper", @"UputaUslugaSkiper", SqlDbType.Bit, isRequired: true),
-                new ColumnMetadata("UputaUslugaGorivo", @"UputaUslugaGorivo", SqlDbType.Bit, isRequired: true),
-                new ColumnMetadata("UputaUslugaAktivnost", @"UputaUslugaAktivnost", SqlDbType.Bit, isRequired: true)
+				new ColumnMetadata(nameof(UputaUslugaID), @"UputaUslugaID", DbType.Int32, isIdentity: true, isRequired: true),
+                new ColumnMetadata(nameof(UputaUslugaVrstaUsluge), @"UputaUslugaVrstaUsluge", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(UputaUslugaVrstaIzleta), @"UputaUslugaVrstaIzleta", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(UputaUslugaTipBroda), @"UputaUslugaTipBroda", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(UputaUslugaTerminID), @"UputaUslugaTerminID", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(UputaUslugaSkiper), @"UputaUslugaSkiper", DbType.Boolean, isRequired: true),
+                new ColumnMetadata(nameof(UputaUslugaGorivo), @"UputaUslugaGorivo", DbType.Boolean, isRequired: true),
+                new ColumnMetadata(nameof(UputaUslugaAktivnost), @"UputaUslugaAktivnost", DbType.Boolean, isRequired: true)
 			);
 
             // Cache entites metadata.
             EntityMeta<UputaUsluga>.LoadRelationMetadata
 			(
-				new RelationMetadata("FK_UputaUsluga_Termin", "UputaUslugaTerminID", "TerminID"),
-                new RelationMetadata("FK_UputaUsluga_TipBroda", "UputaUslugaTipBroda", "TipBrodaTipBroda"),
-                new RelationMetadata("FK_UputaUsluga_VrstaIzleta", "UputaUslugaVrstaIzleta", "VrstaIzletaVrstaIzleta"),
-                new RelationMetadata("FK_UputaUsluga_VrstaUsluge", "UputaUslugaVrstaUsluge", "VrstaUslugeVrstaUsluge")
+				new RelationMetadata(nameof(Termin), nameof(UputaUslugaTerminID), nameof(Orko.Watersports.Termin.TerminID)),
+                new RelationMetadata(nameof(TipBroda), nameof(UputaUslugaTipBroda), nameof(Orko.Watersports.TipBroda.TipBrodaTipBroda)),
+                new RelationMetadata(nameof(VrstaIzleta), nameof(UputaUslugaVrstaIzleta), nameof(Orko.Watersports.VrstaIzleta.VrstaIzletaVrstaIzleta)),
+                new RelationMetadata(nameof(VrstaUsluge), nameof(UputaUslugaVrstaUsluge), nameof(Orko.Watersports.VrstaUsluge.VrstaUslugeVrstaUsluge))
 			);
 
 			// Cache table metadata.
@@ -70,25 +70,25 @@ namespace Orko.Watersports
         #endregion
 
         #region Entities
-		public Termin FK_UputaUsluga_Termin
+		public Termin Termin
         {
-            get { return EntityContext<Termin>.Get(ref m_FK_UputaUsluga_Termin, this, "FK_UputaUsluga_Termin"); }
-            set { EntityContext<Termin>.Set(ref m_FK_UputaUsluga_Termin, this, value, "FK_UputaUsluga_Termin"); }
+            get { return EntityContext<Termin>.Get(ref m_Termin, this, nameof(Termin)); }
+            set { EntityContext<Termin>.Set(ref m_Termin, this, value, nameof(Termin)); }
         }
-        public TipBroda FK_UputaUsluga_TipBroda
+        public TipBroda TipBroda
         {
-            get { return EntityContext<TipBroda>.Get(ref m_FK_UputaUsluga_TipBroda, this, "FK_UputaUsluga_TipBroda"); }
-            set { EntityContext<TipBroda>.Set(ref m_FK_UputaUsluga_TipBroda, this, value, "FK_UputaUsluga_TipBroda"); }
+            get { return EntityContext<TipBroda>.Get(ref m_TipBroda, this, nameof(TipBroda)); }
+            set { EntityContext<TipBroda>.Set(ref m_TipBroda, this, value, nameof(TipBroda)); }
         }
-        public VrstaIzleta FK_UputaUsluga_VrstaIzleta
+        public VrstaIzleta VrstaIzleta
         {
-            get { return EntityContext<VrstaIzleta>.Get(ref m_FK_UputaUsluga_VrstaIzleta, this, "FK_UputaUsluga_VrstaIzleta"); }
-            set { EntityContext<VrstaIzleta>.Set(ref m_FK_UputaUsluga_VrstaIzleta, this, value, "FK_UputaUsluga_VrstaIzleta"); }
+            get { return EntityContext<VrstaIzleta>.Get(ref m_VrstaIzleta, this, nameof(VrstaIzleta)); }
+            set { EntityContext<VrstaIzleta>.Set(ref m_VrstaIzleta, this, value, nameof(VrstaIzleta)); }
         }
-        public VrstaUsluge FK_UputaUsluga_VrstaUsluge
+        public VrstaUsluge VrstaUsluge
         {
-            get { return EntityContext<VrstaUsluge>.Get(ref m_FK_UputaUsluga_VrstaUsluge, this, "FK_UputaUsluga_VrstaUsluge"); }
-            set { EntityContext<VrstaUsluge>.Set(ref m_FK_UputaUsluga_VrstaUsluge, this, value, "FK_UputaUsluga_VrstaUsluge"); }
+            get { return EntityContext<VrstaUsluge>.Get(ref m_VrstaUsluge, this, nameof(VrstaUsluge)); }
+            set { EntityContext<VrstaUsluge>.Set(ref m_VrstaUsluge, this, value, nameof(VrstaUsluge)); }
         }
         #endregion
 
@@ -110,32 +110,5 @@ namespace Orko.Watersports
             return await TryGetByPrimaryKeyAsync<UputaUsluga>(UputaUslugaID);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<UputaUsluga> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<UputaUsluga>(queryConditions);
-        }
-        public static IEnumerable<UputaUsluga> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<UputaUsluga>(columnName, queryOp, value);
-        }
-		public static UputaUsluga GetByPrimaryKey(int UputaUslugaID)
-        {
-            return GetByPrimaryKey<UputaUsluga>(UputaUslugaID);
-        }
-		public static UputaUsluga TryGetByPrimaryKey(int UputaUslugaID)
-        {
-            return TryGetByPrimaryKey<UputaUsluga>(UputaUslugaID);
-        }
-        public static UputaUsluga GetByUnique1(string UputaUslugaVrstaUsluge, string UputaUslugaVrstaIzleta, string UputaUslugaTipBroda, int UputaUslugaTerminID, bool UputaUslugaSkiper, bool UputaUslugaGorivo)
-        {
-            return GetByCallingParameters<UputaUsluga>(UputaUslugaVrstaUsluge, UputaUslugaVrstaIzleta, UputaUslugaTipBroda, UputaUslugaTerminID, UputaUslugaSkiper, UputaUslugaGorivo);
-        }
-		public static UputaUsluga TryGetByUnique1(string UputaUslugaVrstaUsluge, string UputaUslugaVrstaIzleta, string UputaUslugaTipBroda, int UputaUslugaTerminID, bool UputaUslugaSkiper, bool UputaUslugaGorivo)
-        {
-            return TryGetByCallingParameters<UputaUsluga>(UputaUslugaVrstaUsluge, UputaUslugaVrstaIzleta, UputaUslugaTipBroda, UputaUslugaTerminID, UputaUslugaSkiper, UputaUslugaGorivo);
-        }
-        #endregion
     }
 }

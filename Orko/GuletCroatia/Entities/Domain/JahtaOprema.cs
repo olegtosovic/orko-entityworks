@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -18,8 +18,8 @@ namespace Orko.GuletCroatia
     public sealed partial class JahtaOprema : Entity
     {
 		#region Members
-		private Jahta m_FK_JahtaOprema_Jahta1;
-        private VrstaOpreme m_FK_JahtaOprema_VrstaOpreme;
+		private Jahta m_Jahta1;
+        private VrstaOpreme m_VrstaOpreme;
         #endregion
         
 		#region Constructors
@@ -28,19 +28,19 @@ namespace Orko.GuletCroatia
             // Cache field metadata.
             EntityMeta<JahtaOprema>.LoadColumnMetadata
 			(
-				new ColumnMetadata("JahtaOpremaJahta", @"JahtaOpremaJahta", SqlDbType.NVarChar, isPrimaryKey: true),
-                new ColumnMetadata("JahtaOpremaVrstaOpreme", @"JahtaOpremaVrstaOpreme", SqlDbType.NVarChar, isPrimaryKey: true),
-                new ColumnMetadata("JahtaOpremaBroj", @"JahtaOpremaBroj", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("JahtaOpremaAktivnost", @"JahtaOpremaAktivnost", SqlDbType.Bit, isRequired: false),
-                new ColumnMetadata("JahtaOpremaJezik", @"JahtaOpremaJezik", SqlDbType.Char, isLanguageCode: true, isPrimaryKey: true),
-                new ColumnMetadata("JahtaOpremaDodatno", @"JahtaOpremaDodatno", SqlDbType.NVarChar, isRequired: false, isLanguage: true)
+				new ColumnMetadata(nameof(JahtaOpremaJahta), @"JahtaOpremaJahta", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(JahtaOpremaVrstaOpreme), @"JahtaOpremaVrstaOpreme", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(JahtaOpremaBroj), @"JahtaOpremaBroj", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(JahtaOpremaAktivnost), @"JahtaOpremaAktivnost", DbType.Boolean, isRequired: false),
+                new ColumnMetadata(nameof(JahtaOpremaJezik), @"JahtaOpremaJezik", DbType.AnsiStringFixedLength, isRequired: true, isLanguageCode: true),
+                new ColumnMetadata(nameof(JahtaOpremaDodatno), @"JahtaOpremaDodatno", DbType.String, isRequired: false, isLanguage: true)
 			);
 
             // Cache entites metadata.
             EntityMeta<JahtaOprema>.LoadRelationMetadata
 			(
-				new RelationMetadata("FK_JahtaOprema_Jahta1", "JahtaOpremaJahta", "JahtaJahta"),
-                new RelationMetadata("FK_JahtaOprema_VrstaOpreme", "JahtaOpremaVrstaOpreme", "VrstaOpremeVrstaOpreme")
+				new RelationMetadata(nameof(Jahta1), nameof(JahtaOpremaJahta), nameof(Orko.GuletCroatia.Jahta.JahtaJahta)),
+                new RelationMetadata(nameof(VrstaOpreme), nameof(JahtaOpremaVrstaOpreme), nameof(Orko.GuletCroatia.VrstaOpreme.VrstaOpremeVrstaOpreme))
 			);
 
 			// Cache table metadata.
@@ -62,15 +62,15 @@ namespace Orko.GuletCroatia
         #endregion
 
         #region Entities
-		public Jahta FK_JahtaOprema_Jahta1
+		public Jahta Jahta1
         {
-            get { return EntityContext<Jahta>.Get(ref m_FK_JahtaOprema_Jahta1, this, "FK_JahtaOprema_Jahta1"); }
-            set { EntityContext<Jahta>.Set(ref m_FK_JahtaOprema_Jahta1, this, value, "FK_JahtaOprema_Jahta1"); }
+            get { return EntityContext<Jahta>.Get(ref m_Jahta1, this, nameof(Jahta1)); }
+            set { EntityContext<Jahta>.Set(ref m_Jahta1, this, value, nameof(Jahta1)); }
         }
-        public VrstaOpreme FK_JahtaOprema_VrstaOpreme
+        public VrstaOpreme VrstaOpreme
         {
-            get { return EntityContext<VrstaOpreme>.Get(ref m_FK_JahtaOprema_VrstaOpreme, this, "FK_JahtaOprema_VrstaOpreme"); }
-            set { EntityContext<VrstaOpreme>.Set(ref m_FK_JahtaOprema_VrstaOpreme, this, value, "FK_JahtaOprema_VrstaOpreme"); }
+            get { return EntityContext<VrstaOpreme>.Get(ref m_VrstaOpreme, this, nameof(VrstaOpreme)); }
+            set { EntityContext<VrstaOpreme>.Set(ref m_VrstaOpreme, this, value, nameof(VrstaOpreme)); }
         }
         #endregion
 
@@ -92,24 +92,5 @@ namespace Orko.GuletCroatia
             return await TryGetByPrimaryKeyAsync<JahtaOprema>(JahtaOpremaJahta, JahtaOpremaVrstaOpreme);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<JahtaOprema> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<JahtaOprema>(queryConditions);
-        }
-        public static IEnumerable<JahtaOprema> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<JahtaOprema>(columnName, queryOp, value);
-        }
-		public static JahtaOprema GetByPrimaryKey(string JahtaOpremaJahta, string JahtaOpremaVrstaOpreme)
-        {
-            return GetByPrimaryKey<JahtaOprema>(JahtaOpremaJahta, JahtaOpremaVrstaOpreme);
-        }
-		public static JahtaOprema TryGetByPrimaryKey(string JahtaOpremaJahta, string JahtaOpremaVrstaOpreme)
-        {
-            return TryGetByPrimaryKey<JahtaOprema>(JahtaOpremaJahta, JahtaOpremaVrstaOpreme);
-        }
-        #endregion
     }
 }

@@ -1,5 +1,5 @@
-﻿using Microsoft.Data.SqlClient;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Data.Common;
 using System.Threading.Tasks;
 
 namespace Orko.EntityWorks
@@ -25,16 +25,16 @@ namespace Orko.EntityWorks
         /// <summary>
         /// Get collection by sql command.
         /// </summary>
-        public static IEnumerable<TObject> GetByQueryCommand(SqlCommand command, ObjectMappingType objectMappingType)
+        public static IEnumerable<TObject> GetByQueryCommand(DbCommand command, ObjectMappingType objectMappingType)
         {
             // Create instance of return collection
-            IList<TObject> objectCollection = new List<TObject>();
+            var objectCollection = new List<TObject>();
 
 			// Get ambient query context.
-			QueryContext ambientContext = QueryContext.GetAmbientQueryContext();
+			var ambientContext = QueryContext.GetAmbientQueryContext();
 
 			// Create connection to database from ambient query context.
-			using (SqlConnection connection = ambientContext.CreateConnection())
+			using (DbConnection connection = ambientContext.CreateConnection())
 			{
                 // Pass connection to command object.
                 command.Connection = connection;
@@ -43,7 +43,7 @@ namespace Orko.EntityWorks
                 connection.Open();
 
                 // Execute Sql data reader
-                using (SqlDataReader dataReader = command.ExecuteReader())
+                using (DbDataReader dataReader = command.ExecuteReader())
                 {
                     // Create mapper.
                     var objectMapper = new ObjectMapper<TObject>(objectMappingType, dataReader);
@@ -52,7 +52,7 @@ namespace Orko.EntityWorks
                     while (dataReader.Read())
                     {
                         // Create new TEntity instance
-                        TObject @object = new TObject();
+                        var @object = new TObject();
 
                         // Map raw data to object.
                         objectMapper.MapToObject(@object, dataReader);
@@ -69,16 +69,16 @@ namespace Orko.EntityWorks
 		/// <summary>
 		/// Get collection by sql command async.
 		/// </summary>
-		public static async Task<IEnumerable<TObject>> GetByQueryCommandAsync(SqlCommand command, ObjectMappingType objectMappingType)
+		public static async Task<IEnumerable<TObject>> GetByQueryCommandAsync(DbCommand command, ObjectMappingType objectMappingType)
 		{
 			// Create instance of return collection
-			IList<TObject> objectCollection = new List<TObject>();
+			var objectCollection = new List<TObject>();
 
 			// Get ambient query context.
-			QueryContext ambientContext = QueryContext.GetAmbientQueryContext();
+			var ambientContext = QueryContext.GetAmbientQueryContext();
 
 			// Create connection to database from ambient query context.
-			using (SqlConnection connection = ambientContext.CreateConnection())
+			using (var connection = ambientContext.CreateConnection())
 			{
 				// Pass connection to command object.
 				command.Connection = connection;
@@ -87,7 +87,7 @@ namespace Orko.EntityWorks
 				await connection.OpenAsync();
 
 				// Execute Sql data reader
-				using (SqlDataReader dataReader = await command.ExecuteReaderAsync())
+				using (var dataReader = await command.ExecuteReaderAsync())
 				{
 					// Create mapper.
 					var objectMapper = new ObjectMapper<TObject>(objectMappingType, dataReader);
@@ -96,7 +96,7 @@ namespace Orko.EntityWorks
 					while (await dataReader.ReadAsync())
 					{
 						// Create new TEntity instance
-						TObject @object = new TObject();
+						var @object = new TObject();
 
 						// Map raw data to object.
 						objectMapper.MapToObject(@object, dataReader);

@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -18,9 +18,9 @@ namespace Orko.Base
     public sealed partial class Protokol : Entity
     {
 		#region Members
-		private Evidencija m_FK_Protokol_Evidencija;
-        private VrstaDokumenta m_FK_Protokol_VrstaDokumenta;
-        private VrstaProtokola m_FK_Protokol_VrstaProtokola;
+		private Evidencija m_Evidencija;
+        private VrstaDokumenta m_VrstaDokumenta;
+        private VrstaProtokola m_VrstaProtokola;
         #endregion
         
 		#region Constructors
@@ -29,24 +29,24 @@ namespace Orko.Base
             // Cache field metadata.
             EntityMeta<Protokol>.LoadColumnMetadata
 			(
-				new ColumnMetadata("ProtokolID", @"ProtokolID", SqlDbType.Int, isIdentity: true, isPrimaryKey: true),
-                new ColumnMetadata("ProtokolProtokol", @"ProtokolProtokol", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("ProtokolGodina", @"ProtokolGodina", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("ProtokolBroj", @"ProtokolBroj", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("ProtokolVrstaDokumenta", @"ProtokolVrstaDokumenta", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("ProtokolVrstaProtokola", @"ProtokolVrstaProtokola", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("ProtokolDatumDokumenta", @"ProtokolDatumDokumenta", SqlDbType.DateTime2, isRequired: true),
-                new ColumnMetadata("ProtokolEvidencijaID", @"ProtokolEvidencijaID", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("ProtokolStatus", @"ProtokolStatus", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("ProtokolOpis", @"ProtokolOpis", SqlDbType.NVarChar, isRequired: false)
+				new ColumnMetadata(nameof(ProtokolID), @"ProtokolID", DbType.Int32, isIdentity: true, isRequired: true),
+                new ColumnMetadata(nameof(ProtokolProtokol), @"ProtokolProtokol", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(ProtokolGodina), @"ProtokolGodina", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(ProtokolBroj), @"ProtokolBroj", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(ProtokolVrstaDokumenta), @"ProtokolVrstaDokumenta", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(ProtokolVrstaProtokola), @"ProtokolVrstaProtokola", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(ProtokolDatumDokumenta), @"ProtokolDatumDokumenta", DbType.DateTime2, isRequired: true),
+                new ColumnMetadata(nameof(ProtokolEvidencijaID), @"ProtokolEvidencijaID", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(ProtokolStatus), @"ProtokolStatus", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(ProtokolOpis), @"ProtokolOpis", DbType.String, isRequired: false)
 			);
 
             // Cache entites metadata.
             EntityMeta<Protokol>.LoadRelationMetadata
 			(
-				new RelationMetadata("FK_Protokol_Evidencija", "ProtokolEvidencijaID", "EvidencijaID"),
-                new RelationMetadata("FK_Protokol_VrstaDokumenta", "ProtokolVrstaDokumenta", "VrstaDokumentaVrstaDokumenta"),
-                new RelationMetadata("FK_Protokol_VrstaProtokola", "ProtokolVrstaProtokola", "VrstaProtokolaVrstaProtokola")
+				new RelationMetadata(nameof(Evidencija), nameof(ProtokolEvidencijaID), nameof(Orko.Base.Evidencija.EvidencijaID)),
+                new RelationMetadata(nameof(VrstaDokumenta), nameof(ProtokolVrstaDokumenta), nameof(Orko.Base.VrstaDokumenta.VrstaDokumentaVrstaDokumenta)),
+                new RelationMetadata(nameof(VrstaProtokola), nameof(ProtokolVrstaProtokola), nameof(Orko.Base.VrstaProtokola.VrstaProtokolaVrstaProtokola))
 			);
 
 			// Cache table metadata.
@@ -72,20 +72,20 @@ namespace Orko.Base
         #endregion
 
         #region Entities
-		public Evidencija FK_Protokol_Evidencija
+		public Evidencija Evidencija
         {
-            get { return EntityContext<Evidencija>.Get(ref m_FK_Protokol_Evidencija, this, "FK_Protokol_Evidencija"); }
-            set { EntityContext<Evidencija>.Set(ref m_FK_Protokol_Evidencija, this, value, "FK_Protokol_Evidencija"); }
+            get { return EntityContext<Evidencija>.Get(ref m_Evidencija, this, nameof(Evidencija)); }
+            set { EntityContext<Evidencija>.Set(ref m_Evidencija, this, value, nameof(Evidencija)); }
         }
-        public VrstaDokumenta FK_Protokol_VrstaDokumenta
+        public VrstaDokumenta VrstaDokumenta
         {
-            get { return EntityContext<VrstaDokumenta>.Get(ref m_FK_Protokol_VrstaDokumenta, this, "FK_Protokol_VrstaDokumenta"); }
-            set { EntityContext<VrstaDokumenta>.Set(ref m_FK_Protokol_VrstaDokumenta, this, value, "FK_Protokol_VrstaDokumenta"); }
+            get { return EntityContext<VrstaDokumenta>.Get(ref m_VrstaDokumenta, this, nameof(VrstaDokumenta)); }
+            set { EntityContext<VrstaDokumenta>.Set(ref m_VrstaDokumenta, this, value, nameof(VrstaDokumenta)); }
         }
-        public VrstaProtokola FK_Protokol_VrstaProtokola
+        public VrstaProtokola VrstaProtokola
         {
-            get { return EntityContext<VrstaProtokola>.Get(ref m_FK_Protokol_VrstaProtokola, this, "FK_Protokol_VrstaProtokola"); }
-            set { EntityContext<VrstaProtokola>.Set(ref m_FK_Protokol_VrstaProtokola, this, value, "FK_Protokol_VrstaProtokola"); }
+            get { return EntityContext<VrstaProtokola>.Get(ref m_VrstaProtokola, this, nameof(VrstaProtokola)); }
+            set { EntityContext<VrstaProtokola>.Set(ref m_VrstaProtokola, this, value, nameof(VrstaProtokola)); }
         }
         #endregion
 
@@ -107,40 +107,5 @@ namespace Orko.Base
             return await TryGetByPrimaryKeyAsync<Protokol>(ProtokolID);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<Protokol> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<Protokol>(queryConditions);
-        }
-        public static IEnumerable<Protokol> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<Protokol>(columnName, queryOp, value);
-        }
-		public static Protokol GetByPrimaryKey(int ProtokolID)
-        {
-            return GetByPrimaryKey<Protokol>(ProtokolID);
-        }
-		public static Protokol TryGetByPrimaryKey(int ProtokolID)
-        {
-            return TryGetByPrimaryKey<Protokol>(ProtokolID);
-        }
-        public static Protokol GetByUnique1(int ProtokolGodina, int ProtokolBroj, string ProtokolVrstaDokumenta)
-        {
-            return GetByCallingParameters<Protokol>(ProtokolGodina, ProtokolBroj, ProtokolVrstaDokumenta);
-        }
-		public static Protokol TryGetByUnique1(int ProtokolGodina, int ProtokolBroj, string ProtokolVrstaDokumenta)
-        {
-            return TryGetByCallingParameters<Protokol>(ProtokolGodina, ProtokolBroj, ProtokolVrstaDokumenta);
-        }
-        public static Protokol GetByUnique2(string ProtokolProtokol)
-        {
-            return GetByCallingParameters<Protokol>(ProtokolProtokol);
-        }
-		public static Protokol TryGetByUnique2(string ProtokolProtokol)
-        {
-            return TryGetByCallingParameters<Protokol>(ProtokolProtokol);
-        }
-        #endregion
     }
 }

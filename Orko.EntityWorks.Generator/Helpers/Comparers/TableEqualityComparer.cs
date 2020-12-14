@@ -11,12 +11,12 @@ namespace Orko.EntityWorks.Generator
     {
         bool IEqualityComparer<Table>.Equals(Table x, Table y)
         {
-            return x.Name == y.Name;
+            return x.SqlName == y.SqlName;
         }
 
         int IEqualityComparer<Table>.GetHashCode(Table obj)
         {
-            return obj.Name.GetHashCode();
+            return obj.SqlName.GetHashCode();
         }
     }
 }

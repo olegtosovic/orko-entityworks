@@ -1,18 +1,15 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Data.SqlClient;
 using Orko.EntityWorks.AspNetCore;
-using Orko.EntityWorks.Generator;
 using Orko.EntityWorks.Generator.AspNetCore;
-using System;
-using System.Collections.Generic;
+using System.Data.Common;
 using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
+using System;
 
 namespace Orko.AspNetCore
 {
@@ -21,6 +18,7 @@ namespace Orko.AspNetCore
 	/// </summary>
 	public class Startup
 	{
+		#region Constructors
 		/// <summary>
 		/// Configuration constructor.
 		/// </summary>
@@ -32,8 +30,9 @@ namespace Orko.AspNetCore
 			// Set environment.
 			Environment = environment;
 		}
+		#endregion
 
-		#region Propertiji
+		#region Properties
 		/// <summary>
 		/// Environment.
 		/// </summary>
@@ -63,7 +62,9 @@ namespace Orko.AspNetCore
 			services.AddControllersWithViews();
 
 			// Add EntityWorks.
-			services.AddEntityWorks(Configuration);
+			// services.AddEntityWorks(Configuration);
+
+			var qName = typeof(SqlClientFactory).AssemblyQualifiedName;
 		}
 
 		/// <summary>
@@ -96,7 +97,7 @@ namespace Orko.AspNetCore
 			});
 
 			// Use EntityWorks.
-			app.UseEntityWorks();
+			// app.UseEntityWorks();
 
 			// Use routing.
 			app.UseRouting();

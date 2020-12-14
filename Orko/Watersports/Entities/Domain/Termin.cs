@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -18,7 +18,7 @@ namespace Orko.Watersports
     public sealed partial class Termin : Entity
     {
 		#region Members
-		private VrstaTermina m_FK_Termin_VrstaTermina;
+		private VrstaTermina m_VrstaTermina;
         #endregion
         
 		#region Constructors
@@ -27,22 +27,22 @@ namespace Orko.Watersports
             // Cache field metadata.
             EntityMeta<Termin>.LoadColumnMetadata
 			(
-				new ColumnMetadata("TerminID", @"TerminID", SqlDbType.Int, isIdentity: true, isPrimaryKey: true),
-                new ColumnMetadata("TerminVrstaTermina", @"TerminVrstaTermina", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("TerminVrijemeOd", @"TerminVrijemeOd", SqlDbType.Time, isRequired: true),
-                new ColumnMetadata("TerminVrijemeDo", @"TerminVrijemeDo", SqlDbType.Time, isRequired: true),
-                new ColumnMetadata("TerminTrajanjeDana", @"TerminTrajanjeDana", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("TerminTrajanjeSati", @"TerminTrajanjeSati", SqlDbType.Time, isRequired: true),
-                new ColumnMetadata("TerminAktivnost", @"TerminAktivnost", SqlDbType.Bit, isRequired: true),
-                new ColumnMetadata("TerminJezik", @"TerminJezik", SqlDbType.Char, isLanguageCode: true, isPrimaryKey: true),
-                new ColumnMetadata("TerminNaziv", @"TerminNaziv", SqlDbType.NVarChar, isRequired: true, isLanguage: true),
-                new ColumnMetadata("TerminOpis", @"TerminOpis", SqlDbType.NVarChar, isRequired: false, isLanguage: true)
+				new ColumnMetadata(nameof(TerminID), @"TerminID", DbType.Int32, isIdentity: true, isRequired: true),
+                new ColumnMetadata(nameof(TerminVrstaTermina), @"TerminVrstaTermina", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(TerminVrijemeOd), @"TerminVrijemeOd", DbType.Time, isRequired: true),
+                new ColumnMetadata(nameof(TerminVrijemeDo), @"TerminVrijemeDo", DbType.Time, isRequired: true),
+                new ColumnMetadata(nameof(TerminTrajanjeDana), @"TerminTrajanjeDana", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(TerminTrajanjeSati), @"TerminTrajanjeSati", DbType.Time, isRequired: true),
+                new ColumnMetadata(nameof(TerminAktivnost), @"TerminAktivnost", DbType.Boolean, isRequired: true),
+                new ColumnMetadata(nameof(TerminJezik), @"TerminJezik", DbType.AnsiStringFixedLength, isRequired: true, isLanguageCode: true),
+                new ColumnMetadata(nameof(TerminNaziv), @"TerminNaziv", DbType.String, isRequired: true, isLanguage: true),
+                new ColumnMetadata(nameof(TerminOpis), @"TerminOpis", DbType.String, isRequired: false, isLanguage: true)
 			);
 
             // Cache entites metadata.
             EntityMeta<Termin>.LoadRelationMetadata
 			(
-				new RelationMetadata("FK_Termin_VrstaTermina", "TerminVrstaTermina", "VrstaTerminaVrstaTermina")
+				new RelationMetadata(nameof(VrstaTermina), nameof(TerminVrstaTermina), nameof(Orko.Watersports.VrstaTermina.VrstaTerminaVrstaTermina))
 			);
 
 			// Cache table metadata.
@@ -68,10 +68,10 @@ namespace Orko.Watersports
         #endregion
 
         #region Entities
-		public VrstaTermina FK_Termin_VrstaTermina
+		public VrstaTermina VrstaTermina
         {
-            get { return EntityContext<VrstaTermina>.Get(ref m_FK_Termin_VrstaTermina, this, "FK_Termin_VrstaTermina"); }
-            set { EntityContext<VrstaTermina>.Set(ref m_FK_Termin_VrstaTermina, this, value, "FK_Termin_VrstaTermina"); }
+            get { return EntityContext<VrstaTermina>.Get(ref m_VrstaTermina, this, nameof(VrstaTermina)); }
+            set { EntityContext<VrstaTermina>.Set(ref m_VrstaTermina, this, value, nameof(VrstaTermina)); }
         }
         #endregion
 
@@ -93,32 +93,5 @@ namespace Orko.Watersports
             return await TryGetByPrimaryKeyAsync<Termin>(TerminID);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<Termin> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<Termin>(queryConditions);
-        }
-        public static IEnumerable<Termin> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<Termin>(columnName, queryOp, value);
-        }
-		public static Termin GetByPrimaryKey(int TerminID)
-        {
-            return GetByPrimaryKey<Termin>(TerminID);
-        }
-		public static Termin TryGetByPrimaryKey(int TerminID)
-        {
-            return TryGetByPrimaryKey<Termin>(TerminID);
-        }
-        public static Termin GetByUnique1(TimeSpan TerminVrijemeOd, TimeSpan TerminVrijemeDo, int TerminTrajanjeDana)
-        {
-            return GetByCallingParameters<Termin>(TerminVrijemeOd, TerminVrijemeDo, TerminTrajanjeDana);
-        }
-		public static Termin TryGetByUnique1(TimeSpan TerminVrijemeOd, TimeSpan TerminVrijemeDo, int TerminTrajanjeDana)
-        {
-            return TryGetByCallingParameters<Termin>(TerminVrijemeOd, TerminVrijemeDo, TerminTrajanjeDana);
-        }
-        #endregion
     }
 }

@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -27,11 +27,11 @@ namespace Orko.Turist
             // Cache field metadata.
             EntityMeta<VrstaCjenika>.LoadColumnMetadata
 			(
-				new ColumnMetadata("VrstaCjenikaVrstaCjenika", @"VrstaCjenikaVrstaCjenika", SqlDbType.NVarChar, isPrimaryKey: true),
-                new ColumnMetadata("VrstaCjenikaAktivnost", @"VrstaCjenikaAktivnost", SqlDbType.Bit, isRequired: true),
-                new ColumnMetadata("VrstaCjenikaJezik", @"VrstaCjenikaJezik", SqlDbType.Char, isLanguageCode: true, isPrimaryKey: true),
-                new ColumnMetadata("VrstaCjenikaNaziv", @"VrstaCjenikaNaziv", SqlDbType.NVarChar, isRequired: true, isLanguage: true),
-                new ColumnMetadata("VrstaCjenikaOpis", @"VrstaCjenikaOpis", SqlDbType.NVarChar, isRequired: false, isLanguage: true)
+				new ColumnMetadata(nameof(VrstaCjenikaVrstaCjenika), @"VrstaCjenikaVrstaCjenika", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(VrstaCjenikaAktivnost), @"VrstaCjenikaAktivnost", DbType.Boolean, isRequired: true),
+                new ColumnMetadata(nameof(VrstaCjenikaJezik), @"VrstaCjenikaJezik", DbType.AnsiStringFixedLength, isRequired: true, isLanguageCode: true),
+                new ColumnMetadata(nameof(VrstaCjenikaNaziv), @"VrstaCjenikaNaziv", DbType.String, isRequired: true, isLanguage: true),
+                new ColumnMetadata(nameof(VrstaCjenikaOpis), @"VrstaCjenikaOpis", DbType.String, isRequired: false, isLanguage: true)
 			);
 
             // Cache entites metadata.
@@ -79,24 +79,5 @@ namespace Orko.Turist
             return await TryGetByPrimaryKeyAsync<VrstaCjenika>(VrstaCjenikaVrstaCjenika);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<VrstaCjenika> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<VrstaCjenika>(queryConditions);
-        }
-        public static IEnumerable<VrstaCjenika> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<VrstaCjenika>(columnName, queryOp, value);
-        }
-		public static VrstaCjenika GetByPrimaryKey(string VrstaCjenikaVrstaCjenika)
-        {
-            return GetByPrimaryKey<VrstaCjenika>(VrstaCjenikaVrstaCjenika);
-        }
-		public static VrstaCjenika TryGetByPrimaryKey(string VrstaCjenikaVrstaCjenika)
-        {
-            return TryGetByPrimaryKey<VrstaCjenika>(VrstaCjenikaVrstaCjenika);
-        }
-        #endregion
     }
 }

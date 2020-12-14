@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -27,13 +27,13 @@ namespace Orko.Base
             // Cache field metadata.
             EntityMeta<TecajnaLista>.LoadColumnMetadata
 			(
-				new ColumnMetadata("TecajnaListaID", @"TecajnaListaID", SqlDbType.Int, isPrimaryKey: true),
-                new ColumnMetadata("TecajnaListaBroj", @"TecajnaListaBroj", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("TecajnaListaGodina", @"TecajnaListaGodina", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("TecajnaListaDatumOd", @"TecajnaListaDatumOd", SqlDbType.DateTime2, isRequired: true),
-                new ColumnMetadata("TecajnaListaDatumDo", @"TecajnaListaDatumDo", SqlDbType.DateTime2, isRequired: false),
-                new ColumnMetadata("TecajnaListaUradio", @"TecajnaListaUradio", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("TecajnaListaDatumIzmjene", @"TecajnaListaDatumIzmjene", SqlDbType.DateTime2, isRequired: true)
+				new ColumnMetadata(nameof(TecajnaListaID), @"TecajnaListaID", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(TecajnaListaBroj), @"TecajnaListaBroj", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(TecajnaListaGodina), @"TecajnaListaGodina", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(TecajnaListaDatumOd), @"TecajnaListaDatumOd", DbType.DateTime2, isRequired: true),
+                new ColumnMetadata(nameof(TecajnaListaDatumDo), @"TecajnaListaDatumDo", DbType.DateTime2, isRequired: false),
+                new ColumnMetadata(nameof(TecajnaListaUradio), @"TecajnaListaUradio", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(TecajnaListaDatumIzmjene), @"TecajnaListaDatumIzmjene", DbType.DateTime2, isRequired: true)
 			);
 
             // Cache entites metadata.
@@ -83,24 +83,5 @@ namespace Orko.Base
             return await TryGetByPrimaryKeyAsync<TecajnaLista>(TecajnaListaID);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<TecajnaLista> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<TecajnaLista>(queryConditions);
-        }
-        public static IEnumerable<TecajnaLista> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<TecajnaLista>(columnName, queryOp, value);
-        }
-		public static TecajnaLista GetByPrimaryKey(int TecajnaListaID)
-        {
-            return GetByPrimaryKey<TecajnaLista>(TecajnaListaID);
-        }
-		public static TecajnaLista TryGetByPrimaryKey(int TecajnaListaID)
-        {
-            return TryGetByPrimaryKey<TecajnaLista>(TecajnaListaID);
-        }
-        #endregion
     }
 }

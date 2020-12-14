@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -18,8 +18,8 @@ namespace Orko.Turist
     public sealed partial class FakturaStavka : Entity
     {
 		#region Members
-		private Faktura m_FK_FakturaStavka_Faktura;
-        private VrstaUsluge m_FK_FakturaStavka_VrstaUsluge;
+		private Faktura m_Faktura;
+        private VrstaUsluge m_VrstaUsluge;
         #endregion
         
 		#region Constructors
@@ -28,26 +28,26 @@ namespace Orko.Turist
             // Cache field metadata.
             EntityMeta<FakturaStavka>.LoadColumnMetadata
 			(
-				new ColumnMetadata("FakturaStavkaID", @"FakturaStavkaID", SqlDbType.Int, isIdentity: true, isPrimaryKey: true),
-                new ColumnMetadata("FakturaStavkaProtokolID", @"FakturaStavkaProtokolID", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("FakturaStavkaRedniBroj", @"FakturaStavkaRedniBroj", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("FakturaStavkaVrstaUsluge", @"FakturaStavkaVrstaUsluge", SqlDbType.Int, isRequired: true),
-                new ColumnMetadata("FakturaStavkaOpisUsluge", @"FakturaStavkaOpisUsluge", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("FakturaStavkaKolicina", @"FakturaStavkaKolicina", SqlDbType.Decimal, isRequired: true),
-                new ColumnMetadata("FakturaStavkaIznosBezPopusta", @"FakturaStavkaIznosBezPopusta", SqlDbType.Decimal, isRequired: true),
-                new ColumnMetadata("FakturaStavkaPopustPostotak", @"FakturaStavkaPopustPostotak", SqlDbType.Decimal, isRequired: true),
-                new ColumnMetadata("FakturaStavkaPopustIznos", @"FakturaStavkaPopustIznos", SqlDbType.Decimal, isRequired: true),
-                new ColumnMetadata("FakturaStavkaUkupnoIznos", @"FakturaStavkaUkupnoIznos", SqlDbType.Decimal, isRequired: true),
-                new ColumnMetadata("FakturaStavkaUkupniIznosDevize", @"FakturaStavkaUkupniIznosDevize", SqlDbType.Decimal, isRequired: true),
-                new ColumnMetadata("FakturaStavkaUradio", @"FakturaStavkaUradio", SqlDbType.NVarChar, isRequired: true),
-                new ColumnMetadata("FakturaStavkaDatumIzmjene", @"FakturaStavkaDatumIzmjene", SqlDbType.DateTime2, isRequired: true)
+				new ColumnMetadata(nameof(FakturaStavkaID), @"FakturaStavkaID", DbType.Int32, isIdentity: true, isRequired: true),
+                new ColumnMetadata(nameof(FakturaStavkaProtokolID), @"FakturaStavkaProtokolID", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(FakturaStavkaRedniBroj), @"FakturaStavkaRedniBroj", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(FakturaStavkaVrstaUsluge), @"FakturaStavkaVrstaUsluge", DbType.Int32, isRequired: true),
+                new ColumnMetadata(nameof(FakturaStavkaOpisUsluge), @"FakturaStavkaOpisUsluge", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(FakturaStavkaKolicina), @"FakturaStavkaKolicina", DbType.Decimal, isRequired: true),
+                new ColumnMetadata(nameof(FakturaStavkaIznosBezPopusta), @"FakturaStavkaIznosBezPopusta", DbType.Decimal, isRequired: true),
+                new ColumnMetadata(nameof(FakturaStavkaPopustPostotak), @"FakturaStavkaPopustPostotak", DbType.Decimal, isRequired: true),
+                new ColumnMetadata(nameof(FakturaStavkaPopustIznos), @"FakturaStavkaPopustIznos", DbType.Decimal, isRequired: true),
+                new ColumnMetadata(nameof(FakturaStavkaUkupnoIznos), @"FakturaStavkaUkupnoIznos", DbType.Decimal, isRequired: true),
+                new ColumnMetadata(nameof(FakturaStavkaUkupniIznosDevize), @"FakturaStavkaUkupniIznosDevize", DbType.Decimal, isRequired: true),
+                new ColumnMetadata(nameof(FakturaStavkaUradio), @"FakturaStavkaUradio", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(FakturaStavkaDatumIzmjene), @"FakturaStavkaDatumIzmjene", DbType.DateTime2, isRequired: true)
 			);
 
             // Cache entites metadata.
             EntityMeta<FakturaStavka>.LoadRelationMetadata
 			(
-				new RelationMetadata("FK_FakturaStavka_Faktura", "FakturaStavkaProtokolID", "FakturaProtokolID"),
-                new RelationMetadata("FK_FakturaStavka_VrstaUsluge", "FakturaStavkaVrstaUsluge", "VrstaUslugeVrstaUsluge")
+				new RelationMetadata(nameof(Faktura), nameof(FakturaStavkaProtokolID), nameof(Orko.Turist.Faktura.FakturaProtokolID)),
+                new RelationMetadata(nameof(VrstaUsluge), nameof(FakturaStavkaVrstaUsluge), nameof(Orko.Turist.VrstaUsluge.VrstaUslugeVrstaUsluge))
 			);
 
 			// Cache table metadata.
@@ -76,15 +76,15 @@ namespace Orko.Turist
         #endregion
 
         #region Entities
-		public Faktura FK_FakturaStavka_Faktura
+		public Faktura Faktura
         {
-            get { return EntityContext<Faktura>.Get(ref m_FK_FakturaStavka_Faktura, this, "FK_FakturaStavka_Faktura"); }
-            set { EntityContext<Faktura>.Set(ref m_FK_FakturaStavka_Faktura, this, value, "FK_FakturaStavka_Faktura"); }
+            get { return EntityContext<Faktura>.Get(ref m_Faktura, this, nameof(Faktura)); }
+            set { EntityContext<Faktura>.Set(ref m_Faktura, this, value, nameof(Faktura)); }
         }
-        public VrstaUsluge FK_FakturaStavka_VrstaUsluge
+        public VrstaUsluge VrstaUsluge
         {
-            get { return EntityContext<VrstaUsluge>.Get(ref m_FK_FakturaStavka_VrstaUsluge, this, "FK_FakturaStavka_VrstaUsluge"); }
-            set { EntityContext<VrstaUsluge>.Set(ref m_FK_FakturaStavka_VrstaUsluge, this, value, "FK_FakturaStavka_VrstaUsluge"); }
+            get { return EntityContext<VrstaUsluge>.Get(ref m_VrstaUsluge, this, nameof(VrstaUsluge)); }
+            set { EntityContext<VrstaUsluge>.Set(ref m_VrstaUsluge, this, value, nameof(VrstaUsluge)); }
         }
         #endregion
 
@@ -106,24 +106,5 @@ namespace Orko.Turist
             return await TryGetByPrimaryKeyAsync<FakturaStavka>(FakturaStavkaID);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<FakturaStavka> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<FakturaStavka>(queryConditions);
-        }
-        public static IEnumerable<FakturaStavka> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<FakturaStavka>(columnName, queryOp, value);
-        }
-		public static FakturaStavka GetByPrimaryKey(int FakturaStavkaID)
-        {
-            return GetByPrimaryKey<FakturaStavka>(FakturaStavkaID);
-        }
-		public static FakturaStavka TryGetByPrimaryKey(int FakturaStavkaID)
-        {
-            return TryGetByPrimaryKey<FakturaStavka>(FakturaStavkaID);
-        }
-        #endregion
     }
 }

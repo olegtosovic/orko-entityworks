@@ -1,4 +1,4 @@
-// Generated on 11/29/2020 8:43 PM using EntityWorks code generation tool.
+// Generated on 12/14/2020 9:29 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -27,11 +27,11 @@ namespace Orko.Watersports
             // Cache field metadata.
             EntityMeta<TipRezervacije>.LoadColumnMetadata
 			(
-				new ColumnMetadata("TipRezervacijeTipRezervacije", @"TipRezervacijeTipRezervacije", SqlDbType.NVarChar, isPrimaryKey: true),
-                new ColumnMetadata("TipRezervacijeAktivnost", @"TipRezervacijeAktivnost", SqlDbType.Bit, isRequired: true),
-                new ColumnMetadata("TipRezervacijeJezik", @"TipRezervacijeJezik", SqlDbType.Char, isLanguageCode: true, isPrimaryKey: true),
-                new ColumnMetadata("TipRezervacijeNaziv", @"TipRezervacijeNaziv", SqlDbType.NVarChar, isRequired: true, isLanguage: true),
-                new ColumnMetadata("TipRezervacijeOpis", @"TipRezervacijeOpis", SqlDbType.NVarChar, isRequired: false, isLanguage: true)
+				new ColumnMetadata(nameof(TipRezervacijeTipRezervacije), @"TipRezervacijeTipRezervacije", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(TipRezervacijeAktivnost), @"TipRezervacijeAktivnost", DbType.Boolean, isRequired: true),
+                new ColumnMetadata(nameof(TipRezervacijeJezik), @"TipRezervacijeJezik", DbType.AnsiStringFixedLength, isRequired: true, isLanguageCode: true),
+                new ColumnMetadata(nameof(TipRezervacijeNaziv), @"TipRezervacijeNaziv", DbType.String, isRequired: true, isLanguage: true),
+                new ColumnMetadata(nameof(TipRezervacijeOpis), @"TipRezervacijeOpis", DbType.String, isRequired: false, isLanguage: true)
 			);
 
             // Cache entites metadata.
@@ -79,24 +79,5 @@ namespace Orko.Watersports
             return await TryGetByPrimaryKeyAsync<TipRezervacije>(TipRezervacijeTipRezervacije);
         }
 		#endregion
-
-        #region Public methods
-		public static IEnumerable<TipRezervacije> GetByAny(params QueryCondition[] queryConditions)
-        {
-            return GetByAny<TipRezervacije>(queryConditions);
-        }
-        public static IEnumerable<TipRezervacije> GetByAny(string columnName, QueryOp queryOp, object value)
-        {
-            return GetByAny<TipRezervacije>(columnName, queryOp, value);
-        }
-		public static TipRezervacije GetByPrimaryKey(string TipRezervacijeTipRezervacije)
-        {
-            return GetByPrimaryKey<TipRezervacije>(TipRezervacijeTipRezervacije);
-        }
-		public static TipRezervacije TryGetByPrimaryKey(string TipRezervacijeTipRezervacije)
-        {
-            return TryGetByPrimaryKey<TipRezervacije>(TipRezervacijeTipRezervacije);
-        }
-        #endregion
     }
 }
