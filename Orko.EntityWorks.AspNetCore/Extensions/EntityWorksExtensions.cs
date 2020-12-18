@@ -60,14 +60,7 @@ namespace Orko.EntityWorks.AspNetCore
 			});
 
 			// Create default options.
-			var _options = new EntityWorksOptions()
-			{
-				UseRequestCulture = true,
-				UseNeutralCulture = true,
-				UserContextTransformation = false,
-				RequestCultureCasing = null,
-				DebugMode = false,
-			};
+			var _options = new EntityWorksOptions();
 
 			// Use entityworks middleware.
 			app.UseMiddleware<EntityWorksMiddleware>(_options);
@@ -119,13 +112,17 @@ namespace Orko.EntityWorks.AspNetCore
 				throw new EntityWorksException("Configuration does not have ConnectionStrings section. " +
 					"Please refer to documentation.");
 
-			// Get connection strings.
-			var connectionStrings = connectionStringsSection
+			// Get connection contexts.
+			var connectionContexts = connectionStringsSection
 				.GetChildren()
-				.ToDictionary(x => x.Key, x => x.Value);
+				.ToDictionary(x => x.Key, x => new ConnectionContext(
+					connectionString: x.GetSection("ConnectionString").Value,
+					providerAssembly: x.GetSection("ProviderAssembly").Value,
+					providerFactory: x.GetSection("ProviderFactory").Value
+				));
 
 			// Set connection string source.
-			EntityWorksContext.SetConnectionStringSource(connectionStrings);
+			EntityWorksContext.SetConnectionStringSource(connectionContexts);
 		}
 		/// <summary>
 		/// Sets context mappings source to static entity works context.

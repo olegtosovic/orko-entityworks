@@ -20,41 +20,59 @@ namespace Orko.EntityWorks
 		#endregion
 
 		#region Methods
+		/// <summary>
+		/// Creates connection object.
+		/// </summary>
+		internal DbConnection CreateConnection(bool enableStatistics = false)
+		{
+			// Create db connection instance.
+			var dbConnection = DbProviderFactory.CreateConnection();
+
+			// Set cb connection.
+			dbConnection.ConnectionString = this.ConnectionString;
+
+			// Retrun db connection instance.
+			return dbConnection;
+		}
 		#endregion
 
 		#region Constructors
 		/// <summary>
 		/// Default constructor.
 		/// </summary>
-		public QueryContext()
+		private QueryContext()
 		{
 			// Register provider factory, currently only support for microsoft sql client.
-			DbProviderFactories.RegisterFactory("Microsoft.Data.SqlClient", SqlClientFactory.Instance);
+			// DbProviderFactories.RegisterFactory("Microsoft.Data.SqlClient", SqlClientFactory.Instance);
 
 			// Create provider factory.
-			DbProviderFactory = DbProviderFactories.GetFactory("Microsoft.Data.SqlClient");
+			// DbProviderFactory = DbProviderFactories.GetFactory("Microsoft.Data.SqlClient");
 
 			// Create connection string string builder.
-			DbConnectionStringBuilder = DbProviderFactory.CreateConnectionStringBuilder();
+			// DbConnectionStringBuilder = DbProviderFactory.CreateConnectionStringBuilder();
 		}
 		/// <summary>
 		/// Creates query context which is used by query object.
 		/// </summary>
-		public QueryContext(string connectionName) : this()
+		public QueryContext(string connectionContextName) : this()
 		{
 			// Get entity works context.
-			var context = EntityWorksContext.GetEntityWorksContext();
+			var entityWorksContext = EntityWorksContext.GetEntityWorksContext();
 
-			// Get connection string.
-			string connectionString = EntityWorksContext.ConnectionStrings[connectionName];
+			// Get connection context.
+			this.ConnectionContext = EntityWorksContext.ConnectionContexts[connectionContextName];
+
+			// Set db provider factory.
+			this.DbProviderFactory = this.ConnectionContext.GetSpecificDbProvider();
+
+			// Set db string builder.
+			this.DbConnectionStringBuilder = DbProviderFactory.CreateConnectionStringBuilder();
 
 			// Parse connection string to builder.
-			DbConnectionStringBuilder.ConnectionString = connectionString;
-			// DbConnectionStringBuilder = new SqlConnectionStringBuilder(connectionString);
-			// DbConnectionStringBuilder.
+			this.DbConnectionStringBuilder.ConnectionString = ConnectionContext.ConnectionString;
 
 			// Set connection segments.
-			Name = connectionName;
+			Name = connectionContextName;
 			Database = DbConnectionStringBuilder["Initial Catalog"] as string;
 			Username = DbConnectionStringBuilder["User ID"] as string;
 			Password = DbConnectionStringBuilder["Password"] as string;
@@ -63,8 +81,8 @@ namespace Orko.EntityWorks
 			// Set connection string.
 			ConnectionString = DbConnectionStringBuilder.ConnectionString;
 
-			// Set language code.
-			LanguageCode = context.LanguageCode;
+			// Set default language code.
+			LanguageCode = entityWorksContext.LanguageCode;
 		}
 		#endregion
 
@@ -80,11 +98,15 @@ namespace Orko.EntityWorks
 		public string LanguageCode { get; private set; }
 		#endregion
 
-		#region Database provider
+		#region Connection properties
 		/// <summary>
 		/// Provider factory.
 		/// </summary>
 		public DbProviderFactory DbProviderFactory { get; private set; }
+		/// <summary>
+		/// Connection context.
+		/// </summary>
+		public ConnectionContext ConnectionContext { get; private set; }
 		#endregion
 
 		#region Methods
@@ -142,20 +164,6 @@ namespace Orko.EntityWorks
 
 			// Return instance.
 			return this;
-		}
-		/// <summary>
-		/// Creates sql connection object.
-		/// </summary>
-		public DbConnection CreateConnection(bool enableStatistics = false)
-		{
-			// Create db connection instance.
-			var dbConnection = DbProviderFactory.CreateConnection();
-
-			// Set cb connection.
-			dbConnection.ConnectionString = this.ConnectionString;
-
-			// Retrun db connection instance.
-			return dbConnection;
 		}
 		#endregion
 

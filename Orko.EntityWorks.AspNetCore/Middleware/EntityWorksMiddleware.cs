@@ -32,9 +32,9 @@ namespace Orko.EntityWorks.AspNetCore
 		public EntityWorksOptions()
 		{
 			// Defaults boolean.
-			this.UserContextTransformation = false;
 			this.UseRequestCulture = true;
 			this.UseNeutralCulture = true;
+			this.UserContextTransformation = false;
 			this.DebugMode = false;
 
 			// Defaults null.

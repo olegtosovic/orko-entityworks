@@ -62,9 +62,7 @@ namespace Orko.AspNetCore
 			services.AddControllersWithViews();
 
 			// Add EntityWorks.
-			// services.AddEntityWorks(Configuration);
-
-			var qName = typeof(SqlClientFactory).AssemblyQualifiedName;
+			services.AddEntityWorks(Configuration);
 		}
 
 		/// <summary>
@@ -97,7 +95,7 @@ namespace Orko.AspNetCore
 			});
 
 			// Use EntityWorks.
-			// app.UseEntityWorks();
+			app.UseEntityWorks();
 
 			// Use routing.
 			app.UseRouting();

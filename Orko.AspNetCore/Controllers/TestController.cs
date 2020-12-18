@@ -99,37 +99,37 @@ namespace Orko.AspNetCore.Controllers
 		/// <summary>
 		/// Database read test.
 		/// </summary>
-		//[HttpGet("/test-orko")]
-		//public async Task<IActionResult> TestEntityContext()
-		//{
-		//	// Use specific query context, instead of ambient.
-		//	using (var context = new QueryContext("Orko"))
-		//	{
-		//		// Simple query.
-		//		var query = new Query();
+		[HttpGet("/test-orko")]
+		public async Task<IActionResult> TestEntityContext()
+		{
+			// Use specific query context, instead of ambient.
+			using (var context = new QueryContext("Orko"))
+			{
+				// Simple query.
+				var query = new Query();
 
-		//		// Select.
-		//		query.Select("Drzava.DrzavaDrzava", "TwoLetterCode");
-		//		query.Select("Drzava.DrzavaTroslovnaKratica", "ThreeLetterCode");
-		//		query.Select("Drzava.DrzavaKod", "Code");
-		//		query.Select("DrzavaNaziv", "Name");
-		//		query.From("Base.Drzava");
+				// Select.
+				query.Select("Drzava.DrzavaDrzava", "TwoLetterCode");
+				query.Select("Drzava.DrzavaTroslovnaKratica", "ThreeLetterCode");
+				query.Select("Drzava.DrzavaKod", "Code");
+				query.Select("DrzavaNaziv", "Name");
+				query.From("Base.Drzava");
 
-		//		// Join language table.
-		//		query.Join("Base.Drzava_jezik AS jezik",
-		//			new QueryCondition("jezik.DrzavaDrzava", QueryOp.Equal, "Drzava.DrzavaDrzava"),
-		//			new QueryCondition("jezik.DrzavaJezik", QueryOp.Equal, Query.Quote(context.LanguageCode)));
+				// Join language table.
+				query.Join("Base.Drzava_jezik AS jezik",
+					new QueryCondition("jezik.DrzavaDrzava", QueryOp.Equal, "Drzava.DrzavaDrzava"),
+					new QueryCondition("jezik.DrzavaJezik", QueryOp.Equal, Query.Quote(context.LanguageCode)));
 
-		//		// Get data.
-		//		var result = await query.GetObjectCollectionAsync<Country>();
+				// Get data.
+				var result = await query.GetObjectCollectionAsync<Country>();
 
-		//		// Convert data to json.
-		//		var jsonResult = JsonSerializer.Serialize(result, null);
+				// Convert data to json.
+				var jsonResult = JsonSerializer.Serialize(result, null);
 
-		//		// Display json data.
-		//		return Content(jsonResult, "application/json");
-		//	}
-		//}
+				// Display json data.
+				return Content(jsonResult, "application/json");
+			}
+		}
 
 		/// <summary>
 		/// Database read test.

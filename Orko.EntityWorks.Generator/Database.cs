@@ -23,7 +23,7 @@ namespace Orko.EntityWorks.Generator
 
         #region Methods
         /// <summary>
-        /// Sets specific db provider factory.
+        /// Sets db provider specific factory.
         /// </summary>
         private void SetDbProvider()
 		{

@@ -53,7 +53,7 @@ namespace Orko.EntityWorks
 		/// <summary>
 		/// Connection string collection.
 		/// </summary>
-		internal static IDictionary<string, string> ConnectionStrings { get; set; }
+		internal static IDictionary<string, ConnectionContext> ConnectionContexts { get; set; }
 		/// <summary>
 		/// Context mappings collection.
 		/// </summary>
@@ -106,10 +106,10 @@ namespace Orko.EntityWorks
 		/// <summary>
 		/// Sets connection string source to be used by query context.
 		/// </summary>
-		public static void SetConnectionStringSource(IDictionary<string, string> nameValueDictionary)
+		public static void SetConnectionStringSource(IDictionary<string, ConnectionContext> nameValueDictionary)
 		{
 			// Validate connection string source.
-			if (ConnectionStrings != null)
+			if (ConnectionContexts != null)
 				throw new EntityWorksException("Connection string source already set.");
 			if (nameValueDictionary == null)
 				throw new EntityWorksException("Connection string source cannot be null. Make sure to pass valid instance of dictionary containing connection strings from app.config or appsettings.json.");
@@ -117,7 +117,7 @@ namespace Orko.EntityWorks
 				throw new EntityWorksException("Connection string source cannot have 0 connection strings. Make sure that app.config or appsettings.json have at least one connection string.");
 
 			// Set connection string source.
-			EntityWorksContext.ConnectionStrings = nameValueDictionary;
+			EntityWorksContext.ConnectionContexts = nameValueDictionary;
 		}
 		/// <summary>
 		/// Sets context mappings source to be used by query context.
