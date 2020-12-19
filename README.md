@@ -10,6 +10,22 @@ EntityWorks is a simple active record object-database mapper for .NET 5 currentl
 <!-- INSTALATION -->
 ## Installation
 
+EntityWorks is available on NuGet. Install appropriate packages depending on your runtime environment.
+
+### Asp Net Core
+
+  ```sh
+  dotnet add package Orko.EntityWorks.AspNetCore
+  dotnet add package Orko.EntityWorks.Generator.AspNetCore
+  ```
+  
+### Desktop apps
+
+  ```sh
+  dotnet add package Orko.EntityWorks
+  dotnet add package Orko.EntityWorks.Generator
+  ```
+  
 <!-- USAGE -->
 ## Usage
 
