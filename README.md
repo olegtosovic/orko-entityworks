@@ -141,6 +141,45 @@ public static async Task<PrometnaKartica> TryDohvatiPrometnuKarticuZaTerminAsync
 ```
 Please don't mind the Croatian language of variable names, because this sample is taken from existing project that is written as it is.
 
+### Sample CRUD operations
+
+```cs
+
+```
+
+### Entity & Model Mapping
+
+```cs
+
+```
+
+### Generating Entity classes
+
+```cs
+
+```
+
+## Explanations
+
+In following text, some of the main general concepts, usages and classes are explained.
+
+### EntityWorksContext
+
+### ConnectionContext
+
+### QueryContext
+
+### EntityContext
+
+### ObjectContext
+
+### Ambient pattern
+
+### Configuration
+
+### Authentication ambient query context switching
+
+### Entity & Model metadata caching
 
 <!-- ROADMAP -->
 ## Roadmap
@@ -148,7 +187,7 @@ Please don't mind the Croatian language of variable names, because this sample i
 List of some features that will be implemented down the road:
 
 1. Futher extensions of Query class so that it provides more complete sql query writing.
-2. Providers for other common database engines. (MySql, Oracle, etc.)
+2. EntityWorks providers for other common database engines. (MySql, Oracle, etc.)
 3. Implementation and support for database view (both entityworks runtime and generator).
 4. Implementation and support for database stored procedures (both entityworks runtime and generator).
 
@@ -179,5 +218,7 @@ Oleg Tošović - oleg.tosovic@gmail.com
 Orko I.T. - https://www.orkoit.hr/en
 
 Project Link: [https://github.com/olegtosovic/orko-entityworks.git](https://github.com/olegtosovic/orko-entityworks.git)
+
+## Donate
 
 
