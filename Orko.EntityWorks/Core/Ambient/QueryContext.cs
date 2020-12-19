@@ -12,6 +12,13 @@ namespace Orko.EntityWorks
 	/// </summary>
 	public class QueryContext : IDisposable
 	{
+		#region Members
+		/// <summary>
+		/// Inidicates if object is already disposed.
+		/// </summary>
+		private bool m_isDisposed;
+		#endregion
+
 		#region Properties
 		/// <summary>
 		/// Connection string builder.
@@ -42,14 +49,7 @@ namespace Orko.EntityWorks
 		/// </summary>
 		private QueryContext()
 		{
-			// Register provider factory, currently only support for microsoft sql client.
-			// DbProviderFactories.RegisterFactory("Microsoft.Data.SqlClient", SqlClientFactory.Instance);
 
-			// Create provider factory.
-			// DbProviderFactory = DbProviderFactories.GetFactory("Microsoft.Data.SqlClient");
-
-			// Create connection string string builder.
-			// DbConnectionStringBuilder = DbProviderFactory.CreateConnectionStringBuilder();
 		}
 		/// <summary>
 		/// Creates query context which is used by query object.
@@ -83,6 +83,15 @@ namespace Orko.EntityWorks
 
 			// Set default language code.
 			LanguageCode = entityWorksContext.LanguageCode;
+		}
+		#endregion
+
+		#region Finalizers
+		// Finalizer.
+		~QueryContext()
+		{
+			// Finalizer calls Dispose(false)
+			Dispose(false);
 		}
 		#endregion
 
@@ -191,13 +200,40 @@ namespace Orko.EntityWorks
 		}
 		#endregion
 
-		#region Dispose
+		#region Dispose implementation
 		/// <summary>
 		/// Removes context from ambient stack.
 		/// </summary>
 		public void Dispose()
 		{
+			// Dispose.
+			Dispose(true);
 
+			// Suppres finalize.
+			GC.SuppressFinalize(this);
+		}
+		/// <summary>
+		/// Protected implementation of Dispose pattern.
+		/// </summary>
+		/// <param name="disposing"></param>
+		protected virtual void Dispose(bool disposing)
+		{
+			// If already disposed return.
+			if (m_isDisposed)
+			{
+				return;
+			}
+
+			// If disposing release managed objects.
+			if (disposing)
+			{
+				// TODO: dispose managed state (managed objects).
+			}
+
+			// TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
+			// TODO: set large fields to null.
+
+			m_isDisposed = true;
 		}
 		#endregion
 	}

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.DependencyInjection;
+using Northwind.Dbo;
 using Orko.AspNetCore.Models;
 using Orko.Base;
 using Orko.EntityWorks;
@@ -103,7 +104,7 @@ namespace Orko.AspNetCore.Controllers
 		public async Task<IActionResult> TestEntityContext()
 		{
 			// Use specific query context, instead of ambient.
-			using (var context = new QueryContext("Orko"))
+			// using (var context = new QueryContext("Orko"))
 			{
 				// Simple query.
 				var query = new Query();
@@ -118,7 +119,7 @@ namespace Orko.AspNetCore.Controllers
 				// Join language table.
 				query.Join("Base.Drzava_jezik AS jezik",
 					new QueryCondition("jezik.DrzavaDrzava", QueryOp.Equal, "Drzava.DrzavaDrzava"),
-					new QueryCondition("jezik.DrzavaJezik", QueryOp.Equal, Query.Quote(context.LanguageCode)));
+					new QueryCondition("jezik.DrzavaJezik", QueryOp.Equal, Query.Quote("HR")));
 
 				// Get data.
 				var result = await query.GetObjectCollectionAsync<Country>();
@@ -167,16 +168,22 @@ namespace Orko.AspNetCore.Controllers
 		//}
 
 		// Database read test.
-		//[HttpGet("/test-northwind")]
-		//public async Task<IActionResult> TestDbNorthwind1()
-		//{
-		//	var result = await OrderDetails.GetByAnyAsync();
+		[HttpGet("/test-northwind")]
+		public async Task<IActionResult> TestDbNorthwind1()
+		{
+			// Use northwind.
+			using (var context = new QueryContext("Northwind"))
+			{
+				// Get data.
+				var result = await OrderDetails.GetByAnyAsync();
 
-		//	// To Json.
-		//	var jsonResult = JsonSerializer.Serialize<IEnumerable<OrderDetails>>(result, null);
+				// Convert data to json.
+				var jsonResult = JsonSerializer.Serialize<IEnumerable<OrderDetails>>(result, null);
 
-		//	return Content(jsonResult, "application/json");
-		//}
+				// Display json data.
+				return Content(jsonResult, "application/json");
+			}
+		}
 
 		// Database read test.
 		//[HttpGet("/test-northwind2")]
