@@ -5,6 +5,10 @@
 [![GitHub stars](https://img.shields.io/github/stars/olegtosovic/orko-entityworks?style=for-the-badge)](https://github.com/olegtosovic/orko-entityworks/stargazers)
 [![GitHub license](https://img.shields.io/github/license/olegtosovic/orko-entityworks?style=for-the-badge)](https://github.com/olegtosovic/orko-entityworks/blob/master/LICENSE.md)
 
+# Warning!
+
+It's public but not ready yet.
+
 <!-- PROJECT TITLE AND BASIC DESCRIPTION -->
 # EntityWorks .NET
 
