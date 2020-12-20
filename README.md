@@ -1,3 +1,4 @@
+<!-- PROJECT SHIELDS -->
 
 <!-- PROJECT TITLE AND BASIC DESCRIPTION -->
 # EntityWorks .NET
@@ -185,7 +186,3 @@ Oleg Tošović - oleg.tosovic@gmail.com
 Orko I.T. - https://www.orkoit.hr/en
 
 Project Link: [https://github.com/olegtosovic/orko-entityworks.git](https://github.com/olegtosovic/orko-entityworks.git)
-
-## Donate
-
-
