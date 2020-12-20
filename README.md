@@ -3,7 +3,7 @@
 <!-- PROJECT TITLE AND BASIC DESCRIPTION -->
 # EntityWorks .NET
 
-EntityWorks is a simple active record object-database mapper for .NET 5 currently supporting only Microsoft SQL Server. It provides Query class for building complex SQL queries that provide data mapping to table entities or custom objects models in almost native assignment speed. Being highly optimized it uses CLR generic type static caching reflection which enables minimalistic DTO-like generated entities with addition of async CRUD methods. It is connection oriented which means no DbContext but rather QueryContext that operates as ambient context.
+EntityWorks is a simple active record object-database mapper for .NET 5 currently supporting only Microsoft SQL Server. It provides Query class for building complex SQL queries that provide data mapping to table entities or custom objects models in almost native assignment speed. Being highly optimized it uses CLR generic type static caching reflection which enables minimalistic DTO-like generated entities with addition of async CRUD methods.
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
