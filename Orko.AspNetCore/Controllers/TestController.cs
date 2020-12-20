@@ -1,14 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.DependencyInjection;
 using Northwind.Dbo;
 using Orko.AspNetCore.Models;
-using Orko.Base;
 using Orko.EntityWorks;
 using Orko.EntityWorks.Generator;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Common;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Transactions;
@@ -30,56 +26,37 @@ namespace Orko.AspNetCore.Controllers
 		}
 		#endregion
 
-		#region Entity context test actions
-		/// <summary>
-		/// Entity works context test.
-		/// Uses Orko.SmjestajniObjekt for sample.
-		/// </summary>
-		[HttpGet("/test-entitycontext")]
-		public async Task<IActionResult> TestDbEntityWorks()
-		{
-			// Get data.
-			var result = await Drzava.GetByAnyAsync();
-
-			// Convert data to json.
-			var jsonResult = JsonSerializer.Serialize(result, null);
-
-			// Display json data.
-			return Content(jsonResult, "application/json");
-		}
-		#endregion
-
 		#region Entity mapping actions
 		/// <summary>
 		/// Database read test.
 		/// </summary>
-		[HttpGet("/test-orko-save")]
-		public async Task<IActionResult> TestDbOrko1()
-		{
-			// Use transaction that wont commit.
-			using (TransactionScope transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
-			{
-				// SELECT + UPDATE + SAVE.
-				var drzava = await Drzava.GetByPrimaryKeyAsync("HR");
-				drzava.DrzavaNaziv = drzava.DrzavaNaziv + "_s";
-				await drzava.SaveAsync();
+		//[HttpGet("/test-orko-save")]
+		//public async Task<IActionResult> TestDbOrko1()
+		//{
+		//	// Use transaction that wont commit.
+		//	using (TransactionScope transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+		//	{
+		//		// SELECT + UPDATE + SAVE.
+		//		var drzava = await Drzava.GetByPrimaryKeyAsync("HR");
+		//		drzava.DrzavaNaziv = drzava.DrzavaNaziv + "_s";
+		//		await drzava.SaveAsync();
 
-				// CREATE + SAVE.
-				var drzava2 = new Drzava();
-				drzava2.DrzavaDrzava = "XX";
-				drzava2.DrzavaKod = "KOD";
-				drzava2.DrzavaTroslovnaKratica = "TRK";
-				drzava2.DrzavaValuta = "HRK";
-				drzava2.DrzavaNaziv = "Testna država";
-				await drzava2.SaveAsync();				
+		//		// CREATE + SAVE.
+		//		var drzava2 = new Drzava();
+		//		drzava2.DrzavaDrzava = "XX";
+		//		drzava2.DrzavaKod = "KOD";
+		//		drzava2.DrzavaTroslovnaKratica = "TRK";
+		//		drzava2.DrzavaValuta = "HRK";
+		//		drzava2.DrzavaNaziv = "Testna država";
+		//		await drzava2.SaveAsync();				
 
-				// Convert data to json.
-				var jsonResult = JsonSerializer.Serialize(drzava2, null);
+		//		// Convert data to json.
+		//		var jsonResult = JsonSerializer.Serialize(drzava2, null);
 
-				// Display json data.
-				return Content(jsonResult, "application/json");
-			}
-		}
+		//		// Display json data.
+		//		return Content(jsonResult, "application/json");
+		//	}
+		//}
 
 		/// <summary>
 		/// Database read test.
@@ -104,68 +81,33 @@ namespace Orko.AspNetCore.Controllers
 		public async Task<IActionResult> TestEntityContext()
 		{
 			// Use specific query context, instead of ambient.
-			// using (var context = new QueryContext("Orko"))
-			{
-				// Simple query.
-				var query = new Query();
+			//using (var context = new QueryContext("Orko"))
+			//{
+			// Simple query.
+			var query = new Query();
 
-				// Select.
-				query.Select("Drzava.DrzavaDrzava", "TwoLetterCode");
-				query.Select("Drzava.DrzavaTroslovnaKratica", "ThreeLetterCode");
-				query.Select("Drzava.DrzavaKod", "Code");
-				query.Select("DrzavaNaziv", "Name");
-				query.From("Base.Drzava");
+			// Select.
+			query.Select("Drzava.DrzavaDrzava", "TwoLetterCode");
+			query.Select("Drzava.DrzavaTroslovnaKratica", "ThreeLetterCode");
+			query.Select("Drzava.DrzavaKod", "Code");
+			query.Select("DrzavaNaziv", "Name");
+			query.From("Base.Drzava");
 
-				// Join language table.
-				query.Join("Base.Drzava_jezik AS jezik",
-					new QueryCondition("jezik.DrzavaDrzava", QueryOp.Equal, "Drzava.DrzavaDrzava"),
-					new QueryCondition("jezik.DrzavaJezik", QueryOp.Equal, Query.Quote("HR")));
+			// Join language table.
+			query.Join("Base.Drzava_jezik AS jezik",
+				new QueryCondition("jezik.DrzavaDrzava", QueryOp.Equal, "Drzava.DrzavaDrzava"),
+				new QueryCondition("jezik.DrzavaJezik", QueryOp.Equal, Query.Quote("HR")));
 
-				// Get data.
-				var result = await query.GetObjectCollectionAsync<Country>();
+			// Get data.
+			var result = await query.GetObjectCollectionAsync<Country>();
 
-				// Convert data to json.
-				var jsonResult = JsonSerializer.Serialize(result, null);
+			// Convert data to json.
+			var jsonResult = JsonSerializer.Serialize(result, null);
 
-				// Display json data.
-				return Content(jsonResult, "application/json");
-			}
+			// Display json data.
+			return Content(jsonResult, "application/json");
+			//}
 		}
-
-		/// <summary>
-		/// Database read test.
-		/// </summary>
-		//[HttpGet("/test-orko2")]
-		//public async Task<IActionResult> TestDbOrko2()
-		//{
-		//	// Use specific query context, instead of ambient.
-		//	using (var context = new QueryContext("Orko"))
-		//	{
-		//		// Simple query.
-		//		var query = new Query();
-
-		//		// Select.
-		//		query.Select("Drzava.DrzavaDrzava", "TwoLetterCode");
-		//		query.Select("Drzava.DrzavaTroslovnaKratica", "ThreeLetterCode");
-		//		query.Select("Drzava.DrzavaKod", "Code");
-		//		query.Select("DrzavaNaziv", "Name");
-		//		query.From("Base.Drzava");
-
-		//		// Join language table.
-		//		query.Join("Base.Drzava_jezik AS jezik",
-		//			new QueryCondition("jezik.DrzavaDrzava", QueryOp.Equal, "Drzava.DrzavaDrzava"),
-		//			new QueryCondition("jezik.DrzavaJezik", QueryOp.Equal, Query.Quote(context.LanguageCode)));
-
-		//		// Get data.
-		//		var result = await query.GetObjectCollectionAsync<Country>();
-
-		//		// Convert data to json.
-		//		var jsonResult = JsonSerializer.Serialize(result, null);
-
-		//		// Display json data.
-		//		return Content(jsonResult, "application/json");
-		//	}
-		//}
 
 		// Database read test.
 		[HttpGet("/test-northwind")]
@@ -184,20 +126,6 @@ namespace Orko.AspNetCore.Controllers
 				return Content(jsonResult, "application/json");
 			}
 		}
-
-		// Database read test.
-		//[HttpGet("/test-northwind2")]
-		//public async Task<IActionResult> TestDbNorthwind2()
-		//{
-		//	// Get data.
-		//	var result = await Products.GetByAnyAsync();
-
-		//	// Convert data to json.
-		//	var jsonResult = JsonSerializer.Serialize(result, null);
-
-		//	// Display json data.
-		//	return Content(jsonResult, "application/json");
-		//}
 		#endregion
 
 		#region Entity generator test actions
