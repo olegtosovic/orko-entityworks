@@ -48,20 +48,20 @@ public static async Task<PrometnaKartica> TryDohvatiPrometnuKarticuZaTerminAsync
     // Create new query.
     var upit = new Query();
 
-    // Select from Protokol table.
+    // Select Protokol table.
     upit.Select("ProtokolProtokol");
     upit.Select("ProtokolGodina");
     upit.Select("ProtokolBroj");
     upit.Select("ProtokolStatus");
     upit.Select("ProtokolDatumDokumenta");
 
-    // Select from traffic table.
+    // Select PrometnaKartica table.
     upit.Select("PrometnaKarticaProtokolID");
     upit.Select("PrometnaKarticaBrod");
     upit.Select("PrometnaKarticaVrstaUsluge");
     upit.Select("PrometnaKarticaVrstaIzleta");;
 
-    // Select from localization tables names.
+    // Select name fields from language tables.
     upit.Select("VrstaUslugeNaziv");
     upit.Select("VrstaIzletaNaziv");
     upit.Select("TipRezervacijeNaziv");
