@@ -35,7 +35,7 @@ The following code demonstrates basic usage of EntityWorks .NET.
 
 ```cs
 /// <summary>
-/// Dohvaća prometnu karticu za ključ usluge.
+/// Get single entity given query.
 /// </summary>
 public static async Task<PrometnaKartica> TryDohvatiPrometnuKarticuZaTerminAsync(
     string jezik,
@@ -45,46 +45,23 @@ public static async Task<PrometnaKartica> TryDohvatiPrometnuKarticuZaTerminAsync
     DateTime datumVrijemeOd, 
     DateTime datumVrijemeDo)
 {
-    // Upit.
+    // Create new query.
     var upit = new Query();
 
-    // Select protokol.
+    // Select from Protokol table.
     upit.Select("ProtokolProtokol");
     upit.Select("ProtokolGodina");
     upit.Select("ProtokolBroj");
     upit.Select("ProtokolStatus");
     upit.Select("ProtokolDatumDokumenta");
 
-    // Select prometna kartica.
+    // Select from traffic table.
     upit.Select("PrometnaKarticaProtokolID");
     upit.Select("PrometnaKarticaBrod");
     upit.Select("PrometnaKarticaVrstaUsluge");
-    upit.Select("PrometnaKarticaVrstaIzleta");
-    upit.Select("PrometnaKarticaTipRezervacije");
-    upit.Select("PrometnaKarticaTerminID");
-    upit.Select("PrometnaKarticaDatumUsluge");
-    upit.Select("PrometnaKarticaDatumVrijemeOd");
-    upit.Select("PrometnaKarticaDatumVrijemeDo");
-    upit.Select("PrometnaKarticaVrijemeOd");
-    upit.Select("PrometnaKarticaVrijemeDo");
-    upit.Select("PrometnaKarticaTrajanjeIdealno");
-    upit.Select("PrometnaKarticaTrajanjeStvarno");
-    upit.Select("PrometnaKarticaPovratakProcjena");
-    upit.Select("PrometnaKarticaPovratakStvarno");
-    upit.Select("PrometnaKarticaBrojOsobaStvarno");
-    upit.Select("PrometnaKarticaBrojOsobaKalkulativno");
-    upit.Select("PrometnaKarticaBrojOsobaPreostaloStvarno");
-    upit.Select("PrometnaKarticaBrojOsobaPreostaloKalkulativno");
-    upit.Select("PrometnaKarticaBrojOdraslih");
-    upit.Select("PrometnaKarticaBrojDjece");
-    upit.Select("PrometnaKarticaSkiperUkljucen");
-    upit.Select("PrometnaKarticaCijenaUslugeCjenik");
-    upit.Select("PrometnaKarticaCijenaUslugePopustPostotak");
-    upit.Select("PrometnaKarticaCijenaUslugePopustIznos");
-    upit.Select("PrometnaKarticaCijenaUslugeKonacno");
-    upit.Select("PrometnaKarticaCijenaUslugeNaplaceno");
+    upit.Select("PrometnaKarticaVrstaIzleta");;
 
-    // Select nazivi.
+    // Select from localization tables names.
     upit.Select("VrstaUslugeNaziv");
     upit.Select("VrstaIzletaNaziv");
     upit.Select("TipRezervacijeNaziv");
@@ -93,35 +70,25 @@ public static async Task<PrometnaKartica> TryDohvatiPrometnuKarticuZaTerminAsync
     // From.
     upit.From("Watersports.PrometnaKartica");
 
-    // Join protokol.
+    // Inner join.
     upit.Join("Base.Protokol", "PrometnaKarticaProtokolID", "ProtokolID");
 
-    // Join termin jezik.
+    // Left join.
     upit.JoinLeft("Watersports.Termin_jezik AS terminJezik",
         new QueryCondition("terminJezik.TerminID", QueryOp.Equal, "PrometnaKarticaTerminID"),
         new QueryCondition("terminJezik.TerminJezik", QueryOp.Equal, Query.Quote(jezik)));
 
-    // Join brod jezik.
+    // Left join.
     upit.JoinLeft("Watersports.Brod_jezik AS brodJezik",
         new QueryCondition("brodJezik.BrodBrod", QueryOp.Equal, "PrometnaKarticaBrod"),
         new QueryCondition("brodJezik.BrodJezik", QueryOp.Equal, Query.Quote(jezik)));
 
-    // Join vrsta usluge jezik.
+    // Left join.
     upit.JoinLeft("Watersports.VrstaUsluge_jezik AS vrstaUslugeJezik",
         new QueryCondition("vrstaUslugeJezik.VrstaUslugeVrstaUsluge", QueryOp.Equal, "PrometnaKarticaVrstaUsluge"),
         new QueryCondition("vrstaUslugeJezik.VrstaUslugeJezik", QueryOp.Equal, Query.Quote(jezik)));
 
-    // Join vrsta izleta jezik.
-    upit.JoinLeft("Watersports.VrstaIzleta_jezik AS vrstaIzletaJezik",
-        new QueryCondition("vrstaIzletaJezik.VrstaIzletaVrstaIzleta", QueryOp.Equal, "PrometnaKarticaVrstaIzleta"),
-        new QueryCondition("vrstaIzletaJezik.VrstaIzletaJezik", QueryOp.Equal, Query.Quote(jezik)));
-
-    // Join tip rezervacije jezik.
-    upit.JoinLeft("Watersports.TipRezervacije_jezik AS tipRezervacijeJezik",
-        new QueryCondition("tipRezervacijeJezik.TipRezervacijeTipRezervacije", QueryOp.Equal, "PrometnaKarticaTipRezervacije"),
-        new QueryCondition("tipRezervacijeJezik.TipRezervacijeJezik", QueryOp.Equal, Query.Quote(jezik)));
-
-    // Uvjeti za ključ usluge.
+    // Filter conditions.
     upit.Where("PrometnaKarticaBrod", QueryOp.Equal, Query.Quote(brod));
     upit.Where("PrometnaKarticaVrstaUsluge", QueryOp.Equal, Query.Quote(vrstaUsluge));
     if (vrstaIzleta != null)
@@ -130,12 +97,12 @@ public static async Task<PrometnaKartica> TryDohvatiPrometnuKarticuZaTerminAsync
     upit.Where("PrometnaKarticaDatumVrijemeOd", QueryOp.Equal, Query.Quote(datumVrijemeOd));
     upit.Where("PrometnaKarticaDatumVrijemeDo", QueryOp.Equal, Query.Quote(datumVrijemeDo));
 
-    // Dohvati prometnu karticu.
+    // Get entity collection async.
     var prometnaKartica = (await upit
         .GetEntityCollectionAsync<PrometnaKartica>())
         .FirstOrDefault();
 
-    // Vrati prometnu karticu.
+    // Return entity.
     return prometnaKartica;
 }
 ```
