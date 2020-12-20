@@ -1,4 +1,9 @@
 <!-- PROJECT SHIELDS -->
+[![GitHub contr](https://img.shields.io/github/contributors/olegtosovic/orko-entityworks?style=for-the-badge)](https://github.com/olegtosovic/orko-entityworks/contributors)
+[![GitHub forks](https://img.shields.io/github/forks/olegtosovic/orko-entityworks?style=for-the-badge)](https://github.com/olegtosovic/orko-entityworks/network)
+[![GitHub issues](https://img.shields.io/github/issues/olegtosovic/orko-entityworks?style=for-the-badge)](https://github.com/olegtosovic/orko-entityworks/issues)
+[![GitHub stars](https://img.shields.io/github/stars/olegtosovic/orko-entityworks?style=for-the-badge)](https://github.com/olegtosovic/orko-entityworks/stargazers)
+[![GitHub license](https://img.shields.io/github/license/olegtosovic/orko-entityworks?style=for-the-badge)](https://github.com/olegtosovic/orko-entityworks)
 
 <!-- PROJECT TITLE AND BASIC DESCRIPTION -->
 # EntityWorks .NET
