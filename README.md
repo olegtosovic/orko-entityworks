@@ -1,9 +1,18 @@
 <!-- PROJECT SHIELDS -->
+[![GitHub contr](https://img.shields.io/github/contributors/olegtosovic/orko-entityworks?style=for-the-badge)](https://github.com/olegtosovic/orko-entityworks/contributors)
+[![GitHub forks](https://img.shields.io/github/forks/olegtosovic/orko-entityworks?style=for-the-badge)](https://github.com/olegtosovic/orko-entityworks/network)
+[![GitHub issues](https://img.shields.io/github/issues/olegtosovic/orko-entityworks?style=for-the-badge)](https://github.com/olegtosovic/orko-entityworks/issues)
+[![GitHub stars](https://img.shields.io/github/stars/olegtosovic/orko-entityworks?style=for-the-badge)](https://github.com/olegtosovic/orko-entityworks/stargazers)
+[![GitHub license](https://img.shields.io/github/license/olegtosovic/orko-entityworks?style=for-the-badge)](https://github.com/olegtosovic/orko-entityworks/blob/master/LICENSE.md)
+
+# Warning!
+
+It's public but not ready yet.
 
 <!-- PROJECT TITLE AND BASIC DESCRIPTION -->
 # EntityWorks .NET
 
-EntityWorks is a simple active record object-database mapper for .NET 5 currently supporting only Microsoft SQL Server. It provides Query class for building complex SQL queries that provide data mapping to table entities or custom objects models in almost native assignment speed. Being highly optimized it uses CLR generic type static caching reflection which enables minimalistic DTO-like generated entities with addition of async CRUD methods. It is connection oriented which means no DbContext but rather QueryContext that operates as ambient context.
+EntityWorks is a simple active record object-database mapper for .NET 5 currently supporting only Microsoft SQL Server. It provides Query class for building complex SQL queries that provide data mapping to table entities or custom objects models in almost native assignment speed. Being highly optimized it uses CLR generic type static caching reflection which enables minimalistic DTO-like generated entities with addition of async CRUD methods.
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
