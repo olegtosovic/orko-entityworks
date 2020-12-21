@@ -1,4 +1,4 @@
-// Generated on 12/14/2020 9:21 PM using EntityWorks code generation tool.
+// Generated on 12/21/2020 1:03 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -28,7 +28,7 @@ namespace Northwind.Dbo
             // Cache field metadata.
             EntityMeta<Products>.LoadColumnMetadata
 			(
-				new ColumnMetadata(nameof(ProductID), @"ProductID", DbType.Int32, isIdentity: true, isRequired: true),
+				new ColumnMetadata(nameof(ProductID), @"ProductID", DbType.Int32, isIdentity: true, isPrimaryKey: true),
                 new ColumnMetadata(nameof(ProductName), @"ProductName", DbType.String, isRequired: true),
                 new ColumnMetadata(nameof(SupplierID), @"SupplierID", DbType.Int32, isRequired: false),
                 new ColumnMetadata(nameof(CategoryID), @"CategoryID", DbType.Int32, isRequired: false),

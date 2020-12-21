@@ -109,12 +109,16 @@ namespace Orko.EntityWorks.Generator
             // Cache all columns first.
             CacheColumns();
 
+            // Load primary keys.
+            LoadPrimaryKey();
+
             // Load table columns.
             LoadColumns();
 
-            // Load table keys.
-            LoadPrimaryKey();
+            // Load unique keys.
             LoadUniqueKeys();
+
+            // Load foreign keys.
             LoadForeignKeys();
         }
         #endregion

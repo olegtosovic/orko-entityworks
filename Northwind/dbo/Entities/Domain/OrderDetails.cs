@@ -1,4 +1,4 @@
-// Generated on 12/14/2020 9:21 PM using EntityWorks code generation tool.
+// Generated on 12/21/2020 1:03 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -28,8 +28,8 @@ namespace Northwind.Dbo
             // Cache field metadata.
             EntityMeta<OrderDetails>.LoadColumnMetadata
 			(
-				new ColumnMetadata(nameof(OrderID), @"OrderID", DbType.Int32, isRequired: true),
-                new ColumnMetadata(nameof(ProductID), @"ProductID", DbType.Int32, isRequired: true),
+				new ColumnMetadata(nameof(OrderID), @"OrderID", DbType.Int32, isPrimaryKey: true),
+                new ColumnMetadata(nameof(ProductID), @"ProductID", DbType.Int32, isPrimaryKey: true),
                 new ColumnMetadata(nameof(UnitPrice), @"UnitPrice", DbType.Decimal, isRequired: true),
                 new ColumnMetadata(nameof(Quantity), @"Quantity", DbType.Int16, isRequired: true),
                 new ColumnMetadata(nameof(Discount), @"Discount", DbType.Single, isRequired: true)

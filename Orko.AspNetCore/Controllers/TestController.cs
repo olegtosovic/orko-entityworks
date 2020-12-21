@@ -26,54 +26,26 @@ namespace Orko.AspNetCore.Controllers
 		}
 		#endregion
 
+		#region CRUD actions
+		[HttpGet("/test-northwind")]
+		public async Task<IActionResult> TestNorthwind()
+		{
+			// Get all orders.
+			var orders = await Northwind.Dbo.Orders.GetByAnyAsync();
+
+			// Convert data to json.
+			var jsonResult = JsonSerializer.Serialize(orders, null);
+
+			// Display json data.
+			return Content(jsonResult, "application/json");
+		}
+
+		#endregion
+
+		#region QUERY actions
+		#endregion
+
 		#region Entity mapping actions
-		/// <summary>
-		/// Database read test.
-		/// </summary>
-		//[HttpGet("/test-orko-save")]
-		//public async Task<IActionResult> TestDbOrko1()
-		//{
-		//	// Use transaction that wont commit.
-		//	using (TransactionScope transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
-		//	{
-		//		// SELECT + UPDATE + SAVE.
-		//		var drzava = await Drzava.GetByPrimaryKeyAsync("HR");
-		//		drzava.DrzavaNaziv = drzava.DrzavaNaziv + "_s";
-		//		await drzava.SaveAsync();
-
-		//		// CREATE + SAVE.
-		//		var drzava2 = new Drzava();
-		//		drzava2.DrzavaDrzava = "XX";
-		//		drzava2.DrzavaKod = "KOD";
-		//		drzava2.DrzavaTroslovnaKratica = "TRK";
-		//		drzava2.DrzavaValuta = "HRK";
-		//		drzava2.DrzavaNaziv = "Testna država";
-		//		await drzava2.SaveAsync();				
-
-		//		// Convert data to json.
-		//		var jsonResult = JsonSerializer.Serialize(drzava2, null);
-
-		//		// Display json data.
-		//		return Content(jsonResult, "application/json");
-		//	}
-		//}
-
-		/// <summary>
-		/// Database read test.
-		/// </summary>
-		//[HttpGet("/test-context")]
-		//public async Task<IActionResult> TestDbOrko()
-		//{
-		//	// Get data.
-		//	var result = "";
-
-		//	// Convert data to json.
-		//	var jsonResult = JsonSerializer.Serialize(result, null);
-
-		//	// Display json data.
-		//	return Content(jsonResult, "application/json");
-		//}
-
 		/// <summary>
 		/// Database read test.
 		/// </summary>
@@ -110,7 +82,7 @@ namespace Orko.AspNetCore.Controllers
 		}
 
 		// Database read test.
-		[HttpGet("/test-northwind")]
+		[HttpGet("/test-northwind1")]
 		public async Task<IActionResult> TestDbNorthwind1()
 		{
 			// Use northwind.
