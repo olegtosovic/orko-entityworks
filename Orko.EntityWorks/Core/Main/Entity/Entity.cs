@@ -9,65 +9,57 @@ namespace Orko.EntityWorks
 	/// </summary>
 	public abstract class Entity
     {
-        #region Constructors
-        public Entity()
-        {
-            // Initialization.
-            IsNew = true;
-        }
-        #endregion
-
-        #region Entity operations
-        /// <summary>
-        /// Returns single entity object from database given primary key value.
-        /// Throws RecordNotFoundException if record not found.
-        /// </summary>
-        protected static TEntity GetByPrimaryKey<TEntity>(params object[] parameters) where TEntity : Entity, new()
-        {
-            TEntity entity = TryGetByPrimaryKey<TEntity>(parameters);
-            if (entity == null)
-                throw new RecordNotFoundException("Record does not exists in table: " + typeof(TEntity).Name, null);
-            return entity;
-        }
-        /// <summary>
-        /// Returns single entity object (or null) from database given primary key value.
-        /// </summary>
-        protected static TEntity TryGetByPrimaryKey<TEntity>(params object[] parameters) where TEntity : Entity, new()
-        {
-            return EntityMechanic<TEntity>.GetByPrimaryKey(parameters);
-        }
-        /// <summary>
-        /// Returns single entity object from database given unique key value.
-        /// Throws RecordNotFoundException if record not found.
-        /// </summary>
-        protected static TEntity GetByCallingParameters<TEntity>(params object[] parameters) where TEntity : Entity, new()
-        {
-            TEntity entity = TryGetByCallingParameters<TEntity>(parameters);
-            if (entity == null)
-                throw new RecordNotFoundException("Record does not exists in table: " + typeof(TEntity).Name, null);
-            return entity;
-        }
-        /// <summary>
-        /// Returns single entity object (or null) from database given unique key value.
-        /// </summary>
-        protected static TEntity TryGetByCallingParameters<TEntity>(params object[] parameters) where TEntity : Entity, new()
-        {
-            return EntityMechanic<TEntity>.GetByUniqueKey(parameters);
-        }
-        /// <summary>
-        /// Returns collection of entites given query conditions.
-        /// </summary>
-        protected static IEnumerable<TEntity> GetByAny<TEntity>(params QueryCondition[] queryConditions) where TEntity : Entity, new()
-        {
-            return EntityMechanic<TEntity>.GetByAny(queryConditions);
-        }
-        /// <summary>
-        /// Returns collection of entites given query condition.
-        /// </summary>
-        protected static IEnumerable<TEntity> GetByAny<TEntity>(string columnName, QueryOp queryOp, object value) where TEntity : Entity, new()
-        {
-            return EntityMechanic<TEntity>.GetByAny(columnName, queryOp, value);
-        }
+		#region Entity operations
+		/// <summary>
+		/// Returns single entity object from database given primary key value.
+		/// Throws RecordNotFoundException if record not found.
+		/// </summary>
+		protected static TEntity GetByPrimaryKey<TEntity>(params object[] parameters) where TEntity : Entity, new()
+		{
+			TEntity entity = TryGetByPrimaryKey<TEntity>(parameters);
+			if (entity == null)
+				throw new RecordNotFoundException("Record does not exists in table: " + typeof(TEntity).Name, null);
+			return entity;
+		}
+		/// <summary>
+		/// Returns single entity object (or null) from database given primary key value.
+		/// </summary>
+		protected static TEntity TryGetByPrimaryKey<TEntity>(params object[] parameters) where TEntity : Entity, new()
+		{
+			return EntityMechanic<TEntity>.GetByPrimaryKey(parameters);
+		}
+		/// <summary>
+		/// Returns single entity object from database given unique key value.
+		/// Throws RecordNotFoundException if record not found.
+		/// </summary>
+		protected static TEntity GetByCallingParameters<TEntity>(params object[] parameters) where TEntity : Entity, new()
+		{
+			TEntity entity = TryGetByCallingParameters<TEntity>(parameters);
+			if (entity == null)
+				throw new RecordNotFoundException("Record does not exists in table: " + typeof(TEntity).Name, null);
+			return entity;
+		}
+		/// <summary>
+		/// Returns single entity object (or null) from database given unique key value.
+		/// </summary>
+		protected static TEntity TryGetByCallingParameters<TEntity>(params object[] parameters) where TEntity : Entity, new()
+		{
+			return EntityMechanic<TEntity>.GetByUniqueKey(parameters);
+		}
+		/// <summary>
+		/// Returns collection of entites given query conditions.
+		/// </summary>
+		protected static IEnumerable<TEntity> GetByAny<TEntity>(params QueryCondition[] queryConditions) where TEntity : Entity, new()
+		{
+			return EntityMechanic<TEntity>.GetByAny(queryConditions);
+		}
+		/// <summary>
+		/// Returns collection of entites given query condition.
+		/// </summary>
+		protected static IEnumerable<TEntity> GetByAny<TEntity>(string columnName, QueryOp queryOp, object value) where TEntity : Entity, new()
+		{
+			return EntityMechanic<TEntity>.GetByAny(columnName, queryOp, value);
+		}
 		#endregion
 
 		#region Entity operations async
@@ -129,17 +121,17 @@ namespace Orko.EntityWorks
 		/// </summary>
 		/// <typeparam name="TEntity">Type of entity. Eg. Person, Customer ...</typeparam>
 		protected void Save<TEntity>() where TEntity : Entity, new()
-        {
-            EntityMechanic<TEntity>.SaveEntity(this);
-        }
-        /// <summary>
-        /// Deletes entity object from database.
-        /// </summary>
-        /// <typeparam name="TEntity">Type of entity. Eg. Person, Customer ...</typeparam>
-        protected void Delete<TEntity>() where TEntity : Entity, new()
-        {
-            EntityMechanic<TEntity>.DeleteEntity(this);
-        }        
+		{
+			EntityMechanic<TEntity>.SaveEntity(this);
+		}
+		/// <summary>
+		/// Deletes entity object from database.
+		/// </summary>
+		/// <typeparam name="TEntity">Type of entity. Eg. Person, Customer ...</typeparam>
+		protected void Delete<TEntity>() where TEntity : Entity, new()
+		{
+			EntityMechanic<TEntity>.DeleteEntity(this);
+		}
 		#endregion
 
 		#region CRUD async
@@ -160,6 +152,27 @@ namespace Orko.EntityWorks
 			await EntityMechanic<TEntity>.DeleteEntityAsync(this);
 		}
 		#endregion
+
+		#region CLONE
+		/// <summary>
+		/// Creates new copy of entity object.
+		/// </summary>
+		protected TEntity Clone<TEntity>() where TEntity : Entity, new()
+		{
+			return EntityMechanic<TEntity>.Clone((TEntity)this);
+		}
+		#endregion
+
+		#region Constructors
+		/// <summary>
+		/// Creates instance of entity class.
+		/// </summary>
+		public Entity()
+        {
+            // Set state.
+            IsNew = true;
+        }
+        #endregion		
 
 		#region Entity state
 		/// <summary>

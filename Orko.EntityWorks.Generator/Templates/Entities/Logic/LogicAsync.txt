@@ -27,6 +27,10 @@ namespace [NAMESPACE]
 		{
 			Validate<[CLASS_NAME]>();
 		}
+        public [CLASS_NAME] Clone()
+		{
+			return Clone<[CLASS_NAME]>();
+		}
 		#endregion
 
         #region Query

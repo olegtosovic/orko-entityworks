@@ -21,6 +21,7 @@ namespace Orko.EntityWorks.Generator
         private const string PATH_ENTITIES_STATIC = "Entities/Static";
         private const string PATH_PROCEDURES = "Procedures";
         private const string PATH_VIEWS = "Views";
+        private const string PATH_CONTEXT = "";
         #endregion
 
         #region String constants
@@ -193,6 +194,32 @@ namespace Orko.EntityWorks.Generator
                 WriteTextTemplate(table, staticTemplate, PATH_ENTITIES_STATIC);
             }
         }
+        /// <summary>
+        /// Generates context class.
+        /// </summary>
+        private void GenerateContextClass(Database database)
+		{
+            // Get options.
+            var options = database.Options;
+
+            // Get tags data.
+            string nameSpace = database.Options.Namespace;
+            string context = database.DatabaseName;
+
+            // Open context class template.
+            string staticTemplate = ReadTextTemplate(ConvertFileToNamespacePath(PATH_CONTEXT), "Context.txt");
+
+            // Replace tags with actual data.
+            staticTemplate = staticTemplate.Replace("[CONTEXT]", context);
+            staticTemplate = staticTemplate.Replace("[NAMESPACE]", nameSpace);
+
+            // Get context filename.
+            var contextFileName = database.DatabaseName + "Context";
+
+            // Generate class document.
+            WriteTextTemplate(database, contextFileName, staticTemplate, PATH_CONTEXT);
+
+        }
         #endregion
 
         #region Constructors
@@ -281,6 +308,7 @@ namespace Orko.EntityWorks.Generator
                     GenerateDomainClasses(database);
                     GenerateLogicClasses(database);
                     GenerateStaticClasses(database);
+                    GenerateContextClass(database);
                 });
             };
         }        
@@ -808,7 +836,8 @@ namespace Orko.EntityWorks.Generator
             var namespaceDocumentGroup = documentGroup.Replace("/", ".");
 
             // Get resource name.
-            string resourceName = m_execAssemblyName + ".Templates." + namespaceDocumentGroup + "." + documentName;
+            string resourceName = string.Join(".", m_execAssemblyName, "Templates", namespaceDocumentGroup, documentName);
+            resourceName = resourceName.Replace("..", ".");
 
             // If generate async only option true, add "Async" to template name but 
             // only if async indicator is true, noting that such template should exist and make sanse.
@@ -848,6 +877,30 @@ namespace Orko.EntityWorks.Generator
             }
 
 			// Write class to disk.
+            File.WriteAllText(classFullName, template);
+        }
+        /// <summary>
+        /// Writes substituted template to disk.
+        /// </summary>
+        private void WriteTextTemplate(Database database, string filename, string template, string folder)
+        {
+            // Validate target directory.
+            if (this.Options.OutputDirectory == null)
+                throw new EntityWorksGeneratorException("Target directory can not be null. Please set target directory in entity works options.");
+
+            // Directory path.
+            var directoryPath = Path.Combine(this.Options.OutputDirectory.FullName, database.DatabaseName, folder);
+
+            // Class full name.
+            string classFullName = Path.Combine(directoryPath, filename + ".cs");
+
+            // Create class directory if does not exists.
+            if (Directory.Exists(directoryPath) == false)
+            {
+                Directory.CreateDirectory(directoryPath);
+            }
+
+            // Write class to disk.
             File.WriteAllText(classFullName, template);
         }
         /// <summary>

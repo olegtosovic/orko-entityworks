@@ -49,7 +49,7 @@ namespace [NAMESPACE]
 		[ENTITY_LIST]
         #endregion
 
-		#region Public methods async
+		#region Public methods
 		public static async Task<IEnumerable<[CLASS_NAME]>> GetByAnyAsync(params QueryCondition[] queryConditions)
         {
             return await GetByAnyAsync<[CLASS_NAME]>(queryConditions);

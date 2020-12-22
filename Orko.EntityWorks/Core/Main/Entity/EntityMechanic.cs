@@ -667,6 +667,29 @@ namespace Orko.EntityWorks
                 propertyTparent.SetValueFast(propertyValueTobject, parentEntity);
             }
         }
-        #endregion
-    }
+		#endregion
+
+		#region Clone
+        /// <summary>
+        /// Return a new copy of source entity object.
+        /// </summary>
+        public static TEntity Clone(TEntity sourceEntity)
+		{
+            // Create new entity.
+            var copy = new TEntity();
+
+            // Create new entity mapper.
+            var entityMapper = new EntityMapper<TEntity>();
+
+            // Map properties to source entity.
+            entityMapper.MapToObject(copy, sourceEntity);
+
+            // Set state.
+            copy.IsNew = true;
+
+            // Return new copy.
+            return copy;
+		}
+		#endregion
+	}
 }

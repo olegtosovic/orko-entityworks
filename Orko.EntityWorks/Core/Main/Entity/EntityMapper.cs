@@ -23,22 +23,21 @@ namespace Orko.EntityWorks
         /// <summary>
         /// Creates new entity context mapper object.
         /// </summary>
-        /// <param name="objectMappingType"></param>
-        /// <param name="dataReader"></param>
         public EntityMapper(ObjectMappingType objectMappingType, IDataReader dataReader)
         {
-            // Set members.
-            m_ObjectMappingType = objectMappingType;
-
             // Get entity context.
             var entityContext = EntityContext<TEntity>.GetEntityContext();
 
             // Get properties.
             m_Properties = entityContext.Properties.Values.Where(x => !x.IsForeignKey);
 
+            // Set members.
+            m_ObjectMappingType = objectMappingType;
+
             // Determine mapping sets.
             DetermineInterfaceSets(dataReader);
         }
+
         #endregion
     }
 }

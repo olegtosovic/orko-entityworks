@@ -136,7 +136,15 @@ namespace Orko.EntityWorks
         /// <param name="source">Source object instance</param>
         public void MapToObject(TObject instance, TObject source)
         {
+            // For every determined property map to object.
+            foreach (var property in m_mappingSet)
+            {
+                // Get source property value.
+                object value = property.GetValueFast(source);
 
+                // Set source property value.
+                property.SetValueFast(value, instance);
+            }
         }
         #endregion
     }

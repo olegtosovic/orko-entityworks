@@ -25,7 +25,11 @@ namespace [NAMESPACE]
         }
 		public void Validate()
 		{
-			Validate<[CLASS_NAME]>();
+			Validate<[CLASS_NAME]>(); 
+		}
+        public [CLASS_NAME] Clone()
+		{
+			return Clone<[CLASS_NAME]>();
 		}
 		#endregion
 

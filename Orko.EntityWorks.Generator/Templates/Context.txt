@@ -1,0 +1,25 @@
+﻿using Orko.EntityWorks;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace [NAMESPACE]
+{
+	/// <summary>
+	/// Represents strongly typed [NAMESPACE] query context.
+	/// </summary>
+	public class [NAMESPACE]Context : QueryContext
+	{
+		#region Constructors
+		/// <summary>
+		/// Creates instance of [NAMESPACE] ambient context. 
+		/// </summary>
+		public [NAMESPACE]Context() : base("[CONTEXT]")
+		{
+
+		}
+		#endregion
+	}
+}

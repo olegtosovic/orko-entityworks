@@ -1,13 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
-using Northwind.Dbo;
+using AdventureWorks;
+using Northwind;
 using Orko.AspNetCore.Models;
 using Orko.EntityWorks;
 using Orko.EntityWorks.Generator;
 using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading.Tasks;
-using System.Transactions;
+using System;
+using System.Linq;
 
 namespace Orko.AspNetCore.Controllers
 {
@@ -26,73 +28,136 @@ namespace Orko.AspNetCore.Controllers
 		}
 		#endregion
 
-		#region CRUD actions
-		[HttpGet("/test-northwind")]
-		public async Task<IActionResult> TestNorthwind()
-		{
-			// Get all orders.
-			var orders = await Northwind.Dbo.Orders.GetByAnyAsync();
-
-			// Convert data to json.
-			var jsonResult = JsonSerializer.Serialize(orders, null);
-
-			// Display json data.
-			return Content(jsonResult, "application/json");
-		}
-
-		#endregion
-
-		#region QUERY actions
-		#endregion
-
-		#region Entity mapping actions
+		#region Default
 		/// <summary>
-		/// Database read test.
+		/// Default route.
 		/// </summary>
-		[HttpGet("/test-orko")]
-		public async Task<IActionResult> TestEntityContext()
+		[HttpGet("/")]
+		public async Task<IActionResult> Index()
 		{
-			// Use specific query context, instead of ambient.
-			//using (var context = new QueryContext("Orko"))
-			//{
-			// Simple query.
-			var query = new Query();
-
-			// Select.
-			query.Select("Drzava.DrzavaDrzava", "TwoLetterCode");
-			query.Select("Drzava.DrzavaTroslovnaKratica", "ThreeLetterCode");
-			query.Select("Drzava.DrzavaKod", "Code");
-			query.Select("DrzavaNaziv", "Name");
-			query.From("Base.Drzava");
-
-			// Join language table.
-			query.Join("Base.Drzava_jezik AS jezik",
-				new QueryCondition("jezik.DrzavaDrzava", QueryOp.Equal, "Drzava.DrzavaDrzava"),
-				new QueryCondition("jezik.DrzavaJezik", QueryOp.Equal, Query.Quote("HR")));
-
-			// Get data.
-			var result = await query.GetObjectCollectionAsync<Country>();
-
-			// Convert data to json.
-			var jsonResult = JsonSerializer.Serialize(result, null);
-
-			// Display json data.
-			return Content(jsonResult, "application/json");
-			//}
+			return Content("Ready");
 		}
+		#endregion
 
-		// Database read test.
-		[HttpGet("/test-northwind1")]
-		public async Task<IActionResult> TestDbNorthwind1()
+		#region CRUD actions
+
+		#region Northwind
+		/// <summary>
+		/// Gets all records from northwind orders table and displays them as json data.
+		/// </summary>
+		[HttpGet("/nw-orders-get-all")]
+		public async Task<IActionResult> NorthwindGetAll()
 		{
-			// Use northwind.
-			using (var context = new QueryContext("Northwind"))
+			// Use northwind tunnel.
+			using (var context = new NorthwindContext())
 			{
-				// Get data.
-				var result = await OrderDetails.GetByAnyAsync();
+				// Get all orders.
+				var orders = await Northwind.Dbo.Orders.GetByAnyAsync();
 
 				// Convert data to json.
-				var jsonResult = JsonSerializer.Serialize<IEnumerable<OrderDetails>>(result, null);
+				var jsonResult = JsonSerializer.Serialize(orders, null);
+
+				// Display json data.
+				return Content(jsonResult, "application/json");
+			}
+		}
+		/// <summary>
+		/// Gets single record by primary key from northwind orders table and displays it as json data.
+		/// </summary>
+		[HttpGet("/nw-orders-get-single")]
+		public async Task<IActionResult> NorthwindGetSingle()
+		{
+			// Use northwind tunnel.
+			using (var context = new NorthwindContext())
+			{
+				// Get order where id == 10248.
+				var order = await Northwind.Dbo.Orders.GetByPrimaryKeyAsync(10248);
+
+				// Convert data to json.
+				var jsonResult = JsonSerializer.Serialize(order, null);
+
+				// Display json data.
+				return Content(jsonResult, "application/json");
+			}
+		}
+		/// <summary>
+		/// Gets single record by primary key, update it's data on northwind orders table and displays it as json data.
+		/// </summary>
+		[HttpGet("/nw-orders-get-singleupdate")]
+		public async Task<IActionResult> NorthwindGetSingleUpdate()
+		{
+			// Use northwind tunnel.
+			using (var context = new NorthwindContext())
+			{
+				// Get order where id == 10248.
+				var order = await Northwind.Dbo.Orders.GetByPrimaryKeyAsync(10248);
+
+				// Update record with random data.
+				order.Freight = (decimal)new Random().NextDouble();
+				order.ShipName = order.ShipName + " _rand" + new Random().Next();
+				order.ShipAddress = order.ShipAddress + " _rand" + new Random().Next();
+				order.ShippedDate = DateTime.Now;
+				order.RequiredDate = DateTime.Now.AddDays(-1);
+
+				// Persist.
+				await order.SaveAsync();
+
+				// Convert data to json.
+				var jsonResult = JsonSerializer.Serialize(order, null);
+
+				// Display json data.
+				return Content(jsonResult, "application/json");
+			}
+		}
+		/// <summary>
+		/// Inserts single record, set it's data by copying data from other record on northwind orders table and displays it as json data.
+		/// </summary>
+		[HttpGet("/nw-orders-insert")]
+		public async Task<IActionResult> NorthwindGetSingleInsert()
+		{
+			// Use northwind tunnel.
+			using (var context = new NorthwindContext())
+			{
+				// Get order where id == 10248.
+				var order = await Northwind.Dbo.Orders.GetByPrimaryKeyAsync(10248);
+
+				// Create copy of order object.
+				var newOrder = order.Clone();
+
+				// Persist.
+				await newOrder.SaveAsync();
+
+				// Convert data to json.
+				var jsonResult = JsonSerializer.Serialize(newOrder, null);
+
+				// Display json data.
+				return Content(jsonResult, "application/json");
+			}
+		}
+		/// <summary>
+		/// Gets last record on northwind orders table, delete it and display it as json data.
+		/// </summary>
+		[HttpGet("/nw-orders-delete")]
+		public async Task<IActionResult> NorthwindGetSingleDelete()
+		{
+			// Use northwind tunnel.
+			using (var context = new NorthwindContext())
+			{
+				// Last query.
+				var lastOrderQuery = new Query()
+					.Select("MAX(OrderID)")
+					.From("Orders");
+
+				// Get last order.
+				var order = (await Northwind.Dbo.Orders.GetByAnyAsync(
+					new QueryCondition("OrderID", QueryOp.Equal, lastOrderQuery)))
+					.FirstOrDefault();
+
+				// Delete.
+				await order.DeleteAsync();
+
+				// Convert data to json.
+				var jsonResult = JsonSerializer.Serialize(order, null);
 
 				// Display json data.
 				return Content(jsonResult, "application/json");
@@ -100,17 +165,54 @@ namespace Orko.AspNetCore.Controllers
 		}
 		#endregion
 
-		#region Entity generator test actions
+		#region AventureWorks
 		/// <summary>
-		/// Database generator test.
+		/// Gets all records from adventureworks products table and displays them as json data.
+		/// </summary>
+		[HttpGet("/aw-products-getall")]
+		public async Task<IActionResult> TestAdventureWorks()
+		{
+			// Use adventureworks tunnel.
+			using (var context = new AdventureWorksContext())
+			{
+				// Get all products.
+				var products = await AdventureWorks.Production.Product.GetByAnyAsync();
+
+				// Convert data to json.
+				var jsonResult = JsonSerializer.Serialize(products, null);
+
+				// Display json data.
+				return Content(jsonResult, "application/json");
+			}
+		}
+		#endregion
+
+		#endregion
+
+		#region QUERY actions
+
+		#region Northwind
+		#endregion
+
+		#region AdventureWorks
+		#endregion
+
+		#endregion
+
+		#region MULTIPLE DATABASE actions
+		#endregion
+
+		#region ENTITY GENERATOR actions
+		/// <summary>
+		/// Performs entity class generation for provided connection contexts.
 		/// </summary>
 		[HttpGet("/generate")]
-		public async Task<IActionResult> TestEntityWorksGenerator()
+		public async Task<IActionResult> GenerateEntites()
 		{
 			// Get generator instance. Could be done via constructor injection but it not important.
 			var entityWorksGenerator = this.HttpContext.RequestServices.GetService<EntityWorksGenerator>();
 
-			// Generate domain and logic classes.
+			// Generate domain, logic and static classes.
 			await entityWorksGenerator.GenerateAllAsync();
 
 			// Return OK.

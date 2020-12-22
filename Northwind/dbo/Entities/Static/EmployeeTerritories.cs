@@ -1,4 +1,4 @@
-// Generated on 12/21/2020 1:03 PM using EntityWorks code generation tool.
+// Generated on 12/22/2020 12:53 PM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
