@@ -79,9 +79,14 @@ namespace Orko.EntityWorks
                 // If property belongs to entity and is it plain field.
                 else if (property.IsEntityChild && !property.IsForeignKey)
                 {
-                    // Cache field properties.
+                    // Get field properties.
                     ColumnMetadata columnMetada = EntityMeta<TEntity>.GetFieldAttributes(property);
+
+                    // Set field properties.
                     property.AssignFieldProperty(columnMetada);
+
+                    // Cache data reader specific get value method.
+                    property.CacheDataReaderGetValue();
                 }
 
                 // Add to collection.

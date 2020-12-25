@@ -1,4 +1,4 @@
-// Generated on 12/14/2020 9:21 PM using EntityWorks code generation tool.
+// Generated on 12/25/2020 11:27 AM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -29,9 +29,9 @@ namespace AdventureWorks.Person
             // Cache field metadata.
             EntityMeta<BusinessEntityAddress>.LoadColumnMetadata
 			(
-				new ColumnMetadata(nameof(BusinessEntityID), @"BusinessEntityID", DbType.Int32, isRequired: true),
-                new ColumnMetadata(nameof(AddressID), @"AddressID", DbType.Int32, isRequired: true),
-                new ColumnMetadata(nameof(AddressTypeID), @"AddressTypeID", DbType.Int32, isRequired: true),
+				new ColumnMetadata(nameof(BusinessEntityID), @"BusinessEntityID", DbType.Int32, isPrimaryKey: true),
+                new ColumnMetadata(nameof(AddressID), @"AddressID", DbType.Int32, isPrimaryKey: true),
+                new ColumnMetadata(nameof(AddressTypeID), @"AddressTypeID", DbType.Int32, isPrimaryKey: true),
                 new ColumnMetadata(nameof(rowguid), @"rowguid", DbType.Guid, isRequired: true),
                 new ColumnMetadata(nameof(ModifiedDate), @"ModifiedDate", DbType.DateTime, isRequired: true)
 			);
@@ -79,7 +79,7 @@ namespace AdventureWorks.Person
         }
         #endregion
 
-		#region Public methods async
+		#region Public methods
 		public static async Task<IEnumerable<BusinessEntityAddress>> GetByAnyAsync(params QueryCondition[] queryConditions)
         {
             return await GetByAnyAsync<BusinessEntityAddress>(queryConditions);

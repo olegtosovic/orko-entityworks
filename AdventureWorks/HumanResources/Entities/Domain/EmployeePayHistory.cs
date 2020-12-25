@@ -1,4 +1,4 @@
-// Generated on 12/14/2020 9:21 PM using EntityWorks code generation tool.
+// Generated on 12/25/2020 11:27 AM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -27,8 +27,8 @@ namespace AdventureWorks.HumanResources
             // Cache field metadata.
             EntityMeta<EmployeePayHistory>.LoadColumnMetadata
 			(
-				new ColumnMetadata(nameof(BusinessEntityID), @"BusinessEntityID", DbType.Int32, isRequired: true),
-                new ColumnMetadata(nameof(RateChangeDate), @"RateChangeDate", DbType.DateTime, isRequired: true),
+				new ColumnMetadata(nameof(BusinessEntityID), @"BusinessEntityID", DbType.Int32, isPrimaryKey: true),
+                new ColumnMetadata(nameof(RateChangeDate), @"RateChangeDate", DbType.DateTime, isPrimaryKey: true),
                 new ColumnMetadata(nameof(Rate), @"Rate", DbType.Decimal, isRequired: true),
                 new ColumnMetadata(nameof(PayFrequency), @"PayFrequency", DbType.Byte, isRequired: true),
                 new ColumnMetadata(nameof(ModifiedDate), @"ModifiedDate", DbType.DateTime, isRequired: true)
@@ -65,7 +65,7 @@ namespace AdventureWorks.HumanResources
         }
         #endregion
 
-		#region Public methods async
+		#region Public methods
 		public static async Task<IEnumerable<EmployeePayHistory>> GetByAnyAsync(params QueryCondition[] queryConditions)
         {
             return await GetByAnyAsync<EmployeePayHistory>(queryConditions);

@@ -1,4 +1,4 @@
-// Generated on 12/14/2020 9:21 PM using EntityWorks code generation tool.
+// Generated on 12/25/2020 11:27 AM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -29,7 +29,7 @@ namespace AdventureWorks.Purchasing
             // Cache field metadata.
             EntityMeta<PurchaseOrderHeader>.LoadColumnMetadata
 			(
-				new ColumnMetadata(nameof(PurchaseOrderID), @"PurchaseOrderID", DbType.Int32, isIdentity: true, isRequired: true),
+				new ColumnMetadata(nameof(PurchaseOrderID), @"PurchaseOrderID", DbType.Int32, isIdentity: true, isPrimaryKey: true),
                 new ColumnMetadata(nameof(RevisionNumber), @"RevisionNumber", DbType.Byte, isRequired: true),
                 new ColumnMetadata(nameof(Status), @"Status", DbType.Byte, isRequired: true),
                 new ColumnMetadata(nameof(EmployeeID), @"EmployeeID", DbType.Int32, isRequired: true),
@@ -95,7 +95,7 @@ namespace AdventureWorks.Purchasing
         }
         #endregion
 
-		#region Public methods async
+		#region Public methods
 		public static async Task<IEnumerable<PurchaseOrderHeader>> GetByAnyAsync(params QueryCondition[] queryConditions)
         {
             return await GetByAnyAsync<PurchaseOrderHeader>(queryConditions);

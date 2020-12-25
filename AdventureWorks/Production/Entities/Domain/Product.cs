@@ -1,4 +1,4 @@
-// Generated on 12/14/2020 9:21 PM using EntityWorks code generation tool.
+// Generated on 12/25/2020 11:27 AM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -30,11 +30,11 @@ namespace AdventureWorks.Production
             // Cache field metadata.
             EntityMeta<Product>.LoadColumnMetadata
 			(
-				new ColumnMetadata(nameof(ProductID), @"ProductID", DbType.Int32, isIdentity: true, isRequired: true),
-                new ColumnMetadata(nameof(Name), @"Name", DbType.Object, isRequired: true),
+				new ColumnMetadata(nameof(ProductID), @"ProductID", DbType.Int32, isIdentity: true, isPrimaryKey: true),
+                new ColumnMetadata(nameof(Name), @"Name", DbType.String, isRequired: true),
                 new ColumnMetadata(nameof(ProductNumber), @"ProductNumber", DbType.String, isRequired: true),
-                new ColumnMetadata(nameof(MakeFlag), @"MakeFlag", DbType.Object, isRequired: true),
-                new ColumnMetadata(nameof(FinishedGoodsFlag), @"FinishedGoodsFlag", DbType.Object, isRequired: true),
+                new ColumnMetadata(nameof(MakeFlag), @"MakeFlag", DbType.Boolean, isRequired: true),
+                new ColumnMetadata(nameof(FinishedGoodsFlag), @"FinishedGoodsFlag", DbType.Boolean, isRequired: true),
                 new ColumnMetadata(nameof(Color), @"Color", DbType.String, isRequired: false),
                 new ColumnMetadata(nameof(SafetyStockLevel), @"SafetyStockLevel", DbType.Int16, isRequired: true),
                 new ColumnMetadata(nameof(ReorderPoint), @"ReorderPoint", DbType.Int16, isRequired: true),
@@ -79,8 +79,8 @@ namespace AdventureWorks.Production
         public int? ProductID { get; private set; }
         public string Name { get; set; }
         public string ProductNumber { get; set; }
-        public string MakeFlag { get; set; }
-        public string FinishedGoodsFlag { get; set; }
+        public bool? MakeFlag { get; set; }
+        public bool? FinishedGoodsFlag { get; set; }
         public string Color { get; set; }
         public short? SafetyStockLevel { get; set; }
         public short? ReorderPoint { get; set; }
@@ -126,7 +126,7 @@ namespace AdventureWorks.Production
         }
         #endregion
 
-		#region Public methods async
+		#region Public methods
 		public static async Task<IEnumerable<Product>> GetByAnyAsync(params QueryCondition[] queryConditions)
         {
             return await GetByAnyAsync<Product>(queryConditions);

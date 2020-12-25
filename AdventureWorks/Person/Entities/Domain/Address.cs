@@ -1,4 +1,4 @@
-// Generated on 12/14/2020 9:21 PM using EntityWorks code generation tool.
+// Generated on 12/25/2020 11:27 AM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -27,13 +27,13 @@ namespace AdventureWorks.Person
             // Cache field metadata.
             EntityMeta<Address>.LoadColumnMetadata
 			(
-				new ColumnMetadata(nameof(AddressID), @"AddressID", DbType.Int32, isIdentity: true, isRequired: true),
+				new ColumnMetadata(nameof(AddressID), @"AddressID", DbType.Int32, isIdentity: true, isPrimaryKey: true),
                 new ColumnMetadata(nameof(AddressLine1), @"AddressLine1", DbType.String, isRequired: true),
                 new ColumnMetadata(nameof(AddressLine2), @"AddressLine2", DbType.String, isRequired: false),
                 new ColumnMetadata(nameof(City), @"City", DbType.String, isRequired: true),
                 new ColumnMetadata(nameof(StateProvinceID), @"StateProvinceID", DbType.Int32, isRequired: true),
                 new ColumnMetadata(nameof(PostalCode), @"PostalCode", DbType.String, isRequired: true),
-                new ColumnMetadata(nameof(SpatialLocation), @"SpatialLocation", DbType.Object, isRequired: false),
+                new ColumnMetadata(nameof(SpatialLocation), @"SpatialLocation", DbType.Binary, isRequired: false),
                 new ColumnMetadata(nameof(rowguid), @"rowguid", DbType.Guid, isRequired: true),
                 new ColumnMetadata(nameof(ModifiedDate), @"ModifiedDate", DbType.DateTime, isRequired: true)
 			);
@@ -60,7 +60,7 @@ namespace AdventureWorks.Person
         public string City { get; set; }
         public int? StateProvinceID { get; set; }
         public string PostalCode { get; set; }
-        public Object SpatialLocation { get; set; }
+        public Byte[] SpatialLocation { get; set; }
         public Guid? rowguid { get; set; }
         public DateTime? ModifiedDate { get; set; }
         #endregion
@@ -73,7 +73,7 @@ namespace AdventureWorks.Person
         }
         #endregion
 
-		#region Public methods async
+		#region Public methods
 		public static async Task<IEnumerable<Address>> GetByAnyAsync(params QueryCondition[] queryConditions)
         {
             return await GetByAnyAsync<Address>(queryConditions);

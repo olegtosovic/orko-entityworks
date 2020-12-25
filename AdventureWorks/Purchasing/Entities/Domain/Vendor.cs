@@ -1,4 +1,4 @@
-// Generated on 12/14/2020 9:21 PM using EntityWorks code generation tool.
+// Generated on 12/25/2020 11:27 AM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -27,12 +27,12 @@ namespace AdventureWorks.Purchasing
             // Cache field metadata.
             EntityMeta<Vendor>.LoadColumnMetadata
 			(
-				new ColumnMetadata(nameof(BusinessEntityID), @"BusinessEntityID", DbType.Int32, isRequired: true),
-                new ColumnMetadata(nameof(AccountNumber), @"AccountNumber", DbType.Object, isRequired: true),
-                new ColumnMetadata(nameof(Name), @"Name", DbType.Object, isRequired: true),
+				new ColumnMetadata(nameof(BusinessEntityID), @"BusinessEntityID", DbType.Int32, isPrimaryKey: true),
+                new ColumnMetadata(nameof(AccountNumber), @"AccountNumber", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(Name), @"Name", DbType.String, isRequired: true),
                 new ColumnMetadata(nameof(CreditRating), @"CreditRating", DbType.Byte, isRequired: true),
-                new ColumnMetadata(nameof(PreferredVendorStatus), @"PreferredVendorStatus", DbType.Object, isRequired: true),
-                new ColumnMetadata(nameof(ActiveFlag), @"ActiveFlag", DbType.Object, isRequired: true),
+                new ColumnMetadata(nameof(PreferredVendorStatus), @"PreferredVendorStatus", DbType.Boolean, isRequired: true),
+                new ColumnMetadata(nameof(ActiveFlag), @"ActiveFlag", DbType.Boolean, isRequired: true),
                 new ColumnMetadata(nameof(PurchasingWebServiceURL), @"PurchasingWebServiceURL", DbType.String, isRequired: false),
                 new ColumnMetadata(nameof(ModifiedDate), @"ModifiedDate", DbType.DateTime, isRequired: true)
 			);
@@ -57,8 +57,8 @@ namespace AdventureWorks.Purchasing
         public string AccountNumber { get; set; }
         public string Name { get; set; }
         public Byte? CreditRating { get; set; }
-        public string PreferredVendorStatus { get; set; }
-        public string ActiveFlag { get; set; }
+        public bool? PreferredVendorStatus { get; set; }
+        public bool? ActiveFlag { get; set; }
         public string PurchasingWebServiceURL { get; set; }
         public DateTime? ModifiedDate { get; set; }
         #endregion
@@ -71,7 +71,7 @@ namespace AdventureWorks.Purchasing
         }
         #endregion
 
-		#region Public methods async
+		#region Public methods
 		public static async Task<IEnumerable<Vendor>> GetByAnyAsync(params QueryCondition[] queryConditions)
         {
             return await GetByAnyAsync<Vendor>(queryConditions);

@@ -14,6 +14,43 @@ namespace Orko.EntityWorks
     {
         #region Methods
         /// <summary>
+        /// Caches specific databse reader get value method.
+        /// </summary>
+        internal void CacheDataReaderGetValue()
+		{
+            // If binary type.
+            if (SqlDbType == DbType.Binary)
+			{
+                GetDataReaderValue = (dataReader, ordinal) =>
+                {
+                    // Get length.
+                    var length = (int)dataReader.GetBytes(ordinal, 0, null, 0, 0);
+
+                    // Create byte array.
+                    byte[] buffer = new byte[length];
+
+                    // Get bytes.
+                    dataReader.GetBytes(ordinal, 0, buffer, 0, length);
+
+                    // Return value.
+                    return buffer;
+                };
+			}
+
+            // Other types (later expand with every single type)
+            else
+			{
+                GetDataReaderValue = (dataReader, ordinal) =>
+                {
+                    // Get value.
+                    dynamic value = dataReader.GetValue(ordinal);
+
+                    // Return value.
+                    return value;
+                };
+            }
+		}
+        /// <summary>
         /// Cache get by primary key method.
         /// </summary>
         private void CacheDohvatiPrekoPK()
@@ -119,6 +156,10 @@ namespace Orko.EntityWorks
         /// Setter method delegate.
         /// </summary>
         private Action<object, object> SetDelegate;
+        /// <summary>
+        /// Database reader specific get method.
+        /// </summary>
+        private Func<IDataReader, int, dynamic> GetDataReaderValue;
         #endregion
 
         #region Properties
@@ -196,6 +237,10 @@ namespace Orko.EntityWorks
             if (value == null) return DBNull.Value;
             else return value;
         }
+        internal dynamic GetDbValue(IDataReader dataReader, int ordinal)
+		{
+            return GetDataReaderValue(dataReader, ordinal);
+		}
         #endregion
     }
 }

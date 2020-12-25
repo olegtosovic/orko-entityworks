@@ -1,4 +1,4 @@
-// Generated on 12/14/2020 9:21 PM using EntityWorks code generation tool.
+// Generated on 12/25/2020 11:27 AM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -27,8 +27,8 @@ namespace AdventureWorks.Production
             // Cache field metadata.
             EntityMeta<ProductListPriceHistory>.LoadColumnMetadata
 			(
-				new ColumnMetadata(nameof(ProductID), @"ProductID", DbType.Int32, isRequired: true),
-                new ColumnMetadata(nameof(StartDate), @"StartDate", DbType.DateTime, isRequired: true),
+				new ColumnMetadata(nameof(ProductID), @"ProductID", DbType.Int32, isPrimaryKey: true),
+                new ColumnMetadata(nameof(StartDate), @"StartDate", DbType.DateTime, isPrimaryKey: true),
                 new ColumnMetadata(nameof(EndDate), @"EndDate", DbType.DateTime, isRequired: false),
                 new ColumnMetadata(nameof(ListPrice), @"ListPrice", DbType.Decimal, isRequired: true),
                 new ColumnMetadata(nameof(ModifiedDate), @"ModifiedDate", DbType.DateTime, isRequired: true)
@@ -65,7 +65,7 @@ namespace AdventureWorks.Production
         }
         #endregion
 
-		#region Public methods async
+		#region Public methods
 		public static async Task<IEnumerable<ProductListPriceHistory>> GetByAnyAsync(params QueryCondition[] queryConditions)
         {
             return await GetByAnyAsync<ProductListPriceHistory>(queryConditions);

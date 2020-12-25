@@ -1,4 +1,4 @@
-// Generated on 12/14/2020 9:21 PM using EntityWorks code generation tool.
+// Generated on 12/25/2020 11:27 AM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -27,13 +27,13 @@ namespace AdventureWorks.Person
             // Cache field metadata.
             EntityMeta<Person>.LoadColumnMetadata
 			(
-				new ColumnMetadata(nameof(BusinessEntityID), @"BusinessEntityID", DbType.Int32, isRequired: true),
+				new ColumnMetadata(nameof(BusinessEntityID), @"BusinessEntityID", DbType.Int32, isPrimaryKey: true),
                 new ColumnMetadata(nameof(PersonType), @"PersonType", DbType.StringFixedLength, isRequired: true),
-                new ColumnMetadata(nameof(NameStyle), @"NameStyle", DbType.Object, isRequired: true),
+                new ColumnMetadata(nameof(NameStyle), @"NameStyle", DbType.Boolean, isRequired: true),
                 new ColumnMetadata(nameof(Title), @"Title", DbType.String, isRequired: false),
-                new ColumnMetadata(nameof(FirstName), @"FirstName", DbType.Object, isRequired: true),
-                new ColumnMetadata(nameof(MiddleName), @"MiddleName", DbType.Object, isRequired: false),
-                new ColumnMetadata(nameof(LastName), @"LastName", DbType.Object, isRequired: true),
+                new ColumnMetadata(nameof(FirstName), @"FirstName", DbType.String, isRequired: true),
+                new ColumnMetadata(nameof(MiddleName), @"MiddleName", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(LastName), @"LastName", DbType.String, isRequired: true),
                 new ColumnMetadata(nameof(Suffix), @"Suffix", DbType.String, isRequired: false),
                 new ColumnMetadata(nameof(EmailPromotion), @"EmailPromotion", DbType.Int32, isRequired: true),
                 new ColumnMetadata(nameof(AdditionalContactInfo), @"AdditionalContactInfo", DbType.Xml, isRequired: false),
@@ -60,7 +60,7 @@ namespace AdventureWorks.Person
         #region Columns
         public int? BusinessEntityID { get; set; }
         public string PersonType { get; set; }
-        public string NameStyle { get; set; }
+        public bool? NameStyle { get; set; }
         public string Title { get; set; }
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
@@ -81,7 +81,7 @@ namespace AdventureWorks.Person
         }
         #endregion
 
-		#region Public methods async
+		#region Public methods
 		public static async Task<IEnumerable<Person>> GetByAnyAsync(params QueryCondition[] queryConditions)
         {
             return await GetByAnyAsync<Person>(queryConditions);

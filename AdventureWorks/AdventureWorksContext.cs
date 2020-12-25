@@ -1,8 +1,3 @@
-﻿// Generated on [DATE] [TIME] using EntityWorks code generation tool.
-// Template version: 1.0
-// Note: Modify connection context name in base constructor if required.
-// Except: Namespace.
-
 using Orko.EntityWorks;
 using System;
 using System.Collections.Generic;

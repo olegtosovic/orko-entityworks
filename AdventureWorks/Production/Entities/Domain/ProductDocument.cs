@@ -1,4 +1,4 @@
-// Generated on 12/14/2020 9:21 PM using EntityWorks code generation tool.
+// Generated on 12/25/2020 11:27 AM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -28,8 +28,8 @@ namespace AdventureWorks.Production
             // Cache field metadata.
             EntityMeta<ProductDocument>.LoadColumnMetadata
 			(
-				new ColumnMetadata(nameof(ProductID), @"ProductID", DbType.Int32, isRequired: true),
-                new ColumnMetadata(nameof(DocumentNode), @"DocumentNode", DbType.Object, isRequired: true),
+				new ColumnMetadata(nameof(ProductID), @"ProductID", DbType.Int32, isPrimaryKey: true),
+                new ColumnMetadata(nameof(DocumentNode), @"DocumentNode", DbType.Binary, isPrimaryKey: true),
                 new ColumnMetadata(nameof(ModifiedDate), @"ModifiedDate", DbType.DateTime, isRequired: true)
 			);
 
@@ -51,7 +51,7 @@ namespace AdventureWorks.Production
 
         #region Columns
         public int? ProductID { get; set; }
-        public Object DocumentNode { get; set; }
+        public Byte[] DocumentNode { get; set; }
         public DateTime? ModifiedDate { get; set; }
         #endregion
 
@@ -68,7 +68,7 @@ namespace AdventureWorks.Production
         }
         #endregion
 
-		#region Public methods async
+		#region Public methods
 		public static async Task<IEnumerable<ProductDocument>> GetByAnyAsync(params QueryCondition[] queryConditions)
         {
             return await GetByAnyAsync<ProductDocument>(queryConditions);
@@ -77,11 +77,11 @@ namespace AdventureWorks.Production
         {
             return await GetByAnyAsync<ProductDocument>(columnName, queryOp, value);
         }
-		public static async Task<ProductDocument> GetByPrimaryKeyAsync(int ProductID, Object DocumentNode)
+		public static async Task<ProductDocument> GetByPrimaryKeyAsync(int ProductID, Byte[] DocumentNode)
         {
             return await GetByPrimaryKeyAsync<ProductDocument>(ProductID, DocumentNode);
         }
-		public static async Task<ProductDocument> TryGetByPrimaryKeyAsync(int ProductID, Object DocumentNode)
+		public static async Task<ProductDocument> TryGetByPrimaryKeyAsync(int ProductID, Byte[] DocumentNode)
         {
             return await TryGetByPrimaryKeyAsync<ProductDocument>(ProductID, DocumentNode);
         }

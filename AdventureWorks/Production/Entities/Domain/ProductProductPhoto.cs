@@ -1,4 +1,4 @@
-// Generated on 12/14/2020 9:21 PM using EntityWorks code generation tool.
+// Generated on 12/25/2020 11:27 AM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -28,9 +28,9 @@ namespace AdventureWorks.Production
             // Cache field metadata.
             EntityMeta<ProductProductPhoto>.LoadColumnMetadata
 			(
-				new ColumnMetadata(nameof(ProductID), @"ProductID", DbType.Int32, isRequired: true),
-                new ColumnMetadata(nameof(ProductPhotoID), @"ProductPhotoID", DbType.Int32, isRequired: true),
-                new ColumnMetadata(nameof(Primary), @"Primary", DbType.Object, isRequired: true),
+				new ColumnMetadata(nameof(ProductID), @"ProductID", DbType.Int32, isPrimaryKey: true),
+                new ColumnMetadata(nameof(ProductPhotoID), @"ProductPhotoID", DbType.Int32, isPrimaryKey: true),
+                new ColumnMetadata(nameof(Primary), @"Primary", DbType.Boolean, isRequired: true),
                 new ColumnMetadata(nameof(ModifiedDate), @"ModifiedDate", DbType.DateTime, isRequired: true)
 			);
 
@@ -53,7 +53,7 @@ namespace AdventureWorks.Production
         #region Columns
         public int? ProductID { get; set; }
         public int? ProductPhotoID { get; set; }
-        public string Primary { get; set; }
+        public bool? Primary { get; set; }
         public DateTime? ModifiedDate { get; set; }
         #endregion
 
@@ -70,7 +70,7 @@ namespace AdventureWorks.Production
         }
         #endregion
 
-		#region Public methods async
+		#region Public methods
 		public static async Task<IEnumerable<ProductProductPhoto>> GetByAnyAsync(params QueryCondition[] queryConditions)
         {
             return await GetByAnyAsync<ProductProductPhoto>(queryConditions);

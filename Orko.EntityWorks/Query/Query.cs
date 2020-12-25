@@ -476,7 +476,7 @@ namespace Orko.EntityWorks
             }
             else SelectSegment.AddRange(partialInstance.Parameters.Values
                 .Where(x => x.IsLanguage == false && x.IsLanguageCode == false)
-                .Select(x => x.ParameterName).ToList());
+                .Select(x => x.SqlParameterName).ToList());
 
             // Mark as not builded.
             Builded = false;

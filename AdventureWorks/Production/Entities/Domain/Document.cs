@@ -1,4 +1,4 @@
-// Generated on 12/14/2020 9:21 PM using EntityWorks code generation tool.
+// Generated on 12/25/2020 11:27 AM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -27,7 +27,7 @@ namespace AdventureWorks.Production
             // Cache field metadata.
             EntityMeta<Document>.LoadColumnMetadata
 			(
-				new ColumnMetadata(nameof(DocumentNode), @"DocumentNode", DbType.Object, isRequired: true),
+				new ColumnMetadata(nameof(DocumentNode), @"DocumentNode", DbType.Binary, isPrimaryKey: true),
                 new ColumnMetadata(nameof(DocumentLevel), @"DocumentLevel", DbType.Int16, isRequired: false),
                 new ColumnMetadata(nameof(Title), @"Title", DbType.String, isRequired: true),
                 new ColumnMetadata(nameof(Owner), @"Owner", DbType.Int32, isRequired: true),
@@ -59,7 +59,7 @@ namespace AdventureWorks.Production
         #endregion
 
         #region Columns
-        public Object DocumentNode { get; set; }
+        public Byte[] DocumentNode { get; set; }
         public short? DocumentLevel { get; set; }
         public string Title { get; set; }
         public int? Owner { get; set; }
@@ -83,7 +83,7 @@ namespace AdventureWorks.Production
         }
         #endregion
 
-		#region Public methods async
+		#region Public methods
 		public static async Task<IEnumerable<Document>> GetByAnyAsync(params QueryCondition[] queryConditions)
         {
             return await GetByAnyAsync<Document>(queryConditions);
@@ -92,11 +92,11 @@ namespace AdventureWorks.Production
         {
             return await GetByAnyAsync<Document>(columnName, queryOp, value);
         }
-		public static async Task<Document> GetByPrimaryKeyAsync(Object DocumentNode)
+		public static async Task<Document> GetByPrimaryKeyAsync(Byte[] DocumentNode)
         {
             return await GetByPrimaryKeyAsync<Document>(DocumentNode);
         }
-		public static async Task<Document> TryGetByPrimaryKeyAsync(Object DocumentNode)
+		public static async Task<Document> TryGetByPrimaryKeyAsync(Byte[] DocumentNode)
         {
             return await TryGetByPrimaryKeyAsync<Document>(DocumentNode);
         }

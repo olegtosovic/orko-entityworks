@@ -1,4 +1,4 @@
-// Generated on 12/14/2020 9:21 PM using EntityWorks code generation tool.
+// Generated on 12/25/2020 11:27 AM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -27,7 +27,7 @@ namespace AdventureWorks.Dbo
             // Cache field metadata.
             EntityMeta<ErrorLog>.LoadColumnMetadata
 			(
-				new ColumnMetadata(nameof(ErrorLogID), @"ErrorLogID", DbType.Int32, isIdentity: true, isRequired: true),
+				new ColumnMetadata(nameof(ErrorLogID), @"ErrorLogID", DbType.Int32, isIdentity: true, isPrimaryKey: true),
                 new ColumnMetadata(nameof(ErrorTime), @"ErrorTime", DbType.DateTime, isRequired: true),
                 new ColumnMetadata(nameof(UserName), @"UserName", DbType.String, isRequired: true),
                 new ColumnMetadata(nameof(ErrorNumber), @"ErrorNumber", DbType.Int32, isRequired: true),
@@ -69,7 +69,7 @@ namespace AdventureWorks.Dbo
 		
         #endregion
 
-		#region Public methods async
+		#region Public methods
 		public static async Task<IEnumerable<ErrorLog>> GetByAnyAsync(params QueryCondition[] queryConditions)
         {
             return await GetByAnyAsync<ErrorLog>(queryConditions);

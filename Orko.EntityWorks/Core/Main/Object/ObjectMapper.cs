@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Linq;
 
 namespace Orko.EntityWorks
@@ -120,12 +121,22 @@ namespace Orko.EntityWorks
         /// </summary>
         /// <param name="instance">Object instance to map to</param>
         /// <param name="dataReader">Active data reader</param>
-        public void MapToObject(TObject instance, IDataReader dataReader)
+        public void MapToObject(TObject instance, DbDataReader dataReader)
         {
             // For every determined property map to object.
             foreach (var property in m_mappingSet)
             {
-                object value = dataReader[property.PropertyName];
+                // Get ordinal position.
+                int ordinal = dataReader.GetOrdinal(property.PropertyName);
+
+                // Skip if DbNull.
+                if (dataReader.IsDBNull(ordinal))
+					continue;
+
+                // Call value specific get.
+                var value = property.GetDbValue(dataReader, ordinal);
+
+                // Set value.
                 property.SetValueFast(value, instance);
             }
         }

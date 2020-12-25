@@ -68,6 +68,33 @@ namespace Orko.EntityWorks.Generator
 				"AND OBJECTPROPERTY(t.object_id, 'TableHasPrimaryKey') = 1 " +
 				"AND ep.major_id IS NULL " +
 				"ORDER BY table_schema_name ASC, table_name ASC, column_id ASC;";
+
+			this.ColumnsQuery =
+				"SELECT " +
+				"sys.columns.name column_name," +
+				"sys.columns.column_id column_id," +
+				"sys.columns.precision column_precision, " +
+				"sys.columns.scale column_scale," +
+				"sys.columns.max_length column_max_length," +
+				"SCHEMA_NAME(t.schema_id) table_schema_name, " +
+				"OBJECT_NAME(sys.columns.object_id) table_name, " +
+				"COLUMNPROPERTY(sys.columns.object_id, sys.columns.name, 'charmaxlen') max_characters, " +
+				"TYPE_NAME(sys.columns.user_type_id) sql_data_type_user, " +
+				"TYPE_NAME(sys.columns.system_type_id) sql_data_type, " +
+				"sys.columns.is_identity, " +
+				"sys.columns.is_nullable " +
+				"FROM sys.columns " +
+				"inner join sys.tables t on t.object_id = sys.columns.object_id " +
+				"LEFT JOIN sys.extended_properties ep ON ep.major_id = t.object_id " +
+				"AND ep.name = 'microsoft_database_tools_support' " +
+				"AND ep.class_desc = 'OBJECT_OR_COLUMN' " +
+				"INNER JOIN sys.types AS st " +
+				"ON sys.columns.system_type_id = st.system_type_id " +
+				"AND sys.columns.user_type_id = st.user_type_id " +
+				"WHERE t.is_ms_shipped = 0 " +
+				"AND OBJECTPROPERTY(t.object_id, 'TableHasPrimaryKey') = 1 " +
+				"AND ep.major_id IS NULL " +
+				"ORDER BY table_schema_name ASC, table_name ASC, column_id ASC;";
 		}
 		/// <summary>
 		/// Sets query for foreign key realtions.

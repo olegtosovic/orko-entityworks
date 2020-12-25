@@ -1,4 +1,4 @@
-// Generated on 12/14/2020 9:21 PM using EntityWorks code generation tool.
+// Generated on 12/25/2020 11:27 AM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -28,8 +28,8 @@ namespace AdventureWorks.Sales
             // Cache field metadata.
             EntityMeta<Store>.LoadColumnMetadata
 			(
-				new ColumnMetadata(nameof(BusinessEntityID), @"BusinessEntityID", DbType.Int32, isRequired: true),
-                new ColumnMetadata(nameof(Name), @"Name", DbType.Object, isRequired: true),
+				new ColumnMetadata(nameof(BusinessEntityID), @"BusinessEntityID", DbType.Int32, isPrimaryKey: true),
+                new ColumnMetadata(nameof(Name), @"Name", DbType.String, isRequired: true),
                 new ColumnMetadata(nameof(SalesPersonID), @"SalesPersonID", DbType.Int32, isRequired: false),
                 new ColumnMetadata(nameof(Demographics), @"Demographics", DbType.Xml, isRequired: false),
                 new ColumnMetadata(nameof(rowguid), @"rowguid", DbType.Guid, isRequired: true),
@@ -74,7 +74,7 @@ namespace AdventureWorks.Sales
         }
         #endregion
 
-		#region Public methods async
+		#region Public methods
 		public static async Task<IEnumerable<Store>> GetByAnyAsync(params QueryCondition[] queryConditions)
         {
             return await GetByAnyAsync<Store>(queryConditions);

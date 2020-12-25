@@ -1,4 +1,4 @@
-// Generated on 12/14/2020 9:21 PM using EntityWorks code generation tool.
+// Generated on 12/25/2020 11:27 AM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -28,11 +28,11 @@ namespace AdventureWorks.Person
             // Cache field metadata.
             EntityMeta<StateProvince>.LoadColumnMetadata
 			(
-				new ColumnMetadata(nameof(StateProvinceID), @"StateProvinceID", DbType.Int32, isIdentity: true, isRequired: true),
+				new ColumnMetadata(nameof(StateProvinceID), @"StateProvinceID", DbType.Int32, isIdentity: true, isPrimaryKey: true),
                 new ColumnMetadata(nameof(StateProvinceCode), @"StateProvinceCode", DbType.StringFixedLength, isRequired: true),
                 new ColumnMetadata(nameof(CountryRegionCode), @"CountryRegionCode", DbType.String, isRequired: true),
-                new ColumnMetadata(nameof(IsOnlyStateProvinceFlag), @"IsOnlyStateProvinceFlag", DbType.Object, isRequired: true),
-                new ColumnMetadata(nameof(Name), @"Name", DbType.Object, isRequired: true),
+                new ColumnMetadata(nameof(IsOnlyStateProvinceFlag), @"IsOnlyStateProvinceFlag", DbType.Boolean, isRequired: true),
+                new ColumnMetadata(nameof(Name), @"Name", DbType.String, isRequired: true),
                 new ColumnMetadata(nameof(TerritoryID), @"TerritoryID", DbType.Int32, isRequired: true),
                 new ColumnMetadata(nameof(rowguid), @"rowguid", DbType.Guid, isRequired: true),
                 new ColumnMetadata(nameof(ModifiedDate), @"ModifiedDate", DbType.DateTime, isRequired: true)
@@ -58,7 +58,7 @@ namespace AdventureWorks.Person
         public int? StateProvinceID { get; private set; }
         public string StateProvinceCode { get; set; }
         public string CountryRegionCode { get; set; }
-        public string IsOnlyStateProvinceFlag { get; set; }
+        public bool? IsOnlyStateProvinceFlag { get; set; }
         public string Name { get; set; }
         public int? TerritoryID { get; set; }
         public Guid? rowguid { get; set; }
@@ -78,7 +78,7 @@ namespace AdventureWorks.Person
         }
         #endregion
 
-		#region Public methods async
+		#region Public methods
 		public static async Task<IEnumerable<StateProvince>> GetByAnyAsync(params QueryCondition[] queryConditions)
         {
             return await GetByAnyAsync<StateProvince>(queryConditions);

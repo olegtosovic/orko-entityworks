@@ -33,9 +33,9 @@ namespace Orko.EntityWorks.Generator
             NetTypes.Add("datetimeoffset", typeof(DateTimeOffset));
             NetTypes.Add("decimal", typeof(decimal));
             NetTypes.Add("float", typeof(double));
-            NetTypes.Add("geography", typeof(object));
-            NetTypes.Add("geometry", typeof(object));
-            NetTypes.Add("hierarchyid", typeof(object));
+            NetTypes.Add("geography", typeof(byte[]));
+            NetTypes.Add("geometry", typeof(byte[]));
+            NetTypes.Add("hierarchyid", typeof(byte[]));
             NetTypes.Add("image", typeof(byte[]));
             NetTypes.Add("int", typeof(int));
             NetTypes.Add("money", typeof(decimal));
@@ -70,9 +70,9 @@ namespace Orko.EntityWorks.Generator
             DbTypes.Add("datetimeoffset", DbType.DateTimeOffset);
             DbTypes.Add("decimal", DbType.Decimal);
             DbTypes.Add("float", DbType.Double);
-            DbTypes.Add("geography", DbType.Object);
-            DbTypes.Add("geometry", DbType.Object);
-            DbTypes.Add("hierarchyid", DbType.Object);
+            DbTypes.Add("geography", DbType.Binary);
+            DbTypes.Add("geometry", DbType.Binary);
+            DbTypes.Add("hierarchyid", DbType.Binary);
             DbTypes.Add("image", DbType.Binary);
             DbTypes.Add("int", DbType.Int32);
             DbTypes.Add("money", DbType.Decimal);

@@ -1,4 +1,4 @@
-// Generated on 12/14/2020 9:21 PM using EntityWorks code generation tool.
+// Generated on 12/25/2020 11:27 AM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -27,7 +27,7 @@ namespace AdventureWorks.Production
             // Cache field metadata.
             EntityMeta<ProductPhoto>.LoadColumnMetadata
 			(
-				new ColumnMetadata(nameof(ProductPhotoID), @"ProductPhotoID", DbType.Int32, isIdentity: true, isRequired: true),
+				new ColumnMetadata(nameof(ProductPhotoID), @"ProductPhotoID", DbType.Int32, isIdentity: true, isPrimaryKey: true),
                 new ColumnMetadata(nameof(ThumbNailPhoto), @"ThumbNailPhoto", DbType.Binary, isRequired: false),
                 new ColumnMetadata(nameof(ThumbnailPhotoFileName), @"ThumbnailPhotoFileName", DbType.String, isRequired: false),
                 new ColumnMetadata(nameof(LargePhoto), @"LargePhoto", DbType.Binary, isRequired: false),
@@ -63,7 +63,7 @@ namespace AdventureWorks.Production
 		
         #endregion
 
-		#region Public methods async
+		#region Public methods
 		public static async Task<IEnumerable<ProductPhoto>> GetByAnyAsync(params QueryCondition[] queryConditions)
         {
             return await GetByAnyAsync<ProductPhoto>(queryConditions);

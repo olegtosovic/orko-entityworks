@@ -1,4 +1,4 @@
-// Generated on 12/14/2020 9:21 PM using EntityWorks code generation tool.
+// Generated on 12/25/2020 11:27 AM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -34,16 +34,16 @@ namespace AdventureWorks.Sales
             // Cache field metadata.
             EntityMeta<SalesOrderHeader>.LoadColumnMetadata
 			(
-				new ColumnMetadata(nameof(SalesOrderID), @"SalesOrderID", DbType.Int32, isIdentity: true, isRequired: true),
+				new ColumnMetadata(nameof(SalesOrderID), @"SalesOrderID", DbType.Int32, isIdentity: true, isPrimaryKey: true),
                 new ColumnMetadata(nameof(RevisionNumber), @"RevisionNumber", DbType.Byte, isRequired: true),
                 new ColumnMetadata(nameof(OrderDate), @"OrderDate", DbType.DateTime, isRequired: true),
                 new ColumnMetadata(nameof(DueDate), @"DueDate", DbType.DateTime, isRequired: true),
                 new ColumnMetadata(nameof(ShipDate), @"ShipDate", DbType.DateTime, isRequired: false),
                 new ColumnMetadata(nameof(Status), @"Status", DbType.Byte, isRequired: true),
-                new ColumnMetadata(nameof(OnlineOrderFlag), @"OnlineOrderFlag", DbType.Object, isRequired: true),
+                new ColumnMetadata(nameof(OnlineOrderFlag), @"OnlineOrderFlag", DbType.Boolean, isRequired: true),
                 new ColumnMetadata(nameof(SalesOrderNumber), @"SalesOrderNumber", DbType.String, isRequired: true),
-                new ColumnMetadata(nameof(PurchaseOrderNumber), @"PurchaseOrderNumber", DbType.Object, isRequired: false),
-                new ColumnMetadata(nameof(AccountNumber), @"AccountNumber", DbType.Object, isRequired: false),
+                new ColumnMetadata(nameof(PurchaseOrderNumber), @"PurchaseOrderNumber", DbType.String, isRequired: false),
+                new ColumnMetadata(nameof(AccountNumber), @"AccountNumber", DbType.String, isRequired: false),
                 new ColumnMetadata(nameof(CustomerID), @"CustomerID", DbType.Int32, isRequired: true),
                 new ColumnMetadata(nameof(SalesPersonID), @"SalesPersonID", DbType.Int32, isRequired: false),
                 new ColumnMetadata(nameof(TerritoryID), @"TerritoryID", DbType.Int32, isRequired: false),
@@ -91,7 +91,7 @@ namespace AdventureWorks.Sales
         public DateTime? DueDate { get; set; }
         public DateTime? ShipDate { get; set; }
         public Byte? Status { get; set; }
-        public string OnlineOrderFlag { get; set; }
+        public bool? OnlineOrderFlag { get; set; }
         public string SalesOrderNumber { get; set; }
         public string PurchaseOrderNumber { get; set; }
         public string AccountNumber { get; set; }
@@ -156,7 +156,7 @@ namespace AdventureWorks.Sales
         }
         #endregion
 
-		#region Public methods async
+		#region Public methods
 		public static async Task<IEnumerable<SalesOrderHeader>> GetByAnyAsync(params QueryCondition[] queryConditions)
         {
             return await GetByAnyAsync<SalesOrderHeader>(queryConditions);

@@ -1,4 +1,4 @@
-// Generated on 12/14/2020 9:21 PM using EntityWorks code generation tool.
+// Generated on 12/25/2020 11:27 AM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -27,7 +27,7 @@ namespace AdventureWorks.Sales
             // Cache field metadata.
             EntityMeta<SpecialOffer>.LoadColumnMetadata
 			(
-				new ColumnMetadata(nameof(SpecialOfferID), @"SpecialOfferID", DbType.Int32, isIdentity: true, isRequired: true),
+				new ColumnMetadata(nameof(SpecialOfferID), @"SpecialOfferID", DbType.Int32, isIdentity: true, isPrimaryKey: true),
                 new ColumnMetadata(nameof(Description), @"Description", DbType.String, isRequired: true),
                 new ColumnMetadata(nameof(DiscountPct), @"DiscountPct", DbType.Decimal, isRequired: true),
                 new ColumnMetadata(nameof(Type), @"Type", DbType.String, isRequired: true),
@@ -73,7 +73,7 @@ namespace AdventureWorks.Sales
 		
         #endregion
 
-		#region Public methods async
+		#region Public methods
 		public static async Task<IEnumerable<SpecialOffer>> GetByAnyAsync(params QueryCondition[] queryConditions)
         {
             return await GetByAnyAsync<SpecialOffer>(queryConditions);

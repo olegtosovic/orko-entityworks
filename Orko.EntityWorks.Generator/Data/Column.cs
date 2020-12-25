@@ -60,21 +60,21 @@ namespace Orko.EntityWorks.Generator
 
 
             // Retrive columns from data cache.
-            var tableColumn = Table.ColumnRows
+            var column = Table.ColumnRows
                 .Where(
                     column => column.Field<string>("column_name") == columnName 
                 ).First();
 
             // Assign column properties.
-            SqlDataTypeName = tableColumn["sql_data_type"].ToString();
+            SqlDataTypeName = column["sql_data_type"] != DBNull.Value ? column["sql_data_type"].ToString() : column["sql_data_type_user"].ToString();
             NetDataTypeName = GetSqlDataTypeName(SqlDataTypeName);
             NetDataArgumentTypeName = GetSqlDataArgumentTypeName(SqlDataTypeName);
             DbType = GetDbType(SqlDataTypeName);
             IsPartOfPrimaryKey = (IsPartOfPrimaryKey == true) ? true : isPartOfPrimaryKey;
             IsPartOfUniqueKey = (IsPartOfUniqueKey == true) ? true : isPartOfUniqueKey;
-            IsNullable = (bool)tableColumn["is_nullable"];
-            IsIdentity = (bool)tableColumn["is_identity"];
-            OrdinalPosition = (int)tableColumn["column_id"];
+            IsNullable = (bool)column["is_nullable"];
+            IsIdentity = (bool)column["is_identity"];
+            OrdinalPosition = (int)column["column_id"];
         }
         /// <summary>
         /// Creates instance of column object.
@@ -88,7 +88,7 @@ namespace Orko.EntityWorks.Generator
             table.Columns.GetOrAdd(SqlName, this);
 
             // Assign column properties.
-            SqlDataTypeName = column["sql_data_type"].ToString();
+            SqlDataTypeName = column["sql_data_type"] != DBNull.Value ? column["sql_data_type"].ToString() : column["sql_data_type_user"].ToString();
             NetDataTypeName = GetSqlDataTypeName(SqlDataTypeName);
             NetDataArgumentTypeName = GetSqlDataArgumentTypeName(SqlDataTypeName);
             DbType = GetDbType(SqlDataTypeName);

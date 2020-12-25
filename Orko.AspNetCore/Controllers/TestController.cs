@@ -33,7 +33,7 @@ namespace Orko.AspNetCore.Controllers
 		/// Default route.
 		/// </summary>
 		[HttpGet("/")]
-		public async Task<IActionResult> Index()
+		public IActionResult Index()
 		{
 			return Content("Ready");
 		}
@@ -167,19 +167,124 @@ namespace Orko.AspNetCore.Controllers
 
 		#region AventureWorks
 		/// <summary>
-		/// Gets all records from adventureworks products table and displays them as json data.
+		/// Gets all records from adventureworks orders table and displays them as json data.
 		/// </summary>
-		[HttpGet("/aw-products-getall")]
-		public async Task<IActionResult> TestAdventureWorks()
+		[HttpGet("/aw-orders-get-all")]
+		public async Task<IActionResult> AdventureWorksGetAll()
 		{
 			// Use adventureworks tunnel.
 			using (var context = new AdventureWorksContext())
 			{
-				// Get all products.
-				var products = await AdventureWorks.Production.Product.GetByAnyAsync();
+				// Get all orders.
+				var orders = await AdventureWorks.Sales.SalesOrderHeader.GetByAnyAsync();
+
+				// Get all addresses.
+				var addresses = await AdventureWorks.Person.Address.GetByAnyAsync();
 
 				// Convert data to json.
-				var jsonResult = JsonSerializer.Serialize(products, null);
+				var jsonResult = JsonSerializer.Serialize(addresses, null);
+
+				// Display json data.
+				return Content(jsonResult, "application/json");
+			}
+		}
+		/// <summary>
+		/// Gets single record by primary key from adventureworks orders table and displays it as json data.
+		/// </summary>
+		[HttpGet("/aw-orders-get-single")]
+		public async Task<IActionResult> AdventureWorksGetSingle()
+		{
+			// Use adventureworks tunnel.
+			using (var context = new AdventureWorksContext())
+			{
+				// Get order where id == 10248.
+				var order = await Northwind.Dbo.Orders.GetByPrimaryKeyAsync(10248);
+
+				// Convert data to json.
+				var jsonResult = JsonSerializer.Serialize(order, null);
+
+				// Display json data.
+				return Content(jsonResult, "application/json");
+			}
+		}
+		/// <summary>
+		/// Gets single record by primary key, update it's data on adventureworks orders table and displays it as json data.
+		/// </summary>
+		[HttpGet("/aw-orders-get-singleupdate")]
+		public async Task<IActionResult> AdventureWorksGetSingleUpdate()
+		{
+			// Use adventureworks tunnel.
+			using (var context = new AdventureWorksContext())
+			{
+				// Get order where id == 10248.
+				var order = await Northwind.Dbo.Orders.GetByPrimaryKeyAsync(10248);
+
+				// Update record with random data.
+				order.Freight = (decimal)new Random().NextDouble();
+				order.ShipName = order.ShipName + " _rand" + new Random().Next();
+				order.ShipAddress = order.ShipAddress + " _rand" + new Random().Next();
+				order.ShippedDate = DateTime.Now;
+				order.RequiredDate = DateTime.Now.AddDays(-1);
+
+				// Persist.
+				await order.SaveAsync();
+
+				// Convert data to json.
+				var jsonResult = JsonSerializer.Serialize(order, null);
+
+				// Display json data.
+				return Content(jsonResult, "application/json");
+			}
+		}
+		/// <summary>
+		/// Inserts single record, set it's data by copying data from other record on adventureworks orders table and displays it as json data.
+		/// </summary>
+		[HttpGet("/aw-orders-insert")]
+		public async Task<IActionResult> AdventureWorksGetSingleInsert()
+		{
+			// Use adventureworks tunnel.
+			using (var context = new AdventureWorksContext())
+			{
+				// Get order where id == 10248.
+				var order = await Northwind.Dbo.Orders.GetByPrimaryKeyAsync(10248);
+
+				// Create copy of order object.
+				var newOrder = order.Clone();
+
+				// Persist.
+				await newOrder.SaveAsync();
+
+				// Convert data to json.
+				var jsonResult = JsonSerializer.Serialize(newOrder, null);
+
+				// Display json data.
+				return Content(jsonResult, "application/json");
+			}
+		}
+		/// <summary>
+		/// Gets last record on adventureworks orders table, delete it and display it as json data.
+		/// </summary>
+		[HttpGet("/aw-orders-delete")]
+		public async Task<IActionResult> AdventureWorksGetSingleDelete()
+		{
+			// Use adventureworks tunnel.
+			using (var context = new AdventureWorksContext())
+			{
+				// Last query.
+				var lastOrderQuery = new Query()
+					.Select("MAX(OrderID)")
+					.From("Orders");
+
+				// Get last order.
+				var order = (await Northwind.Dbo.Orders.GetByAnyAsync(
+					new QueryCondition("OrderID", QueryOp.Equal, lastOrderQuery)))
+					.FirstOrDefault();
+
+				// Delete.
+				await order.DeleteAsync();
+
+				// Convert data to json.
+				var jsonResult = JsonSerializer.Serialize(order, null);
 
 				// Display json data.
 				return Content(jsonResult, "application/json");
@@ -199,7 +304,7 @@ namespace Orko.AspNetCore.Controllers
 
 		#endregion
 
-		#region MULTIPLE DATABASE actions
+		#region FEATURES actions
 		#endregion
 
 		#region ENTITY GENERATOR actions

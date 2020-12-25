@@ -1,4 +1,4 @@
-// Generated on 12/14/2020 9:21 PM using EntityWorks code generation tool.
+// Generated on 12/25/2020 11:27 AM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Intended for modification.
 
@@ -26,6 +26,10 @@ namespace AdventureWorks.Production
 		public void Validate()
 		{
 			Validate<ProductSubcategory>();
+		}
+        public ProductSubcategory Clone()
+		{
+			return Clone<ProductSubcategory>();
 		}
 		#endregion
 

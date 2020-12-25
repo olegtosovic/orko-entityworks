@@ -1,4 +1,4 @@
-// Generated on 12/14/2020 9:21 PM using EntityWorks code generation tool.
+// Generated on 12/25/2020 11:27 AM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -27,8 +27,8 @@ namespace AdventureWorks.Person
             // Cache field metadata.
             EntityMeta<ContactType>.LoadColumnMetadata
 			(
-				new ColumnMetadata(nameof(ContactTypeID), @"ContactTypeID", DbType.Int32, isIdentity: true, isRequired: true),
-                new ColumnMetadata(nameof(Name), @"Name", DbType.Object, isRequired: true),
+				new ColumnMetadata(nameof(ContactTypeID), @"ContactTypeID", DbType.Int32, isIdentity: true, isPrimaryKey: true),
+                new ColumnMetadata(nameof(Name), @"Name", DbType.String, isRequired: true),
                 new ColumnMetadata(nameof(ModifiedDate), @"ModifiedDate", DbType.DateTime, isRequired: true)
 			);
 
@@ -57,7 +57,7 @@ namespace AdventureWorks.Person
 		
         #endregion
 
-		#region Public methods async
+		#region Public methods
 		public static async Task<IEnumerable<ContactType>> GetByAnyAsync(params QueryCondition[] queryConditions)
         {
             return await GetByAnyAsync<ContactType>(queryConditions);

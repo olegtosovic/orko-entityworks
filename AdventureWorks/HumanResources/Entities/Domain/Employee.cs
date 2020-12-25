@@ -1,4 +1,4 @@
-// Generated on 12/14/2020 9:21 PM using EntityWorks code generation tool.
+// Generated on 12/25/2020 11:27 AM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -27,20 +27,20 @@ namespace AdventureWorks.HumanResources
             // Cache field metadata.
             EntityMeta<Employee>.LoadColumnMetadata
 			(
-				new ColumnMetadata(nameof(BusinessEntityID), @"BusinessEntityID", DbType.Int32, isRequired: true),
+				new ColumnMetadata(nameof(BusinessEntityID), @"BusinessEntityID", DbType.Int32, isPrimaryKey: true),
                 new ColumnMetadata(nameof(NationalIDNumber), @"NationalIDNumber", DbType.String, isRequired: true),
                 new ColumnMetadata(nameof(LoginID), @"LoginID", DbType.String, isRequired: true),
-                new ColumnMetadata(nameof(OrganizationNode), @"OrganizationNode", DbType.Object, isRequired: false),
+                new ColumnMetadata(nameof(OrganizationNode), @"OrganizationNode", DbType.Binary, isRequired: false),
                 new ColumnMetadata(nameof(OrganizationLevel), @"OrganizationLevel", DbType.Int16, isRequired: false),
                 new ColumnMetadata(nameof(JobTitle), @"JobTitle", DbType.String, isRequired: true),
                 new ColumnMetadata(nameof(BirthDate), @"BirthDate", DbType.Date, isRequired: true),
                 new ColumnMetadata(nameof(MaritalStatus), @"MaritalStatus", DbType.StringFixedLength, isRequired: true),
                 new ColumnMetadata(nameof(Gender), @"Gender", DbType.StringFixedLength, isRequired: true),
                 new ColumnMetadata(nameof(HireDate), @"HireDate", DbType.Date, isRequired: true),
-                new ColumnMetadata(nameof(SalariedFlag), @"SalariedFlag", DbType.Object, isRequired: true),
+                new ColumnMetadata(nameof(SalariedFlag), @"SalariedFlag", DbType.Boolean, isRequired: true),
                 new ColumnMetadata(nameof(VacationHours), @"VacationHours", DbType.Int16, isRequired: true),
                 new ColumnMetadata(nameof(SickLeaveHours), @"SickLeaveHours", DbType.Int16, isRequired: true),
-                new ColumnMetadata(nameof(CurrentFlag), @"CurrentFlag", DbType.Object, isRequired: true),
+                new ColumnMetadata(nameof(CurrentFlag), @"CurrentFlag", DbType.Boolean, isRequired: true),
                 new ColumnMetadata(nameof(rowguid), @"rowguid", DbType.Guid, isRequired: true),
                 new ColumnMetadata(nameof(ModifiedDate), @"ModifiedDate", DbType.DateTime, isRequired: true)
 			);
@@ -64,17 +64,17 @@ namespace AdventureWorks.HumanResources
         public int? BusinessEntityID { get; set; }
         public string NationalIDNumber { get; set; }
         public string LoginID { get; set; }
-        public Object OrganizationNode { get; set; }
+        public Byte[] OrganizationNode { get; set; }
         public short? OrganizationLevel { get; set; }
         public string JobTitle { get; set; }
         public DateTime? BirthDate { get; set; }
         public string MaritalStatus { get; set; }
         public string Gender { get; set; }
         public DateTime? HireDate { get; set; }
-        public string SalariedFlag { get; set; }
+        public bool? SalariedFlag { get; set; }
         public short? VacationHours { get; set; }
         public short? SickLeaveHours { get; set; }
-        public string CurrentFlag { get; set; }
+        public bool? CurrentFlag { get; set; }
         public Guid? rowguid { get; set; }
         public DateTime? ModifiedDate { get; set; }
         #endregion
@@ -87,7 +87,7 @@ namespace AdventureWorks.HumanResources
         }
         #endregion
 
-		#region Public methods async
+		#region Public methods
 		public static async Task<IEnumerable<Employee>> GetByAnyAsync(params QueryCondition[] queryConditions)
         {
             return await GetByAnyAsync<Employee>(queryConditions);

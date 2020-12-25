@@ -1,4 +1,4 @@
-// Generated on 12/14/2020 9:21 PM using EntityWorks code generation tool.
+// Generated on 12/25/2020 11:27 AM using EntityWorks code generation tool.
 // Template version: 1.0
 // Note: Do not modify!
 // Except: Namespace.
@@ -27,7 +27,7 @@ namespace AdventureWorks.HumanResources
             // Cache field metadata.
             EntityMeta<JobCandidate>.LoadColumnMetadata
 			(
-				new ColumnMetadata(nameof(JobCandidateID), @"JobCandidateID", DbType.Int32, isIdentity: true, isRequired: true),
+				new ColumnMetadata(nameof(JobCandidateID), @"JobCandidateID", DbType.Int32, isIdentity: true, isPrimaryKey: true),
                 new ColumnMetadata(nameof(BusinessEntityID), @"BusinessEntityID", DbType.Int32, isRequired: false),
                 new ColumnMetadata(nameof(Resume), @"Resume", DbType.Xml, isRequired: false),
                 new ColumnMetadata(nameof(ModifiedDate), @"ModifiedDate", DbType.DateTime, isRequired: true)
@@ -63,7 +63,7 @@ namespace AdventureWorks.HumanResources
         }
         #endregion
 
-		#region Public methods async
+		#region Public methods
 		public static async Task<IEnumerable<JobCandidate>> GetByAnyAsync(params QueryCondition[] queryConditions)
         {
             return await GetByAnyAsync<JobCandidate>(queryConditions);
