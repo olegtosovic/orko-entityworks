@@ -13,20 +13,32 @@ namespace Northwind.Dbo
 {
     public partial class Orders
     {
-		#region Methods
-		public async Task SaveAsync()
+        #region Methods
+        /// <summary>
+        /// Saves Orders entity to database.
+        /// </summary>
+        public async Task SaveAsync()
         {
 			Validate<Orders>();
             await SaveAsync<Orders>();
         }
-		public async Task DeleteAsync()
+        /// <summary>
+        /// Deletes Orders entity from database.
+        /// </summary>
+        public async Task DeleteAsync()
         {
             await DeleteAsync<Orders>();
         }
+        /// <summary>
+        /// Validates Orders entity object.
+        /// </summary>
 		public void Validate()
 		{
 			Validate<Orders>();
 		}
+        /// <summary>
+        /// Return field by field copy of Orders entity.
+        /// </summary>
         public Orders Clone()
 		{
 			return Clone<Orders>();

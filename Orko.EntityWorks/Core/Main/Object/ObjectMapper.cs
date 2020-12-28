@@ -137,7 +137,7 @@ namespace Orko.EntityWorks
                 var value = property.GetDbValue(dataReader, ordinal);
 
                 // Set value.
-                property.SetValueFast(value, instance);
+                property.SetValue(value, instance);
             }
         }
         /// <summary>
@@ -151,10 +151,10 @@ namespace Orko.EntityWorks
             foreach (var property in m_mappingSet)
             {
                 // Get source property value.
-                object value = property.GetValueFast(source);
+                object value = property.GetValue(source);
 
                 // Set source property value.
-                property.SetValueFast(value, instance);
+                property.SetValue(value, instance);
             }
         }
         #endregion

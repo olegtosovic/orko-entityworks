@@ -503,9 +503,9 @@ namespace Orko.EntityWorks
                 {
                     //value = QueryContext.Current.LanguageCode;
 					value = QueryContext.GetAmbientQueryContext().LanguageCode;
-					property.SetValueFast(value, entity);
+					property.SetValue(value, (TEntity)entity);
                 }
-                else value = property.GetValueFast(entity);
+                else value = property.GetValue((TEntity)entity);
                 if (value == null) value = DBNull.Value;
                 sqlParameter.Value = value;
 
@@ -535,7 +535,7 @@ namespace Orko.EntityWorks
                 var sqlParameter = providerFactory.CreateParameter();
                 sqlParameter.ParameterName = parameter.ParameterNameWithMonkey;
                 sqlParameter.DbType = parameter.SqlDbType;
-                sqlParameter.Value = property.GetValueFast(entity);
+                sqlParameter.Value = property.GetValue((TEntity)entity);
                 sqlParameter.Direction = ParameterDirection.Input;
 
 				command.Parameters.Add(sqlParameter);
@@ -559,7 +559,7 @@ namespace Orko.EntityWorks
                 var sqlParameter = providerFactory.CreateParameter();
                 sqlParameter.ParameterName = parameter.ParameterNameWithMonkey;
                 sqlParameter.DbType = parameter.SqlDbType;
-                sqlParameter.Value = property.GetValueFast(entity);
+                sqlParameter.Value = property.GetValue((TEntity)entity);
                 sqlParameter.Direction = ParameterDirection.Input;
                 command.Parameters.Add(sqlParameter);
             }
@@ -571,7 +571,7 @@ namespace Orko.EntityWorks
                 var sqlParameter = providerFactory.CreateParameter();
                 sqlParameter.ParameterName = EntityContext.LanguageCodeParameter.ParameterName;
                 sqlParameter.DbType = EntityContext.LanguageCodeParameter.SqlDbType;
-                sqlParameter.Value = property.GetValueFast(entity);
+                sqlParameter.Value = property.GetValue((TEntity)entity);
                 command.Parameters.Add(sqlParameter);
             }
         }
@@ -586,7 +586,7 @@ namespace Orko.EntityWorks
                 Parameter parameter = EntityContext.Parameters[property.PropertyName];
                 var sqlParameter = (DbParameter)command.Parameters[parameter.ParameterNameWithMonkey];
                 object propertyValue = sqlParameter.Value;
-                property.SetValueFast(propertyValue, entity);
+                property.SetValue(propertyValue, (TEntity)entity);
             }
         }
 		#endregion
@@ -600,7 +600,7 @@ namespace Orko.EntityWorks
 			// For each property value check constraint.
 			foreach (var property in EntityContext.RequiredProperties)
 			{
-				var value = property.GetValueFast(entity);
+				var value = property.GetValue((TEntity)entity);
 				if (value == null)
 					throw new Exception("Column [" + property.PropertyName + "] is required for input");
 			}
@@ -633,7 +633,7 @@ namespace Orko.EntityWorks
             foreach (var relation in property.Relations)
             {
                 var propertyTparent = entityContextTParent.Properties[relation.Value];
-                object propertyValueTparent = propertyTparent.GetValueFast(parentEntity);
+                object propertyValueTparent = propertyTparent.GetValue(parentEntity);
                 parameters[i] = propertyValueTparent;
                 i++;
             }
@@ -663,8 +663,8 @@ namespace Orko.EntityWorks
                 var propertyTobject = entityContextTEntity.Properties[relation.Key];
                 var propertyTparent = entityContextTParent.Properties[relation.Value];
 
-                object propertyValueTobject = propertyTobject.GetValueFast(valueEntity);
-                propertyTparent.SetValueFast(propertyValueTobject, parentEntity);
+                object propertyValueTobject = propertyTobject.GetValue(valueEntity);
+                propertyTparent.SetValue(propertyValueTobject, parentEntity);
             }
         }
 		#endregion

@@ -45,7 +45,7 @@ namespace Orko.AspNetCore.Controllers
 		/// <summary>
 		/// Gets all records from northwind orders table and displays them as json data.
 		/// </summary>
-		[HttpGet("/nw-orders-get-all")]
+		[HttpGet("/nw-get-all")]
 		public async Task<IActionResult> NorthwindGetAll()
 		{
 			// Use northwind tunnel.
@@ -64,7 +64,7 @@ namespace Orko.AspNetCore.Controllers
 		/// <summary>
 		/// Gets single record by primary key from northwind orders table and displays it as json data.
 		/// </summary>
-		[HttpGet("/nw-orders-get-single")]
+		[HttpGet("/nw-get-single")]
 		public async Task<IActionResult> NorthwindGetSingle()
 		{
 			// Use northwind tunnel.
@@ -83,7 +83,7 @@ namespace Orko.AspNetCore.Controllers
 		/// <summary>
 		/// Gets single record by primary key, update it's data on northwind orders table and displays it as json data.
 		/// </summary>
-		[HttpGet("/nw-orders-get-singleupdate")]
+		[HttpGet("/nw-get-singleupdate")]
 		public async Task<IActionResult> NorthwindGetSingleUpdate()
 		{
 			// Use northwind tunnel.
@@ -112,7 +112,7 @@ namespace Orko.AspNetCore.Controllers
 		/// <summary>
 		/// Inserts single record, set it's data by copying data from other record on northwind orders table and displays it as json data.
 		/// </summary>
-		[HttpGet("/nw-orders-insert")]
+		[HttpGet("/nw-insert")]
 		public async Task<IActionResult> NorthwindGetSingleInsert()
 		{
 			// Use northwind tunnel.
@@ -137,7 +137,7 @@ namespace Orko.AspNetCore.Controllers
 		/// <summary>
 		/// Gets last record on northwind orders table, delete it and display it as json data.
 		/// </summary>
-		[HttpGet("/nw-orders-delete")]
+		[HttpGet("/nw-delete")]
 		public async Task<IActionResult> NorthwindGetSingleDelete()
 		{
 			// Use northwind tunnel.
@@ -169,17 +169,17 @@ namespace Orko.AspNetCore.Controllers
 		/// <summary>
 		/// Gets all records from adventureworks orders table and displays them as json data.
 		/// </summary>
-		[HttpGet("/aw-orders-get-all")]
+		[HttpGet("/aw-get-all")]
 		public async Task<IActionResult> AdventureWorksGetAll()
 		{
 			// Use adventureworks tunnel.
 			using (var context = new AdventureWorksContext())
 			{
 				// Get all orders.
-				var orders = await AdventureWorks.Sales.SalesOrderHeader.GetByAnyAsync();
+				var addresses = await AdventureWorks.Person.Address.GetByAnyAsync();
 
 				// Get all addresses.
-				var addresses = await AdventureWorks.Person.Address.GetByAnyAsync();
+				var address = await AdventureWorks.Person.Address.GetByPrimaryKeyAsync(1);
 
 				// Convert data to json.
 				var jsonResult = JsonSerializer.Serialize(addresses, null);
@@ -191,7 +191,7 @@ namespace Orko.AspNetCore.Controllers
 		/// <summary>
 		/// Gets single record by primary key from adventureworks orders table and displays it as json data.
 		/// </summary>
-		[HttpGet("/aw-orders-get-single")]
+		[HttpGet("/aw-get-single")]
 		public async Task<IActionResult> AdventureWorksGetSingle()
 		{
 			// Use adventureworks tunnel.
@@ -210,7 +210,7 @@ namespace Orko.AspNetCore.Controllers
 		/// <summary>
 		/// Gets single record by primary key, update it's data on adventureworks orders table and displays it as json data.
 		/// </summary>
-		[HttpGet("/aw-orders-get-singleupdate")]
+		[HttpGet("/aw-get-singleupdate")]
 		public async Task<IActionResult> AdventureWorksGetSingleUpdate()
 		{
 			// Use adventureworks tunnel.
@@ -239,7 +239,7 @@ namespace Orko.AspNetCore.Controllers
 		/// <summary>
 		/// Inserts single record, set it's data by copying data from other record on adventureworks orders table and displays it as json data.
 		/// </summary>
-		[HttpGet("/aw-orders-insert")]
+		[HttpGet("/aw-insert")]
 		public async Task<IActionResult> AdventureWorksGetSingleInsert()
 		{
 			// Use adventureworks tunnel.
@@ -264,7 +264,7 @@ namespace Orko.AspNetCore.Controllers
 		/// <summary>
 		/// Gets last record on adventureworks orders table, delete it and display it as json data.
 		/// </summary>
-		[HttpGet("/aw-orders-delete")]
+		[HttpGet("/aw-delete")]
 		public async Task<IActionResult> AdventureWorksGetSingleDelete()
 		{
 			// Use adventureworks tunnel.

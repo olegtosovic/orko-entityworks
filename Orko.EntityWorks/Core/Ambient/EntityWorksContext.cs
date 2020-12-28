@@ -261,7 +261,7 @@ namespace Orko.EntityWorks
 			{
 				// Validate language code.
 				if (string.IsNullOrWhiteSpace(instance.LanguageCode))
-					throw new EntityWorksException("Language code canot be null. Make sure to provide default localization culture code.");
+					throw new EntityWorksException("Language code can not be null. Make sure to provide default localization culture code.");
 
 				// Validate if default query context is set.
 				else if (instance.DefaultQueryContext == null)
