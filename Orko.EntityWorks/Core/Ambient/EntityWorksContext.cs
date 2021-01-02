@@ -2,9 +2,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Data.Common;
 using System.Runtime.CompilerServices;
-using System.Text;
 
 [assembly: InternalsVisibleTo("Orko.EntityWorks.AspNetCore")]
 namespace Orko.EntityWorks
@@ -22,7 +20,66 @@ namespace Orko.EntityWorks
 		#endregion
 
 		#region Ambient properties
-		private ConcurrentDictionary<string, Stack<QueryContext>> m_contextStacks;
+		/// <summary>
+		/// Query context stack, used for ambient mode tunneling.
+		/// </summary>
+		private ConcurrentStack<QueryContext> ContextStack { get; set; }
+		#endregion
+
+		#region Ambient methods
+		/// <summary>
+		/// Enlists ambient context.
+		/// </summary>
+		internal void EnlistAmbientContext(QueryContext queryContext)
+		{
+			// Push context to stack.
+			this.ContextStack.Push(queryContext);
+		}
+		/// <summary>
+		/// Delists ambient context.
+		/// </summary>
+		internal void DelistAmbientContext(QueryContext queryContext)
+		{
+			// Get active ambient context.
+			this.ContextStack.TryPeek(out QueryContext activeContext);
+
+			// Requested context must be the same as active ambient context.
+			if (activeContext != queryContext)
+				throw new EntityWorksException("Ambient context mismatch. Context that is initiating delist is not same as active ambient context.");
+
+			// Pop context to stack.
+			bool valid = this.ContextStack.TryPop(out _);
+
+			//  If not successful throw.
+			if (valid == false)
+				throw new EntityWorksException("There is no active ambient context to dispose.");
+		}
+		/// <summary>
+		/// Gets top most ambient context.
+		/// </summary>
+		internal QueryContext PeekAmbientContext()
+		{
+			// Get query context.
+			bool valid = this.ContextStack.TryPeek(out QueryContext activeContext);
+
+			// If not successful return default query context.
+			if (valid == false)
+				return this.DefaultQueryContext;
+
+			// Return active context.
+			return activeContext;
+		}
+		#endregion
+
+		#region Connection properties
+		/// <summary>
+		/// Connection string collection.
+		/// </summary>
+		internal static IDictionary<string, ConnectionContext> ConnectionContexts { get; set; }
+		/// <summary>
+		/// Context mappings collection.
+		/// </summary>
+		internal static IDictionary<string, string> ContextMappings { get; set; }
 		#endregion
 
 		#region Constructors
@@ -46,18 +103,10 @@ namespace Orko.EntityWorks
 
 			// Set new guid (temp).
 			m_guid = Guid.NewGuid();
-		}
-		#endregion
 
-		#region Internal properties
-		/// <summary>
-		/// Connection string collection.
-		/// </summary>
-		internal static IDictionary<string, ConnectionContext> ConnectionContexts { get; set; }
-		/// <summary>
-		/// Context mappings collection.
-		/// </summary>
-		internal static IDictionary<string, string> ContextMappings { get; set; }
+			// Create stack instance.
+			ContextStack = new ConcurrentStack<QueryContext>();
+		}
 		#endregion
 
 		#region Properties

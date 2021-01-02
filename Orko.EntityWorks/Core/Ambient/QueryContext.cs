@@ -17,6 +17,10 @@ namespace Orko.EntityWorks
 		/// Inidicates if object is already disposed.
 		/// </summary>
 		private bool m_isDisposed;
+		/// <summary>
+		/// Indicates if context is ambient context.
+		/// </summary>
+		private bool m_isAmbient;
 		#endregion
 
 		#region Properties
@@ -30,7 +34,7 @@ namespace Orko.EntityWorks
 		/// <summary>
 		/// Creates connection object.
 		/// </summary>
-		internal DbConnection CreateConnection(bool enableStatistics = false)
+		internal DbConnection CreateConnection()
 		{
 			// Create db connection instance.
 			var dbConnection = DbProviderFactory.CreateConnection();
@@ -45,16 +49,9 @@ namespace Orko.EntityWorks
 
 		#region Constructors
 		/// <summary>
-		/// Default constructor.
+		/// Creates query context instance.
 		/// </summary>
-		private QueryContext()
-		{
-
-		}
-		/// <summary>
-		/// Creates query context which is used by query object.
-		/// </summary>
-		public QueryContext(string connectionContextName) : this()
+		internal QueryContext(string connectionContextName)
 		{
 			// Get entity works context.
 			var entityWorksContext = EntityWorksContext.GetEntityWorksContext();
@@ -83,6 +80,17 @@ namespace Orko.EntityWorks
 
 			// Set default language code.
 			LanguageCode = entityWorksContext.LanguageCode;
+		}
+		/// <summary>
+		/// Creates query context instance.
+		/// </summary>
+		protected QueryContext(string connectionContextName, bool isAmbientContext) : this(connectionContextName)
+		{
+			// Set ambient indicator.
+			m_isAmbient = isAmbientContext;
+
+			// Set ambiance.
+			SetAmbiance();
 		}
 		#endregion
 
@@ -118,7 +126,7 @@ namespace Orko.EntityWorks
 		public ConnectionContext ConnectionContext { get; private set; }
 		#endregion
 
-		#region Methods
+		#region Connection methods
 		/// <summary>
 		/// Sets language code for database language tables.
 		/// </summary>
@@ -176,6 +184,20 @@ namespace Orko.EntityWorks
 		}
 		#endregion
 
+		#region Ambient methods
+		/// <summary>
+		/// Sets context as ambient context.
+		/// </summary>
+		private void SetAmbiance()
+		{
+			// Get entity works context.
+			var entityWorksContext = EntityWorksContext.GetEntityWorksContext();
+
+			// Enlist.
+			entityWorksContext.EnlistAmbientContext(this);
+		}
+		#endregion
+
 		#region Get ambient context
 		/// <summary>
 		/// Gets ambient query context.
@@ -188,8 +210,8 @@ namespace Orko.EntityWorks
 			// Validate instance if debug mode.
 			EntityWorksContext.ValidateInstance(entityWorksContext);
 
-			// Get default query context. (temp)
-			var queryContext = entityWorksContext.DefaultQueryContext;
+			// Get ambient query context.
+			var queryContext = entityWorksContext.PeekAmbientContext();
 
 			// Set language code.
 			if (queryContext.LanguageCode == null)
@@ -206,33 +228,36 @@ namespace Orko.EntityWorks
 		/// </summary>
 		public void Dispose()
 		{
-			// Dispose.
-			Dispose(true);
+			// Dispose only if it is ambient context.
+			if (m_isAmbient)
+			{
+				// Dispose.
+				Dispose(true);
 
-			// Suppres finalize.
-			GC.SuppressFinalize(this);
+				// Suppres finalize.
+				GC.SuppressFinalize(this);
+			}
 		}
 		/// <summary>
 		/// Protected implementation of Dispose pattern.
 		/// </summary>
-		/// <param name="disposing"></param>
 		protected virtual void Dispose(bool disposing)
 		{
-			// If already disposed return.
+			// If disposed return.
 			if (m_isDisposed)
-			{
-				return;
-			}
+				return;			
 
 			// If disposing release managed objects.
 			if (disposing)
 			{
-				// TODO: dispose managed state (managed objects).
+				// Get entity works context.
+				var entityWorksContext = EntityWorksContext.GetEntityWorksContext();
+
+				// Delist ambient context.
+				entityWorksContext.DelistAmbientContext(this);
 			}
 
-			// TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
-			// TODO: set large fields to null.
-
+			// Set disposed indicator true.
 			m_isDisposed = true;
 		}
 		#endregion

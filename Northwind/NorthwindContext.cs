@@ -16,7 +16,7 @@ namespace Northwind
 		/// <summary>
 		/// Creates instance of Northwind ambient context. 
 		/// </summary>
-		public NorthwindContext() : base("Northwind")
+		public NorthwindContext() : base("Northwind", true)
 		{
 
 		}

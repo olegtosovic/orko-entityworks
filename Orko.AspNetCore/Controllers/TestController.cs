@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using AdventureWorks;
+using AdventureWorks.Sales;
 using Northwind;
 using Orko.AspNetCore.Models;
 using Orko.EntityWorks;
@@ -300,11 +301,84 @@ namespace Orko.AspNetCore.Controllers
 		#endregion
 
 		#region AdventureWorks
+		/// <summary>
+		/// Queries data from table with all joins.
+		/// </summary>
+		[HttpGet("/aw-get-all-query")]
+		public async Task<IActionResult> AdventureWorksGetAllQuery()
+		{
+			// Use adventureworks tunnel.
+			using (var context = new AdventureWorksContext())
+			{
+				// Create query.
+				var query = new Query()
+					.Select<SalesOrderHeader>()
+					.Select<Customer>()
+					.Select<SalesPerson>()
+					.From<SalesOrderHeader>()
+					.Join("Sales.Customer", "Sales.Customer.CustomerID", "Sales.SalesOrderHeader.CustomerID")
+					.Join("Sales.SalesPerson", "Sales.SalesPerson.BusinessEntityID", "Sales.SalesOrderHeader.SalesPersonID");
+
+				query = new Query()
+					.Select<AdventureWorks.Person.Address>()
+					.From<AdventureWorks.Person.Address>();
+
+				// Get result.
+				var result = await query.GetDynamicCollectionAsync();
+
+				// Convert data to json.
+				var jsonResult = JsonSerializer.Serialize(result, null);
+
+				// Display json data.
+				return Content(jsonResult, "application/json");
+			}
+		}
 		#endregion
 
 		#endregion
 
 		#region FEATURES actions
+		[HttpGet("/exp-test-1")]
+		public async Task<IActionResult> FeaturesTest1()
+		{
+			// Json result.
+			string jsonResult;
+
+			var ewContext = EntityWorksContext.GetEntityWorksContext();
+
+			// Use northwind tunnel.
+			using (var context = new NorthwindContext())
+			{
+				// Get all orders.
+				var orders = await Northwind.Dbo.Orders.GetByAnyAsync();
+
+				// Use adventureworks tunnel.
+				using (var context2 = new AdventureWorksContext())
+				{
+					// Get all orders.
+					var addresses = await AdventureWorks.Person.Address.GetByAnyAsync();
+
+					// Get all addresses.
+					var address = await AdventureWorks.Person.Address.GetByPrimaryKeyAsync(1);
+				}
+			}
+
+			// Use adventureworks tunnel.
+			using (var context = new AdventureWorksContext())
+			{
+				// Get all orders.
+				var addresses = await AdventureWorks.Person.Address.GetByAnyAsync();
+
+				// Get all addresses.
+				var address = await AdventureWorks.Person.Address.GetByPrimaryKeyAsync(1);
+
+				// Convert data to json.
+				jsonResult = JsonSerializer.Serialize(addresses, null);
+			}
+
+			// Display json data.
+			return Content(jsonResult, "application/json");
+		}
 		#endregion
 
 		#region ENTITY GENERATOR actions

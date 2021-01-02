@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Dynamic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -17,7 +18,7 @@ namespace Orko.EntityWorks
     {
         #region Constructors
         /// <summary>
-        /// 
+        /// Creates instance of query object.
         /// </summary>
         private Query()
         {
@@ -1668,7 +1669,67 @@ namespace Orko.EntityWorks
             // Execute and return object collection.
             return ObjectMechanic<TObject>.GetByQueryCommand(command, objectMappingType);
         }
-		/// <summary>
+        /// <summary>
+        /// Executes query.
+        /// Experimenal, please do not use yet.
+        /// </summary>
+        /// <returns>Dynamic value collections</returns>
+        public IEnumerable<dynamic> GetDynamicCollection()
+        {
+            // Create instance of return collection
+            var objectCollection = new List<dynamic>();
+
+            // Get ambient query context.
+            var ambientContext = QueryContext.GetAmbientQueryContext();
+
+            // Get provider.
+            var providerFactory = ambientContext.DbProviderFactory;
+
+            // Create connection to database from ambient query context.
+            using (var connection = ambientContext.CreateConnection())
+            {
+                // Create db command.
+                var command = providerFactory.CreateCommand();
+
+                // Set command.
+                command.CommandText = ToString();
+
+                // Pass connection to command object.
+                command.Connection = connection;
+
+                // Open connection to database
+                connection.Open();
+
+                // Execute Sql data reader
+                using (var dataReader = command.ExecuteReader())
+                {
+                    // Get property interface.
+                    var names = Enumerable.Range(0, dataReader.FieldCount)
+                        .Select(dataReader.GetName)
+                        .ToList();
+
+                    // Read data.
+                    while (dataReader.Read())
+                    {
+                        // Create list object.
+                        var @object = new ExpandoObject() as IDictionary<string, object>;
+
+                        // Populate object.
+                        foreach (var name in names)
+                        {
+                            @object[name] = dataReader[name];
+                        }
+
+                        // Add to collection.
+                        objectCollection.Add(@object);
+                    }
+                }
+            }
+
+            // Return dictionary collection.
+            return objectCollection;
+        }
+        /// <summary>
 		/// Executes query.
 		/// </summary>
 		/// <returns>DataTable result</returns>
@@ -1778,12 +1839,79 @@ namespace Orko.EntityWorks
             // Execute and return entity collection.
             return await EntityMechanic<TEntity>.GetByQueryCommandAsync(command);
 		}
-		/// <summary>
-		/// Executes query.
-		/// </summary>
-		/// <typeparam name="TScalar">Value type type.</typeparam>
-		/// <returns>Scalar value.</returns>
-		public async Task<TScalar> GetScalarAsync<TScalar>()
+        /// <summary>
+        /// Executes query.
+        /// Experimenal, please do not use yet.
+        /// </summary>
+        /// <returns>Dynamic value collections</returns>
+        public async Task<IEnumerable<dynamic>> GetDynamicCollectionAsync()
+        {
+            // Create instance of return collection
+            var objectCollection = new List<dynamic>();
+
+            // Get ambient query context.
+            var ambientContext = QueryContext.GetAmbientQueryContext();
+
+            // Get provider.
+            var providerFactory = ambientContext.DbProviderFactory;
+
+            // Create connection to database from ambient query context.
+            using (var connection = ambientContext.CreateConnection())
+            {
+                // Create db command.
+                var command = providerFactory.CreateCommand();
+
+                // Set command.
+                command.CommandText = ToString();
+
+                // Pass connection to command object.
+                command.Connection = connection;
+
+                // Open connection to database
+                await connection.OpenAsync();
+
+                // Execute Sql data reader
+                using (var dataReader = await command.ExecuteReaderAsync())
+                {
+                    // Get property interface.
+                    var names = Enumerable.Range(0, dataReader.FieldCount)
+                        .Select(dataReader.GetName)
+                        .ToList();
+
+                    // Read data.
+                    while (await dataReader.ReadAsync())
+                    {
+                        // Create list object.
+                        var @object = new ExpandoObject() as IDictionary<string, object>;
+
+                        // Populate object.
+                        foreach (var name in names)
+						{
+                            // Get oridinal.
+                            var ordinal = dataReader.GetOrdinal(name);
+
+                            // Get type.
+                            var dbType = dataReader.GetDataTypeName(ordinal);
+
+                            // Get value. (will not work with UDT types)
+                            @object[name] = dataReader[name];
+						}
+
+                        // Add to collection.
+                        objectCollection.Add(@object);
+                    }
+                }
+            }
+
+            // Return dictionary collection.
+            return objectCollection;
+        }
+        /// <summary>
+        /// Executes query.
+        /// </summary>
+        /// <typeparam name="TScalar">Value type type.</typeparam>
+        /// <returns>Scalar value.</returns>
+        public async Task<TScalar> GetScalarAsync<TScalar>()
 		{
 			// Get ambient query context.
 			QueryContext ambientContext = QueryContext.GetAmbientQueryContext();

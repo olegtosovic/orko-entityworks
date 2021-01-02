@@ -11,6 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Core\Main\Expando\" />
     <Folder Include="Core\Main\Procedure\" />
     <Folder Include="Core\Main\View\" />
   </ItemGroup>

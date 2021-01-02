@@ -12,21 +12,11 @@ namespace AdventureWorks
 	/// </summary>
 	public class AdventureWorksContext : QueryContext
 	{
-		#region Static constructors
-		/// <summary>
-		/// Creates type instance.
-		/// </summary>
-		static AdventureWorksContext()
-		{
-
-		}
-		#endregion
-
 		#region Instance constructors
 		/// <summary>
 		/// Creates instance of AdventureWorks ambient context. 
 		/// </summary>
-		public AdventureWorksContext() : base("AdventureWorks")
+		public AdventureWorksContext() : base("AdventureWorks", true)
 		{
 
 		}
